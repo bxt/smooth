@@ -69,40 +69,11 @@ Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers and
 
 \chapter{Einleitung}
 
-Erwähnenswerte Literatur: \cite{mustermann+etal-11}
-
 \chapter{Algorithmus}
 
 \section{High-Level-Pseudocode}
 
 % TODO
-
-\begin{algorithm}[ht]
-  \SetKw{True}{true}
-  \SetKw{False}{false}
-  \caption{BinäreSuche(Feld $A$, ganze Zahl $n$, Element $x$)}
-  \label{alg:binsearch}
-  \Ein{sortiertes Feld $A$, Länge $n$, gesuchtes Element $x$}
-  \Aus{\True genau dann, wenn $x$ in $A$ enthalten ist}
-  
-  $l = 0$ \;
-  $r = n-1$ \;
-  
-  \While{$l \le r$}{
-    $m = \lfloor (l + r)/2 \rfloor$ \;
-    \If{$A[m] == x$}{
-      \Return \True \;
-    }
-    \ElseIf{$x < A[m]$}{
-      $r = m - 1$ \;
-    }
-    \Else{
-      $l = m + 1$ \;
-    }
-  }
-  \Return \False
-\end{algorithm}
-
 
 \chapter{Implementierung}
 
