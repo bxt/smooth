@@ -1,0 +1,18 @@
+Bei der Arbeit für Ihre Ausarbeitung sollten Sie ausschließlich die
+Datei ausarbeitung.tex verändern, und auch diese nur in dem durch
+Kommentare kenntlich gemachten Bereich. 
+
+In der Datei ausarbeitung_muster.tex sehen Sie einige Beispiele für
+die Benutzung der Vorlage, das Ergebnis ist in ausarbeitung_muster.pdf
+zu sehen.  Abbildungen fügen Sie bitte im Verzeichnis abbildungen/
+hinzu. In Latex können Sie die Abbildungen mit dem reinen Dateinamen
+ohne Dateitypsuffix und Ordnerangabe einbinden.  
+
+Um das Ergebnis Ihrer Arbeit zu betrachten sollten Sie stets pdflatex
+verwenden, also direkt PDF-Dateien erzeugen. Daher sollten ihre
+Abbildungen zumindest zusätzlich zum Originalformat als PDF, oder auch
+im PNG- oder JPEG-Format, vorhanden sein.  
+
+Zusätzlich zu der Vorlage und dem Muster finden Sie in diesem Ordner
+auch noch einige PDF-Dokumente, die Sie vor der Erstellung der
+Ausarbeitung unbedingt durchlesen sollten.

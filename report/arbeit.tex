@@ -1,0 +1,62 @@
+\documentclass[a4paper]{scrreprt}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage[german,linesnumbered,algoruled,longend,vlined]{algorithm2e}
+\DontPrintSemicolon
+\SetArgSty{}
+\SetKw{KwOr}{or}
+\SetKw{KwAnd}{and}
+\SetKw{KwNot}{not}
+\setlength{\algomargin}{3ex}
+
+\usepackage[fixlanguage]{mybabelbib}
+% \selectlanguage{ngerman}
+\setbibliographyfont{title}{}
+\setbibliographyfont{jtitle}{}
+\setbibliographyfont{btitle}{\emph}
+\setbibliographyfont{stitle}{\emph}
+\setbibliographyfont{journal}{\emph}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{graphicx}
+\usepackage[a4paper,bookmarks,bookmarksnumbered]{hyperref}
+\usepackage[font=small,format=hang,labelfont=bf,figurename=Abb.,tablename=Tab.]{caption}
+\usepackage{enumerate}
+
+\newtheorem{satz}{Satz}[chapter]
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{beobachtung}[satz]{Beobachtung}
+\newtheorem{folgerung}[satz]{Folgerung}
+\newtheorem{korollar}[satz]{Korollar}
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Definition}
+\newenvironment{beweis}{\begin{proof}}{\end{proof}}
+
+\graphicspath{{abbildungen/}}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Bitte nur ab hier Änderungen vornehmen %%%%%%%%%%%%%%%%%%%%%
+
+%% hier Titel und Autorennamen eintragen
+
+\subject{Bachelorarbeit}
+\title{Titel der Arbeit} % Geben Sie hier den Titel Ihrer Arbeit an.
+\author{Testvorname Testnachname} % Geben Sie Ihren Namen an. 
+\maketitle
+\tableofcontents
+
+%%%%% hier den Text einfügen
+
+\bibliographystyle{mybabalpha-fl}
+\bibliography{mybib}
+
+\end{document}
