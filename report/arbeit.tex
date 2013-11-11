@@ -69,17 +69,23 @@ Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers and
 
 \chapter{Einleitung}
 
+In dieser Arbeit soll eine Implementierung eines Algorithmus 
+zum Berechnen von Smooth Orthogonal Drawings planarer Graphen beschrieben werden.
 
+Der verwendete Algorithmus wird in \cite{smooth-13} beschrieben. Er basiert auf orthogonalen
+Layouts, welche mit dem Algorithmus aus \cite{biedl+kant-98} bzw. \cite{liu+etal-98} erstellt
+werden.
 
-We want to implement drawing of Smooth Orthogonal Layouts based on an algorithm found in
-\cite{smooth-13}. It is based on orthogonal graph drawing of \cite{biedl+kant-98} using an
-extension found in \cite{liu+etal-98}.
+Diese Algorithmen werden zunächst nocheinmal in ihrer Gesamtheit erklärt. Dabei werden die
+verwendeten Definitionen genannt und die Notationen eingeführt. Daraufhin wird auf
+die Implementierung eingegangen und welche Besonderheiten sowie Herausforderungen hierbei zu
+beachten waren. Zuletzt werden noch einige Verbesserungsmöglichkeiten diskutiert, wie das Ergebnis
+optimiert werden kann, im Hinblick auf Komplexität und Platzbedarf.
 
 \chapter{Algorithmus}
 
 \section{High-Level-Pseudocode}
 
-% TODO
 
 \begin{algorithm}[ht]
   \SetKw{True}{true}
