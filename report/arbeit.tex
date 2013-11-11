@@ -84,27 +84,34 @@ extension found in \cite{liu+etal-98}.
 \begin{algorithm}[ht]
   \SetKw{True}{true}
   \SetKw{False}{false}
-  \caption{BinäreSuche(Feld $A$, ganze Zahl $n$, Element $x$)}
-  \label{alg:binsearch}
-  \Ein{sortiertes Feld $A$, Länge $n$, gesuchtes Element $x$}
-  \Aus{\True genau dann, wenn $x$ in $A$ enthalten ist}
+  \caption{SmoothOrthogonalDraw(Graph $G = (V,U)$}
+  \label{alg:main}
+  \Ein{4-planarer Graph $G = (V,U)$}
+  \Aus{$SC_2$-Layout von $G$}
   
-  $l = 0$ \;
-  $r = n-1$ \;
+  $G_1, \dots, G_n = $BiconnectedComponents$(G)$ \;
   
-  \While{$l \le r$}{
-    $m = \lfloor (l + r)/2 \rfloor$ \;
-    \If{$A[m] == x$}{
-      \Return \True \;
-    }
-    \ElseIf{$x < A[m]$}{
-      $r = m - 1$ \;
-    }
-    \Else{
-      $l = m + 1$ \;
-    }
+  \For{$i\leftarrow 1$ \KwTo $n$}{
+    $\Gamma_i \leftarrow$ SmoothOrthogonalDrawBiconnected$(G)$ \;
+    RightAngelize$(\Gamma_i)$ \; % TODO: better name, doh.
   }
-  \Return \False
+  $\Gamma \leftarrow$ ConnectComponents$(L_1, \dots, L_n)$ \;
+  \Return $\Gamma$
+\end{algorithm}
+
+\begin{algorithm}[ht]
+  \SetKw{True}{true}
+  \SetKw{False}{false}
+  \caption{SmoothOrthogonalDrawBiconnected(Graph $G = (V,U)$}
+  \label{alg:biconnected}
+  \Ein{4-planarer, 2-fach knotenzusammenhängender Graph $G = (V,U)$}
+  \Aus{$SC_2$-Layout von $G$}
+  
+  $\Gamma' \leftarrow$ OrthogonalDrawing$(G)$ \;
+  EliminateS-Shapes$(\Gamma')$ \;
+  $\Gamma \leftarrow$ DrawEdges$(\Gamma')$ \;
+  
+  \Return $\Gamma$
 \end{algorithm}
 
 
@@ -112,9 +119,7 @@ extension found in \cite{liu+etal-98}.
 
 \chapter{Verbesserungen}
 
-\chapter{Algorithmus}
-
-
+\chapter{Schlussfolgerungen}
 
 
 
