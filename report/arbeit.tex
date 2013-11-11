@@ -49,7 +49,7 @@
 %% hier Titel und Autorennamen eintragen
 
 \subject{Bachelorarbeit}
-\title{Implementierung von Smooth Orthogonal Drawings planarer Graphen} % Geben Sie hier den Titel Ihrer Arbeit an.
+\title{Implementierung und empirische Untersuchung von Smooth Orthogonal Drawings planarer Graphen} % Geben Sie hier den Titel Ihrer Arbeit an.
 \author{Bernhard Häussner} % Geben Sie Ihren Namen an. 
 \date{Eingereicht am XX. YY 20ZZ} % TODO: Geben Sie das Abgabedatum an
 \titlehead{Julius-Maximilians-Universität Würzburg\\
@@ -65,21 +65,26 @@ Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers and
 
 
 
-
+Datenstrukturen, Testdaten, Probleme
 
 \chapter{Einleitung}
 
 In dieser Arbeit soll eine Implementierung eines Algorithmus 
-zum Berechnen von Smooth Orthogonal Drawings planarer Graphen beschrieben werden.
+zum Berechnen von Smooth Orthogonal Drawings planarer Graphen beschrieben werden und
+an praktischen Beispielen getestet werden.
 
 Der verwendete Algorithmus wird in \cite{smooth-13} beschrieben. Er basiert auf orthogonalen
 Layouts, welche mit dem Algorithmus aus \cite{biedl+kant-98} bzw. \cite{liu+etal-98} erstellt
 werden.
 
 Diese Algorithmen werden zunächst nocheinmal in ihrer Gesamtheit erklärt. Dabei werden die
-verwendeten Definitionen genannt und die Notationen eingeführt. Daraufhin wird auf
-die Implementierung eingegangen und welche Besonderheiten sowie Herausforderungen hierbei zu
-beachten waren. Zuletzt werden noch einige Verbesserungsmöglichkeiten diskutiert, wie das Ergebnis
+verwendeten Definitionen genannt und die Notationen eingeführt. Die nötigen Datenstrukturen
+werden konkretisiert und gelöste Teilprobleme erörtert. Daraufhin wird auf die Implementierung eingegangen und welche Besonderheiten sowie Herausforderungen hierbei zu
+beachten waren. 
+
+Im Anschluss wird die Implementierung mit verschiedenen Testdatensätzen kontrolliert. Anhand
+der Ausgaben auf den Testdaten werden Schwachstellen des Verfahrend identifiziert. 
+Zuletzt werden noch einige Verbesserungsmöglichkeiten diskutiert, wie das Ergebnis
 optimiert werden kann, im Hinblick auf Komplexität und Platzbedarf.
 
 \chapter{Algorithmus}
