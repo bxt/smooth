@@ -1,0 +1,40 @@
+# Temporary files
+*~
+*.swp
+
+# KDE
+.directory
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Latex stuff
+*.aux
+*.glo
+*.idx
+*.log
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
+*.bbl
+*.blg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.lot
+*.maf
+*.mtc
+*.mtc1
+*.out
+*.synctex.gz
+*.pdf
+*.backup
+*.brf
+*.nav
+*.snm
