@@ -13,7 +13,7 @@
 \SetKw{KwNot}{not}
 \setlength{\algomargin}{3ex}
 
-\usepackage[fixlanguage]{mybabelbib}
+\usepackage[fixlanguage]{babelbib}
 % \selectlanguage{ngerman}
 \setbibliographyfont{title}{}
 \setbibliographyfont{jtitle}{}
@@ -27,7 +27,7 @@
 \usepackage{amsthm}
 
 \usepackage{graphicx}
-\usepackage[a4paper,bookmarks,bookmarksnumbered]{hyperref}
+\usepackage[bookmarks,bookmarksnumbered]{hyperref}
 \usepackage[font=small,format=hang,labelfont=bf,figurename=Abb.,tablename=Tab.]{caption}
 \usepackage{enumerate}
 
@@ -42,6 +42,9 @@
 
 \graphicspath{{abbildungen/}}
 
+% Eigene Commands:
+\newcommand{\degree}{\ensuremath{^\circ}}
+
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% Bitte nur ab hier Änderungen vornehmen %%%%%%%%%%%%%%%%%%%%%
@@ -49,7 +52,7 @@
 %% hier Titel und Autorennamen eintragen
 
 \subject{Bachelorarbeit}
-\title{Implementierung und empirische Untersuchung von Smooth Orthogonal Drawings planarer Graphen} % Geben Sie hier den Titel Ihrer Arbeit an.
+\title{Implementierung eines Algorithmus für das glatt-orthogonale Zeichnen planarer Graphen} % Geben Sie hier den Titel Ihrer Arbeit an.
 \author{Bernhard Häussner} % Geben Sie Ihren Namen an. 
 \date{Eingereicht am XX. YY 20ZZ} % TODO: Geben Sie das Abgabedatum an
 \titlehead{Julius-Maximilians-Universität Würzburg\\
@@ -65,7 +68,7 @@ Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers and
 
 
 
-Datenstrukturen, Testdaten, Probleme
+% TODO: Was ist das: ? Datenstrukturen, Testdaten, Probleme
 
 \chapter{Einleitung}
 
@@ -73,57 +76,133 @@ In dieser Arbeit soll eine Implementierung eines Algorithmus
 zum Berechnen von Smooth Orthogonal Drawings planarer Graphen beschrieben werden und
 an praktischen Beispielen getestet werden.
 
-Der verwendete Algorithmus wird in \cite{smooth-13} beschrieben. Er basiert auf orthogonalen
-Layouts, welche mit dem Algorithmus aus \cite{biedl+kant-98} bzw. \cite{liu+etal-98} erstellt
+\section{Motivation}
+
+Das automatisierte Zeichnen von Graphen bereitet eine Vielzahl von Problemen. 
+Eine Herangehensweise an dieses Problem ist es, zunächst einfachere oder speziellere Probleme zu betrachten. 
+Dazu Teilt man die Graphen in Klassen ein, die eine Aussage machen über die Schwierigkeit, den Graphen zu zeichnen. 
+Von diesen Klassen ist die der planaren Graphen besonders weit erforscht und ihr Vorteil liegt auf der Hand:
+Planare Graphen lassen sich ohne Kantenüberschneidung in einer Ebene zeichnen und haben nur polynomial viele Kanten. 
+
+Eine Anwendung planarer Graphen ist die automatisierte oder computergestützte Erstellung von Layouts für Schaltkreis-Platinen. Hierbei werden Komponenten, wie integrierte Schaltkreise (Chips), als Konten und die verbindenden Leiter als Kanten modelliert. Da die Leiter hier aufgrund des Herstellungsprozesses und aus technischen Überlegungen nur entweder horizontal oder vertikal auf einem Gitter verlaufen können, beschränkt man sich hier auf orthogonale Layouts. Bei solchen orthogonalen Zeichnungen planarer Graphen können (ohne Überdeckungen) je Knoten nur 4 Kanten verbunden werden. Man nennt die vier möglichen Richtungen Ports. Die Graphen, die sich so zeichnen lassen gehören zu der Klasse der 4-planaren Graphen, deren maximaler Kontengrad 4 ist. Abhängig von der Anzahl $k$ der maximalen Knicke in einer Kante in einem Layout, teilen wir es in die Klasse $OC_k$ ein. 
+
+Orthogonale Layouts wurden in der Vergangenheit auch aufgrund ihrer Praxisrelevanz stark verbessert. Sie sind zur Visualisierung von Graphen für Menschen (etwa für abstrahierte ÖPNV-Netze, Oragnigramme, UML-Diagramme) jedoch nur schlecht geeignet, da sie schnell unübersichtlich wirken. Natürlich kann Übersichtlichkeit nicht genau definiert werden; Jedoch werden die harten 90\degree-Knicke in den Kanten, an denen sich horizontale und vertikale Abschnitte treffen, leicht mit Knotenpunkten verwechselt. Auch wirken sie eher technisch und deshalb für bestimmte Zielgruppen wenig ansprechend. Harte Kantenknicke bereiten auch in technischen Anwendungen Probleme, wenn die Verbindungen glatt verlaufen müssen, etwa bei Schienen, Straßen, Pipelines oder Glasfaserverbindungen. 
+
+Um diese Probleme zu lösen, glättet man die Knicke mit Kreisbögen. Man redet dann von glatt-orthogonalen Zeichnungen. Die Kreisbögen gehen tangential in die orthogonal verlaufenden geraden Abschnitte über. Hierdurch werden die Knicke geglättet, was für technische Anwendungen nützlich sein kann. Die entstehenden Zeichnungen wirken übersichtlich, freundlich und ästhetisch, was für ansprechende Visualisierungen förderlich ist. Dadurch, dass die Kanten ansonsten trotzdem orthogonal verlaufen, bleibt die Komplexität der Layouts vergleichsweise gering. Man vergleiche hierzu etwa die in Handarbeit gefertigten Soziogramme des Künstlers Mark Lombardi (1951 - 2000), die u.a. aufgrund ihrer Runden Kanten eine gewisse Ästhetik erreichen, jedoch mangels orthogonaler Gitterstruktur wenig Systematik erkennen lassen. 
+
+Bestehende Algorithmen zur automatisierten Erstellung glatt-orthogonaler Zeichnungen bauen auf bewährten Algorithmen für orthogonale Zeichnungen auf und erweitern diese so, dass genügend Platz für die abgerundeten Kanten bleibt, ohne dabei Kantenüberschneidungen einzuführen. Als Grundlage wählt man Algorithmen, welche die Anzahl der Knicke (auch pro Kante) in der entstehenden Zeichnung klein halten. 
+
+Dabei müssen neue Herausforderungen angegangen werden. Ebenso wie Knicke in orthogonalen Zeichnungen für erhöhte Komplexität sorgen, sind in glatt-orthogonalen Zeichnungen Wechsel zwischen geraden und gekrümmten Abschnitten zu vermeiden. Gleichzeitig sollte die Fläche der Zeichnung nicht zu groß werden. Es wäre trivial möglich, alle Kanten abzurunden, indem man Kreisbögen mit dem Radius der Gittergröße einfügt. So würden neben dem Kreisbogen gerade Stücke über bleiben. Daher versucht man die Kreisbögen größer zu machen und so geschickt anzuordnen, dass möglichst wenige Wechsel zwischen verschiedenen Segmenten benötigt werden. Wir teilen die glatt-orthogonalen Zeichnungen in Abhängigkeit der maximalen Anzahl $k$ von Segmentwechseln in einer Kante in die Klasse $SC_k$ ein. 
+
+\section{Ziel}
+
+Mit dieser Arbeit habe ich mir nun zur Aufgabe gemacht, einen solchen Algorithmus zum erstellen glatt-orthogonaler Zeichnungen zunächst zu implementieren. Dazu werde ich den Algorithmus zunächst verständlich und so vollständig wie nötig erklären, um die zukünftige Verwendung von Verbesserung zu erleichtern. Damit der Leser ein umfassendes Bild des Algorithmus vermittelt bekommt, wird auch der Ausgangs-Algorithmus für orthogonale Layouts erklärt, sowie einige Hilfsroutinen. 
+
+Die Implementierung ermöglicht es, für eine Reihe von Beispielgraphen glatt-orthogonalen Layouts zu erstellen. Diese sollen die Nützlichkeit von glatt-orthogonalen Layouts unterstreichen und als Inspiration für die praktische Anwendung des Algorithmus dienen.
+
+Dabei werden eventuelle Probleme aufgezeigt, die wiederum als Grundlage zur Verbesserung des Algorithmus dienen. 
+
+\section{Struktur}
+
+
+Der verwendete Algorithmus wird in Alam et al.~\cite{smooth-13} beschrieben. Er basiert auf orthogonalen
+Layouts, welche mit dem Algorithmus von Biedl und Kant~\cite{biedl+kant-98} bzw. Liu et al.~\cite{liu+etal-98} erstellt
 werden.
 
-Diese Algorithmen werden zunächst nocheinmal in ihrer Gesamtheit erklärt. Dabei werden die
+Diese Algorithmen werden zunächst noch einmal in ihrer Gesamtheit erklärt. Dabei werden die
 verwendeten Definitionen genannt und die Notationen eingeführt. Die nötigen Datenstrukturen
 werden konkretisiert und gelöste Teilprobleme erörtert. Daraufhin wird auf die Implementierung eingegangen und welche Besonderheiten sowie Herausforderungen hierbei zu
 beachten waren. 
 
 Im Anschluss wird die Implementierung mit verschiedenen Testdatensätzen kontrolliert. Anhand
-der Ausgaben auf den Testdaten werden Schwachstellen des Verfahrend identifiziert. 
+der Ausgaben auf den Testdaten werden Schwachstellen des Verfahren identifiziert. 
 Zuletzt werden noch einige Verbesserungsmöglichkeiten diskutiert, wie das Ergebnis
 optimiert werden kann, im Hinblick auf Komplexität und Platzbedarf.
 
 \chapter{Algorithmus}
 
-\section{High-Level-Pseudocode}
+\section{Übersicht}
 
+Zunächst werden nur 2-fach knotenzusammenhängende Graphen gezeichnet, mittels Algorithmus~\ref{alg:biconnected}: Für den Graphen wird eine planare Einbettung und eine st-Ordnung bestimmt. Im nächsten Schritt wird ein orthogonales Layout berechnet, welches die Einbettung beibehält und die Knoten in der von der st-Ordnung vorgegebenen Reihenfolge platziert. Dieses orthogonale Layout wird dann verkleinert, wobei Stufen-förmige Kanten entfernt werden. Das fertige $OC_3$-Layout wird im letzten Schritt in ein $SC_2$-Layout umgesetzt.
 
 \begin{algorithm}[ht]
   \SetKw{True}{true}
   \SetKw{False}{false}
-  \caption{SmoothOrthogonalDraw(Graph $G = (V,U)$}
+  \caption{SmoothOrthogonalDrawBiconnected(Graph $G = (V,E)$)}
+  \label{alg:biconnected}
+  \Ein{4-planarer, 2-fach knotenzusammenhängender Graph $G = (V,E)$}
+  \Aus{$SC_2$-Layout von $G$}
+  
+  $E \leftarrow$ PlanarEmbedding$(G)$ \;
+  $St \leftarrow$ StOrdering$(G)$ \;
+  $O \leftarrow$ OrthogonalDrawing$(G,St,E)$ \;
+  $O' \leftarrow$ EliminateS-Shapes$(O)$ \;
+  $\Gamma \leftarrow$ DrawSmoothEdges$(O')$ \;
+  
+  \Return $\Gamma$
+\end{algorithm}
+
+
+Algorithmus~\ref{alg:main}
+% TODO: Textchen hierzu
+
+\begin{algorithm}[ht]
+  \SetKw{True}{true}
+  \SetKw{False}{false}
+  \caption{SmoothOrthogonalDraw(Graph $G = (V,E)$}
   \label{alg:main}
-  \Ein{4-planarer Graph $G = (V,U)$}
+  \Ein{4-planarer Graph $G = (V,E)$}
   \Aus{$SC_2$-Layout von $G$}
   
   $G_1, \dots, G_n = $BiconnectedComponents$(G)$ \;
   
   \For{$i\leftarrow 1$ \KwTo $n$}{
-    $\Gamma_i \leftarrow$ SmoothOrthogonalDrawBiconnected$(G)$ \;
+    $\Gamma_i \leftarrow$ SmoothOrthogonalDrawBiconnected$(G_i)$ \;
     RightAngelize$(\Gamma_i)$ \; % TODO: better name, doh.
   }
-  $\Gamma \leftarrow$ ConnectComponents$(L_1, \dots, L_n)$ \;
+  $\Gamma \leftarrow$ ConnectComponents$(\Gamma_1, \dots, \Gamma_n)$ \;
   \Return $\Gamma$
 \end{algorithm}
 
-\begin{algorithm}[ht]
-  \SetKw{True}{true}
-  \SetKw{False}{false}
-  \caption{SmoothOrthogonalDrawBiconnected(Graph $G = (V,U)$}
-  \label{alg:biconnected}
-  \Ein{4-planarer, 2-fach knotenzusammenhängender Graph $G = (V,U)$}
-  \Aus{$SC_2$-Layout von $G$}
-  
-  $\Gamma' \leftarrow$ OrthogonalDrawing$(G)$ \;
-  EliminateS-Shapes$(\Gamma')$ \;
-  $\Gamma \leftarrow$ DrawEdges$(\Gamma')$ \;
-  
-  \Return $\Gamma$
-\end{algorithm}
+
+
+\section{Bestimmung der planaren Einbettung}
+
+% TODO
+
+\section{Ermittlung der st-Ordnung}
+
+(Hier könnte es etwas kompliziert werden, da die richtigen Knoten für s und t ausgewählt werden müssen)
+
+\section{Erstellung des $OC_3$-Layouts}
+
+Für die Erstellung des $OC_3$-Layouts erhalten wir die Knoten in der Reihenfolge der st-Ordnung $v_1, \dots, v_n$. Durch die st-Ordnung erhalten wir zudem gerichtete Kanten und die Knoten haben somit einen Eingangsgrad und einen Ausgangsgrad, die sich, wegen der 4-Planariät, zu maximal 4 addieren. Die planare Einbettung $E$ gibt uns für jeden Knoten eine Reihenfolge der Kanten zu den adjazenten Knoten an. Ein- und Ausgehende Kanten liegen hierbei beieinander. 
+
+Am Ende bekommt jeder Knoten eine x-Koordinate (Spalte) und eine y-Koordinate (Zeile). Da wir die x-Koordinaten sonst häufig anpassen müssten, ordnen wir die Knoten zunächst nur Spalten zu. So können wir eine neue Spalte dazwischen einfügen, ohne die Koordinaten sämtlicher Knoten in den Spalten danach zu erhöhen. 
+
+Neben den Knoten positionieren wir ebenso Kantenorte in den Spalten: Alle Kanten, die gezeichnet werden, haben ein horizontales Segment, dessen Position in einer Spalte vorgemerkt wird. Das Ende der Kante wird hierbei noch nicht festgelegt.
+
+Für die Erstellung des $OC_3$-Layouts werden die Knoten in der Reihenfolge der st-Ordnung auf einem Gitter platziert. Die y-Koordinate wird später nicht mehr benötigt und kann stets als $y(v_i) = i$ angenommen werden. Der erste Knoten wird in einer neuen, noch leeren Spalte platziert. Alle weiteren Knoten werden in der Spalte des Knotenorts der Kante an ihrem unteren Port platziert. Dazu müssen zunächst die Kanten zu den Ports zugewiesen werden.
+
+Für die eingehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: Unten (1-4), Links (2-4), Rechts (3,4), Oben (4). Der Port Oben wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Senke $v_n$ vorkommen kann. Der untere Port wird nur bei Eingangsgrad 0 nicht verwendet, was nur bei der Quelle $v_1$ vorkommt. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge Oben, Links, Unten, Rechts zugewiesen.
+
+Für die ausgehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: Oben (1-4), Rechts (2-4), Links (3,4), Unten (4). Der Port Unten wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Quelle $v_1$ vorkommen kann. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge Oben, Links, Unten, Rechts zugewiesen. 
+Für die Kante des Ports Oben wird ein Kantenort in der Spalte des Knotens vermerkt. Für die Kanten der Ports Links und Rechts werden jeweils Kantenorte in neuen Spalten links und rechts des Knotens vermerkt. Gibt es eine Kante im Port Unten, bekommt sie einen Knotenort in einer weiteren neuen Spalte rechts der neuen rechten Spalte. 
+
+Ist der Algorithmus bei $v_n$ angekommen, sind alle Knoten eingebettet. Zuletzt nummerieren wir die Spalten durch und weisen den darin platzierten Knoten diese Nummer als x-Koordinate zu. 
+
+\section{Eliminierung der Stufen-förmigen Kanten}
+
+Das im letzten Schritt erstellte $OC_3$-Layout ist nicht optimal, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen Stufen-förmige Kanten entfernt werden.
+
+Zwei Knoten $v_i, v_k$ mit $i < k$ sind mit einer Stufenförmigen Kante verbunden, wenn es eine Kante gibt, die am Port Rechts von $v_i$ und am Port Links von $v_k$ ist. Solche Knoten nennen wir äquivalent bezüglich der Höhe und fassen gleichhohe Knoten in Äquivalenzklassen zusammen.
+
+Diese Äquivalenzklassen verwenden wir als Knoten eines neuen gerichteten Graphens. Wir setzen eine gerichtete Kante zwischen zwei Äquivalenzklassen falls es eine gerichtete Kante zwischen zwei Knoten dieser Klasse gibt. Im so erhaltenen Graphen weisen wir der Klasse ${v_1}$ die Höhe $1$ zu. Dann weisen wir allen anderen Klassen jeweils die um 1 inkrementierte Höhe ihres höchsten Vorgängers zu, bis alle Klassen eine Höhe erhalten haben. Zuletzt weisen wir den Knoten die Höhe ihrer Klasse als y-Koordinate zu.
+
+Offensichtlich kann es nun keine Stufen-förmigen Kanten mehr geben, da die entsprechenden Knoten in der gleichen Klasse sind.
+
+\section{Konvertierung in ein $SC_2$-Layout}
+
 
 
 \chapter{Implementierung}
