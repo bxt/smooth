@@ -123,7 +123,7 @@ optimiert werden kann, im Hinblick auf Komplexität und Platzbedarf.
 
 \section{Übersicht}
 
-Zunächst werden nur 2-fach knotenzusammenhängende Graphen gezeichnet, mittels Algorithmus~\ref{alg:biconnected}: Für den Graphen wird eine planare Einbettung und eine st-Ordnung bestimmt. Im nächsten Schritt wird ein orthogonales Layout berechnet, welches die Einbettung beibehält und die Knoten in der von der st-Ordnung vorgegebenen Reihenfolge platziert. Dieses orthogonale Layout wird dann verkleinert, wobei Stufen-förmige Kanten entfernt werden. Das fertige $OC_3$-Layout wird im letzten Schritt in ein $SC_2$-Layout umgesetzt.
+Zunächst werden nur 2-fach knotenzusammenhängende Graphen gezeichnet, mittels Algorithmus~\ref{alg:biconnected}: Für den Graphen wird eine planare Einbettung und eine st-Ordnung bestimmt. Im nächsten Schritt wird ein orthogonales Layout berechnet, welches die Einbettung beibehält und die Knoten in der von der st-Ordnung vorgegebenen Reihenfolge platziert. Dieses orthogonale Layout wird dann verkleinert, wobei stufenförmige Kanten entfernt werden. Das fertige $OC_3$-Layout wird im letzten Schritt in ein $SC_2$-Layout umgesetzt.
 
 \begin{algorithm}[ht]
   \SetKw{True}{true}
@@ -191,15 +191,15 @@ Für die Kante des Ports Oben wird ein Kantenort in der Spalte des Knotens verme
 
 Ist der Algorithmus bei $v_n$ angekommen, sind alle Knoten eingebettet. Zuletzt nummerieren wir die Spalten durch und weisen den darin platzierten Knoten diese Nummer als x-Koordinate zu. 
 
-\section{Eliminierung der Stufen-förmigen Kanten}
+\section{Eliminierung der stufenförmigen Kanten}
 
-Das im letzten Schritt erstellte $OC_3$-Layout ist nicht optimal, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen Stufen-förmige Kanten entfernt werden.
+Das im letzten Schritt erstellte $OC_3$-Layout ist nicht optimal, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden.
 
 Zwei Knoten $v_i, v_k$ mit $i < k$ sind mit einer Stufenförmigen Kante verbunden, wenn es eine Kante gibt, die am Port Rechts von $v_i$ und am Port Links von $v_k$ ist. Solche Knoten nennen wir äquivalent bezüglich der Höhe und fassen gleichhohe Knoten in Äquivalenzklassen zusammen.
 
 Diese Äquivalenzklassen verwenden wir als Knoten eines neuen gerichteten Graphens. Wir setzen eine gerichtete Kante zwischen zwei Äquivalenzklassen falls es eine gerichtete Kante zwischen zwei Knoten dieser Klasse gibt. Im so erhaltenen Graphen weisen wir der Klasse ${v_1}$ die Höhe $1$ zu. Dann weisen wir allen anderen Klassen jeweils die um 1 inkrementierte Höhe ihres höchsten Vorgängers zu, bis alle Klassen eine Höhe erhalten haben. Zuletzt weisen wir den Knoten die Höhe ihrer Klasse als y-Koordinate zu.
 
-Offensichtlich kann es nun keine Stufen-förmigen Kanten mehr geben, da die entsprechenden Knoten in der gleichen Klasse sind.
+Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten in der gleichen Klasse sind.
 
 \section{Konvertierung in ein $SC_2$-Layout}
 
