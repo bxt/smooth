@@ -72,19 +72,21 @@ Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers and
 
 % TODO: Was ist das: ? Datenstrukturen, Testdaten, Probleme
 
-\section{Motivation}
+\chapter{Einleitung}
+
 
 Das automatisierte Zeichnen von Graphen bereitet eine Vielzahl von Problemen. 
 Eine Herangehensweise an dieses Problem ist es, zunächst einfachere oder speziellere Probleme zu betrachten. 
 Dazu Teilt man die Graphen in Klassen ein, die eine Aussage machen über die Schwierigkeit, den Graphen zu zeichnen. 
-Von diesen Klassen ist die der planaren Graphen besonders weit erforscht und ihr Vorteil liegt auf der Hand:
+Von diesen Klassen ist die der planaren Graphen vorteilhaft:
 Planare Graphen lassen sich ohne Kantenüberschneidung in einer Ebene zeichnen und haben nur polynomial viele Kanten. 
 
 Eine Anwendung planarer Graphen ist die automatisierte oder computergestützte Erstellung von Layouts für Schaltkreis-Platinen. Hierbei werden Komponenten, wie integrierte Schaltkreise (Chips), als Knoten und die verbindenden Leiter als Kanten modelliert. Da die Leiter hier aufgrund des Herstellungsprozesses und aus technischen Überlegungen nur entweder horizontal oder vertikal auf einem Gitter verlaufen können, beschränkt man sich hier auf orthogonale Layouts. Bei solchen orthogonalen Zeichnungen planarer Graphen können (ohne Überdeckungen) je Knoten nur 4 Kanten verbunden werden. Man nennt die vier möglichen Richtungen Ports. Die Graphen, die sich so zeichnen lassen gehören zu der Klasse der 4-planaren Graphen, deren maximaler Kontengrad 4 ist. Abhängig von der Anzahl $k$ der maximalen Knicke in einer Kante in einem Layout, teilen wir es in die Klasse $OC_k$ ein. 
 
-Orthogonale Layouts wurden in der Vergangenheit auch aufgrund ihrer Praxisrelevanz stark verbessert. Sie sind zur Visualisierung von Graphen für Menschen (etwa für abstrahierte ÖPNV-Netze, Organigramme, UML-Diagramme) jedoch nur schlecht geeignet, da sie schnell unübersichtlich wirken. Natürlich kann Übersichtlichkeit nicht genau definiert werden; jedoch werden die harten 90\degree-Knicke in den Kanten, an denen sich horizontale und vertikale Abschnitte treffen, leicht mit Knotenpunkten verwechselt. Auch wirken sie eher technisch und deshalb für bestimmte Zielgruppen wenig ansprechend. Harte Kantenknicke bereiten auch in technischen Anwendungen Probleme, wenn die Verbindungen glatt verlaufen müssen, etwa bei Schienen, Straßen, Pipelines oder Glasfaserverbindungen. 
+Orthogonale Layouts wurden in der Vergangenheit auch aufgrund ihrer Praxisrelevanz stark verbessert. Sie sind zur Visualisierung von Graphen für Menschen (etwa für abstrahierte ÖPNV-Netze, Organigramme, UML-Diagramme) jedoch nur schlecht geeignet, da sie schnell unübersichtlich wirken. % TODO: Quelle?, Roberts et al.?
+Natürlich kann Übersichtlichkeit nicht genau definiert werden; jedoch werden die harten 90\degree-Knicke in den Kanten, an denen sich horizontale und vertikale Abschnitte treffen, leicht mit Knotenpunkten verwechselt. Auch wirken sie eher technisch und deshalb für bestimmte Zielgruppen wenig ansprechend.
 
-Um diese Probleme zu lösen, glättet man die Knicke mit Kreisbögen. Man redet dann von glatt-orthogonalen Zeichnungen. Die Kreisbögen gehen tangential in die orthogonal verlaufenden geraden Abschnitte über. Hierdurch werden die Knicke geglättet, was für technische Anwendungen nützlich sein kann. Die entstehenden Zeichnungen wirken übersichtlich, freundlich und ästhetisch, was für ansprechende Visualisierungen förderlich ist. Dadurch, dass die Kanten ansonsten trotzdem orthogonal verlaufen, bleibt die Komplexität der Layouts vergleichsweise gering. Man vergleiche hierzu etwa die in Handarbeit gefertigten Soziogramme des Künstlers Mark Lombardi (1951-2000), die u.a. aufgrund ihrer Runden Kanten eine gewisse Ästhetik erreichen, jedoch mangels orthogonaler Gitterstruktur wenig Systematik erkennen lassen. 
+Um dieses Problem zu lösen, glättet man die Knicke mit Kreisbögen. Man redet dann von glatt-orthogonalen Zeichnungen. Die Kreisbögen gehen tangential in die orthogonal verlaufenden geraden Abschnitte über. Die entstehenden Zeichnungen wirken übersichtlich, freundlich und ästhetisch, was für ansprechende Visualisierungen förderlich ist. Dadurch, dass die Kanten ansonsten trotzdem orthogonal verlaufen, bleibt die Komplexität der Layouts vergleichsweise gering. Man vergleiche hierzu etwa die in Handarbeit gefertigten Soziogramme des Künstlers Mark Lombardi (1951-2000), die u.a. aufgrund ihrer Runden Kanten eine gewisse Ästhetik erreichen, jedoch mangels orthogonaler Gitterstruktur wenig Systematik erkennen lassen. 
 
 Bestehende Algorithmen zur automatisierten Erstellung glatt-orthogonaler Zeichnungen bauen auf bewährten Algorithmen für orthogonale Zeichnungen auf und erweitern diese so, dass genügend Platz für die abgerundeten Kanten bleibt, ohne dabei Kantenüberschneidungen einzuführen. Als Grundlage wählt man Algorithmen, welche die Anzahl der Knicke (auch pro Kante) in der entstehenden Zeichnung klein halten. 
 
@@ -114,6 +116,8 @@ Im Anschluss wird die Implementierung mit verschiedenen Testdatensätzen kontrol
 der Ausgaben auf den Testdaten werden Schwachstellen des Verfahren identifiziert. 
 Zuletzt werden noch einige Verbesserungsmöglichkeiten diskutiert, wie das Ergebnis
 optimiert werden kann, im Hinblick auf Komplexität und Platzbedarf.
+
+% TODO: Verweise auf Abschnitte, jeweils NACH der Beschreibung des Abschnitts
 
 \chapter{Algorithmus}
 
@@ -172,18 +176,18 @@ Algorithmus~\ref{alg:main}
 
 \section{Erstellung des $OC_3$-Layouts}
 
-Für die Erstellung des $OC_3$-Layouts erhalten wir die Knoten in der Reihenfolge der st-Ordnung $v_1, \dots, v_n$. Durch die st-Ordnung erhalten wir zudem gerichtete Kanten und die Knoten haben somit einen Eingangsgrad und einen Ausgangsgrad, die sich, wegen der 4-Planariät, zu maximal 4 addieren. Die planare Einbettung $E$ gibt uns für jeden Knoten eine Reihenfolge der Kanten zu den adjazenten Knoten an. Ein- und Ausgehende Kanten liegen hierbei beieinander. 
+Für die Erstellung des $OC_3$-Layouts erhalten wir die Knoten in der Reihenfolge der st-Ordnung $v_1, \dots, v_n$. Durch die st-Ordnung erhalten wir zudem gerichtete Kanten und die Knoten haben somit einen Eingangsgrad und einen Ausgangsgrad, die sich, wegen der 4-Planariät, zu maximal 4 addieren. Außer $v_1$ und $v_n$ haben die Knoten alle Eingangsgrad und  Ausgangsgrad maximal 3, da sie mindestens eine eingehende und mindestens eine ausgehende Kante haben. Die planare Einbettung $E$ gibt uns an jedem Knoten eine Reihenfolge der Kanten zu den adjazenten Knoten an. Ein- und Ausgehende Kanten liegen hierbei beieinander. % TODO: beieinander genauer.
 
-Am Ende bekommt jeder Knoten eine x-Koordinate (Spalte) und eine y-Koordinate (Zeile). Da wir die x-Koordinaten sonst häufig anpassen müssten, ordnen wir die Knoten zunächst nur Spalten zu. So können wir eine neue Spalte dazwischen einfügen, ohne die Koordinaten sämtlicher Knoten in den Spalten danach zu erhöhen. 
+Am Ende bekommt jeder Knoten eine x-Koordinate (Spalte) und eine y-Koordinate (Zeile). Da wir die x-Koordinaten sonst häufig anpassen müssten, ordnen wir den Knoten zunächst nur Spalten zu. So können wir eine neue Spalte dazwischen einfügen, ohne die Koordinaten sämtlicher Knoten in den Spalten danach zu erhöhen. 
 
-Neben den Knoten positionieren wir ebenso Kantenorte in den Spalten: Alle Kanten, die gezeichnet werden, haben ein horizontales Segment, dessen Position in einer Spalte vorgemerkt wird. Das Ende der Kante wird hierbei noch nicht festgelegt.
+Neben den Knoten positionieren wir ebenso Kantenorte in den Spalten: Alle Kanten, die gezeichnet werden, haben ein horizontales Segment, dessen Position in einer Spalte vorgemerkt wird. Das Ende der Kante wird hierbei noch nicht festgelegt. % TODO: Offene Kante definieren
 
-Für die Erstellung des $OC_3$-Layouts werden die Knoten in der Reihenfolge der st-Ordnung auf einem Gitter platziert. Die y-Koordinate wird später nicht mehr benötigt und kann stets als $y(v_i) = i$ angenommen werden. Der erste Knoten wird in einer neuen, noch leeren Spalte platziert. Alle weiteren Knoten werden in der Spalte des Knotenorts der Kante an ihrem unteren Port platziert. Dazu müssen zunächst die Kanten zu den Ports zugewiesen werden.
+Für die Erstellung des $OC_3$-Layouts werden die Knoten in der Reihenfolge der st-Ordnung auf einem Gitter platziert. Die y-Koordinate wird später nicht mehr benötigt und kann stets als $y(v_i) = i$ angenommen werden. Der erste Knoten wird in einer neuen, noch leeren Spalte platziert. Alle weiteren Knoten werden in der zugewiesenen Spalte der Kante an ihrem unteren Port platziert. Dazu müssen zunächst die Kanten den Ports zugewiesen werden.
 
 Für die eingehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: Unten (1-4), Links (2-4), Rechts (3,4), Oben (4). Der Port Oben wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Senke $v_n$ vorkommen kann. Der untere Port wird nur bei Eingangsgrad 0 nicht verwendet, was nur bei der Quelle $v_1$ vorkommt. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge Oben, Links, Unten, Rechts zugewiesen.
 
 Für die ausgehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: Oben (1-4), Rechts (2-4), Links (3,4), Unten (4). Der Port Unten wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Quelle $v_1$ vorkommen kann. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge Oben, Links, Unten, Rechts zugewiesen. 
-Für die Kante des Ports Oben wird ein Kantenort in der Spalte des Knotens vermerkt. Für die Kanten der Ports Links und Rechts werden jeweils Kantenorte in neuen Spalten links und rechts des Knotens vermerkt. Gibt es eine Kante im Port Unten, bekommt sie einen Knotenort in einer weiteren neuen Spalte rechts der neuen rechten Spalte. 
+Für die Kante des Ports Oben wird ein Kantenort in der Spalte des Knotens vermerkt. Für die Kanten der Ports Links und Rechts werden jeweils Kantenorte in neuen Spalten links und rechts des Knotens vermerkt. Gibt es eine Kante im Port Unten, bekommt sie einen Knotenort in einer weiteren neuen Spalte weiter rechts. % TODO: schwammig
 
 Ist der Algorithmus bei $v_n$ angekommen, sind alle Knoten eingebettet. Zuletzt nummerieren wir die Spalten durch und weisen den darin platzierten Knoten diese Nummer als x-Koordinate zu. 
 
@@ -193,7 +197,7 @@ Das im letzten Schritt erstellte $OC_3$-Layout ist nicht optimal, da jeder Knote
 
 Zwei Knoten $v_i, v_k$ mit $i < k$ sind mit einer Stufenförmigen Kante verbunden, wenn es eine Kante gibt, die am Port Rechts von $v_i$ und am Port Links von $v_k$ ist. Solche Knoten nennen wir äquivalent bezüglich der Höhe und fassen gleichhohe Knoten in Äquivalenzklassen zusammen.
 
-Diese Äquivalenzklassen verwenden wir als Knoten eines neuen gerichteten Graphens. Wir setzen eine gerichtete Kante zwischen zwei Äquivalenzklassen falls es eine gerichtete Kante zwischen zwei Knoten dieser Klasse gibt. Im so erhaltenen Graphen weisen wir der Klasse ${v_1}$ die Höhe $1$ zu. Dann weisen wir allen anderen Klassen jeweils die um 1 inkrementierte Höhe ihres höchsten Vorgängers zu, bis alle Klassen eine Höhe erhalten haben. Zuletzt weisen wir den Knoten die Höhe ihrer Klasse als y-Koordinate zu.
+Diese Äquivalenzklassen verwenden wir als Knoten eines neuen gerichteten Graphens. Wir setzen eine gerichtete Kante zwischen zwei Äquivalenzklassen falls es eine gerichtete Kante zwischen zwei Knoten dieser Klasse gibt. Im so erhaltenen Graphen weisen wir der Klasse $\{v_1\}$ die Höhe $1$ zu. Dann weisen wir allen anderen Klassen jeweils die um 1 inkrementierte Höhe ihres höchsten Vorgängers zu, bis alle Klassen eine Höhe erhalten haben. Zuletzt weisen wir den Knoten die Höhe ihrer Klasse als y-Koordinate zu.
 
 Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten in der gleichen Klasse sind.
 
