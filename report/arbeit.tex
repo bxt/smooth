@@ -172,7 +172,44 @@ Algorithmus~\ref{alg:main}
 
 \section{Ermittlung der st-Ordnung}
 
-(Hier könnte es etwas kompliziert werden, da die richtigen Knoten für s und t ausgewählt werden müssen)
+Für den nächsten Schritt wird eine st-Ordnung benötigt, die mit der planaren Einbettung kopmatibel ist, d.h. wir brauchen zwei Knoten $s$ und $t$ auf der Außenfacette. Als Ergebnis dieses Schrittes wollen wir eine Reihenfolge der Knoten $v_1, \dots, v_n$ erhalten, mit $s=v_1$ und $t=v_n$. Jeder Knoten (außer $s$ und $t$) soll mindestens einen Nachbarn mit einem höheren Index und mindestens einen mit einem niedrigeren Index haben. Da die Indizes paarweise verschieden sind, erhalten wir zudem einen gerichteten Graphen, wenn wir die ungerichteten Kanten so ausrichten, dass sie vom niedrigeren Index zum höheren verlaufen.
+
+Eine solche st-Ordnung lässt sich mit einer angepassten Tiefensuche ermitteln, siehe Algorithmus~\ref{alg:stsimple}. Wir starten die Suche bei $s$ und weisen im Verlauf der Suche jedem Knoten den Zeitpunkt seiner Entdeckung zu. Die Reihenfolge der Kanten bei der Tiefensuche wird insofern modifiziert, dass wir, wenn wir eine Kante traversieren würden, die auf $t$ führt, aber noch andere, untraversierte Kanten am aktuellen Knoten haben, zunächst eine andere Kante traversieren. Somit ist sichergestellt, dass $t$ der letzte Knoten ist, der von der Suche entdeckt wird.
+
+\begin{algorithm}[ht]
+  \SetKw{True}{true}
+  \SetKw{False}{false}
+  \SetKwBlock{Visit}{Visit(v)}{end}
+  \caption{StOdering(Graph $G = (V,E)$, $s \in V$, $t \in V$}
+  \label{alg:stsimple}
+  \Ein{Zweifach zusammenhängender Graph $G = (V,E)$, Knoten $s, t \in V$ }
+  \Aus{st-Ordnung von $G$ mit $s$ als erstem und $t$ als letztem Knoten}
+  
+  \For{$v \in V$}{
+    v.visited = false \;
+  }
+  $i := 0$ \;
+  
+  Visit$(s)$ \;
+
+  \Visit{
+    $v$.visited = pending \;
+    $v$.index = $i$ \;
+    $i = i+1$ \;
+    $adj$ = Adj[$v$] \;
+    move $t$ to end of $adj$ \;
+    \For{$u \in adj$}{
+      \If{u.visited == false}{
+        Visit(u) \;
+      }
+    }
+    v.visited = true \;
+  }
+
+  
+  \Return{$V$ sorted by indices}
+\end{algorithm}
+
 
 \section{Erstellung des $OC_3$-Layouts}
 
