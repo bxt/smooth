@@ -151,41 +151,9 @@ Zunächst werden nur 2-fach knotenzusammenhängende Graphen gezeichnet, mittels 
 
 Im nächsten Schritt wird eine \emph{st-Ordnung} berechnet, eine Reihenfolge der Knoten $v_1, \dots, v_n$, mit $s=v_1$ und $t=v_n$. Jeder Knoten (außer $s$ und $t$) soll mindestens einen Nachbarn mit einem höheren Index und mindestens einen mit einem niedrigeren Index haben. Da die Indizes paarweise verschieden sind, erhalten wir zudem einen gerichteten Graphen, wenn wir die ungerichteten Kanten so ausrichten, dass sie vom niedrigeren Index zum höheren verlaufen.\footnote {Umgekehrt könnten wir aus dem ungerichteten Graphen durch topologisches Sortieren eine st-Ordnung erhalten.}
 
-Eine solche st-Ordnung lässt sich mit einer angepassten Tiefensuche ermitteln, siehe Algorithmus~\ref{alg:stsimple}. Wir starten die Suche bei $s$ und weisen im Verlauf der Suche jedem Knoten den Zeitpunkt seiner Entdeckung zu. Die Reihenfolge der Kanten bei der Tiefensuche wird insofern modifiziert, dass wir, wenn wir eine Kante traversieren würden, die auf $t$ führt, aber noch andere, untraversierte Kanten am aktuellen Knoten haben, zunächst eine andere Kante traversieren. Somit ist sichergestellt, dass $t$ der letzte Knoten ist, der von der Suche entdeckt wird.
+Die st-Ordnung soll mir der planaren Einbettung kompatibel sein, d.h. wir wählen zwei Knoten $s$ und $t$ auf der Außenfacette. Damit haben wir günstige Reihenfolge für die Platzierung der Knoten bei der Berechnung des Layouts. 
 
-\begin{algorithm}[ht]
-  \SetKw{True}{true}
-  \SetKw{False}{false}
-  \SetKwBlock{Visit}{Visit(v)}{end}
-  \caption{StOdering(Graph $G = (V,E)$, $s \in V$, $t \in V$}
-  \label{alg:stsimple}
-  \Ein{Zweifach zusammenhängender Graph $G = (V,E)$, Knoten $s, t \in V$ }
-  \Aus{st-Ordnung von $G$ mit $s$ als erstem und $t$ als letztem Knoten}
-  
-  \For{$v \in V$}{
-    v.visited = false \;
-  }
-  $i := 0$ \;
-  
-  Visit$(s)$ \;
-
-  \Visit{
-    $v$.visited = pending \;
-    $v$.index = $i$ \;
-    $i = i+1$ \;
-    $adj$ = Adj[$v$] \;
-    move $t$ to end of $adj$ \;
-    \For{$u \in adj$}{
-      \If{u.visited == false}{
-        Visit(u) \;
-      }
-    }
-    v.visited = true \;
-  }
-
-  
-  \Return{$V$ sorted by indices}
-\end{algorithm}
+Eine solche st-Ordnung lässt sich mit einer angepassten Tiefensuche und einer passenden Nachbearbeitung für jeden zweifach zusammenhängenden Graphen ermitteln. Ein Beweis in Form eines Linearzeit-Algortihmus findet sich bei Even und Tarjan~\cite{even+tarjan-75}, basierend auf vorherigen Resultaten (\cite{hopcroft+tarjan-74},~\cite{tarjan-72}).
 
 \section{Erstellung eines $OC_3$-Layouts}
 
