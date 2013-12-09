@@ -54,9 +54,9 @@
 %% hier Titel und Autorennamen eintragen
 
 \subject{Bachelorarbeit}
-\title{Implementierung eines Algorithmus für das glatt-orthogonale Zeichnen planarer Graphen} % Geben Sie hier den Titel Ihrer Arbeit an.
+\title{Implementierung eines Algorithmus\\ für das glatt-orthogonale Zeichnen \\ planarer Graphen} % Geben Sie hier den Titel Ihrer Arbeit an.
 \author{Bernhard Häussner} % Geben Sie Ihren Namen an. 
-\date{Eingereicht am XX. YY 20ZZ} % TODO: Geben Sie das Abgabedatum an
+\date{Eingereicht am 14. April 2014 \\ Version \today} % TODO: Geben Sie das Abgabedatum an, entfernen Sie das Versionsdatum
 \titlehead{Julius-Maximilians-Universität Würzburg\\
 Institut für Informatik\\
 Lehrstuhl für Informatik I\\
@@ -170,9 +170,9 @@ Algorithmus~\ref{alg:main}
 
 % TODO
 
-\section{Ermittlung der st-Ordnung}
+\section{Ermittlung einer st-Ordnung}
 
-Für den nächsten Schritt wird eine st-Ordnung benötigt, die mit der planaren Einbettung kopmatibel ist, d.h. wir brauchen zwei Knoten $s$ und $t$ auf der Außenfacette. Als Ergebnis dieses Schrittes wollen wir eine Reihenfolge der Knoten $v_1, \dots, v_n$ erhalten, mit $s=v_1$ und $t=v_n$. Jeder Knoten (außer $s$ und $t$) soll mindestens einen Nachbarn mit einem höheren Index und mindestens einen mit einem niedrigeren Index haben. Da die Indizes paarweise verschieden sind, erhalten wir zudem einen gerichteten Graphen, wenn wir die ungerichteten Kanten so ausrichten, dass sie vom niedrigeren Index zum höheren verlaufen.
+Im nächsten Schritt wird eine \emph{st-Ordnung} berechnet, eine Reihenfolge der Knoten $v_1, \dots, v_n$, mit $s=v_1$ und $t=v_n$. Jeder Knoten (außer $s$ und $t$) soll mindestens einen Nachbarn mit einem höheren Index und mindestens einen mit einem niedrigeren Index haben. Da die Indizes paarweise verschieden sind, erhalten wir zudem einen gerichteten Graphen, wenn wir die ungerichteten Kanten so ausrichten, dass sie vom niedrigeren Index zum höheren verlaufen.\footnote {Umgekehrt könnten wir aus dem ungerichteten Graphen durch topologisches Sortieren eine st-Ordnung erhalten.}
 
 Eine solche st-Ordnung lässt sich mit einer angepassten Tiefensuche ermitteln, siehe Algorithmus~\ref{alg:stsimple}. Wir starten die Suche bei $s$ und weisen im Verlauf der Suche jedem Knoten den Zeitpunkt seiner Entdeckung zu. Die Reihenfolge der Kanten bei der Tiefensuche wird insofern modifiziert, dass wir, wenn wir eine Kante traversieren würden, die auf $t$ führt, aber noch andere, untraversierte Kanten am aktuellen Knoten haben, zunächst eine andere Kante traversieren. Somit ist sichergestellt, dass $t$ der letzte Knoten ist, der von der Suche entdeckt wird.
 
@@ -210,29 +210,28 @@ Eine solche st-Ordnung lässt sich mit einer angepassten Tiefensuche ermitteln, 
   \Return{$V$ sorted by indices}
 \end{algorithm}
 
+\section{Erstellung eines $OC_3$-Layouts}
 
-\section{Erstellung des $OC_3$-Layouts}
-
-Für die Erstellung des $OC_3$-Layouts erhalten wir die Knoten in der Reihenfolge der st-Ordnung $v_1, \dots, v_n$. Durch die st-Ordnung erhalten wir zudem gerichtete Kanten und die Knoten haben somit einen Eingangsgrad und einen Ausgangsgrad, die sich, wegen der 4-Planariät, zu maximal 4 addieren. Außer $v_1$ und $v_n$ haben die Knoten alle Eingangsgrad und  Ausgangsgrad maximal 3, da sie mindestens eine eingehende und mindestens eine ausgehende Kante haben. Die planare Einbettung $E$ gibt uns an jedem Knoten eine Reihenfolge der Kanten zu den adjazenten Knoten an. Ein- und Ausgehende Kanten liegen hierbei beieinander. % TODO: beieinander genauer.
+Für die Erstellung des $OC_3$-Layouts erhalten wir die Knoten in der Reihenfolge der st-Ordnung $v_1, \dots, v_n$. Durch die st-Ordnung erhalten wir zudem gerichtete Kanten und die Knoten haben somit einen Eingangsgrad und einen Ausgangsgrad, die sich, wegen der 4-Planariät, zu maximal 4 addieren. Außer $v_1$ und $v_n$ liegt bei den Knoten der Eingangsgrad und der Ausgangsgrad zwischen 1 und 3, da sie mindestens eine eingehende und mindestens eine ausgehende Kante haben. Die planare Einbettung $E$ gibt uns an jedem Knoten eine Reihenfolge der Kanten zu den adjazenten Knoten an. Ein- und Ausgehende Kanten liegen hierbei in zwei Abschnitten jeweils zusammen beieinander.
 
 Am Ende bekommt jeder Knoten eine x-Koordinate (Spalte) und eine y-Koordinate (Zeile). Da wir die x-Koordinaten sonst häufig anpassen müssten, ordnen wir den Knoten zunächst nur Spalten zu. So können wir eine neue Spalte dazwischen einfügen, ohne die Koordinaten sämtlicher Knoten in den Spalten danach zu erhöhen. 
 
-Neben den Knoten positionieren wir ebenso Kantenorte in den Spalten: Alle Kanten, die gezeichnet werden, haben ein horizontales Segment, dessen Position in einer Spalte vorgemerkt wird. Das Ende der Kante wird hierbei noch nicht festgelegt. % TODO: Offene Kante definieren
+Neben den Knoten positionieren wir ebenso \emph{offene Kanten} in den Spalten: Alle Kanten, die gezeichnet werden, haben ein horizontales Segment, dessen Position in einer Spalte vorgemerkt wird. Das Ende der Kante wird hierbei noch nicht festgelegt. % TODO: Offene Kante definieren
 
 Für die Erstellung des $OC_3$-Layouts werden die Knoten in der Reihenfolge der st-Ordnung auf einem Gitter platziert. Die y-Koordinate wird später nicht mehr benötigt und kann stets als $y(v_i) = i$ angenommen werden. Der erste Knoten wird in einer neuen, noch leeren Spalte platziert. Alle weiteren Knoten werden in der zugewiesenen Spalte der Kante an ihrem unteren Port platziert. Dazu müssen zunächst die Kanten den Ports zugewiesen werden.
 
-Für die eingehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: Unten (1-4), Links (2-4), Rechts (3,4), Oben (4). Der Port Oben wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Senke $v_n$ vorkommen kann. Der untere Port wird nur bei Eingangsgrad 0 nicht verwendet, was nur bei der Quelle $v_1$ vorkommt. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge Oben, Links, Unten, Rechts zugewiesen.
+Für die eingehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: Unten (1-4), links (2-4), rechts (3,4), oben (4). Der obere Port wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Senke $v_n$ vorkommen kann. Der untere Port wird nur bei Eingangsgrad 0 nicht verwendet, was nur bei der Quelle $v_1$ vorkommt. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge oben, links, unten, rechts zugewiesen.
 
-Für die ausgehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: Oben (1-4), Rechts (2-4), Links (3,4), Unten (4). Der Port Unten wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Quelle $v_1$ vorkommen kann. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge Oben, Links, Unten, Rechts zugewiesen. 
-Für die Kante des Ports Oben wird ein Kantenort in der Spalte des Knotens vermerkt. Für die Kanten der Ports Links und Rechts werden jeweils Kantenorte in neuen Spalten links und rechts des Knotens vermerkt. Gibt es eine Kante im Port Unten, bekommt sie einen Knotenort in einer weiteren neuen Spalte weiter rechts. % TODO: schwammig
+Für die ausgehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: oben (1-4), rechts (2-4), links (3,4), unten (4). Der untere Port wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Quelle $v_1$ vorkommen kann. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge oben, links, unten, rechts zugewiesen. 
+Für die Kante des oberen Ports wird ein Kantenort in der Spalte des Knotens vermerkt. Für die Kanten der Ports links und rechts werden jeweils Kantenorte in neuen Spalten links und rechts des Knotens vermerkt. Gibt es eine Kante im unteren Port, bekommt sie einen Knotenort in einer weiteren neuen Spalte weiter rechts. % TODO: schwammig
 
 Ist der Algorithmus bei $v_n$ angekommen, sind alle Knoten eingebettet. Zuletzt nummerieren wir die Spalten durch und weisen den darin platzierten Knoten diese Nummer als x-Koordinate zu. 
 
 \section{Eliminierung der stufenförmigen Kanten}
 
-Das im letzten Schritt erstellte $OC_3$-Layout ist nicht optimal, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden.
+Das im letzten Schritt erstellte $OC_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden.
 
-Zwei Knoten $v_i, v_k$ mit $i < k$ sind mit einer Stufenförmigen Kante verbunden, wenn es eine Kante gibt, die am Port Rechts von $v_i$ und am Port Links von $v_k$ ist. Solche Knoten nennen wir äquivalent bezüglich der Höhe und fassen gleichhohe Knoten in Äquivalenzklassen zusammen.
+Zwei Knoten $v_i, v_k$ mit $i < k$ sind mit einer stufenförmigen Kante verbunden, wenn es eine Kante gibt, die am rechten Port von $v_i$ und am linken Port von $v_k$ ist. Solche Knoten nennen wir äquivalent bezüglich der Höhe und fassen gleich hohe Knoten in Äquivalenzklassen zusammen.
 
 Diese Äquivalenzklassen verwenden wir als Knoten eines neuen gerichteten Graphens. Wir setzen eine gerichtete Kante zwischen zwei Äquivalenzklassen falls es eine gerichtete Kante zwischen zwei Knoten dieser Klasse gibt. Im so erhaltenen Graphen weisen wir der Klasse $\{v_1\}$ die Höhe $1$ zu. Dann weisen wir allen anderen Klassen jeweils die um 1 inkrementierte Höhe ihres höchsten Vorgängers zu, bis alle Klassen eine Höhe erhalten haben. Zuletzt weisen wir den Knoten die Höhe ihrer Klasse als y-Koordinate zu.
 
