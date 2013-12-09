@@ -143,30 +143,7 @@ Zunächst werden nur 2-fach knotenzusammenhängende Graphen gezeichnet, mittels 
 \end{algorithm}
 
 
-Algorithmus~\ref{alg:main}
-% TODO: Textchen hierzu
-
-\begin{algorithm}[ht]
-  \SetKw{True}{true}
-  \SetKw{False}{false}
-  \caption{SmoothOrthogonalDraw(Graph $G = (V,E)$}
-  \label{alg:main}
-  \Ein{4-planarer Graph $G = (V,E)$}
-  \Aus{$SC_2$-Layout von $G$}
-  
-  $G_1, \dots, G_n = $BiconnectedComponents$(G)$ \;
-  
-  \For{$i\leftarrow 1$ \KwTo $n$}{
-    $\Gamma_i \leftarrow$ SmoothOrthogonalDrawBiconnected$(G_i)$ \;
-    RightAngelize$(\Gamma_i)$ \; % TODO: better name, doh.
-  }
-  $\Gamma \leftarrow$ ConnectComponents$(\Gamma_1, \dots, \Gamma_n)$ \;
-  \Return $\Gamma$
-\end{algorithm}
-
-
-
-\section{Bestimmung der planaren Einbettung}
+\section{Bestimmung einer planaren Einbettung}
 
 % TODO
 
@@ -239,6 +216,31 @@ Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsp
 
 \section{Konvertierung in ein $SC_2$-Layout}
 
+
+
+\section{Übertragen auf allgemeine 4-planare Graphen}
+
+Algorithmus~\ref{alg:main}
+% TODO: Textchen hierzu
+% TODO: Ans Ende der Sektion schieben
+
+\begin{algorithm}[ht]
+  \SetKw{True}{true}
+  \SetKw{False}{false}
+  \caption{SmoothOrthogonalDraw(Graph $G = (V,E)$}
+  \label{alg:main}
+  \Ein{4-planarer Graph $G = (V,E)$}
+  \Aus{$SC_2$-Layout von $G$}
+  
+  $G_1, \dots, G_n =$ BiconnectedComponents$(G)$ \;
+  
+  \For{$i\leftarrow 1$ \KwTo $n$}{
+    $\Gamma_i \leftarrow$ SmoothOrthogonalDrawBiconnected$(G_i)$ \;
+    MakeRightAngles$(\Gamma_i)$ \;
+  }
+  $\Gamma \leftarrow$ ConnectComponents$(\Gamma_1, \dots, \Gamma_n)$ \;
+  \Return $\Gamma$
+\end{algorithm}
 
 
 \chapter{Implementierung}
