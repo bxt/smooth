@@ -37,13 +37,13 @@ public class StOrdering<V,E> {
 	
 	private List<V> findPath(V start) {
 		List<V> path = null;
-		if (path == null) path = findSingeStepBackPath(start);
+		if (path == null) path = findSingleStepBackPath(start);
 		if (path == null) path = findClimbingTreePath(start);
 		if (path == null) path = findJumpOnTreePath(start);
 		return path;
 	}
 	
-	private List<V> findSingeStepBackPath(V start) {
+	private List<V> findSingleStepBackPath(V start) {
 		Collection<E> cycleOutEdges = palmTree.getCycle().getOutEdges(start);
 		for(E e : cycleOutEdges) {
 			if(!oldEdges.contains(e)) {

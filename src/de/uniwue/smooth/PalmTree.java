@@ -26,6 +26,14 @@ public class PalmTree<V,E> {
 	private Tree<V, E> spanningTree = new DelegateTree<V, E>();
 	V preselectedW = null;
 	
+	
+	/**
+	 * 
+	 * 
+	 * @param graph
+	 * @param s
+	 * @param t
+	 */
 	public PalmTree(UndirectedGraph<V, E> graph, V s, V t) {
 		preselectedW = t;
 		process(graph, s);
@@ -39,6 +47,8 @@ public class PalmTree<V,E> {
 		V s = graph.getVertices().iterator().next();
 		process(graph, s);
 	}
+	
+	
 	
 	public Tree<V,E> getSpanningTree() {
 		return this.spanningTree;
@@ -59,6 +69,8 @@ public class PalmTree<V,E> {
 	public V getLowerVertex(V v) {
 		return lowerVertices.get(v);
 	}
+	
+	
 	
 	private void process(UndirectedGraph<V, E> graph, V s) {
 		initialize(graph, s);
@@ -105,7 +117,7 @@ public class PalmTree<V,E> {
 			LinkedList<V> sortedNeighbors = new LinkedList<>(neighbors);
 			Iterator<V> it = sortedNeighbors.iterator();
 			boolean found = false;
-			while (it.hasNext()) {
+			while (it.hasNext() && !found) {
 				V w = it.next();
 				if(w == preselectedW) {
 					it.remove();
@@ -113,8 +125,9 @@ public class PalmTree<V,E> {
 				}
 			}
 			if(!found) throw new IllegalArgumentException("The edge s-t must be part of the graph!");
+			sortedNeighbors.addFirst(preselectedW);
+			neighbors = sortedNeighbors;
 			preselectedW = null;
-			sortedNeighbors.addFirst(v);
 		}
 		return neighbors;
 	}
