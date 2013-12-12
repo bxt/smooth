@@ -1,3 +1,5 @@
+package de.uniwue.smooth.util;
+
 import java.text.DecimalFormat;
 
 /**
