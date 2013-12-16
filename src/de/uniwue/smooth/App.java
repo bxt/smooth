@@ -1,7 +1,15 @@
 package de.uniwue.smooth;
 
 import java.awt.Dimension;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JFrame;
 
@@ -14,8 +22,11 @@ import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.algorithms.util.MapSettableTransformer;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
+import edu.uci.ics.jung.io.GraphIOException;
+import edu.uci.ics.jung.io.GraphReader;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 
 public class App {
@@ -27,6 +38,7 @@ public class App {
 	public void main() {
 		DirectedGraph<Vertex, Edge> octahedron = loadOctahedron();
 		draw(octahedron);
+		romeStats();
 	}
 	
 	private DirectedGraph<Vertex, Edge> loadOctahedron() {
@@ -112,6 +124,72 @@ public class App {
 		frame.pack();
 		frame.setVisible(true);
 		
+	}
+	
+	private void romeStats() {
+		final int POOL_SIZE = 8;
+		ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE);
+		
+		final ConcurrentHashMap<Integer, AtomicInteger> edgeCounts = new ConcurrentHashMap<Integer, AtomicInteger>();
+		final ConcurrentHashMap<Integer, AtomicInteger> vertexCounts = new ConcurrentHashMap<Integer, AtomicInteger>();
+		final AtomicInteger counter = new AtomicInteger();
+		final AtomicInteger exceptionCounter = new AtomicInteger();
+		
+		File[] files =  new File("resources/rome").listFiles(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.substring(0,5).equals("grafo");
+			}
+		});
+		
+		for (final File file : files) {
+			executor.execute(new Runnable() {
+				@Override public void run() {
+					try {
+						GraphReader<Graph<Vertex, Edge>, Vertex, Edge> graphReader = GraphReaderFactory.create(file);
+						Graph<Vertex, Edge> graph = graphReader.readGraph();
+						
+						int edgeCount = graph.getEdgeCount();
+						int vertexCount = graph.getVertexCount();
+						edgeCounts.putIfAbsent(edgeCount, new AtomicInteger());
+						edgeCounts.get(edgeCount).incrementAndGet();
+						vertexCounts.putIfAbsent(vertexCount, new AtomicInteger());
+						vertexCounts.get(vertexCount).incrementAndGet();
+						
+						Iterator<Vertex> it = graph.getVertices().iterator();
+						try {
+							new StOrdering<Vertex, Edge>((UndirectedGraph<Vertex, Edge>) graph, it.next(), it.next());
+						} catch (Exception e) {
+							exceptionCounter.incrementAndGet();
+						}
+						
+						PalmTree<Vertex, Edge> palmTree = new PalmTree<>((UndirectedGraph<Vertex, Edge>) graph);
+						if(palmTree.getSpanningTree().getVertexCount() != graph.getVertexCount())
+							throw new IllegalStateException("Not connected (?)");
+						
+						graphReader.close();
+					} catch (GraphIOException e) {
+						e.printStackTrace();
+					}
+					
+					int count = counter.getAndIncrement();
+					if(count % 500 == 0) {
+						System.out.println(count);
+					}
+				}
+			});
+		}
+		
+		long start = System.currentTimeMillis();
+		executor.shutdown(); // run!
+		while (!executor.isTerminated());
+		long end = System.currentTimeMillis();
+		
+		System.out.println(counter);
+		System.out.println("Stats in " + (end-start)/1000 + "s");
+		System.out.println("Failed:" + exceptionCounter);
+		System.out.println(new TreeMap<Integer, AtomicInteger>(vertexCounts));
+		System.out.println(new TreeMap<Integer, AtomicInteger>(edgeCounts));
 	}
 
 }
