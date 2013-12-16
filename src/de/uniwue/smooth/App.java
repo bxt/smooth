@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JFrame;
@@ -182,7 +183,11 @@ public class App {
 		
 		long start = System.currentTimeMillis();
 		executor.shutdown(); // run!
-		while (!executor.isTerminated());
+		try {
+			executor.awaitTermination(5, TimeUnit.MINUTES);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		long end = System.currentTimeMillis();
 		
 		System.out.println(counter);
