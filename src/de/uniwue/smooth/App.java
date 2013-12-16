@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JFrame;
 
+import de.uniwue.smooth.palm.PalmTree;
 import de.uniwue.smooth.planar.DoublyConnectedEdgeListEmbedding;
 import de.uniwue.smooth.planar.Embedding;
 import de.uniwue.smooth.planar.EmbeddingIterator;
