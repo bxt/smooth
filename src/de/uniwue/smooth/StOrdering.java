@@ -58,11 +58,11 @@ public class StOrdering<V,E> {
 	}
 	
 	private List<V> findClimbingTreePath(V start) {
-		Collection<E> treeEdges = palmTree.getSpanningTree().getOutEdges(start);
+		Collection<E> treeEdges = palmTree.getSpanningTrees().getOutEdges(start);
 		for(E e : treeEdges) {
 			if(!oldEdges.contains(e)) {
 				oldEdges.add(e);
-				V next = palmTree.getSpanningTree().getDest(e);
+				V next = palmTree.getSpanningTrees().getDest(e);
 				List<V> path = new ArrayList<>();
 				path.add(start);
 				path.add(next);
@@ -89,10 +89,10 @@ public class StOrdering<V,E> {
 				path.add(start);
 				path.add(next);
 				while(!oldVertices.contains(next)) {
-					e = palmTree.getSpanningTree().getParentEdge(next);
+					e = palmTree.getSpanningTrees().getParentEdge(next);
 					oldEdges.add(e);
 					oldVertices.add(next);
-					next = palmTree.getSpanningTree().getParent(next);
+					next = palmTree.getSpanningTrees().getParent(next);
 					path.add(next);
 				}
 				return path;

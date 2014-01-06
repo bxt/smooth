@@ -166,8 +166,10 @@ public class App {
 						}
 						
 						PalmTree<Vertex, Edge> palmTree = new PalmTree<>((UndirectedGraph<Vertex, Edge>) graph);
-						if(palmTree.getSpanningTree().getVertexCount() != graph.getVertexCount())
-							throw new IllegalStateException("Not connected (?)");
+						if(palmTree.getSpanningTrees().getVertexCount() != graph.getVertexCount())
+							throw new IllegalStateException("Vertex loss!?");
+						
+						if(palmTree.getSpanningTrees().getTrees().size() > 1) System.out.println("Not connected.");
 						
 						graphReader.close();
 					} catch (GraphIOException e) {

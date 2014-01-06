@@ -2,16 +2,15 @@ package de.uniwue.smooth.palm;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
 import de.uniwue.smooth.util.Tuple;
 import de.uniwue.smooth.util.Util;
-import edu.uci.ics.jung.graph.DelegateTree;
+import edu.uci.ics.jung.graph.DelegateForest;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import edu.uci.ics.jung.graph.Tree;
+import edu.uci.ics.jung.graph.Forest;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
 public class PalmTree<V,E> {
@@ -23,7 +22,8 @@ public class PalmTree<V,E> {
 	
 	private Map<V, Tuple<V, E>> backwards = new HashMap<V, Tuple<V, E>>();
 	private DirectedGraph<V, E> cycle = new DirectedSparseGraph<V, E>();
-	private Tree<V, E> spanningTree = new DelegateTree<V, E>();
+	private Forest<V, E> spanningTrees = new DelegateForest<V, E>();
+	V preselectedV = null;
 	V preselectedW = null;
 	
 	
@@ -35,23 +35,24 @@ public class PalmTree<V,E> {
 	 * @param t
 	 */
 	public PalmTree(UndirectedGraph<V, E> graph, V s, V t) {
+		preselectedV = s;
 		preselectedW = t;
-		process(graph, s);
+		process(graph);
 	}
 	
 	public PalmTree(UndirectedGraph<V, E> graph, V s) {
-		process(graph, s);
+		preselectedV = s;
+		process(graph);
 	}
 	
 	public PalmTree(UndirectedGraph<V, E> graph) {
-		V s = graph.getVertices().iterator().next();
-		process(graph, s);
+		process(graph);
 	}
 	
 	
 	
-	public Tree<V,E> getSpanningTree() {
-		return this.spanningTree;
+	public Forest<V,E> getSpanningTrees() {
+		return this.spanningTrees;
 	}
 	
 	public DirectedGraph<V, E> getCycle() {
@@ -72,16 +73,20 @@ public class PalmTree<V,E> {
 	
 	
 	
-	private void process(UndirectedGraph<V, E> graph, V s) {
-		initialize(graph, s);
-		depthFirstTraverse(s);
+	private void process(UndirectedGraph<V, E> graph) {
+		initialize(graph);
+		for(V v : getVertices()) {
+			if(!spanningTrees.containsVertex(v)) {
+				spanningTrees.addVertex(v);
+				depthFirstTraverse(v);
+			}
+		}
 		teardown();
 	}
 	
-	private void initialize(UndirectedGraph<V, E> graph, V s) {
+	private void initialize(UndirectedGraph<V, E> graph) {
 		this.graph = graph;
 		Util.copyVertices(graph, cycle);
-		spanningTree.addVertex(s);
 	}
 	
 	private void teardown() {
@@ -99,11 +104,11 @@ public class PalmTree<V,E> {
 			Integer wDiscoveryTime = discoveryTimes.get(w);
 			E edge = graph.findEdge(v, w);
 			if(wDiscoveryTime == null) {
-				spanningTree.addEdge(edge, v, w);
+				spanningTrees.addEdge(edge, v, w);
 				depthFirstTraverse(w);
 				updateLowerVertexTree(edge, v, w);
 			} else {
-				if (wDiscoveryTime < discoveryTime && spanningTree.getParent(v) != w) {
+				if (wDiscoveryTime < discoveryTime && spanningTrees.getParent(v) != w) {
 					cycle.addEdge(edge, v, w);
 					updateLowerVertexCycle(edge, v, w);
 				}
@@ -113,23 +118,36 @@ public class PalmTree<V,E> {
 	
 	private Collection<V> getNeighbors(V v) {
 		Collection<V> neighbors = graph.getNeighbors(v);
-		if (preselectedW != null) {
+		if (preselectedW == null) {
+			return neighbors;
+		} else {
 			LinkedList<V> sortedNeighbors = new LinkedList<>(neighbors);
-			Iterator<V> it = sortedNeighbors.iterator();
-			boolean found = false;
-			while (it.hasNext() && !found) {
-				V w = it.next();
-				if(w == preselectedW) {
-					it.remove();
-					found = true;
-				}
+			if (!moveToFrontOfList(sortedNeighbors, preselectedW)) {
+				throw new IllegalArgumentException("The edge s-t must be part of the graph!");
 			}
-			if(!found) throw new IllegalArgumentException("The edge s-t must be part of the graph!");
-			sortedNeighbors.addFirst(preselectedW);
-			neighbors = sortedNeighbors;
 			preselectedW = null;
+			return sortedNeighbors;
 		}
-		return neighbors;
+	}
+	
+	private Collection<V> getVertices() {
+		Collection<V> vertices = graph.getVertices();
+		if (preselectedV == null) {
+			return vertices;
+		} else {
+			LinkedList<V> sortedVertices = new LinkedList<>(vertices);
+			if (!moveToFrontOfList(sortedVertices, preselectedV)) {
+				throw new IllegalArgumentException("The vertex s must be part of the graph!");
+			}
+			preselectedV = null;
+			return sortedVertices;
+		}
+	}
+	
+	private <X> boolean moveToFrontOfList(LinkedList<X> list, X element) {
+		boolean changed = list.remove(element);
+		list.addFirst(element);
+		return changed;
 	}
 	
 	private void updateLowerVertexTree(E e, V v, V w) {
