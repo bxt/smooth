@@ -8,10 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.uniwue.smooth.util.Pair;
+
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
-import edu.uci.ics.jung.graph.util.Pair;
 
 public class BrandesEmbedding<V, E> {
 	
