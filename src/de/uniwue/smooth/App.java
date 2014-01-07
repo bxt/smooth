@@ -44,23 +44,41 @@ public class App {
 	}
 	
 	private DirectedGraph<Vertex, Edge> loadOctahedron() {
-		DirectedSparseMultigraph<Vertex, Edge> octahedron = new DirectedSparseMultigraph<Vertex, Edge>();
-		Vertex[] vs = {new Vertex(0), new Vertex(1), new Vertex(2), new Vertex(3), new Vertex(4), new Vertex(5)};
-		for (Vertex v : vs) octahedron.addVertex(v);
-		Edge[] es = {new Edge(0),new Edge(1),new Edge(2),new Edge(3),new Edge(4),new Edge(5),new Edge(6),new Edge(7),new Edge(8),new Edge(9),new Edge(10),new Edge(11)};
-		octahedron.addEdge(es[ 0], vs[0], vs[1]);
-		octahedron.addEdge(es[ 1], vs[0], vs[2]);
-		octahedron.addEdge(es[ 2], vs[0], vs[3]);
-		octahedron.addEdge(es[ 3], vs[0], vs[5]);
-		octahedron.addEdge(es[ 4], vs[1], vs[2]);
-		octahedron.addEdge(es[ 5], vs[1], vs[4]);
-		octahedron.addEdge(es[ 6], vs[1], vs[5]);
-		octahedron.addEdge(es[ 7], vs[2], vs[3]);
-		octahedron.addEdge(es[ 8], vs[2], vs[4]);
-		octahedron.addEdge(es[ 9], vs[3], vs[4]);
-		octahedron.addEdge(es[10], vs[3], vs[5]);
-		octahedron.addEdge(es[11], vs[4], vs[5]);
-		System.out.println("The graph = " + octahedron.toString());
+//		DirectedSparseMultigraph<Vertex, Edge> octahedron = new DirectedSparseMultigraph<Vertex, Edge>();
+//		Vertex[] vs = {new Vertex(0), new Vertex(1), new Vertex(2), new Vertex(3), new Vertex(4), new Vertex(5)};
+//		for (Vertex v : vs) octahedron.addVertex(v);
+//		Edge[] es = {new Edge(0),new Edge(1),new Edge(2),new Edge(3),new Edge(4),new Edge(5),new Edge(6),new Edge(7),new Edge(8),new Edge(9),new Edge(10),new Edge(11)};
+//		octahedron.addEdge(es[ 0], vs[0], vs[1]);
+//		octahedron.addEdge(es[ 1], vs[0], vs[2]);
+//		octahedron.addEdge(es[ 2], vs[0], vs[3]);
+//		octahedron.addEdge(es[ 3], vs[0], vs[5]);
+//		octahedron.addEdge(es[ 4], vs[1], vs[2]);
+//		octahedron.addEdge(es[ 5], vs[1], vs[4]);
+//		octahedron.addEdge(es[ 6], vs[1], vs[5]);
+//		octahedron.addEdge(es[ 7], vs[2], vs[3]);
+//		octahedron.addEdge(es[ 8], vs[2], vs[4]);
+//		octahedron.addEdge(es[ 9], vs[3], vs[4]);
+//		octahedron.addEdge(es[10], vs[3], vs[5]);
+//		octahedron.addEdge(es[11], vs[4], vs[5]);
+//		System.out.println("The graph = " + octahedron.toString());
+		
+		
+		
+
+		DirectedSparseMultigraph<Vertex, Edge> smallGraph = new DirectedSparseMultigraph<Vertex, Edge>();
+		Vertex[] vs = {new Vertex(0), new Vertex(1), new Vertex(2), new Vertex(3)};for (Vertex v : vs) smallGraph.addVertex(v);
+		Edge[] es = {new Edge(0),new Edge(1),new Edge(2),new Edge(3),new Edge(4)};
+		smallGraph.addEdge(es[ 0], vs[0], vs[1]);
+		smallGraph.addEdge(es[ 1], vs[1], vs[2]);
+		smallGraph.addEdge(es[ 2], vs[2], vs[3]);
+		smallGraph.addEdge(es[ 3], vs[3], vs[0]);
+		smallGraph.addEdge(es[ 4], vs[0], vs[2]);
+		System.out.println("The graph = " + smallGraph.toString());
+		
+		
+		
+		
+		
 		
 		MapSettableTransformer<Edge, Edge> nextEdgeSource = new MapSettableTransformer<Edge, Edge>(new HashMap<Edge, Edge>());
 		nextEdgeSource.set(es[ 0], es[ 3]);
@@ -88,7 +106,7 @@ public class App {
 		nextEdgeDest.set(es[ 9], es[11]);
 		nextEdgeDest.set(es[10], es[ 3]);
 		nextEdgeDest.set(es[11], es[10]);
-		Embedding<Vertex, Edge> octahedronEmbedding = new DoublyConnectedEdgeListEmbedding<Vertex, Edge>(octahedron, nextEdgeSource, nextEdgeDest, vs[0], es[3]);
+		Embedding<Vertex, Edge> octahedronEmbedding = new DoublyConnectedEdgeListEmbedding<Vertex, Edge>(smallGraph, nextEdgeSource, nextEdgeDest, vs[0], es[3]);
 		
 		EmbeddingIterator<Vertex, Edge> embeddingIterator = octahedronEmbedding.getEmbeddingIteratorOnOuterface();
 		System.out.println(EmbeddingIteratorTools.listAroundVertex(embeddingIterator));
@@ -105,13 +123,13 @@ public class App {
 		System.out.println(EmbeddingIteratorTools.listAroundFace(embeddingIterator));
 		System.out.println(EmbeddingIteratorTools.listAroundVertex(embeddingIterator));
 		
-		UndirectedGraph<Vertex, Edge> undirectedOctahedron = new UndirectedTransformer<Vertex, Edge>(UndirectedSparseGraph.<Vertex, Edge>getFactory()).transform(octahedron);
+		UndirectedGraph<Vertex, Edge> undirectedOctahedron = new UndirectedTransformer<Vertex, Edge>(UndirectedSparseGraph.<Vertex, Edge>getFactory()).transform(smallGraph);
 		//PalmTree<Vertex, Edge> octahedronPalm = new PalmTree<Vertex, Edge>(undirectedOctahedron);
 		StOrdering<Vertex, Edge> octahedronSorted = new StOrdering<Vertex, Edge>(undirectedOctahedron, vs[0], vs[1]);
 		
 		System.out.println(octahedronSorted.getList());
 		
-		return octahedron;
+		return smallGraph;
 	}
 	
 	public void draw(DirectedGraph<Vertex, Edge> graph) {

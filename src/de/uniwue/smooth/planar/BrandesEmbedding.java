@@ -118,7 +118,7 @@ public class BrandesEmbedding<V, E> {
 				if(f == adjacent.get(0)) {
 					lowPointingEdges.put(f, adjacent.get(0));
 				} else {
-					// add contraints of f
+					// add constraints of f
 					Pair<Pair<E>> p = new Pair<>(null, null);
 					// merge return edges of f into p.R
 					do {
@@ -136,7 +136,7 @@ public class BrandesEmbedding<V, E> {
 									references.put(p.getSecond().getFirst(), q.getSecond().getSecond());
 								}
 								p = new Pair<>(p.getFirst(), new Pair<>(q.getSecond().getFirst(), p.getSecond().getSecond()));
-							} else { //  make consisten
+							} else { //  make consistent
 								references.put(q.getSecond().getFirst(), lowPointingEdges.get(e));
 							}
 						}
