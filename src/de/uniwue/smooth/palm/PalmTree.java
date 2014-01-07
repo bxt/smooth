@@ -20,6 +20,7 @@ public class PalmTree<V,E> {
 	private int nextDiscoveryTime = 0;
 	private Map<V, V> lowerVertices = new HashMap<V, V>();
 	
+	private Map<V, Integer> heights = new HashMap<V, Integer>();
 	private Map<V, Tuple<V, E>> backwards = new HashMap<V, Tuple<V, E>>();
 	private DirectedGraph<V, E> cycle = new DirectedSparseGraph<V, E>();
 	private Forest<V, E> spanningTrees = new DelegateForest<V, E>();
@@ -77,6 +78,7 @@ public class PalmTree<V,E> {
 		initialize(graph);
 		for(V v : getVertices()) {
 			if(!spanningTrees.containsVertex(v)) {
+				heights.put(v, 0);
 				spanningTrees.addVertex(v);
 				depthFirstTraverse(v);
 			}
@@ -105,6 +107,7 @@ public class PalmTree<V,E> {
 			E edge = graph.findEdge(v, w);
 			if(wDiscoveryTime == null) {
 				spanningTrees.addEdge(edge, v, w);
+				heights.put(w, heights.get(v) + 1);
 				depthFirstTraverse(w);
 				updateLowerVertexTree(edge, v, w);
 			} else {
