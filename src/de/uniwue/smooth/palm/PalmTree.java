@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import de.uniwue.smooth.util.Tuple;
 import de.uniwue.smooth.util.Util;
+import de.uniwue.smooth.util.tuples.ImmutableTuple;
+import de.uniwue.smooth.util.tuples.Tuple;
 import edu.uci.ics.jung.graph.DelegateForest;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
@@ -159,7 +160,7 @@ public class PalmTree<V,E> {
 		int wLowDiscoveryTime = discoveryTimes.get(wLowVertex);
 		if(wLowDiscoveryTime < vLowDiscoveryTime) {
 			lowerVertices.put(v, wLowVertex);
-			backwards.put(v, new Tuple<V, E>(w, e));
+			backwards.put(v, new ImmutableTuple<V, E>(w, e));
 		}
 	}
 
@@ -167,7 +168,7 @@ public class PalmTree<V,E> {
 		int vLowDiscoveryTime = discoveryTimes.get(lowerVertices.get(v));
 		if(discoveryTimes.get(w) < vLowDiscoveryTime) {
 			lowerVertices.put(v, w);
-			backwards.put(v, new Tuple<V, E>(w, e));
+			backwards.put(v, new ImmutableTuple<V, E>(w, e));
 		} else {
 			// v is a separation point for the biconnected block
 		}

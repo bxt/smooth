@@ -8,8 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.uniwue.smooth.util.Pair;
-
+import de.uniwue.smooth.util.tuples.HLPair;
+import de.uniwue.smooth.util.tuples.LRPair;
+import de.uniwue.smooth.util.tuples.MutablePair;
+import de.uniwue.smooth.util.tuples.Pair;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
@@ -31,8 +33,8 @@ public class BrandesEmbedding<V, E> {
 	// testing
 	private Map<E, E> references = new HashMap<>();
 	private Map<E, Integer> sides = new HashMap<>();
-	private Deque<Pair<Pair<E>>> conflictStack;
-	private Map<E, Pair<Pair<E>>> stackBottoms;
+	private Deque<LRPair<HLPair<E>>> conflictStack;
+	private Map<E, LRPair<HLPair<E>>> stackBottoms;
 	private Map<E, E> lowPointingEdges = new HashMap<E, E>();
 	
 	// embedding
@@ -112,57 +114,57 @@ public class BrandesEmbedding<V, E> {
 				dfs2(target);
 			} else { // back edge
 				lowPointingEdges.put(f, f);
-				conflictStack.push(new Pair<Pair<E>>(null, new Pair<>(f, f))); // TODO: Pair with null
+				conflictStack.push(new MutablePair<HLPair<E>>(new MutablePair<E>(), new MutablePair<>(f, f)));
 			}
 			if (lowPointers.get(f) < heights.get(v)) { // f has return edge
 				if(f == adjacent.get(0)) {
 					lowPointingEdges.put(f, adjacent.get(0));
 				} else {
 					// add constraints of f
-					Pair<Pair<E>> p = new Pair<>(null, null);
+					LRPair<HLPair<E>> p = new MutablePair<HLPair<E>>(new MutablePair<E>(), new MutablePair<E>());
 					// merge return edges of f into p.R
 					do {
-						Pair<Pair<E>> q = conflictStack.pop();
-						if(q.getFirst() != null) {
-							q = new Pair<>(q.getSecond(), q.getFirst());
+						LRPair<HLPair<E>> q = conflictStack.pop();
+						if(q.getLeft() != null) {
+							swap(q);
 						}
-						if(q.getFirst() != null) {
+						if(q.getLeft() != null) {
 							throw new IllegalArgumentException("Not planar. (1)");
 						} else {
-							if(lowPointers.get(q.getSecond().getFirst()) > lowPointers.get(e)) { // merge intervals
-								if(p.getSecond() == null) {
-									p = new Pair<>(p.getFirst(), new Pair<>(p.getSecond().getFirst(), q.getSecond().getSecond()));
+							if(lowPointers.get(q.getRight().getLow()) > lowPointers.get(e)) { // merge intervals
+								if(isEmpty(p.getRight())) {
+									p.getRight().setHigh(q.getRight().getHigh());
 								} else {
-									references.put(p.getSecond().getFirst(), q.getSecond().getSecond());
+									references.put(p.getRight().getLow(), q.getRight().getHigh());
 								}
-								p = new Pair<>(p.getFirst(), new Pair<>(q.getSecond().getFirst(), p.getSecond().getSecond()));
+								p.getRight().setLow(q.getRight().getLow());
 							} else { //  make consistent
-								references.put(q.getSecond().getFirst(), lowPointingEdges.get(e));
+								references.put(q.getRight().getLow(), lowPointingEdges.get(e));
 							}
 						}
 					} while (conflictStack.peek() != stackBottoms.get(f));
 					// merge conflicting return edges of e1,...,ei-1 into p.L
-					while (conflicting(conflictStack.peek().getFirst(),f) || conflicting(conflictStack.peek().getSecond(), f)) {
-						Pair<Pair<E>> q = conflictStack.pop();
-						if (conflicting(q.getSecond(), f)) {
-							q = new Pair<>(q.getSecond(), q.getFirst());
+					while (conflicting(conflictStack.peek().getLeft(),f) || conflicting(conflictStack.peek().getRight(), f)) {
+						LRPair<HLPair<E>> q = conflictStack.pop();
+						if (conflicting(q.getRight(), f)) {
+							swap(q);
 						}
-						if (conflicting(q.getSecond(), f)) {
+						if (conflicting(q.getRight(), f)) {
 							throw new IllegalArgumentException("Not planar. (2)");
 						} else { // merge interval below lowpt f into P.R
-							references.put(p.getSecond().getFirst(), q.getSecond().getSecond());
-							if (q.getSecond().getFirst() != null) {
-								p = new Pair<>(p.getFirst(), new Pair<>(q.getSecond().getFirst(), p.getSecond().getSecond()));
+							references.put(p.getRight().getLow(), q.getRight().getHigh());
+							if (q.getRight().getLow() != null) {
+								p.getRight().setLow(q.getRight().getLow());
 							}
 						}
-						if (p.getFirst() != null) {
-							p = new Pair<>(new Pair<>(p.getFirst().getFirst(), q.getFirst().getSecond()), p.getSecond());
+						if (isEmpty(p.getLeft())) {
+							p.getLeft().setHigh(q.getLeft().getHigh());
 						} else {
-							references.put(p.getFirst().getFirst(), q.getFirst().getSecond());
+							references.put(p.getLeft().getLow(), q.getLeft().getLow());
 						}
-						p = new Pair<>(new Pair<>(q.getFirst().getFirst(), p.getFirst().getSecond()), p.getSecond());
+						p.getLeft().setLow(q.getLeft().getLow());
 					}
-					if(p.getFirst() != null || p.getSecond() != null) {
+					if(!isEmpty(p.getLeft()) && !isEmpty(p.getRight())) {
 						conflictStack.push(p);
 					}
 				}
@@ -173,37 +175,37 @@ public class BrandesEmbedding<V, E> {
 			// trim back edges ending at parent u
 			// drop entire conflict pairs
 			while (!conflictStack.isEmpty() && lowest(conflictStack.peek()) == heights.get(u)) {
-				Pair<Pair<E>> p = conflictStack.pop();
-				if(p.getFirst().getFirst() != null) {
-					sides.put(p.getFirst().getFirst(), -1);
+				LRPair<HLPair<E>> p = conflictStack.pop();
+				if(p.getLeft().getLow() != null) {
+					sides.put(p.getLeft().getLow(), -1);
 				}
 			}
 			if(!conflictStack.isEmpty()) {
-				Pair<Pair<E>> p = conflictStack.pop();
+				LRPair<HLPair<E>> p = conflictStack.pop();
 				// trim left interval
-				while (p.getFirst().getSecond() != null && directedGraph.getDest(p.getFirst().getSecond()) == u) {
-					p = new Pair<>(new Pair<> (p.getFirst().getFirst(), references.get(p.getFirst().getSecond())), p.getSecond());
+				while (p.getLeft().getHigh() != null && directedGraph.getDest(p.getLeft().getHigh()) == u) {
+					p.getLeft().setHigh(references.get(p.getLeft().getHigh()));
 				}
-				if (p.getFirst().getSecond() == null && p.getFirst().getFirst() != null) {// just emptied
-					references.put(p.getFirst().getFirst(), p.getSecond().getFirst());
-					sides.put(p.getFirst().getFirst(), -1);
-					p = new Pair<>(new Pair<> (null, p.getFirst().getSecond()), p.getSecond());
+				if (p.getLeft().getHigh() == null && p.getLeft().getLow() != null) {// just emptied
+					references.put(p.getLeft().getLow(), p.getRight().getLow());
+					sides.put(p.getLeft().getLow(), -1);
+					p.getLeft().setLow(null);
 				}
 				// trim right interval
-				while (p.getSecond().getSecond() != null && directedGraph.getDest(p.getSecond().getSecond()) == u) {
-					p = new Pair<>(p.getFirst(), new Pair<> (p.getSecond().getFirst(), references.get(p.getSecond().getSecond())));
+				while (p.getRight().getHigh() != null && directedGraph.getDest(p.getRight().getHigh()) == u) {
+					p.getRight().setHigh(references.get(p.getRight().getHigh()));
 				}
-				if (p.getSecond().getSecond() == null && p.getSecond().getFirst() != null) {// just emptied
-					references.put(p.getSecond().getFirst(), p.getFirst().getFirst());
-					sides.put(p.getSecond().getFirst(), -1);
-					p = new Pair<>(p.getFirst(), new Pair<> (null, p.getSecond().getSecond()));
+				if (p.getRight().getHigh() == null && p.getRight().getLow() != null) {// just emptied
+					references.put(p.getRight().getLow(), p.getLeft().getLow());
+					sides.put(p.getRight().getLow(), -1);
+					p.getRight().setLow(null);
 				}
 				conflictStack.push(p);
 			}
 			// side of e is side of a highest return edge
 			if(lowPointers.get(e) < heights.get(u)) { // e has return edge
-				E hL = conflictStack.peek().getFirst().getFirst();
-				E hR = conflictStack.peek().getSecond().getFirst();
+				E hL = conflictStack.peek().getLeft().getHigh();
+				E hR = conflictStack.peek().getRight().getHigh();
 				if(hL != null && (hR == null || lowPointers.get(hL) > lowPointers.get(hR))) {
 					references.put(e, hL);
 				} else {
@@ -212,15 +214,25 @@ public class BrandesEmbedding<V, E> {
 			}
 		}
 	}
-
-	private int lowest(Pair<Pair<E>> p) {
-		if(p.getFirst() == null) return lowPointers.get(p.getSecond().getFirst());
-		if(p.getSecond() == null) return lowPointers.get(p.getFirst().getFirst());
-		return Math.min(lowPointers.get(p.getSecond().getFirst()), lowPointers.get(p.getFirst().getFirst()));
+	
+	private boolean isEmpty(HLPair<?> interval) {
+		return interval.getLow() == null && interval.getHigh() == null;
+	}
+	
+	private <T> void swap(Pair<T> pair) {
+		T tmp = pair.getFirst();
+		pair.setFirst(pair.getSecond());
+		pair.setSecond(tmp);
+	}
+	
+	private int lowest(LRPair<HLPair<E>> p) {
+		if(isEmpty(p.getLeft())) return lowPointers.get(p.getRight().getLow());
+		if(isEmpty(p.getRight())) return lowPointers.get(p.getLeft().getLow());
+		return Math.min(lowPointers.get(p.getLeft().getLow()), lowPointers.get(p.getRight().getLow()));
 	}
 
-	private boolean conflicting(Pair<E> i, E b) {
-		return i != null && lowPointers.get(i.getSecond()) > lowPointers.get(b);
+	private boolean conflicting(HLPair<E> interval, E edge) {
+		return ! isEmpty(interval) && lowPointers.get(interval.getHigh()) > lowPointers.get(edge);
 	}
 
 	private List<E> adjacentOrderedByNestingDepth(V v) {
