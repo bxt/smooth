@@ -79,22 +79,32 @@ public class BrandesEmbedding<V, E> {
 				 } else { // back edge
 					 lowPointers.put(f, heights.get(w));
 				 }
-				 // nesting depth
+				 calculateNestingDepth(f, v); 
 				 nestingDepths.put(f, 2 * lowPointers.get(f));
 				 if(low2Pointers.get(f) < heights.get(v)) { // chordal
 					 nestingDepths.put(f, nestingDepths.get(f) + 1);
 				 }
-				 // update lowpoints of parent edge e
-				 if(e != null) {
-					 if(lowPointers.get(f) < lowPointers.get(e)) {
-						 low2Pointers.put(e, Math.min(lowPointers.get(e), low2Pointers.get(f)));
-						 lowPointers.put(e, lowPointers.get(f));
-					 } else if (lowPointers.get(f) > lowPointers.get(e)) {
-						 low2Pointers.put(e, Math.min(low2Pointers.get(e), lowPointers.get(f)));
-					 } else {
-						 low2Pointers.put(e, Math.min(low2Pointers.get(e), low2Pointers.get(f)));
-					 }
-				 }
+				 updateLowpointsOfParentEdge(e, f);
+			 }
+		 }
+	}
+	
+	private void calculateNestingDepth(E edge, V v) {
+		 nestingDepths.put(edge, 2 * lowPointers.get(edge));
+		 if(low2Pointers.get(edge) < heights.get(v)) { // chordal
+			 nestingDepths.put(edge, nestingDepths.get(edge) + 1);
+		 }
+	}
+	
+	private void updateLowpointsOfParentEdge(E parent, E currentChild) {
+		 if(parent != null) {
+			 if(lowPointers.get(currentChild) < lowPointers.get(parent)) {
+				 low2Pointers.put(parent, Math.min(lowPointers.get(parent), low2Pointers.get(currentChild)));
+				 lowPointers.put(parent, lowPointers.get(currentChild));
+			 } else if (lowPointers.get(currentChild) > lowPointers.get(parent)) {
+				 low2Pointers.put(parent, Math.min(low2Pointers.get(parent), lowPointers.get(currentChild)));
+			 } else {
+				 low2Pointers.put(parent, Math.min(low2Pointers.get(parent), low2Pointers.get(currentChild)));
 			 }
 		 }
 	}
@@ -120,88 +130,13 @@ public class BrandesEmbedding<V, E> {
 				if(f == adjacent.get(0)) {
 					lowPointingEdges.put(f, adjacent.get(0));
 				} else {
-					// add constraints of f
-					LRPair<HLPair<E>> p = new MutablePair<HLPair<E>>(new MutablePair<E>(), new MutablePair<E>());
-					// merge return edges of f into p.R
-					do {
-						LRPair<HLPair<E>> q = conflictStack.pop();
-						if(q.getLeft() != null) {
-							swap(q);
-						}
-						if(q.getLeft() != null) {
-							throw new IllegalArgumentException("Not planar. (1)");
-						} else {
-							if(lowPointers.get(q.getRight().getLow()) > lowPointers.get(e)) { // merge intervals
-								if(isEmpty(p.getRight())) {
-									p.getRight().setHigh(q.getRight().getHigh());
-								} else {
-									references.put(p.getRight().getLow(), q.getRight().getHigh());
-								}
-								p.getRight().setLow(q.getRight().getLow());
-							} else { //  make consistent
-								references.put(q.getRight().getLow(), lowPointingEdges.get(e));
-							}
-						}
-					} while (conflictStack.peek() != stackBottoms.get(f));
-					// merge conflicting return edges of e1,...,ei-1 into p.L
-					while (conflicting(conflictStack.peek().getLeft(),f) || conflicting(conflictStack.peek().getRight(), f)) {
-						LRPair<HLPair<E>> q = conflictStack.pop();
-						if (conflicting(q.getRight(), f)) {
-							swap(q);
-						}
-						if (conflicting(q.getRight(), f)) {
-							throw new IllegalArgumentException("Not planar. (2)");
-						} else { // merge interval below lowpt f into P.R
-							references.put(p.getRight().getLow(), q.getRight().getHigh());
-							if (q.getRight().getLow() != null) {
-								p.getRight().setLow(q.getRight().getLow());
-							}
-						}
-						if (isEmpty(p.getLeft())) {
-							p.getLeft().setHigh(q.getLeft().getHigh());
-						} else {
-							references.put(p.getLeft().getLow(), q.getLeft().getLow());
-						}
-						p.getLeft().setLow(q.getLeft().getLow());
-					}
-					if(!isEmpty(p.getLeft()) && !isEmpty(p.getRight())) {
-						conflictStack.push(p);
-					}
+					addConstraints(f, e);
 				}
 			}
 		}
 		if(e != null) {
 			V u = directedGraph.getOpposite(v, e);
-			// trim back edges ending at parent u
-			// drop entire conflict pairs
-			while (!conflictStack.isEmpty() && lowest(conflictStack.peek()) == heights.get(u)) {
-				LRPair<HLPair<E>> p = conflictStack.pop();
-				if(p.getLeft().getLow() != null) {
-					sides.put(p.getLeft().getLow(), -1);
-				}
-			}
-			if(!conflictStack.isEmpty()) {
-				LRPair<HLPair<E>> p = conflictStack.pop();
-				// trim left interval
-				while (p.getLeft().getHigh() != null && directedGraph.getDest(p.getLeft().getHigh()) == u) {
-					p.getLeft().setHigh(references.get(p.getLeft().getHigh()));
-				}
-				if (p.getLeft().getHigh() == null && p.getLeft().getLow() != null) {// just emptied
-					references.put(p.getLeft().getLow(), p.getRight().getLow());
-					sides.put(p.getLeft().getLow(), -1);
-					p.getLeft().setLow(null);
-				}
-				// trim right interval
-				while (p.getRight().getHigh() != null && directedGraph.getDest(p.getRight().getHigh()) == u) {
-					p.getRight().setHigh(references.get(p.getRight().getHigh()));
-				}
-				if (p.getRight().getHigh() == null && p.getRight().getLow() != null) {// just emptied
-					references.put(p.getRight().getLow(), p.getLeft().getLow());
-					sides.put(p.getRight().getLow(), -1);
-					p.getRight().setLow(null);
-				}
-				conflictStack.push(p);
-			}
+			trimBackEdges(u); // trim back edges ending at parent u
 			// side of e is side of a highest return edge
 			if(lowPointers.get(e) < heights.get(u)) { // e has return edge
 				E hL = conflictStack.peek().getLeft().getHigh();
@@ -212,6 +147,87 @@ public class BrandesEmbedding<V, E> {
 					references.put(e, hR);
 				}
 			}
+		}
+	}
+	
+	private void trimBackEdges(V u) {
+		// drop entire conflict pairs
+		while (!conflictStack.isEmpty() && lowest(conflictStack.peek()) == heights.get(u)) {
+			LRPair<HLPair<E>> p = conflictStack.pop();
+			if(p.getLeft().getLow() != null) {
+				sides.put(p.getLeft().getLow(), -1);
+			}
+		}
+		if(!conflictStack.isEmpty()) {
+			LRPair<HLPair<E>> p = conflictStack.pop();
+			// trim left interval
+			while (p.getLeft().getHigh() != null && directedGraph.getDest(p.getLeft().getHigh()) == u) {
+				p.getLeft().setHigh(references.get(p.getLeft().getHigh()));
+			}
+			if (p.getLeft().getHigh() == null && p.getLeft().getLow() != null) {// just emptied
+				references.put(p.getLeft().getLow(), p.getRight().getLow());
+				sides.put(p.getLeft().getLow(), -1);
+				p.getLeft().setLow(null);
+			}
+			// trim right interval
+			while (p.getRight().getHigh() != null && directedGraph.getDest(p.getRight().getHigh()) == u) {
+				p.getRight().setHigh(references.get(p.getRight().getHigh()));
+			}
+			if (p.getRight().getHigh() == null && p.getRight().getLow() != null) {// just emptied
+				references.put(p.getRight().getLow(), p.getLeft().getLow());
+				sides.put(p.getRight().getLow(), -1);
+				p.getRight().setLow(null);
+			}
+			conflictStack.push(p);
+		}		
+	}
+	
+	private void addConstraints(E f, E e) {
+		LRPair<HLPair<E>> p = new MutablePair<HLPair<E>>(new MutablePair<E>(), new MutablePair<E>());
+		// merge return edges of f into p.R
+		do {
+			LRPair<HLPair<E>> q = conflictStack.pop();
+			if(q.getLeft() != null) {
+				swap(q);
+			}
+			if(q.getLeft() != null) {
+				throw new IllegalArgumentException("Not planar. (1)");
+			} else {
+				if(lowPointers.get(q.getRight().getLow()) > lowPointers.get(e)) { // merge intervals
+					if(isEmpty(p.getRight())) {
+						p.getRight().setHigh(q.getRight().getHigh());
+					} else {
+						references.put(p.getRight().getLow(), q.getRight().getHigh());
+					}
+					p.getRight().setLow(q.getRight().getLow());
+				} else { //  make consistent
+					references.put(q.getRight().getLow(), lowPointingEdges.get(e));
+				}
+			}
+		} while (conflictStack.peek() != stackBottoms.get(f));
+		// merge conflicting return edges of e1,...,ei-1 into p.L
+		while (conflicting(conflictStack.peek().getLeft(),f) || conflicting(conflictStack.peek().getRight(), f)) {
+			LRPair<HLPair<E>> q = conflictStack.pop();
+			if (conflicting(q.getRight(), f)) {
+				swap(q);
+			}
+			if (conflicting(q.getRight(), f)) {
+				throw new IllegalArgumentException("Not planar. (2)");
+			} else { // merge interval below lowpt f into P.R
+				references.put(p.getRight().getLow(), q.getRight().getHigh());
+				if (q.getRight().getLow() != null) {
+					p.getRight().setLow(q.getRight().getLow());
+				}
+			}
+			if (isEmpty(p.getLeft())) {
+				p.getLeft().setHigh(q.getLeft().getHigh());
+			} else {
+				references.put(p.getLeft().getLow(), q.getLeft().getLow());
+			}
+			p.getLeft().setLow(q.getLeft().getLow());
+		}
+		if(!isEmpty(p.getLeft()) && !isEmpty(p.getRight())) {
+			conflictStack.push(p);
 		}
 	}
 	
