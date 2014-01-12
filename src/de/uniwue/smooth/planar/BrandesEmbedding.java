@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,11 +17,12 @@ import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
-public class BrandesEmbedding<V, E> {
+public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 	
 	private UndirectedGraph<V, E> graph;
 	
 	private List<V> roots = new ArrayList<>();
+	private Map<V, List<E>> adjacencies = new HashMap<>();
 	
 	// Orientation
 	private DirectedGraph<V, E> directedGraph = new DirectedSparseGraph<>();
@@ -33,8 +35,8 @@ public class BrandesEmbedding<V, E> {
 	// testing
 	private Map<E, E> references = new HashMap<>();
 	private Map<E, Integer> sides = new HashMap<>();
-	private Deque<LRPair<HLPair<E>>> conflictStack;
-	private Map<E, LRPair<HLPair<E>>> stackBottoms;
+	private Deque<LRPair<HLPair<E>>> conflictStack = new LinkedList<>();
+	private Map<E, LRPair<HLPair<E>>> stackBottoms = new HashMap<>();
 	private Map<E, E> lowPointingEdges = new HashMap<E, E>();
 	
 	// embedding
@@ -265,6 +267,9 @@ public class BrandesEmbedding<V, E> {
 		for (E e  : graph.getEdges()) {
 			nestingDepths.put(e, nestingDepths.get(e) * sign(e));
 		}
+		for (V v: graph.getVertices()) {
+			adjacencies.put(v, adjacentOrderedByNestingDepth(v));
+		}
 		for (V s : roots) {
 			dfs3(s);
 		}	
@@ -279,25 +284,80 @@ public class BrandesEmbedding<V, E> {
 	}
 	
 	private void dfs3(V v) {
-		List<E> adjacent = adjacentOrderedByNestingDepth(v);
-		for (E f : adjacent) {
+		for (E f : adjacencies.get(v)) {
 			V w = directedGraph.getDest(f);
-			if(f == parentEdges.get(w)) { // tree edge
-				adjacent.remove(f);
-				adjacent.add(0, f);
-				leftReferences.put(v, f);
-				rightReferences.put(v, f);
-			} else { // back edge
-				if(sides.get(f) == 1) {
+			if(v != w) { // outgoing
+				List<E> adjacent = adjacencies.get(w);
+				if(f == parentEdges.get(w)) { // tree edge
 					adjacent.remove(f);
-					adjacent.add(adjacent.indexOf(rightReferences.get(w)) + 1, f);
-				} else {
-					adjacent.remove(f);
-					adjacent.add(adjacent.indexOf(leftReferences.get(w)), f);
-					leftReferences.put(w, f);
+					adjacent.add(0, f);
+					leftReferences.put(v, f);
+					rightReferences.put(v, f);
+				} else { // back edge
+					if(sides.get(f) == 1) {
+						adjacent.remove(f);
+						adjacent.add(adjacent.indexOf(rightReferences.get(w)) + 1, f);
+					} else {
+						adjacent.remove(f);
+						adjacent.add(adjacent.indexOf(leftReferences.get(w)), f);
+						leftReferences.put(w, f);
+					}
 				}
 			}
 		}
 	}
 
+	@Override
+	public EmbeddingIterator<V, E> getEmbeddingIteratorOnOuterface() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EmbeddingIterator<V, E> getEmbeddingIteratorAtEdge(E edge) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EmbeddingIterator<V, E> getEmbeddingIteratorAtVertex(V vertex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EmbeddingIterator<V, E> getEmbeddingIterator(V vertex, E edge) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private class BrandesEmbeddingIterator implements EmbeddingIterator<V, E> {
+		private V vertex;
+		private E edge;
+		
+		@Override
+		public V getVertex() {
+			return vertex;
+		}
+		@Override
+		public E getEdge() {
+			return edge;
+		}
+		@Override
+		public void nextAroundVertex() {
+			// TODO Auto-generated method stub, change edge
+			
+		}
+		@Override
+		public void nextAroundFace() {
+			// TODO Auto-generated method stub, change both
+			
+		}
+		@Override
+		public void oppositeOnEdge() {
+			// TODO Auto-generated method stub, change vertex
+			
+		}
+	}
+	
 }
