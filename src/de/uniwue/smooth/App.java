@@ -52,7 +52,8 @@ public class App {
 	
 	private UndirectedGraph<Vertex, Edge> loadSimplePlanarGraph() {
 		UndirectedGraph<Vertex, Edge> smallGraph = new UndirectedSparseGraph<Vertex, Edge>();
-		Vertex[] vs = {new Vertex(0), new Vertex(1), new Vertex(2), new Vertex(3)};for (Vertex v : vs) smallGraph.addVertex(v);
+		Vertex[] vs = {new Vertex(0), new Vertex(1), new Vertex(2), new Vertex(3)};
+		for (Vertex v : vs) smallGraph.addVertex(v);
 		Edge[] es = {new Edge(0),new Edge(1),new Edge(2),new Edge(3),new Edge(4)};
 		smallGraph.addEdge(es[ 0], vs[0], vs[1]);
 		smallGraph.addEdge(es[ 1], vs[1], vs[2]);
@@ -61,8 +62,7 @@ public class App {
 		smallGraph.addEdge(es[ 4], vs[0], vs[2]);
 		System.out.println("The graph = " + smallGraph.toString());
 		
-		
-		new BrandesEmbedding<Vertex, Edge>(smallGraph);
+		Embedding<Vertex, Edge> smallGraphEmbedding = new BrandesEmbedding<Vertex, Edge>(smallGraph);
 		
 		return smallGraph;
 	}

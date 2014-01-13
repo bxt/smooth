@@ -51,6 +51,8 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 		
 		this.graph = graph;
 		
+		for(E e : graph.getEdges()) sides.put(e, 1);
+		
 		orientation();
 		testing();
 		embedding();
@@ -82,10 +84,6 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 					 lowPointers.put(f, heights.get(w));
 				 }
 				 calculateNestingDepth(f, v); 
-				 nestingDepths.put(f, 2 * lowPointers.get(f));
-				 if(low2Pointers.get(f) < heights.get(v)) { // chordal
-					 nestingDepths.put(f, nestingDepths.get(f) + 1);
-				 }
 				 updateLowpointsOfParentEdge(e, f);
 			 }
 		 }
@@ -189,10 +187,10 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 		// merge return edges of f into p.R
 		do {
 			LRPair<HLPair<E>> q = conflictStack.pop();
-			if(q.getLeft() != null) {
+			if(!isEmpty(q.getLeft())) {
 				swap(q);
 			}
-			if(q.getLeft() != null) {
+			if(!isEmpty(q.getLeft())) {
 				throw new IllegalArgumentException("Not planar. (1)");
 			} else {
 				if(lowPointers.get(q.getRight().getLow()) > lowPointers.get(e)) { // merge intervals
