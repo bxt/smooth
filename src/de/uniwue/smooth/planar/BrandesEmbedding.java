@@ -56,6 +56,7 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 		orientation();
 		testing();
 		embedding();
+		System.out.println();
 	}
 
 	private void orientation() {
@@ -282,7 +283,8 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 	}
 	
 	private void dfs3(V v) {
-		for (E f : adjacencies.get(v)) {
+		List<E> temp = new ArrayList<E>(adjacencies.get(v));
+		for (E f : temp) {
 			V w = directedGraph.getDest(f);
 			if(v != w) { // outgoing
 				List<E> adjacent = adjacencies.get(w);
@@ -291,6 +293,7 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 					adjacent.add(0, f);
 					leftReferences.put(v, f);
 					rightReferences.put(v, f);
+					dfs3(w);
 				} else { // back edge
 					if(sides.get(f) == 1) {
 						adjacent.remove(f);
