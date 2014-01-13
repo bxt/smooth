@@ -13,4 +13,7 @@ public class Util {
 		return allSuccessful;
 	}
 	
+	public static String nullsafeToString(Object o) {
+		return (o == null ? "null" : o.toString());
+	}
 }

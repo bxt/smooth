@@ -2,6 +2,8 @@ package de.uniwue.smooth.util.tuples;
 
 import java.io.Serializable;
 
+import de.uniwue.smooth.util.Util;
+
 public class MutableTuple<X, Y> implements Serializable, Tuple<X, Y> {
 	
 	private static final long serialVersionUID = 1L;
@@ -70,7 +72,7 @@ public class MutableTuple<X, Y> implements Serializable, Tuple<X, Y> {
 
 	@Override
     public String toString() {
-        return "(" + first.toString() + ", " + second.toString() + ")";
+        return "(" + Util.nullsafeToString(first) + ", " + Util.nullsafeToString(second) + ")";
     }
 	
 }
