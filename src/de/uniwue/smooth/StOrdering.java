@@ -3,6 +3,7 @@ package de.uniwue.smooth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,7 +17,7 @@ import de.uniwue.smooth.palm.PalmTree;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
-public class StOrdering<V,E> {
+public class StOrdering<V,E> implements Comparator<V> {
 	
 	private Set<V> oldVertices = new HashSet<>();
 	private Set<E> oldEdges = new HashSet<>();
@@ -107,7 +108,6 @@ public class StOrdering<V,E> {
 		oldVertices.add(s);
 		oldVertices.add(t);
 		Deque<V> stack = new LinkedList<>();
-		List<V> done = new ArrayList<>();
 		stack.push(t);
 		stack.push(s);
 		while(!stack.isEmpty()) {
@@ -118,7 +118,7 @@ public class StOrdering<V,E> {
 					stack.push(path.get(i));
 				}
 			} else {
-				done.add(v);
+				vertexList.add(v);
 			}
 		}
 		for (int i = 0; i < getList().size(); i++) {
@@ -137,5 +137,10 @@ public class StOrdering<V,E> {
 	public DirectedGraph<V, E> getDirectedAcyclicGraph() {
 		throw new NotImplementedException();
 		// TODO
+	}
+
+	@Override
+	public int compare(V o1, V o2) {
+		return numbers.get(o1).compareTo(numbers.get(o2));
 	}
 }
