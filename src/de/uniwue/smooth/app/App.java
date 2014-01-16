@@ -23,7 +23,7 @@ import de.uniwue.smooth.planar.BrandesEmbedding;
 import de.uniwue.smooth.planar.DoublyConnectedEdgeListEmbedding;
 import de.uniwue.smooth.planar.Embedding;
 import de.uniwue.smooth.planar.EmbeddingIterator;
-import de.uniwue.smooth.planar.EmbeddingIteratorTools;
+import de.uniwue.smooth.planar.EmbeddingTools;
 import de.uniwue.smooth.planar.NotPlanarException;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
@@ -109,19 +109,19 @@ public class App {
 		Embedding<Vertex, Edge> octahedronEmbedding = new DoublyConnectedEdgeListEmbedding<Vertex, Edge>(octahedron, nextEdgeSource, nextEdgeDest, vs[0], es[3]);
 		
 		EmbeddingIterator<Vertex, Edge> embeddingIterator = octahedronEmbedding.getEmbeddingIteratorOnOuterface();
-		System.out.println(EmbeddingIteratorTools.listAroundVertex(embeddingIterator));
-		System.out.println(EmbeddingIteratorTools.listAroundFace(embeddingIterator));
+		System.out.println(EmbeddingTools.listAroundVertex(embeddingIterator));
+		System.out.println(EmbeddingTools.listAroundFace(embeddingIterator));
 		embeddingIterator.nextAroundVertex();
-		System.out.println(EmbeddingIteratorTools.listAroundFace(embeddingIterator));
+		System.out.println(EmbeddingTools.listAroundFace(embeddingIterator));
 		embeddingIterator.nextAroundVertex();
-		System.out.println(EmbeddingIteratorTools.listAroundFace(embeddingIterator));
+		System.out.println(EmbeddingTools.listAroundFace(embeddingIterator));
 		embeddingIterator.nextAroundVertex();
-		System.out.println(EmbeddingIteratorTools.listAroundFace(embeddingIterator));
+		System.out.println(EmbeddingTools.listAroundFace(embeddingIterator));
 		embeddingIterator.nextAroundVertex();
-		System.out.println(EmbeddingIteratorTools.listAroundFace(embeddingIterator));
+		System.out.println(EmbeddingTools.listAroundFace(embeddingIterator));
 		embeddingIterator.oppositeOnEdge();
-		System.out.println(EmbeddingIteratorTools.listAroundFace(embeddingIterator));
-		System.out.println(EmbeddingIteratorTools.listAroundVertex(embeddingIterator));
+		System.out.println(EmbeddingTools.listAroundFace(embeddingIterator));
+		System.out.println(EmbeddingTools.listAroundVertex(embeddingIterator));
 		
 		UndirectedGraph<Vertex, Edge> undirectedOctahedron = new UndirectedTransformer<Vertex, Edge>(UndirectedSparseGraph.<Vertex, Edge>getFactory()).transform(octahedron);
 		//PalmTree<Vertex, Edge> octahedronPalm = new PalmTree<Vertex, Edge>(undirectedOctahedron);
