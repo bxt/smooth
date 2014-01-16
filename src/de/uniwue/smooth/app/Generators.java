@@ -34,8 +34,7 @@ public abstract class Generators {
 	}
 	
 	public static UndirectedGraph<Vertex, Edge> matching(int n, boolean randomize) {
-		int[] partitions = {n,n};
-		UndirectedGraph<Vertex, Edge> graph = new CompleteKPartitGraphGenerator<Vertex, Edge>(randomize, partitions, Vertex.getFactory(), Edge.getFactory()).create();
+		UndirectedGraph<Vertex, Edge> graph = new CompleteKPartitGraphGenerator<Vertex, Edge>(randomize, new int[]{n,n}, Vertex.getFactory(), Edge.getFactory()).create();
 		System.out.println(graph);
 		return graph;
 	}
