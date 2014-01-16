@@ -40,6 +40,7 @@ public class CompleteKPartitGraphGenerator<V, E> implements Factory<UndirectedGr
 		
 		int edgeCount = 0;
 		for (int s : partitionSizes) edgeCount += s * (vertexCount - s);
+		edgeCount /= 2;
 		List<E> edges    = Util.listFromFactory(edgeFactory  , edgeCount  );
 		if (randomize) Collections.shuffle(edges);
 		
