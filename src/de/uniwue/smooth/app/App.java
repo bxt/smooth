@@ -58,12 +58,7 @@ public class App {
 	}
 	
 	public boolean isPlanar(UndirectedGraph<Vertex, Edge> graph) {
-		try {
-			Embedding<Vertex, Edge> smallGraphEmbedding = new BrandesEmbedding<Vertex, Edge>(graph);
-			return true;
-		} catch (NotPlanarException e) {
-			return false;
-		}
+		return BrandesEmbedding.isPlanar(graph);
 	}
 	
 	private DirectedGraph<Vertex, Edge> loadOctahedron() {

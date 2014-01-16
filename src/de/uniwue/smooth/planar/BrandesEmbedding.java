@@ -19,6 +19,15 @@ import edu.uci.ics.jung.graph.UndirectedGraph;
 
 public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 	
+	public static <V, E> boolean isPlanar(UndirectedGraph<V, E> graph) {
+		try {
+			new BrandesEmbedding<V, E>(graph);
+			return true;
+		} catch (NotPlanarException e) {
+			return false;
+		}
+	}
+	
 	private UndirectedGraph<V, E> graph;
 	
 	private List<V> roots = new ArrayList<>();
