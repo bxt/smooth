@@ -24,6 +24,7 @@ import de.uniwue.smooth.planar.DoublyConnectedEdgeListEmbedding;
 import de.uniwue.smooth.planar.Embedding;
 import de.uniwue.smooth.planar.EmbeddingIterator;
 import de.uniwue.smooth.planar.EmbeddingIteratorTools;
+import de.uniwue.smooth.planar.NotPlanarException;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.algorithms.util.MapSettableTransformer;
@@ -46,18 +47,21 @@ public class App {
 	public void main() {
 		
 		//draw(Generators.wheel(3));
-		draw(Generators.hexahedron());
+		//draw(Generators.hexahedron());
 		//draw(Generators.octahedron());
 		
-		//loadSimplePlanarGraph();
+		System.out.println(isPlanar(Generators.k33()));
+		
+		romeStats();
 	}
 	
-	private UndirectedGraph<Vertex, Edge> loadSimplePlanarGraph() {
-		UndirectedGraph<Vertex, Edge> smallGraph = Generators.simplePlanarGraph();
-		
-		Embedding<Vertex, Edge> smallGraphEmbedding = new BrandesEmbedding<Vertex, Edge>(smallGraph);
-		
-		return smallGraph;
+	public boolean isPlanar(UndirectedGraph<Vertex, Edge> graph) {
+		try {
+			Embedding<Vertex, Edge> smallGraphEmbedding = new BrandesEmbedding<Vertex, Edge>(graph);
+			return true;
+		} catch (NotPlanarException e) {
+			return false;
+		}
 	}
 	
 	private DirectedGraph<Vertex, Edge> loadOctahedron() {
@@ -153,6 +157,7 @@ public class App {
 		final ConcurrentHashMap<Integer, AtomicInteger> vertexCounts = new ConcurrentHashMap<Integer, AtomicInteger>();
 		final AtomicInteger counter = new AtomicInteger();
 		final AtomicInteger exceptionCounter = new AtomicInteger();
+		final AtomicInteger planarCounter = new AtomicInteger();
 		
 		File[] files =  new File("resources/rome").listFiles(new FilenameFilter() {
 			@Override
@@ -174,6 +179,9 @@ public class App {
 						edgeCounts.get(edgeCount).incrementAndGet();
 						vertexCounts.putIfAbsent(vertexCount, new AtomicInteger());
 						vertexCounts.get(vertexCount).incrementAndGet();
+						
+						if(isPlanar((UndirectedGraph<Vertex, Edge>) graph))
+							planarCounter.incrementAndGet();
 						
 						Iterator<Vertex> it = graph.getVertices().iterator();
 						try {
@@ -212,7 +220,9 @@ public class App {
 		
 		System.out.println(counter);
 		System.out.println("Stats in " + (end-start)/1000 + "s");
+		System.out.println("Counts:" + files.length);
 		System.out.println("Failed:" + exceptionCounter);
+		System.out.println("Planar:" + planarCounter);
 		System.out.println(new TreeMap<Integer, AtomicInteger>(vertexCounts));
 		System.out.println(new TreeMap<Integer, AtomicInteger>(edgeCounts));
 	}

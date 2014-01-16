@@ -43,20 +43,20 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 	private Map<V, E> leftReferences = new HashMap<>();
 	private Map<V, E> rightReferences = new HashMap<>();
 	
-	public BrandesEmbedding(UndirectedGraph<V, E> graph) {
+	public BrandesEmbedding(UndirectedGraph<V, E> graph) throws NotPlanarException {
 		// check for simple graph here?
 		
 		if (graph.getEdgeCount() > graph.getVertexCount() *3 - 6)
-			throw new IllegalArgumentException("Graph is not planar, too many edges.");
+			throw new NotPlanarException("Not planar, too many edges.");
 		
 		this.graph = graph;
 		
 		for(E e : graph.getEdges()) sides.put(e, 1);
+		for(V v : graph.getVertices()) directedGraph.addVertex(v);
 		
 		orientation();
 		testing();
 		embedding();
-		System.out.println();
 	}
 
 	private void orientation() {
@@ -110,12 +110,12 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 		 }
 	}
 	
-	private void testing() {
+	private void testing() throws NotPlanarException {
 		for(V v : roots) dfs2(v);
 		
 	}
 
-	private void dfs2(V v) {
+	private void dfs2(V v) throws NotPlanarException {
 		E e = parentEdges.get(v);
 		List<E> adjacent = adjacentOrderedByNestingDepth(v);
 		for (E f : adjacent) {
@@ -183,7 +183,7 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 		}		
 	}
 	
-	private void addConstraints(E f, E e) {
+	private void addConstraints(E f, E e) throws NotPlanarException {
 		LRPair<HLPair<E>> p = new MutablePair<HLPair<E>>(new MutablePair<E>(), new MutablePair<E>());
 		// merge return edges of f into p.R
 		do {
@@ -192,7 +192,7 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 				swap(q);
 			}
 			if(!isEmpty(q.getLeft())) {
-				throw new IllegalArgumentException("Not planar. (1)");
+				throw new NotPlanarException("Not planar. (1)");
 			} else {
 				if(lowPointers.get(q.getRight().getLow()) > lowPointers.get(e)) { // merge intervals
 					if(isEmpty(p.getRight())) {
@@ -213,7 +213,7 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 				swap(q);
 			}
 			if (conflicting(q.getRight(), f)) {
-				throw new IllegalArgumentException("Not planar. (2)");
+				throw new NotPlanarException("Not planar. (2)");
 			} else { // merge interval below lowpt f into P.R
 				references.put(p.getRight().getLow(), q.getRight().getHigh());
 				if (q.getRight().getLow() != null) {
