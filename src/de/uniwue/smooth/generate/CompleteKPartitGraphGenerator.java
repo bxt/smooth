@@ -49,8 +49,8 @@ public class CompleteKPartitGraphGenerator<V, E> implements Factory<UndirectedGr
 		
 		int partitionOffset = 0;
 		int edgeIndex = 0;
-		for(int p = 0; p < partitionSizes.length; p++) {
-			int nextPartitionOffset = partitionOffset + partitionSizes[p];
+		for(int p : partitionSizes) {
+			int nextPartitionOffset = partitionOffset + p;
 			for (int i = partitionOffset; i < nextPartitionOffset; i++) {
 				for (int k = nextPartitionOffset; k < vertexCount; k++) {
 					graph.addEdge(edges.get(edgeIndex++), vertices.get(i), vertices.get(k));
