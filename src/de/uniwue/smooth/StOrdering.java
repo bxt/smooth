@@ -3,6 +3,7 @@ package de.uniwue.smooth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
@@ -12,10 +13,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.apache.commons.collections15.ComparatorUtils;
+
 import de.uniwue.smooth.palm.PalmTree;
+import edu.uci.ics.jung.graph.AbstractGraph;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
+import edu.uci.ics.jung.graph.util.EdgeType;
+import edu.uci.ics.jung.graph.util.Pair;
 
 public class StOrdering<V,E> implements Comparator<V> {
 	
@@ -135,8 +140,264 @@ public class StOrdering<V,E> implements Comparator<V> {
 	}
 	
 	public DirectedGraph<V, E> getDirectedAcyclicGraph() {
-		throw new NotImplementedException();
-		// TODO
+		return new StOrderingDirectedAcyclicGraph();
+	}
+	
+	private class StOrderingDirectedAcyclicGraph extends AbstractGraph<V, E> implements DirectedGraph<V, E> {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public V getSource(E directed_edge) {
+			Pair<V> endpoints = graph.getEndpoints(directed_edge);
+			return ComparatorUtils.min(endpoints.getFirst(), endpoints.getSecond(), StOrdering.this);
+		}
+
+		@Override
+		public V getDest(E directed_edge) {
+			Pair<V> endpoints = graph.getEndpoints(directed_edge);
+			return ComparatorUtils.max(endpoints.getFirst(), endpoints.getSecond(), StOrdering.this);
+		}
+
+		@Override
+		public boolean addEdge(E e, V v1, V v2) {
+			throw new UnsupportedOperationException("Immutable. ");
+		}
+
+		@Override
+		public boolean addEdge(E e, V v1, V v2, EdgeType edgeType) {
+			throw new UnsupportedOperationException("Immutable. ");
+		}
+
+		@Override
+		public Pair<V> getEndpoints(E edge) {
+			return graph.getEndpoints(edge);
+		}
+
+		@Override
+		public V getOpposite(V vertex, E edge) {
+			return graph.getOpposite(vertex, edge);
+		}
+
+		@Override
+		public Collection<E> getEdges() {
+			return graph.getEdges();
+		}
+
+		@Override
+		public Collection<V> getVertices() {
+			return graph.getVertices();
+		}
+
+		@Override
+		public boolean containsVertex(V vertex) {
+			return graph.containsVertex(vertex);
+		}
+
+		@Override
+		public boolean containsEdge(E edge) {
+			return graph.containsEdge(edge);
+		}
+
+		@Override
+		public int getEdgeCount() {
+			return graph.getEdgeCount();
+		}
+
+		@Override
+		public int getVertexCount() {
+			return graph.getVertexCount();
+		}
+
+		@Override
+		public Collection<V> getNeighbors(V vertex) {
+			return graph.getNeighbors(vertex);
+		}
+
+		@Override
+		public Collection<E> getIncidentEdges(V vertex) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Collection<V> getIncidentVertices(E edge) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public E findEdge(V v1, V v2) {
+			E candidate = graph.findEdge(v1, v2);
+			if (candidate != null && compare(v1, v2) < 0) return candidate;
+			return null;
+		}
+
+		@Override
+		public Collection<E> findEdgeSet(V v1, V v2) {
+			throw new UnsupportedOperationException("Currently not implemented. ");
+		}
+
+		@Override
+		public boolean addVertex(V vertex) {
+			throw new UnsupportedOperationException("Immutable. ");
+		}
+
+		@Override
+		public boolean addEdge(E edge, Collection<? extends V> vertices) {
+			throw new UnsupportedOperationException("Immutable. ");
+		}
+
+		@Override
+		public boolean addEdge(E edge, Collection<? extends V> vertices,
+				EdgeType edge_type) {
+			throw new UnsupportedOperationException("Immutable. ");
+		}
+
+		@Override
+		public boolean removeVertex(V vertex) {
+			throw new UnsupportedOperationException("Immutable. ");
+		}
+
+		@Override
+		public boolean removeEdge(E edge) {
+			throw new UnsupportedOperationException("Immutable. ");
+		}
+
+		@Override
+		public boolean isNeighbor(V v1, V v2) {
+			return graph.isNeighbor(v1, v2);
+		}
+
+		@Override
+		public boolean isIncident(V vertex, E edge) {
+			return graph.isIncident(vertex, edge);
+		}
+
+		@Override
+		public int degree(V vertex) {
+			return graph.degree(vertex);
+		}
+
+		@Override
+		public int getNeighborCount(V vertex) {
+			return graph.getNeighborCount(vertex);
+		}
+
+		@Override
+		public int getIncidentCount(E edge) {
+			return graph.getIncidentCount(edge);
+		}
+
+		@Override
+		public EdgeType getEdgeType(E edge) {
+			return EdgeType.DIRECTED;
+		}
+
+		@Override
+		public EdgeType getDefaultEdgeType() {
+			return EdgeType.DIRECTED;
+		}
+
+		@Override
+		public Collection<E> getEdges(EdgeType edge_type) {
+			return edge_type == EdgeType.DIRECTED ? graph.getEdges() : Collections.<E>emptySet();
+		}
+
+		@Override
+		public int getEdgeCount(EdgeType edge_type) {
+			return edge_type == EdgeType.DIRECTED ? graph.getEdgeCount() : 0;
+		}
+
+	    public int inDegree(V vertex)
+	    {
+	        return this.getInEdges(vertex).size();
+	    }
+
+	    public int outDegree(V vertex)
+	    {
+	        return this.getOutEdges(vertex).size();
+	    }
+
+	    public boolean isPredecessor(V v1, V v2)
+	    {
+	        return this.getPredecessors(v1).contains(v2);
+	    }
+
+	    public boolean isSuccessor(V v1, V v2)
+	    {
+	        return this.getSuccessors(v1).contains(v2);
+	    }
+
+	    public int getPredecessorCount(V vertex)
+	    {
+	        return this.getPredecessors(vertex).size();
+	    }
+
+	    public int getSuccessorCount(V vertex)
+	    {
+	        return this.getSuccessors(vertex).size();
+	    }
+	    
+		@Override
+		public boolean isSource(V vertex, E edge) {
+			return graph.isIncident(vertex, edge) && compare(vertex, graph.getOpposite(vertex, edge)) < 0;
+		}
+
+		@Override
+		public boolean isDest(V vertex, E edge) {
+			return graph.isIncident(vertex, edge) && compare(vertex, graph.getOpposite(vertex, edge)) > 0;
+		}
+
+		@Override
+		public Collection<E> getInEdges(V vertex) {
+			Collection<E> edges = new ArrayList<>();
+			for(E edge : graph.getIncidentEdges(vertex)) {
+				if (compare(vertex, graph.getOpposite(vertex, edge)) > 0) {
+					edges.add(edge);
+				}
+			}
+			return edges;
+		}
+
+		@Override
+		public Collection<E> getOutEdges(V vertex) {
+			Collection<E> edges = new ArrayList<>();
+			for(E edge : graph.getIncidentEdges(vertex)) {
+				if (compare(vertex, graph.getOpposite(vertex, edge)) < 0) {
+					edges.add(edge);
+				}
+			}
+			return edges;
+		}
+
+		@Override
+		public Collection<V> getPredecessors(V vertex) {
+			Collection<V> vertices = new ArrayList<>();
+			for(V neighbor : graph.getNeighbors(vertex)) {
+				if (compare(vertex, neighbor) < 0) {
+					vertices.add(neighbor);
+				}
+			}
+			return vertices;
+		}
+
+		@Override
+		public Collection<V> getSuccessors(V vertex) {
+			Collection<V> vertices = new ArrayList<>();
+			for(V neighbor : graph.getNeighbors(vertex)) {
+				if (compare(vertex, neighbor) > 0) {
+					vertices.add(neighbor);
+				}
+			}
+			return vertices;
+		}
+
+		@Override
+		public boolean addEdge(E edge, Pair<? extends V> endpoints,
+				EdgeType edgeType) {
+			throw new UnsupportedOperationException("Immutable. ");
+		}
+		
 	}
 
 	@Override
