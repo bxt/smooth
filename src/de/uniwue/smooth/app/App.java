@@ -1,4 +1,4 @@
-package de.uniwue.smooth;
+package de.uniwue.smooth.app;
 
 import java.awt.Dimension;
 import java.io.File;
@@ -14,6 +14,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JFrame;
 
+import de.uniwue.smooth.StOrdering;
+import de.uniwue.smooth.UndirectedTransformer;
+import de.uniwue.smooth.generate.CompleteKPartitGraphGenerator;
+import de.uniwue.smooth.generate.SimplePlanarGraphGenerator;
 import de.uniwue.smooth.palm.PalmTree;
 import de.uniwue.smooth.planar.BrandesEmbedding;
 import de.uniwue.smooth.planar.DoublyConnectedEdgeListEmbedding;
@@ -41,26 +45,14 @@ public class App {
 	
 	public void main() {
 		
-		//DirectedGraph<Vertex, Edge> octahedron = loadOctahedron();
-		//draw(octahedron);
+		//draw(Generators.k5());
+		//draw(Generators.octahedron());
 		
-		//romeStats();
-		
-		UndirectedGraph<Vertex, Edge> smallGraph = loadSimplePlanarGraph();
-		draw(smallGraph);
+		loadSimplePlanarGraph();
 	}
 	
 	private UndirectedGraph<Vertex, Edge> loadSimplePlanarGraph() {
-		UndirectedGraph<Vertex, Edge> smallGraph = new UndirectedSparseGraph<Vertex, Edge>();
-		Vertex[] vs = {new Vertex(0), new Vertex(1), new Vertex(2), new Vertex(3)};
-		for (Vertex v : vs) smallGraph.addVertex(v);
-		Edge[] es = {new Edge(0),new Edge(1),new Edge(2),new Edge(3),new Edge(4)};
-		smallGraph.addEdge(es[ 0], vs[0], vs[1]);
-		smallGraph.addEdge(es[ 1], vs[1], vs[2]);
-		smallGraph.addEdge(es[ 2], vs[2], vs[3]);
-		smallGraph.addEdge(es[ 3], vs[3], vs[0]);
-		smallGraph.addEdge(es[ 4], vs[0], vs[2]);
-		System.out.println("The graph = " + smallGraph.toString());
+		UndirectedGraph<Vertex, Edge> smallGraph = Generators.simplePlanarGraph();
 		
 		Embedding<Vertex, Edge> smallGraphEmbedding = new BrandesEmbedding<Vertex, Edge>(smallGraph);
 		
