@@ -227,7 +227,7 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 			}
 			p.getLeft().setLow(q.getLeft().getLow());
 		}
-		if(!isEmpty(p.getLeft()) && !isEmpty(p.getRight())) {
+		if(!isEmpty(p.getLeft()) || !isEmpty(p.getRight())) {
 			conflictStack.push(p);
 		}
 	}
