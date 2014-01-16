@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import de.uniwue.smooth.palm.PalmTree;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import de.uniwue.smooth.palm.PalmTree;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
@@ -26,14 +26,15 @@ public class StOrdering<V,E> {
 	private V s;
 	private V t;
 	
-	private List<V> vertexList;
+	private List<V> vertexList = new ArrayList<>();
+	private Map<V, Integer> numbers = new HashMap<V, Integer>();
 	
 	public StOrdering(UndirectedGraph<V, E> graph, V s, V t) {
 		this.graph = graph;
 		this.palmTree = new PalmTree<V, E>(graph, s, t);
 		this.s = s;
 		this.t = t;
-		this.vertexList = buildList();
+		initialize();
 	}
 	
 	private List<V> findPath(V start) {
@@ -101,7 +102,7 @@ public class StOrdering<V,E> {
 		return null;
 	}
 	
-	private List<V> buildList() {
+	private void initialize() {
 		oldEdges.add(graph.findEdge(s, t));
 		oldVertices.add(s);
 		oldVertices.add(t);
@@ -120,18 +121,16 @@ public class StOrdering<V,E> {
 				done.add(v);
 			}
 		}
-		return done;
-	}
-
-	public List<V> getList() {
-		return this.vertexList;
-	}
-	
-	public Map<V, Integer> asNumbers() {
-		Map<V, Integer> numbers = new HashMap<V, Integer>();
 		for (int i = 0; i < getList().size(); i++) {
 			numbers.put(getList().get(i), i);
 		}
+	}
+
+	public List<V> getList() {
+		return vertexList;
+	}
+	
+	public Map<V, Integer> asNumbers() {
 		return numbers;
 	}
 	
@@ -139,5 +138,4 @@ public class StOrdering<V,E> {
 		throw new NotImplementedException();
 		// TODO
 	}
-
 }
