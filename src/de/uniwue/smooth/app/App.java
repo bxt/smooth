@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JFrame;
 
+import de.uniwue.smooth.LiuAtAlLayout;
 import de.uniwue.smooth.StOrdering;
 import de.uniwue.smooth.UndirectedTransformer;
 import de.uniwue.smooth.generate.CompleteKPartitGraphGenerator;
@@ -46,13 +47,15 @@ public class App {
 	
 	public void main() {
 		
-		//draw(Generators.wheel(3));
-		//draw(Generators.hexahedron());
-		//draw(Generators.octahedron());
+		//drawCircle(Generators.wheel(3));
+		//drawCircle(Generators.hexahedron());
+		//drawCircle(Generators.octahedron());
 		
-		draw(Generators.k33());
-		System.out.println(isPlanar(Generators.k33())); // FIXME: huh?
-		// TODO: Liu et al.
+		//drawCircle(Generators.k33());
+		//System.out.println(isPlanar(Generators.k33()));
+		
+		//drawLiu(Generators.wheel(4));
+		drawLiu(Generators.octahedron());
 		
 		//romeStats();
 	}
@@ -132,13 +135,20 @@ public class App {
 		return octahedron;
 	}
 	
-	public void draw(Graph<Vertex, Edge> graph) {
-		Layout<Vertex, Edge> layout = new CircleLayout<Vertex, Edge>(graph);
+	public void drawLiu(Graph<Vertex, Edge> graph) {
+		draw(new LiuAtAlLayout<Vertex, Edge>(graph));
+	}
+	
+	public void drawCircle(Graph<Vertex, Edge> graph) {
+		draw(new CircleLayout<Vertex, Edge>(graph));
+	}
+	
+	public void draw(Layout<Vertex, Edge> layout) {
 		layout.setSize(new Dimension(300,300));
 		BasicVisualizationServer<Vertex, Edge> vv = new BasicVisualizationServer<Vertex, Edge>(layout);
 		vv.setPreferredSize(new Dimension(350,350));
 		
-		JFrame frame = new JFrame("Octahedron Graph view");
+		JFrame frame = new JFrame("Graph view");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(vv);
 		frame.pack();
