@@ -45,10 +45,11 @@ public class App {
 	
 	public void main() {
 		
-		//draw(Generators.k5());
+		//draw(Generators.wheel(3));
+		draw(Generators.hexahedron());
 		//draw(Generators.octahedron());
 		
-		loadSimplePlanarGraph();
+		//loadSimplePlanarGraph();
 	}
 	
 	private UndirectedGraph<Vertex, Edge> loadSimplePlanarGraph() {
