@@ -319,54 +319,58 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 
 	@Override
 	public EmbeddingIterator<V, E> getEmbeddingIteratorOnOuterface() {
-		// TODO Auto-generated method stub
-		return null;
+		return getEmbeddingIteratorAtVertex(roots.get(0));
 	}
 
 	@Override
 	public EmbeddingIterator<V, E> getEmbeddingIteratorAtEdge(E edge) {
-		// TODO Auto-generated method stub
-		return null;
+		return new BrandesEmbeddingIterator(graph.getIncidentVertices(edge).iterator().next(), edge);
 	}
 
 	@Override
 	public EmbeddingIterator<V, E> getEmbeddingIteratorAtVertex(V vertex) {
-		// TODO Auto-generated method stub
-		return null;
+		return new BrandesEmbeddingIterator(vertex, adjacencies.get(vertex).get(0));
 	}
 
 	@Override
 	public EmbeddingIterator<V, E> getEmbeddingIterator(V vertex, E edge) {
-		// TODO Auto-generated method stub
-		return null;
+		return new BrandesEmbeddingIterator(vertex, edge);
 	}
 
 	private class BrandesEmbeddingIterator implements EmbeddingIterator<V, E> {
 		private V vertex;
 		private E edge;
 		
+		public BrandesEmbeddingIterator(V vertex, E edge) {
+			this.vertex = vertex;
+			this.edge = edge;
+		}
+
 		@Override
 		public V getVertex() {
 			return vertex;
 		}
+		
 		@Override
 		public E getEdge() {
 			return edge;
 		}
+		
 		@Override
 		public void nextAroundVertex() {
-			// TODO Auto-generated method stub, change edge
-			
+			List<E> adjacent = adjacencies.get(vertex);
+			edge = adjacent.get((adjacent.indexOf(edge) + 1) % adjacent.size());
 		}
+		
 		@Override
 		public void nextAroundFace() {
-			// TODO Auto-generated method stub, change both
-			
+			oppositeOnEdge();
+			nextAroundVertex();
 		}
+		
 		@Override
 		public void oppositeOnEdge() {
-			// TODO Auto-generated method stub, change vertex
-			
+			vertex = graph.getOpposite(vertex, edge);
 		}
 	}
 	
