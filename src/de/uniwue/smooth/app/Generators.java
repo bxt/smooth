@@ -30,14 +30,18 @@ public abstract class Generators {
 	}
 	
 	public static UndirectedGraph<Vertex, Edge> k33() {
-		return matching(3);
+		return matching(3, false);
+	}
+	
+	public static UndirectedGraph<Vertex, Edge> matching(int n, boolean randomize) {
+		int[] partitions = {n,n};
+		UndirectedGraph<Vertex, Edge> graph = new CompleteKPartitGraphGenerator<Vertex, Edge>(randomize, partitions, Vertex.getFactory(), Edge.getFactory()).create();
+		System.out.println(graph);
+		return graph;
 	}
 	
 	public static UndirectedGraph<Vertex, Edge> matching(int n) {
-		int[] partitions = {n,n};
-		UndirectedGraph<Vertex, Edge> graph = new CompleteKPartitGraphGenerator<Vertex, Edge>(true, partitions, Vertex.getFactory(), Edge.getFactory()).create();
-		System.out.println(graph);
-		return graph;
+		return matching(n, true);
 	}
 	
 	public static UndirectedGraph<Vertex, Edge> k5() {

@@ -50,9 +50,11 @@ public class App {
 		//draw(Generators.hexahedron());
 		//draw(Generators.octahedron());
 		
-		System.out.println(isPlanar(Generators.k33()));
+		draw(Generators.k33());
+		System.out.println(isPlanar(Generators.k33())); // FIXME: huh?
+		// TODO: Liu et al.
 		
-		romeStats();
+		//romeStats();
 	}
 	
 	public boolean isPlanar(UndirectedGraph<Vertex, Edge> graph) {
