@@ -77,7 +77,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<
 			
 		}
 		
-		setTierCoordinates();
+		initialTier.setTierCoordinates();
 		
 		if (d != null) {
 			double width = d.getWidth() * 0.9;
@@ -89,7 +89,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<
 			for (V v : vertexList) {
 				Point2D coord = transform(v);
 
-				double x = vertexColumns.get(v).coordinate / (double) getGraph().getVertices().size();
+				double x = vertexColumns.get(v).getCoordinate() / (double) getGraph().getVertices().size();
 				double y = i / (double) getGraph().getVertices().size();
 
 				coord.setLocation(x * width + xOffset, y * height + yOffset);
@@ -169,12 +169,6 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<
 		}
 	}
 	
-	private void setTierCoordinates() {
-		Tier leftmost = initialTier;
-		while (leftmost.prev != null) leftmost = leftmost.prev;
-		for(int i = 1; leftmost != null; i++, leftmost = leftmost.next) leftmost.coordinate = i;
-	}
-
 	private Pair<List<E>> edgePartitions(V v) {
 		List<List<E>> partitions = new ArrayList<>();
 		List<Integer> partitionValues = new ArrayList<>();
@@ -216,15 +210,14 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<
 	}
 	
 	private class Tier {
-		public int coordinate;
-		public Tier next;
-		public Tier prev;
+		private int coordinate;
+		private Tier next;
+		private Tier prev;
 		
-		@Override
-		public String toString() {
-			return coordinate + "~" + super.toString();
+		public int getCoordinate() {
+			return coordinate;
 		}
-		
+
 		public Tier newLeftOf() {
 			Tier newTier = new Tier();
 			Tier prePrev = prev;
@@ -244,6 +237,18 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<
 			newTier.next = preNext;
 			return newTier;
 		}
+		
+		public void setTierCoordinates() {
+			Tier leftmost = initialTier;
+			while (leftmost.prev != null) leftmost = leftmost.prev;
+			for(int i = 1; leftmost != null; i++, leftmost = leftmost.next) leftmost.coordinate = i;
+		}
+
+		@Override
+		public String toString() {
+			return coordinate + "~" + super.toString();
+		}
+		
 	}
 	
 	private enum Port {L,R,T,B;}
