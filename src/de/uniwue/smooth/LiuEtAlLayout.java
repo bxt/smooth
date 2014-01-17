@@ -26,7 +26,7 @@ import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import edu.uci.ics.jung.graph.util.Pair;
 
-public class LiuAtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<V, E> {
+public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<V, E> {
 	
 	Embedding<V, E> embedding;
 	StOrdering<V, E> stOrdering;
@@ -40,7 +40,7 @@ public class LiuAtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<
 		}});
 	private Tier initialTier = new Tier();
 	
-	public LiuAtAlLayout(Graph<V, E> graph) {
+	public LiuEtAlLayout(Graph<V, E> graph) {
 		super(graph);
 	}
 

@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JFrame;
 
-import de.uniwue.smooth.LiuAtAlLayout;
+import de.uniwue.smooth.LiuEtAlLayout;
 import de.uniwue.smooth.StOrdering;
 import de.uniwue.smooth.UndirectedTransformer;
 import de.uniwue.smooth.generate.CompleteKPartitGraphGenerator;
@@ -136,7 +136,7 @@ public class App {
 	}
 	
 	public void drawLiu(Graph<Vertex, Edge> graph) {
-		draw(new LiuAtAlLayout<Vertex, Edge>(graph));
+		draw(new LiuEtAlLayout<Vertex, Edge>(graph));
 	}
 	
 	public void drawCircle(Graph<Vertex, Edge> graph) {
