@@ -37,6 +37,8 @@ import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import edu.uci.ics.jung.io.GraphIOException;
 import edu.uci.ics.jung.io.GraphReader;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 
 @SuppressWarnings("unused")
 public class App {
@@ -145,8 +147,9 @@ public class App {
 	
 	public void draw(Layout<Vertex, Edge> layout) {
 		layout.setSize(new Dimension(300,300));
-		BasicVisualizationServer<Vertex, Edge> vv = new BasicVisualizationServer<Vertex, Edge>(layout);
-		vv.setPreferredSize(new Dimension(350,350));
+		VisualizationViewer<Vertex, Edge> vv = new VisualizationViewer<Vertex, Edge>(layout, new Dimension(350,350));
+        vv.setVertexToolTipTransformer(new ToStringLabeller<Vertex>());
+        vv.setEdgeToolTipTransformer(new ToStringLabeller<Edge>());
 		
 		JFrame frame = new JFrame("Graph view");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
