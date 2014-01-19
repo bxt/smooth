@@ -2,9 +2,14 @@ package de.uniwue.smooth.app;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -14,6 +19,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JFrame;
 
+import org.apache.commons.collections15.Transformer;
+
+import au.com.bytecode.opencsv.CSVReader;
 import de.uniwue.smooth.LiuEtAlLayout;
 import de.uniwue.smooth.StOrdering;
 import de.uniwue.smooth.UndirectedTransformer;
@@ -26,6 +34,7 @@ import de.uniwue.smooth.planar.Embedding;
 import de.uniwue.smooth.planar.EmbeddingIterator;
 import de.uniwue.smooth.planar.EmbeddingTools;
 import de.uniwue.smooth.planar.NotPlanarException;
+import de.uniwue.smooth.util.Util;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.algorithms.util.MapSettableTransformer;
@@ -38,6 +47,7 @@ import edu.uci.ics.jung.io.GraphIOException;
 import edu.uci.ics.jung.io.GraphReader;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 
 @SuppressWarnings("unused")
@@ -57,9 +67,10 @@ public class App {
 		//System.out.println(isPlanar(Generators.k33()));
 		
 		//drawLiu(Generators.wheel(4));
-		drawLiu(Generators.octahedron());
+		//drawLiu(Generators.octahedron());
 		
 		//romeStats();
+		romeCheck();
 	}
 	
 	public boolean isPlanar(UndirectedGraph<Vertex, Edge> graph) {
@@ -145,12 +156,20 @@ public class App {
 		draw(new CircleLayout<Vertex, Edge>(graph));
 	}
 	
-	public void draw(Layout<Vertex, Edge> layout) {
-		layout.setSize(new Dimension(300,300));
-		VisualizationViewer<Vertex, Edge> vv = new VisualizationViewer<Vertex, Edge>(layout, new Dimension(350,350));
+	public void draw(final Layout<Vertex, Edge> layout) {
+		layout.setSize(new Dimension(600,600));
+		VisualizationViewer<Vertex, Edge> vv = new VisualizationViewer<Vertex, Edge>(layout, new Dimension(600,600));
         vv.setVertexToolTipTransformer(new ToStringLabeller<Vertex>());
         vv.setEdgeToolTipTransformer(new ToStringLabeller<Edge>());
-		
+        vv.getRenderContext().setVertexLabelTransformer(new Transformer<Vertex, String>() {
+			@Override
+			public String transform(Vertex input) {
+				return input.toString() + "-" + layout.transform(input).getX() + "," + layout.transform(input).getY();
+			}
+		});
+        vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<Edge>());
+		vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line<Vertex, Edge>());
+        
 		JFrame frame = new JFrame("Graph view");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(vv);
@@ -235,6 +254,68 @@ public class App {
 		System.out.println("Planar:" + planarCounter);
 		System.out.println(new TreeMap<Integer, AtomicInteger>(vertexCounts));
 		System.out.println(new TreeMap<Integer, AtomicInteger>(edgeCounts));
+	}
+
+	private void romeCheck() {
+		// meh, 3 from 11534:
+		// [grafo169.26.gml, false]
+		// [grafo2939.19.gml, false]
+		// [grafo3418.49.gml, false]
+		
+		final int POOL_SIZE = 8;
+		ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE);
+		List<String[]> filesCsvList;
+		try {
+			filesCsvList = Util.subList(new CSVReader(new FileReader("resources/rome-results-final.csv"), ';').readAll(), 1);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+		final AtomicInteger counter = new AtomicInteger();
+		final AtomicInteger wrongCounter = new AtomicInteger();
+				
+		for (final String[] cvsLine : filesCsvList) {
+			executor.execute(new Runnable() {
+				@Override public void run() {
+					try {
+						boolean expected = cvsLine[1].equals("true");
+						String filename = cvsLine[0].replace(".gml", ".graphml");
+						
+						File file = new File("resources/rome/" + filename);
+						GraphReader<Graph<Vertex, Edge>, Vertex, Edge> graphReader = GraphReaderFactory.create(file);
+						Graph<Vertex, Edge> graph = graphReader.readGraph();
+						
+						if(isPlanar((UndirectedGraph<Vertex, Edge>) graph) != expected) {
+							System.out.println(Arrays.toString(cvsLine));
+							wrongCounter.incrementAndGet();
+						}
+						
+						graphReader.close();
+					} catch (GraphIOException e) {
+						e.printStackTrace();
+					}
+					
+					int count = counter.getAndIncrement();
+					if(count % 500 == 0) {
+						System.out.println(count);
+					}
+				}
+			});
+		}
+		
+		long start = System.currentTimeMillis();
+		executor.shutdown(); // run!
+		try {
+			executor.awaitTermination(5, TimeUnit.MINUTES);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		long end = System.currentTimeMillis();
+		
+		System.out.println(counter);
+		System.out.println("Stats in " + (end-start)/1000 + "s");
+		System.out.println("Counts:" + filesCsvList.size());
+		System.out.println("Wrong :" + wrongCounter);;
 	}
 
 }

@@ -29,4 +29,8 @@ public class Util {
 		}
 		return list;
 	}
+	
+	public static <T> List<T> subList(List<T> list, int fromIndex) {
+		return list.subList(fromIndex, list.size());
+	}
 }
