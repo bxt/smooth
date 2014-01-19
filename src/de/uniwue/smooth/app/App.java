@@ -67,10 +67,9 @@ public class App {
 		//System.out.println(isPlanar(Generators.k33()));
 		
 		//drawLiu(Generators.wheel(4));
-		//drawLiu(Generators.octahedron());
+		drawLiu(Generators.octahedron());
 		
 		//romeStats();
-		romeCheck();
 	}
 	
 	public boolean isPlanar(UndirectedGraph<Vertex, Edge> graph) {
@@ -254,68 +253,6 @@ public class App {
 		System.out.println("Planar:" + planarCounter);
 		System.out.println(new TreeMap<Integer, AtomicInteger>(vertexCounts));
 		System.out.println(new TreeMap<Integer, AtomicInteger>(edgeCounts));
-	}
-
-	private void romeCheck() {
-		// meh, 3 from 11534:
-		// [grafo169.26.gml, false]
-		// [grafo2939.19.gml, false]
-		// [grafo3418.49.gml, false]
-		
-		final int POOL_SIZE = 8;
-		ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE);
-		List<String[]> filesCsvList;
-		try {
-			filesCsvList = Util.subList(new CSVReader(new FileReader("resources/rome-results-final.csv"), ';').readAll(), 1);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		
-		final AtomicInteger counter = new AtomicInteger();
-		final AtomicInteger wrongCounter = new AtomicInteger();
-				
-		for (final String[] cvsLine : filesCsvList) {
-			executor.execute(new Runnable() {
-				@Override public void run() {
-					try {
-						boolean expected = cvsLine[1].equals("true");
-						String filename = cvsLine[0].replace(".gml", ".graphml");
-						
-						File file = new File("resources/rome/" + filename);
-						GraphReader<Graph<Vertex, Edge>, Vertex, Edge> graphReader = GraphReaderFactory.create(file);
-						Graph<Vertex, Edge> graph = graphReader.readGraph();
-						
-						if(isPlanar((UndirectedGraph<Vertex, Edge>) graph) != expected) {
-							System.out.println(Arrays.toString(cvsLine));
-							wrongCounter.incrementAndGet();
-						}
-						
-						graphReader.close();
-					} catch (GraphIOException e) {
-						e.printStackTrace();
-					}
-					
-					int count = counter.getAndIncrement();
-					if(count % 500 == 0) {
-						System.out.println(count);
-					}
-				}
-			});
-		}
-		
-		long start = System.currentTimeMillis();
-		executor.shutdown(); // run!
-		try {
-			executor.awaitTermination(5, TimeUnit.MINUTES);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		long end = System.currentTimeMillis();
-		
-		System.out.println(counter);
-		System.out.println("Stats in " + (end-start)/1000 + "s");
-		System.out.println("Counts:" + filesCsvList.size());
-		System.out.println("Wrong :" + wrongCounter);;
 	}
 
 }
