@@ -5,6 +5,7 @@ import de.uniwue.smooth.generate.CompleteKPartitGraphGenerator;
 import de.uniwue.smooth.generate.HexahedronGraphGenerator;
 import de.uniwue.smooth.generate.OctahedronGraphGenerator;
 import de.uniwue.smooth.generate.PathGraphGenerator;
+import de.uniwue.smooth.generate.Rome2939_19Minimized;
 import de.uniwue.smooth.generate.SimplePlanarGraphGenerator;
 import de.uniwue.smooth.generate.WheelGraphGenerator;
 import edu.uci.ics.jung.graph.UndirectedGraph;
@@ -79,6 +80,12 @@ public abstract class Generators {
 	
 	public static UndirectedGraph<Vertex, Edge> path(int size) {
 		UndirectedGraph<Vertex, Edge> graph = new PathGraphGenerator<Vertex, Edge>(true, size, Vertex.getFactory(), Edge.getFactory()).create();
+		System.out.println(graph);
+		return graph;
+	}
+	
+	public static UndirectedGraph<Vertex, Edge> rome2939_19Minimized() {
+		UndirectedGraph<Vertex, Edge> graph = new Rome2939_19Minimized<Vertex, Edge>(false, Vertex.getFactory(), Edge.getFactory()).create();
 		System.out.println(graph);
 		return graph;
 	}

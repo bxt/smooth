@@ -1,6 +1,8 @@
 package de.uniwue.smooth.planar;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileReader;
@@ -153,4 +155,10 @@ public class BrandesEmbeddingTest {
 	}
 	
 	
+	@Test
+	public void romeCheck2939_19_minimized() {
+		UndirectedGraph<Vertex, Edge> graph = Generators.rome2939_19Minimized();
+		
+		assertFalse(BrandesEmbedding.isPlanar(graph));
+	}
 }
