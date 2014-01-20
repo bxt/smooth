@@ -22,11 +22,11 @@ import javax.swing.JFrame;
 import org.apache.commons.collections15.Transformer;
 
 import au.com.bytecode.opencsv.CSVReader;
-import de.uniwue.smooth.LiuEtAlLayout;
 import de.uniwue.smooth.StOrdering;
 import de.uniwue.smooth.UndirectedTransformer;
 import de.uniwue.smooth.generate.CompleteKPartitGraphGenerator;
 import de.uniwue.smooth.generate.SimplePlanarGraphGenerator;
+import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
 import de.uniwue.smooth.palm.PalmTree;
 import de.uniwue.smooth.planar.BrandesEmbedding;
 import de.uniwue.smooth.planar.DoublyConnectedEdgeListEmbedding;

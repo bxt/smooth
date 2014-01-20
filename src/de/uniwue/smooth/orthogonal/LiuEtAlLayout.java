@@ -1,4 +1,4 @@
-package de.uniwue.smooth;
+package de.uniwue.smooth.orthogonal;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
@@ -13,20 +13,21 @@ import org.apache.commons.collections15.Factory;
 import org.apache.commons.collections15.ListUtils;
 import org.apache.commons.collections15.map.LazyMap;
 
+import de.uniwue.smooth.StOrdering;
+import de.uniwue.smooth.UndirectedTransformer;
 import de.uniwue.smooth.planar.BrandesEmbedding;
 import de.uniwue.smooth.planar.Embedding;
 import de.uniwue.smooth.planar.EmbeddingIterator;
 import de.uniwue.smooth.planar.EmbeddingTools;
 import de.uniwue.smooth.planar.NotPlanarException;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
-import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import edu.uci.ics.jung.graph.util.Pair;
 
-public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<V, E> {
+public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements OrthogonalLayout<V, E> {
 	
 	Embedding<V, E> embedding;
 	StOrdering<V, E> stOrdering;
@@ -215,53 +216,24 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<
 		}
 	}
 	
-	private class Tier {
-		private int coordinate;
-		private Tier next;
-		private Tier prev;
-		
-		public int getCoordinate() {
-			return coordinate;
-		}
-
-		public Tier newLeftOf() {
-			Tier newTier = new Tier();
-			Tier prePrev = prev;
-			if(prePrev!=null) prePrev.next = newTier;
-			prev = newTier;
-			newTier.next = this;
-			newTier.prev = prePrev;
-			return newTier;
-		}
-		
-		public Tier newRightOf() {
-			Tier newTier = new Tier();
-			Tier preNext = next;
-			if(preNext!=null) preNext.prev = newTier;
-			next = newTier;
-			newTier.prev = this;
-			newTier.next = preNext;
-			return newTier;
-		}
-		
-		public void setTierCoordinates() {
-			Tier leftmost = initialTier;
-			while (leftmost.prev != null) leftmost = leftmost.prev;
-			for(int i = 1; leftmost != null; i++, leftmost = leftmost.next) leftmost.coordinate = i;
-		}
-
-		@Override
-		public String toString() {
-			return coordinate + "~" + super.toString();
-		}
-		
-	}
-	
-	private enum Port {L,R,T,B;}
-	
 	@Override
 	public void reset() {
 		initialize();
+	}
+
+	@Override
+	public Pair<Integer> getVertexLocation(V v) {
+		return new Pair<Integer>(vertexColumns.get(v).getCoordinate(), stOrdering.asNumbers().get(v));
+	}
+
+	@Override
+	public Pair<Integer> getEdgeLocation(E e) {
+		return new Pair<Integer>(edgeColumns.get(e).getCoordinate(), stOrdering.asNumbers().get(getGraph().getSource(e)));
+	}
+
+	@Override
+	public Map<Port, E> getPortAssignment(V v) {
+		return portAssignments.get(v);
 	}
 
 }
