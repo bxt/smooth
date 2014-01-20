@@ -25,7 +25,7 @@ public class Rome2939_19Minimized <V, E> implements Factory<UndirectedGraph<V, E
 
 	@Override
 	public UndirectedGraph<V, E> create() {
-		List<V> vertices = Util.listFromFactory(vertexFactory, 17);
+		List<V> vertices = Util.listFromFactory(vertexFactory, 12);
 		if (randomize) Collections.shuffle(vertices);
 		
 		List<E> edges    = Util.listFromFactory(edgeFactory  , 21);
@@ -46,11 +46,11 @@ public class Rome2939_19Minimized <V, E> implements Factory<UndirectedGraph<V, E
 		graph.addEdge(edges.get( 9), vertices.get(10), vertices.get( 0));
 		graph.addEdge(edges.get(10), vertices.get( 9), vertices.get( 2));
 		graph.addEdge(edges.get(11), vertices.get( 3), vertices.get( 1));
-		graph.addEdge(edges.get(12), vertices.get(16), vertices.get( 1));     //--
-		graph.addEdge(edges.get(13), vertices.get(16), vertices.get( 5));    // --
-		graph.addEdge(edges.get(14), vertices.get(16), vertices.get( 8));   //  -- FIXME: can't go higher than 15?
-		graph.addEdge(edges.get(15), vertices.get(16), vertices.get( 2));  //   --
-		graph.addEdge(edges.get(16), vertices.get(16), vertices.get( 6)); //    --
+		graph.addEdge(edges.get(12), vertices.get(11), vertices.get( 1));     //--
+		graph.addEdge(edges.get(13), vertices.get(11), vertices.get( 5));    // --
+		graph.addEdge(edges.get(14), vertices.get(11), vertices.get( 8));   //  -- FIXME: can't go higher than 15?
+		graph.addEdge(edges.get(15), vertices.get(11), vertices.get( 2));  //   --
+		graph.addEdge(edges.get(16), vertices.get(11), vertices.get( 6)); //    --
 		graph.addEdge(edges.get(17), vertices.get( 4), vertices.get( 1));
 		graph.addEdge(edges.get(18), vertices.get(10), vertices.get( 4));
 		graph.addEdge(edges.get(19), vertices.get(10), vertices.get( 9));
