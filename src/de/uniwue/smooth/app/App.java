@@ -37,6 +37,7 @@ import de.uniwue.smooth.planar.NotPlanarException;
 import de.uniwue.smooth.util.Util;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.algorithms.layout.SpringLayout;
 import edu.uci.ics.jung.algorithms.util.MapSettableTransformer;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
@@ -54,6 +55,7 @@ import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 public class App {
 
 	public static void main(String[] args) {
+		
 		new App().main();
 	}
 	
@@ -66,8 +68,20 @@ public class App {
 		//drawCircle(Generators.k33());
 		//System.out.println(isPlanar(Generators.k33()));
 		
-		//drawLiu(Generators.wheel(4));
-		drawLiu(Generators.octahedron());
+//		drawLiu(Generators.wheel(4));
+//		drawLiu(Generators.octahedron());
+		
+//		drawLiu(Generators.rome2939_19Minimized());
+//		
+		File file = new File("resources/test.graphml");
+		GraphReader<Graph<Vertex, Edge>, Vertex, Edge> graphReader = GraphReaderFactory.create(file);
+		Graph<Vertex, Edge> graph;
+		try {
+			graph = graphReader.readGraph();
+		} catch (GraphIOException e) {
+			throw new RuntimeException(e);
+		}
+		drawLiu(graph);
 		
 		//romeStats();
 	}
@@ -160,12 +174,12 @@ public class App {
 		VisualizationViewer<Vertex, Edge> vv = new VisualizationViewer<Vertex, Edge>(layout, new Dimension(600,600));
         vv.setVertexToolTipTransformer(new ToStringLabeller<Vertex>());
         vv.setEdgeToolTipTransformer(new ToStringLabeller<Edge>());
-        vv.getRenderContext().setVertexLabelTransformer(new Transformer<Vertex, String>() {
-			@Override
-			public String transform(Vertex input) {
-				return input.toString() + "-" + layout.transform(input).getX() + "," + layout.transform(input).getY();
-			}
-		});
+//        vv.getRenderContext().setVertexLabelTransformer(new Transformer<Vertex, String>() {
+//			@Override
+//			public String transform(Vertex input) {
+//				return input.toString() + "-" + layout.transform(input).getX() + "," + layout.transform(input).getY();
+//			}
+//		});
         vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<Edge>());
 		vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line<Vertex, Edge>());
         
