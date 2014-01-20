@@ -170,11 +170,16 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<
 	}
 	
 	private Pair<List<E>> edgePartitions(V v) {
+		List<E> adjacent = EmbeddingTools.listAroundVertex(embedding, v);
+		if(adjacent.size() > 4)
+			throw new IllegalArgumentException("Can only layout graphs with a maximum vertex degree of 4.");
+		
 		List<List<E>> partitions = new ArrayList<>();
 		List<Integer> partitionValues = new ArrayList<>();
+		
 		List<E> currentPartition = null;
 		int lastComparator = 0;
-		for (E e : EmbeddingTools.listAroundVertex(embedding, v)) {
+		for (E e : adjacent) {
 			int comparator = Integer.signum(stOrdering.compare(v, getGraph().getOpposite(v, e)));
 			if(comparator != lastComparator) {
 				currentPartition = new ArrayList<>();
@@ -184,6 +189,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Layout<
 			}
 			currentPartition.add(e);
 		}
+		
 		if(partitions.size() == 0) {
 			return new Pair<List<E>>(Collections.<E> emptyList(), Collections.<E> emptyList());
 		} else if(partitions.size() == 1) {
