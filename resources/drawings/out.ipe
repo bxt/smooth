@@ -235,417 +235,417 @@
     <layer name="alpha"/>
     <view layers="alpha" active="alpha"/>
 <use name="mark/disk(sx)" pos="0 0" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="150 100" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="300 650" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="150 350" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="250 550" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="50 250" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="150 400" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="250 500" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="250 600" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="50 300" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="150 50" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="150 200" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="150 450" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="150 150" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="30 20" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="60 130" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="30 70" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="50 110" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="10 50" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="30 80" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="50 100" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="50 120" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="10 60" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="30 10" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="30 40" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="30 90" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="30 30" size="normal" stroke="black"/>
 <path stroke="black" pen="normal" dash="normal">
- 300 650 m
- 350 650 l
+ 60 130 m
+ 70 130 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 350 650 m
- 350 0 l
+ 70 130 m
+ 0 130 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  0 0 m
- 0 50 l
+ 0 10 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 0 50 m
- 0 0 l
+ 0 10 m
+ 0 10 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 350 0 m
- 0 0 l
+ 0 130 m
+ 0 10 l
  </path>
 <use name="mark/cross(sx)" pos="0 0" size="normal" stroke="black"/>
 <path stroke="black" pen="normal" dash="normal">
- 150 400 m
- 150 350 l
+ 30 80 m
+ 30 70 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 350 m
- 150 350 l
+ 30 70 m
+ 30 70 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 350 m
- 150 400 l
+ 30 70 m
+ 30 80 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 400 m
- 150 350 l
+ 30 80 m
+ 30 80 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 350 m
- 150 350 l
+ 30 70 m
+ 30 80 l
  </path>
-<use name="mark/cross(sx)" pos="150 350" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="30 70" size="normal" stroke="black"/>
 <path stroke="black" pen="normal" dash="normal">
- 250 500 m
- 250 550 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
- 250 550 m
- 250 500 l
+ 50 100 m
+ 50 110 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 550 m
- 250 500 l
+ 50 110 m
+ 50 110 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 500 m
- 250 500 l
+ 50 110 m
+ 50 100 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 500 m
- 250 500 l
- </path>
-<use name="mark/cross(sx)" pos="250 500" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 250 550 m
- 250 600 l
+ 50 100 m
+ 50 100 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 600 m
- 250 550 l
+ 50 110 m
+ 50 100 l
+ </path>
+<use name="mark/cross(sx)" pos="50 100" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 50 110 m
+ 50 120 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 600 m
- 250 550 l
+ 50 120 m
+ 50 120 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 550 m
- 250 550 l
+ 50 120 m
+ 50 110 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 550 m
- 250 550 l
- </path>
-<use name="mark/cross(sx)" pos="250 550" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 50 250 m
- 50 300 l
+ 50 110 m
+ 50 110 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 50 300 m
- 50 250 l
+ 50 120 m
+ 50 110 l
+ </path>
+<use name="mark/cross(sx)" pos="50 110" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 10 50 m
+ 10 60 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 50 300 m
- 50 250 l
+ 10 60 m
+ 10 60 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 50 250 m
- 50 250 l
+ 10 60 m
+ 10 50 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 50 250 m
- 50 250 l
- </path>
-<use name="mark/cross(sx)" pos="50 250" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 50 300 m
- 100 300 l
+ 10 50 m
+ 10 50 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 100 300 m
- 100 300 l
+ 10 60 m
+ 10 50 l
+ </path>
+<use name="mark/cross(sx)" pos="10 50" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 10 60 m
+ 20 60 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 350 m
- 100 350 l
+ 20 60 m
+ 20 60 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 100 350 m
- 100 300 l
+ 30 70 m
+ 20 70 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 100 300 m
- 100 300 l
- </path>
-<use name="mark/cross(sx)" pos="100 300" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 250 600 m
- 250 650 l
+ 20 70 m
+ 20 70 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 650 m
- 250 600 l
+ 20 60 m
+ 20 70 l
+ </path>
+<use name="mark/cross(sx)" pos="20 60" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 50 120 m
+ 50 130 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 300 650 m
- 250 650 l
+ 50 130 m
+ 50 130 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 650 m
- 250 600 l
+ 60 130 m
+ 50 130 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 600 m
- 250 600 l
- </path>
-<use name="mark/cross(sx)" pos="250 600" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 150 100 m
- 150 50 l
+ 50 130 m
+ 50 130 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 50 m
- 150 50 l
+ 50 130 m
+ 50 130 l
+ </path>
+<use name="mark/cross(sx)" pos="50 120" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 30 20 m
+ 30 10 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 50 m
- 150 100 l
+ 30 10 m
+ 30 10 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 100 m
- 150 50 l
+ 30 10 m
+ 30 20 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 50 m
- 150 50 l
- </path>
-<use name="mark/cross(sx)" pos="150 50" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 150 50 m
- 150 0 l
+ 30 20 m
+ 30 20 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 0 m
- 150 0 l
+ 30 10 m
+ 30 20 l
+ </path>
+<use name="mark/cross(sx)" pos="30 10" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 30 10 m
+ 30 0 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 30 0 m
+ 30 0 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  0 0 m
- 50 0 l
+ 10 0 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 50 0 m
- 50 0 l
+ 10 0 m
+ 30 0 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 0 m
- 50 0 l
+ 30 0 m
+ 30 0 l
  </path>
-<use name="mark/cross(sx)" pos="150 0" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="30 0" size="normal" stroke="black"/>
 <path stroke="black" pen="normal" dash="normal">
- 150 200 m
- 150 250 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
- 150 250 m
- 150 200 l
+ 30 40 m
+ 30 50 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 350 m
- 150 300 l
+ 30 50 m
+ 30 50 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 300 m
- 150 200 l
+ 30 70 m
+ 30 60 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 200 m
- 150 200 l
- </path>
-<use name="mark/cross(sx)" pos="150 200" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 250 550 m
- 300 550 l
+ 30 60 m
+ 30 60 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 300 550 m
- 300 550 l
+ 30 50 m
+ 30 60 l
+ </path>
+<use name="mark/cross(sx)" pos="30 40" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 50 110 m
+ 60 110 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 300 650 m
- 300 600 l
+ 60 110 m
+ 60 110 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 300 600 m
- 300 550 l
+ 60 130 m
+ 60 120 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 300 550 m
- 300 550 l
- </path>
-<use name="mark/cross(sx)" pos="300 550" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 150 450 m
- 150 500 l
+ 60 120 m
+ 60 120 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 500 m
- 150 450 l
+ 60 110 m
+ 60 120 l
+ </path>
+<use name="mark/cross(sx)" pos="60 110" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 30 90 m
+ 30 100 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 300 650 m
- 300 700 l
+ 30 100 m
+ 30 100 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 300 700 m
- 300 450 l
+ 60 130 m
+ 60 140 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 450 m
- 300 450 l
- </path>
-<use name="mark/cross(sx)" pos="150 450" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 150 450 m
- 150 400 l
+ 60 140 m
+ 30 140 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 400 m
- 150 400 l
+ 30 100 m
+ 30 140 l
+ </path>
+<use name="mark/cross(sx)" pos="30 90" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 30 90 m
+ 30 80 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 400 m
- 150 450 l
+ 30 80 m
+ 30 80 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 450 m
- 150 400 l
+ 30 80 m
+ 30 90 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 400 m
- 150 400 l
- </path>
-<use name="mark/cross(sx)" pos="150 400" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 150 450 m
- 100 450 l
+ 30 90 m
+ 30 90 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 100 450 m
- 100 300 l
+ 30 80 m
+ 30 90 l
+ </path>
+<use name="mark/cross(sx)" pos="30 80" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 30 90 m
+ 20 90 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 50 300 m
- 50 350 l
+ 20 90 m
+ 10 90 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 50 350 m
- 50 300 l
+ 10 60 m
+ 10 70 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 100 300 m
- 50 300 l
- </path>
-<use name="mark/cross(sx)" pos="50 300" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 150 450 m
- 200 450 l
+ 10 70 m
+ 10 70 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 200 450 m
- 200 450 l
+ 10 90 m
+ 10 70 l
+ </path>
+<use name="mark/cross(sx)" pos="10 60" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 30 90 m
+ 40 90 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 500 m
- 200 500 l
+ 40 90 m
+ 40 90 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 200 500 m
- 200 450 l
+ 50 100 m
+ 40 100 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 200 450 m
- 200 450 l
- </path>
-<use name="mark/cross(sx)" pos="200 450" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 150 150 m
- 100 150 l
+ 40 100 m
+ 40 100 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 100 150 m
- 100 150 l
+ 40 90 m
+ 40 100 l
+ </path>
+<use name="mark/cross(sx)" pos="40 90" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 30 30 m
+ 20 30 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 50 250 m
- 50 200 l
+ 20 30 m
+ 10 30 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 50 200 m
- 50 150 l
+ 10 50 m
+ 10 40 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 100 150 m
- 50 150 l
- </path>
-<use name="mark/cross(sx)" pos="50 150" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 150 150 m
- 150 100 l
+ 10 40 m
+ 10 40 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 100 m
- 150 100 l
+ 10 30 m
+ 10 40 l
+ </path>
+<use name="mark/cross(sx)" pos="10 30" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 30 30 m
+ 30 20 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 100 m
- 150 150 l
+ 30 20 m
+ 30 20 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 150 m
- 150 100 l
+ 30 20 m
+ 30 30 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 100 m
- 150 100 l
- </path>
-<use name="mark/cross(sx)" pos="150 100" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 150 150 m
- 150 200 l
+ 30 30 m
+ 30 30 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 200 m
- 150 150 l
+ 30 20 m
+ 30 30 l
+ </path>
+<use name="mark/cross(sx)" pos="30 20" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 30 30 m
+ 30 40 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 200 m
- 150 150 l
+ 30 40 m
+ 30 40 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 150 m
- 150 150 l
+ 30 40 m
+ 30 30 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 150 150 m
- 150 150 l
- </path>
-<use name="mark/cross(sx)" pos="150 150" size="normal" stroke="black"/>
-<path stroke="black" pen="normal" dash="normal">
- 150 150 m
- 200 150 l
+ 30 30 m
+ 30 30 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 200 150 m
- 200 150 l
+ 30 40 m
+ 30 30 l
+ </path>
+<use name="mark/cross(sx)" pos="30 30" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 30 30 m
+ 40 30 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 500 m
- 250 450 l
+ 40 30 m
+ 50 30 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 250 450 m
- 250 150 l
+ 50 100 m
+ 50 90 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 200 150 m
- 250 150 l
+ 50 90 m
+ 50 90 l
  </path>
-<use name="mark/cross(sx)" pos="250 150" size="normal" stroke="black"/>
+<path stroke="black" pen="normal" dash="normal">
+ 50 30 m
+ 50 90 l
+ </path>
+<use name="mark/cross(sx)" pos="50 30" size="normal" stroke="black"/>
 </page>
 </ipe>

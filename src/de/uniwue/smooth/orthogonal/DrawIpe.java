@@ -56,7 +56,7 @@ public class DrawIpe<V, E> implements Transformer<OrthogonalLayout<V, E>, String
 		Pair<Integer> vertexCoordinates = layout.getVertexLocation(v);
 		Port port = Util.getKeyByValue(layout.getPortAssignment(v), e);
 		Pair<Integer> portCoordinates = Util.add(vertexCoordinates, port.getDirection());
-		Pair<Integer> edgeCoordinates = new Pair<Integer>(portCoordinates.getFirst(), layout.getEdgeLocation(e).getSecond());
+		Pair<Integer> edgeCoordinates = new Pair<Integer>(layout.getEdgeLocation(e).getFirst(), portCoordinates.getSecond());
 		
 		drawing.line(vertexCoordinates, portCoordinates);
 		drawing.line(portCoordinates, edgeCoordinates);
