@@ -2,14 +2,9 @@ package de.uniwue.smooth.app;
 
 import java.awt.Dimension;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FilenameFilter;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -21,11 +16,8 @@ import javax.swing.JFrame;
 
 import org.apache.commons.collections15.Transformer;
 
-import au.com.bytecode.opencsv.CSVReader;
 import de.uniwue.smooth.StOrdering;
 import de.uniwue.smooth.UndirectedTransformer;
-import de.uniwue.smooth.generate.CompleteKPartitGraphGenerator;
-import de.uniwue.smooth.generate.SimplePlanarGraphGenerator;
 import de.uniwue.smooth.orthogonal.DrawIpe;
 import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
@@ -35,11 +27,9 @@ import de.uniwue.smooth.planar.DoublyConnectedEdgeListEmbedding;
 import de.uniwue.smooth.planar.Embedding;
 import de.uniwue.smooth.planar.EmbeddingIterator;
 import de.uniwue.smooth.planar.EmbeddingTools;
-import de.uniwue.smooth.planar.NotPlanarException;
 import de.uniwue.smooth.util.Util;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.algorithms.layout.SpringLayout;
 import edu.uci.ics.jung.algorithms.util.MapSettableTransformer;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
@@ -48,12 +38,14 @@ import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import edu.uci.ics.jung.io.GraphIOException;
 import edu.uci.ics.jung.io.GraphReader;
-import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 
-@SuppressWarnings("unused")
+/**
+ * Main class for testing and running examples.
+ */
+@SuppressWarnings("unused") // we might not use everything always, be sure to clean up from time to time
 public class App {
 
 	public static void main(String[] args) {
