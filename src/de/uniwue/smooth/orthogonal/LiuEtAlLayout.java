@@ -228,7 +228,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 
 	@Override
 	public Pair<Integer> getEdgeLocation(E e) {
-		return new Pair<Integer>(edgeColumns.get(e).getCoordinate(), stOrdering.asNumbers().get(getGraph().getSource(e)));
+		return new Pair<Integer>(edgeColumns.get(e).getCoordinate(), stOrdering.asNumbers().get(Collections.min(getGraph().getEndpoints(e), stOrdering)));
 	}
 
 	@Override
