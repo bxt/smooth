@@ -9,6 +9,12 @@ import de.uniwue.smooth.util.Util;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 
+/**
+ * Generate a circular graph. 
+ *
+ * @param <V> Vertex type
+ * @param <E> Edge type
+ */
 public class CircleGraphGenerator<V, E> implements Factory<UndirectedGraph<V, E>> {
 	
 	private boolean randomize;
@@ -16,6 +22,13 @@ public class CircleGraphGenerator<V, E> implements Factory<UndirectedGraph<V, E>
 	private Factory<V> vertexFactory;
 	private Factory<E> edgeFactory;
 	
+	/**
+	 * Configure and create a new factory for circular graphs with the given parameters.
+	 * @param randomize If or not the vertex and edge order is randomized.
+	 * @param size Number of vertices in the result.
+	 * @param vertexFactory Factory to create the vertices.
+	 * @param edgeFactory Factory to create the edges.
+	 */
 	public CircleGraphGenerator(boolean randomize, int size,
 			Factory<V> vertexFactory, Factory<E> edgeFactory) {
 		super();

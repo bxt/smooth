@@ -19,6 +19,9 @@ import edu.uci.ics.jung.io.graphml.GraphMetadata.EdgeDefault;
 import edu.uci.ics.jung.io.graphml.HyperEdgeMetadata;
 import edu.uci.ics.jung.io.graphml.NodeMetadata;
 
+/**
+ * Creates graph objects using {@link Vertex} and {@link Edge} from graphml files. 
+ */
 public class GraphReaderFactory {
 	
 	public static final Transformer<GraphMetadata, Graph<Vertex, Edge>> graphTransformer = new Transformer<GraphMetadata, Graph<Vertex, Edge>>() {

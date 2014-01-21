@@ -10,6 +10,10 @@ class Tier implements Iterable<Tier> {
 	private Tier next;
 	private Tier prev;
 	
+	/**
+	 * Create, link and return a new tier left of this one.
+	 * @return The new tier.
+	 */
 	public Tier newLeftOf() {
 		Tier newTier = new Tier();
 		Tier prePrev = prev;
@@ -20,6 +24,10 @@ class Tier implements Iterable<Tier> {
 		return newTier;
 	}
 	
+	/**
+	 * Create, link and return a new tier right of this one.
+	 * @return The new tier.
+	 */
 	public Tier newRightOf() {
 		Tier newTier = new Tier();
 		Tier preNext = next;
@@ -30,10 +38,18 @@ class Tier implements Iterable<Tier> {
 		return newTier;
 	}
 	
+	/**
+	 * Return the index of this tier.
+	 * Returns 0 unless {@link #setTierCoordinates()} is run first.
+	 * @return The position of this tier in the list of tiers.
+	 */
 	public int getCoordinate() {
 		return coordinate;
 	}
 	
+	/**
+	 * Recalculate the tier indices of this tier and all its liked tiers.
+	 */
 	public void setTierCoordinates() {
 		int i = 0;
 		for(Tier t : this) t.coordinate = i++;

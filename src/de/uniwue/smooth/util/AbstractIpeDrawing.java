@@ -2,6 +2,9 @@ package de.uniwue.smooth.util;
 
 import org.apache.commons.collections15.Factory;
 
+/**
+ * Wraps {@link IpeDraw} for stateful incremental creation of drawing. 
+ */
 public class AbstractIpeDrawing implements Factory<String> {
 	
 	private StringBuilder sb = new StringBuilder();

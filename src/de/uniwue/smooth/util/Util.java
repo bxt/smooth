@@ -15,8 +15,18 @@ import org.apache.commons.collections15.Factory;
 import edu.uci.ics.jung.graph.Hypergraph;
 import edu.uci.ics.jung.graph.util.Pair;
 
+/**
+ * Some utility functions that did not fit anywhere else.
+ */
 public class Util {
 	
+	/**
+	 * Copy all vertixes from one graph into another graph. The vertices themselves are
+	 * not cloned.
+	 * @param source Original graph to read the vertices from.
+	 * @param dest Target graph to write the vertices into.
+	 * @return If all vertices where new to the target graph.
+	 */
 	public static <V> boolean copyVertices(Hypergraph<? extends V, ?> source, Hypergraph<? super V, ?> dest) {
 		boolean allSuccessful = true;
 		
@@ -26,10 +36,21 @@ public class Util {
 		return allSuccessful;
 	}
 	
+	/**
+	 * Call the {@link #toString()} method on objects when the are not <tt>null</tt>.
+	 * @param o The object to stringify or null.
+	 * @return Result of the objects {@link #toString()} method, or <tt>"null"</tt> when <tt>o</tt> is <tt>null</tt>.
+	 */
 	public static String nullsafeToString(Object o) {
 		return (o == null ? "null" : o.toString());
 	}
 	
+	/**
+	 * Create a list with objects by repeatedly using the given factory.
+	 * @param factory Factory to create the objects with.
+	 * @param size Number of objects to create, target list size.
+	 * @return A list with <tt>size</tt> newly created objects.
+	 */
 	public static <T> List<T> listFromFactory(Factory<T> factory, int size) {
 		List<T> list = new ArrayList<>(size);
 		for (int i = size; i > 0; i--) {
@@ -38,6 +59,12 @@ public class Util {
 		return list;
 	}
 	
+	/**
+	 * Return a sub list of a list from a starting index inclusive to the end of the list.
+	 * @param list The list to cut.
+	 * @param fromIndex The index to start at.
+	 * @return A sub list form the given index.
+	 */
 	public static <T> List<T> subList(List<T> list, int fromIndex) {
 		return list.subList(fromIndex, list.size());
 	}
@@ -58,11 +85,22 @@ public class Util {
 	    return null;
 	}
 	
+	/**
+	 * Add two pairs compenent wise.
+	 * @param a A pair.
+	 * @param b Another pair.
+	 * @return Sum of the pairs.
+	 */
 	public static Pair<Integer> add(Pair<Integer> a, Pair<Integer> b) {
 		return new Pair<Integer>(a.getFirst() + b.getFirst(), a.getSecond() + b.getSecond());
 		
 	}
 	
+	/**
+	 * Write a string to a file. 
+	 * @param filename Path of the target file, will be overridden.
+	 * @param contents String to write into the file, will be utf-8.
+	 */
 	public static void writeFile(String filename, String contents) {
 		Writer writer = null;
 

@@ -9,6 +9,12 @@ import de.uniwue.smooth.util.Util;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 
+/**
+ * Generate wheel graphs.
+ *
+ * @param <V> Vertex type
+ * @param <E> Edge type
+ */
 public class WheelGraphGenerator<V, E> implements Factory<UndirectedGraph<V, E>> {
 	
 	private boolean randomize;
@@ -16,6 +22,16 @@ public class WheelGraphGenerator<V, E> implements Factory<UndirectedGraph<V, E>>
 	private Factory<V> vertexFactory;
 	private Factory<E> edgeFactory;
 	
+	/**
+	 * Configure and create a new factory for wheel graphs with the given parameters.
+	 * 
+	 * Wheel graphs are circles where each vertex is connected to another, central vertex.
+	 * 
+	 * @param randomize If or not the vertex and edge order is randomized.
+	 * @param size Number of vertices in the circle of the result, i.e. number of vertices - 1
+	 * @param vertexFactory Factory to create the vertices.
+	 * @param edgeFactory Factory to create the edges.
+	 */
 	public WheelGraphGenerator(boolean randomize, int size,
 			Factory<V> vertexFactory, Factory<E> edgeFactory) {
 		super();

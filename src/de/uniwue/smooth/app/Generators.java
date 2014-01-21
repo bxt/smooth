@@ -10,6 +10,9 @@ import de.uniwue.smooth.generate.SimplePlanarGraphGenerator;
 import de.uniwue.smooth.generate.WheelGraphGenerator;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
+/**
+ * Provides convenient static methods for using the graph generators.
+ */
 public abstract class Generators {
 	
 	public static UndirectedGraph<Vertex, Edge> octahedron() {

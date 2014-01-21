@@ -2,8 +2,27 @@ package de.uniwue.smooth.orthogonal;
 
 import edu.uci.ics.jung.graph.util.Pair;
 
+/**
+ * Represents one of the four sides ("ports") around a vertex in an orthogonal drawing.
+ */
 public enum Port {
-	L,R,T,B;
+	/**
+	 * The left port (negative X direction)
+	 */
+	L,
+	/**
+	 * The right port (positive X direction)
+	 */
+	R,
+	/**
+	 * The top port (positive Y direction)
+	 */
+	T,
+	/**
+	 * The bottom port (negative Y direction)
+	 */
+	B,
+	;
 	
 	private Port opposite;
 	private Pair<Integer> direction;

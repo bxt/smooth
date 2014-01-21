@@ -8,11 +8,23 @@ import de.uniwue.smooth.util.Util;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 
+/**
+ * Generate the octahedron graph.
+ *
+ * @param <V> Vertex type
+ * @param <E> Edge type
+ */
 public class OctahedronGraphGenerator<V, E> implements Factory<UndirectedGraph<V, E>> {
 
 	private Factory<V> vertexFactory;
 	private Factory<E> edgeFactory;
 	
+	/**
+	 * Configure and create a new factory for octahedron graphs with the given factories.
+	 * 
+	 * @param vertexFactory Factory to create the vertices.
+	 * @param edgeFactory Factory to create the edges.
+	 */
 	public OctahedronGraphGenerator(Factory<V> vertexFactory,
 			Factory<E> edgeFactory) {
 		super();
