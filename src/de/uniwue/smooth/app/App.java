@@ -26,7 +26,9 @@ import de.uniwue.smooth.StOrdering;
 import de.uniwue.smooth.UndirectedTransformer;
 import de.uniwue.smooth.generate.CompleteKPartitGraphGenerator;
 import de.uniwue.smooth.generate.SimplePlanarGraphGenerator;
+import de.uniwue.smooth.orthogonal.DrawIpe;
 import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
+import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.palm.PalmTree;
 import de.uniwue.smooth.planar.BrandesEmbedding;
 import de.uniwue.smooth.planar.DoublyConnectedEdgeListEmbedding;
@@ -81,7 +83,7 @@ public class App {
 		} catch (GraphIOException e) {
 			throw new RuntimeException(e);
 		}
-		drawLiu(graph);
+		drawLiuIpe(graph);
 		
 		//romeStats();
 	}
@@ -163,6 +165,13 @@ public class App {
 	
 	public void drawLiu(Graph<Vertex, Edge> graph) {
 		draw(new LiuEtAlLayout<Vertex, Edge>(graph));
+	}
+	
+	public void drawLiuIpe(Graph<Vertex, Edge> graph) {
+		OrthogonalLayout<Vertex, Edge> layout = new LiuEtAlLayout<Vertex, Edge>(graph);
+		layout.initialize();
+		String ipeCode = new DrawIpe<Vertex, Edge>().transform(layout);
+		Util.writeFile("resources/drawings/out.ipe", ipeCode);
 	}
 	
 	public void drawCircle(Graph<Vertex, Edge> graph) {

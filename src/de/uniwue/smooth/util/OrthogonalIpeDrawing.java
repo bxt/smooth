@@ -1,16 +1,30 @@
 package de.uniwue.smooth.util;
 
-public class OrthogonalIpeDrawing extends AbstractIpeDrawing {
+import edu.uci.ics.jung.graph.util.Pair;
+
+public class OrthogonalIpeDrawing extends ScalingIpeDrawing {
 	
-	public void vertex(int x, int y) {
-		draw(IpeDraw.drawIpeMark(x, y));
+	public OrthogonalIpeDrawing(Pair<Integer> scale) {
+		super(scale);
+	}
+
+	public void vertex(Pair<Integer> position) {
+		Pair<Integer> positionScaled = scale(position);
+		draw(IpeDraw.drawIpeMark(positionScaled.getFirst(), positionScaled.getSecond()));
 	}
 	
-	public void edgeMidpoint(int x, int y) {
-		draw(IpeDraw.drawIpeMark(x, y, "cross"));
+	public void edgeMidpoint(Pair<Integer> position) {
+		Pair<Integer> positionScaled = scale(position);
+		draw(IpeDraw.drawIpeMark(positionScaled.getFirst(), positionScaled.getSecond(), "cross"));
 	}
 	
-	public void line(int x1, int y1, int x2, int y2) {
-		draw(IpeDraw.drawIpeEdge(x1, y1, x2, y2));
+	public void line(Pair<Integer> from, Pair<Integer> to) {
+		Pair<Integer> fromScaled = scale(from);
+		Pair<Integer> toScaled = scale(to);
+		draw(IpeDraw.drawIpeEdge(fromScaled.getFirst(), fromScaled.getSecond(), toScaled.getFirst(), toScaled.getSecond()));
+	}
+	
+	public void line(Pair<Pair<Integer>> endpoints) {
+		line(endpoints.getFirst(), endpoints.getSecond());
 	}
 }
