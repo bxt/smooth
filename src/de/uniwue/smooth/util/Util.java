@@ -1,6 +1,7 @@
 package de.uniwue.smooth.util;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -105,6 +106,8 @@ public class Util {
 		Writer writer = null;
 
 		try {
+			System.out.println(new File(filename).getCanonicalPath());
+			
 		    writer = new BufferedWriter(new OutputStreamWriter(
 		          new FileOutputStream(filename), "utf-8"));
 		    writer.write(contents);
