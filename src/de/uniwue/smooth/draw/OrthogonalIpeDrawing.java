@@ -1,4 +1,4 @@
-package de.uniwue.smooth.util;
+package de.uniwue.smooth.draw;
 
 import edu.uci.ics.jung.graph.util.Pair;
 

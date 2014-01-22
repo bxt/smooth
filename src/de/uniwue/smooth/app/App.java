@@ -17,7 +17,10 @@ import javax.swing.JFrame;
 
 import de.uniwue.smooth.StOrdering;
 import de.uniwue.smooth.UndirectedTransformer;
-import de.uniwue.smooth.orthogonal.DrawIpe;
+import de.uniwue.smooth.draw.OrthogonalDrawer;
+import de.uniwue.smooth.draw.OrthogonalDrawing;
+import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
+import de.uniwue.smooth.draw.TransformingOrthogonalDrawing;
 import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.palm.PalmTree;
@@ -26,9 +29,6 @@ import de.uniwue.smooth.planar.DoublyConnectedEdgeListEmbedding;
 import de.uniwue.smooth.planar.Embedding;
 import de.uniwue.smooth.planar.EmbeddingIterator;
 import de.uniwue.smooth.planar.EmbeddingTools;
-import de.uniwue.smooth.util.OrthogonalDrawing;
-import de.uniwue.smooth.util.OrthogonalIpeDrawing;
-import de.uniwue.smooth.util.TransformingOrthogonalDrawing;
 import de.uniwue.smooth.util.Util;
 import de.uniwue.smooth.util.tuples.ImmutableTuple;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
@@ -169,7 +169,7 @@ public class App {
 		OrthogonalDrawing<String> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
 		OrthogonalLayout<Vertex, Edge> layout = new LiuEtAlLayout<Vertex, Edge>(graph);
 		layout.initialize();
-		String ipeCode = new DrawIpe<Vertex, Edge, String>().transform(new ImmutableTuple<>(layout, drawing));
+		String ipeCode = new OrthogonalDrawer<Vertex, Edge, String>().transform(new ImmutableTuple<>(layout, drawing));
 		Util.writeFile("resources/drawings/out.ipe", ipeCode);
 	}
 	

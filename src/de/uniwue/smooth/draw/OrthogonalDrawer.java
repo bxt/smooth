@@ -1,14 +1,15 @@
-package de.uniwue.smooth.orthogonal;
+package de.uniwue.smooth.draw;
 
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Transformer;
 
-import de.uniwue.smooth.util.OrthogonalDrawing;
+import de.uniwue.smooth.orthogonal.OrthogonalLayout;
+import de.uniwue.smooth.orthogonal.Port;
 import de.uniwue.smooth.util.Util;
 import de.uniwue.smooth.util.tuples.Tuple;
 import edu.uci.ics.jung.graph.util.Pair;
 
-public class DrawIpe<V, E, T> implements Transformer<Tuple<OrthogonalLayout<V, E>, OrthogonalDrawing<T>>, T> {
+public class OrthogonalDrawer<V, E, T> implements Transformer<Tuple<OrthogonalLayout<V, E>, OrthogonalDrawing<T>>, T> {
 	
 	private OrthogonalLayout<V, E> layout;
 	private OrthogonalDrawing<T> drawing;

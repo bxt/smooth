@@ -1,4 +1,4 @@
-package de.uniwue.smooth.util;
+package de.uniwue.smooth.draw;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
