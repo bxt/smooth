@@ -21,35 +21,68 @@ import de.uniwue.smooth.planar.EmbeddingIterator;
 import de.uniwue.smooth.planar.EmbeddingTools;
 import de.uniwue.smooth.planar.NotPlanarException;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
-import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import edu.uci.ics.jung.graph.util.Pair;
 
+/**
+ * Layout a graph in an orthogonal grid. [Liu et al. 1997]
+ *
+ * @param <V>
+ * @param <E>
+ */
 public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements OrthogonalLayout<V, E> {
 	
-	Embedding<V, E> embedding;
-	StOrdering<V, E> stOrdering;
-	E sLeftmost;
-	E tLeftmost;
-	DirectedGraph<V, E> directedGraph;
+	/**
+	 * The embedding which is used for the edge ordering.
+	 */
+	private Embedding<V, E> embedding;
 	
+	/**
+	 * The st ordering for the order of vertices.
+	 */
+	private StOrdering<V, E> stOrdering;
+	/**
+	 * Leftmost (left outer face) edge at s
+	 */
+	private E sLeftmost;
+	/**
+	 * Leftmost edge at t
+	 */
+	private E tLeftmost;
+	
+	/**
+	 * Pointer into the column linked list
+	 */
+	private Tier initialTier = new Tier();
+	
+	/**
+	 * Which column a vertex belongs to.
+	 */
 	private Map<V, Tier> vertexColumns = new HashMap<>();
+	/**
+	 * Which column an (open) edge belongs to.
+	 */
 	private Map<E, Tier> edgeColumns = new HashMap<>();
+	/**
+	 * Which edges are at which port for each vertex.
+	 */
 	private Map<V, Map<Port, E>> portAssignments = LazyMap.decorate(new HashMap<V, Map<Port, E>>(), new Factory<Map<Port, E>>() {
 		@Override public Map<Port, E> create() {
 			return new EnumMap<Port, E>(Port.class);
 		}});
-	private Tier initialTier = new Tier();
 	
 	public LiuEtAlLayout(Graph<V, E> graph) {
 		super(graph);
 	}
-
+	
+	/**
+	 * Embed the whole graph into an orthogonal drawing.
+	 */
 	@Override
 	public void initialize() {
-		Dimension d = getSize();
 		
 		UndirectedGraph<V, E> undirectedGraph = new UndirectedTransformer<V, E>(UndirectedSparseGraph.<V, E>getFactory()).transform(graph);
 		
@@ -60,25 +93,40 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		}
 		
 		buildStOrdering(undirectedGraph);
-		List<V> vertexList = stOrdering.getList();
 		
+		embedEdgesAndVertices();
+		
+		initialTier.setTierCoordinates();
+		
+		calculateCoordinates();
+	}
+	
+	/**
+	 * The main step which does the placement of vertices and edges and the port assignments.
+	 */
+	private void embedEdgesAndVertices() {
+		List<V> vertexList = stOrdering.getList();
 		for (int i = 0; i < vertexList.size(); i++) {
 			V vetex = vertexList.get(i);
 			Map<Port, E> portAssignment = portAssignments.get(vetex);
+			
 			Pair<List<E>> edgePartitions = edgePartitions(vetex);
 			
-			inPortAssignment(edgePartitions, portAssignment);
-			outPortAssignment(edgePartitions, portAssignment);
+			inPortAssignment(edgePartitions.getFirst(), portAssignment);
+			outPortAssignment(edgePartitions.getSecond(), portAssignment);
 			
 			Tier tier = i == 0 ? initialTier : edgeColumns.get(portAssignment.get(Port.B));
 			vertexColumns.put(vetex, tier);
 			
-			tierAssignment(edgePartitions, tier);
-			
+			tierAssignment(edgePartitions.getSecond(), tier);
 		}
-		
-		initialTier.setTierCoordinates();
-		
+	}
+	
+	/**
+	 * Calculates the coordinates of the vertices, only used for {@link Layout} compatibility.
+	 */
+	private void calculateCoordinates() {
+		Dimension d = getSize();
 		if (d != null) {
 			double width = d.getWidth() * 0.9;
 			double height = d.getHeight() * 0.9;
@@ -86,7 +134,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 			double yOffset = d.getHeight() * 0.05;
 
 			int i = 0;
-			for (V v : vertexList) {
+			for (V v : stOrdering.getList()) {
 				Point2D coord = transform(v);
 
 				double x = vertexColumns.get(v).getCoordinate() / (double) getGraph().getVertices().size();
@@ -99,18 +147,30 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		}
 	}
 	
+	/**
+	 * Intialize the st ordering, also chose s and t and caluclate the leftmost edges.
+	 * @param undirectedGraph Undirected version of the input graph.
+	 */
 	private void buildStOrdering(UndirectedGraph<V, E> undirectedGraph) {
 		EmbeddingIterator<V, E> embeddingIterator = embedding.getEmbeddingIteratorOnOuterface();
+		
 		V s = embeddingIterator.getVertex();
 		sLeftmost = embeddingIterator.getEdge();
+		
 		embeddingIterator.nextAroundFace();
+		
 		V t = embeddingIterator.getVertex();
 		tLeftmost = embeddingIterator.getEdge();
+		
 		stOrdering = new StOrdering<V, E>(undirectedGraph, s, t);
 	}
-
-	private void inPortAssignment(Pair<List<E>> edgePartitions, Map<Port, E> portAssignment) {
-		List<E> in = edgePartitions.getFirst();
+	
+	/**
+	 * Assign ports for the incoming edges depending on indegree and order in the adjacency list embedding.
+	 * @param in Adjacency list of incoming edges.
+	 * @param portAssignment Map to store the assinment into.
+	 */
+	private void inPortAssignment(List<E> in, Map<Port, E> portAssignment) {
 		if(in.size() == 0) {
 			// nothing
 		} else if(in.size() == 1) {
@@ -132,10 +192,14 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		}
 	}
 	
-	private void outPortAssignment(Pair<List<E>> edgePartitions, Map<Port, E> portAssignment) {
-		List<E> out = edgePartitions.getSecond();
+	/**
+	 * Assign ports for the outgoing edges depending on outdegree and order in the adjacency list embedding.
+	 * @param out Adjacency list of outgoing edges.
+	 * @param portAssignment Map to store the assinment into.
+	 */
+	private void outPortAssignment(List<E> out, Map<Port, E> portAssignment) {
 		if(out.size() == 0) {
-			// nothing
+			// nothing to assign.
 		} else if(out.size() == 1) {
 			portAssignment.put(Port.T, out.get(0));
 		} else if(out.size() == 2) {
@@ -155,10 +219,14 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		}
 	}
 	
-	private void tierAssignment(Pair<List<E>> edgePartitions, Tier tier) {
-		List<E> out = edgePartitions.getSecond();
+	/**
+	 * Assign columns for the new open edges.
+	 * @param out List of outgoing edges.
+	 * @param tier Column of source vertex.
+	 */
+	private void tierAssignment(List<E> out, Tier tier) {
 		if(out.size() == 0) {
-			// nothing
+			// nothing to assign.
 		} else if(out.size() == 1) {
 			edgeColumns.put(out.get(0), tier);
 		} else if(out.size() == 2) {
@@ -179,6 +247,17 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		}
 	}
 	
+	/**
+	 * Get the list of incoming and the list of outgoing edges at a certain vertex.
+	 * 
+	 * Determines if an edge is incoming or outgoing using the st odering, checks
+	 * if the edges are prepartitioned nicely and returns the two lists.
+	 * For s (and t), where there are only outgoing (incoming) edges, also makes sure
+	 * that the leftmost edges are at the start of the list.
+	 *  
+	 * @param v The vertex whose adjacency list is to be partitioned.
+	 * @return A pair of incoming and outgoing list of edges.
+	 */
 	private Pair<List<E>> edgePartitions(V v) {
 		List<E> adjacent = EmbeddingTools.listAroundVertex(embedding, v);
 		if(adjacent.size() > 4)
@@ -187,6 +266,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		List<List<E>> partitions = new ArrayList<>();
 		List<Integer> partitionValues = new ArrayList<>();
 		
+		// Figure if edge is incoming or outgoing and preorder in up to three lists accordingly
 		List<E> currentPartition = null;
 		int lastComparator = 0;
 		for (E e : adjacent) {
@@ -200,37 +280,50 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 			currentPartition.add(e);
 		}
 		
+		// Merge the up to three lists to the two partitions
 		if(partitions.size() == 0) {
 			return new Pair<List<E>>(Collections.<E> emptyList(), Collections.<E> emptyList());
-		} else if(partitions.size() == 1) {
+		} else if(partitions.size() == 1) { // only incoming or only outgoing edges
 			if(partitionValues.get(0) < 0) { // s
+				// currently the rotation at s is not necessary b/c of the way we do the st ordering, but add it anyway for later and symmetry
 				return new Pair<List<E>>(Collections.<E> emptyList(), rotateToFrontOfList(partitions.get(0), sLeftmost));
 			} else { // t
 				return new Pair<List<E>>(rotateToFrontOfList(partitions.get(0), tLeftmost), Collections.<E> emptyList());
 			}
-		} else if(partitions.size() == 2) {
+		} else if(partitions.size() == 2) { // some incoming, some outgoing edges
 			if(partitionValues.get(0) < 0) {
 				return new Pair<List<E>>(partitions.get(1), partitions.get(0));
 			} else {
 				return new Pair<List<E>>(partitions.get(0), partitions.get(1));
 			}
-		} else if(partitions.size() == 3) {
+		} else if(partitions.size() == 3) { // some incoming, some outgoing edges, too but split was somewhere in the middle
 			if(partitionValues.get(0) < 0) {
 				return new Pair<List<E>>(partitions.get(1), ListUtils.union(partitions.get(2), partitions.get(0)));
 			} else {
 				return new Pair<List<E>>(ListUtils.union(partitions.get(2), partitions.get(0)), partitions.get(1));
 			}
 		} else {
+			// The incoming and outgoing edges may not be wierdly mixed. [R. Tamassia & I.G. Tollis 1986]
 			throw new IllegalStateException("Bad partitoning.");
 		}
 	}
 	
+	/**
+	 * Rotate the list so that the given element is at its head.
+	 * 
+	 * Modifies the list in place but also returns it for convenience.
+	 * 
+	 * @param list List to be rotated.
+	 * @param element Element to be at index 0 afterwards.
+	 * @return The input list.
+	 */
 	private <T> List<T> rotateToFrontOfList(List<T> list, T element) {
 		int index = list.indexOf(element);
 		if (index < 0) throw new IllegalStateException("Element not contained in list to rotate!");
 		Collections.rotate(list, -index);
 		return list;
 	}
+	
 	@Override
 	public void reset() {
 		initialize();

@@ -17,6 +17,12 @@ import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
+/**
+ * Embed a graph as a planar drawing. [U. Brandes 2009, unpublished]
+ *
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 	
 	public static <V, E> boolean isPlanar(UndirectedGraph<V, E> graph) {
