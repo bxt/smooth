@@ -236,7 +236,7 @@
     <view layers="alpha" active="alpha"/>
 <use name="mark/disk(sx)" pos="0 0" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="30 20" size="normal" stroke="black"/>
-<use name="mark/disk(sx)" pos="60 130" size="normal" stroke="black"/>
+<use name="mark/disk(sx)" pos="50 130" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="30 70" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="50 110" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="10 50" size="normal" stroke="black"/>
@@ -249,12 +249,12 @@
 <use name="mark/disk(sx)" pos="30 90" size="normal" stroke="black"/>
 <use name="mark/disk(sx)" pos="30 30" size="normal" stroke="black"/>
 <path stroke="black" pen="normal" dash="normal">
- 60 130 m
- 70 130 l
+ 50 130 m
+ 50 140 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 70 130 m
- 0 130 l
+ 50 140 m
+ 0 140 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  0 0 m
@@ -265,7 +265,7 @@
  0 10 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 0 130 m
+ 0 140 m
  0 10 l
  </path>
 <use name="mark/cross(sx)" pos="0 0" size="normal" stroke="black"/>
@@ -383,16 +383,16 @@
  50 130 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 60 130 m
- 50 130 l
+ 50 130 m
+ 50 120 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 50 120 m
+ 50 120 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  50 130 m
- 50 130 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
- 50 130 m
- 50 130 l
+ 50 120 l
  </path>
 <use name="mark/cross(sx)" pos="50 120" size="normal" stroke="black"/>
 <path stroke="black" pen="normal" dash="normal">
@@ -467,16 +467,16 @@
  60 110 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 60 130 m
- 60 120 l
+ 50 130 m
+ 60 130 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 60 120 m
- 60 120 l
+ 60 130 m
+ 60 130 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  60 110 m
- 60 120 l
+ 60 130 l
  </path>
 <use name="mark/cross(sx)" pos="60 110" size="normal" stroke="black"/>
 <path stroke="black" pen="normal" dash="normal">
@@ -488,16 +488,16 @@
  30 100 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 60 130 m
- 60 140 l
+ 50 130 m
+ 40 130 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 60 140 m
- 30 140 l
+ 40 130 m
+ 30 130 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  30 100 m
- 30 140 l
+ 30 130 l
  </path>
 <use name="mark/cross(sx)" pos="30 90" size="normal" stroke="black"/>
 <path stroke="black" pen="normal" dash="normal">

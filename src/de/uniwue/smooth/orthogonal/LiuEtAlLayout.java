@@ -31,6 +31,8 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	
 	Embedding<V, E> embedding;
 	StOrdering<V, E> stOrdering;
+	E sLeftmost;
+	E tLeftmost;
 	DirectedGraph<V, E> directedGraph;
 	
 	private Map<V, Tier> vertexColumns = new HashMap<>();
@@ -56,11 +58,8 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		} catch (NotPlanarException e) {
 			throw new IllegalArgumentException("Can only layout planar graphs.", e);
 		}
-		EmbeddingIterator<V, E> embeddingIterator = embedding.getEmbeddingIteratorOnOuterface();
-		V s = embeddingIterator.getVertex();
-		embeddingIterator.nextAroundFace();
-		V t = embeddingIterator.getVertex();
-		stOrdering = new StOrdering<V, E>(undirectedGraph, s, t);
+		
+		buildStOrdering(undirectedGraph);
 		List<V> vertexList = stOrdering.getList();
 		
 		for (int i = 0; i < vertexList.size(); i++) {
@@ -100,6 +99,16 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		}
 	}
 	
+	private void buildStOrdering(UndirectedGraph<V, E> undirectedGraph) {
+		EmbeddingIterator<V, E> embeddingIterator = embedding.getEmbeddingIteratorOnOuterface();
+		V s = embeddingIterator.getVertex();
+		sLeftmost = embeddingIterator.getEdge();
+		embeddingIterator.nextAroundFace();
+		V t = embeddingIterator.getVertex();
+		tLeftmost = embeddingIterator.getEdge();
+		stOrdering = new StOrdering<V, E>(undirectedGraph, s, t);
+	}
+
 	private void inPortAssignment(Pair<List<E>> edgePartitions, Map<Port, E> portAssignment) {
 		List<E> in = edgePartitions.getFirst();
 		if(in.size() == 0) {
@@ -194,10 +203,10 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		if(partitions.size() == 0) {
 			return new Pair<List<E>>(Collections.<E> emptyList(), Collections.<E> emptyList());
 		} else if(partitions.size() == 1) {
-			if(partitionValues.get(0) < 0) {
-				return new Pair<List<E>>(Collections.<E> emptyList(), partitions.get(0));
-			} else {
-				return new Pair<List<E>>(partitions.get(0), Collections.<E> emptyList());
+			if(partitionValues.get(0) < 0) { // s
+				return new Pair<List<E>>(Collections.<E> emptyList(), rotateToFrontOfList(partitions.get(0), sLeftmost));
+			} else { // t
+				return new Pair<List<E>>(rotateToFrontOfList(partitions.get(0), tLeftmost), Collections.<E> emptyList());
 			}
 		} else if(partitions.size() == 2) {
 			if(partitionValues.get(0) < 0) {
@@ -216,6 +225,12 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		}
 	}
 	
+	private <T> List<T> rotateToFrontOfList(List<T> list, T element) {
+		int index = list.indexOf(element);
+		if (index < 0) throw new IllegalStateException("Element not contained in list to rotate!");
+		Collections.rotate(list, -index);
+		return list;
+	}
 	@Override
 	public void reset() {
 		initialize();
