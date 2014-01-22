@@ -1,6 +1,7 @@
 package de.uniwue.smooth.app;
 
 import java.awt.Dimension;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.HashMap;
@@ -25,7 +26,11 @@ import de.uniwue.smooth.planar.DoublyConnectedEdgeListEmbedding;
 import de.uniwue.smooth.planar.Embedding;
 import de.uniwue.smooth.planar.EmbeddingIterator;
 import de.uniwue.smooth.planar.EmbeddingTools;
+import de.uniwue.smooth.util.OrthogonalDrawing;
+import de.uniwue.smooth.util.OrthogonalIpeDrawing;
+import de.uniwue.smooth.util.TransformingOrthogonalDrawing;
 import de.uniwue.smooth.util.Util;
+import de.uniwue.smooth.util.tuples.ImmutableTuple;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.algorithms.util.MapSettableTransformer;
@@ -158,9 +163,13 @@ public class App {
 	}
 	
 	public void drawLiuIpe(Graph<Vertex, Edge> graph) {
+		AffineTransform transform = new AffineTransform();
+		transform.scale(10, 10);
+		transform.translate(50, 50);
+		OrthogonalDrawing<String> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
 		OrthogonalLayout<Vertex, Edge> layout = new LiuEtAlLayout<Vertex, Edge>(graph);
 		layout.initialize();
-		String ipeCode = new DrawIpe<Vertex, Edge>().transform(layout);
+		String ipeCode = new DrawIpe<Vertex, Edge, String>().transform(new ImmutableTuple<>(layout, drawing));
 		Util.writeFile("resources/drawings/out.ipe", ipeCode);
 	}
 	

@@ -3,22 +3,23 @@ package de.uniwue.smooth.orthogonal;
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Transformer;
 
-import de.uniwue.smooth.util.OrthogonalIpeDrawing;
+import de.uniwue.smooth.util.OrthogonalDrawing;
 import de.uniwue.smooth.util.Util;
+import de.uniwue.smooth.util.tuples.Tuple;
 import edu.uci.ics.jung.graph.util.Pair;
 
-public class DrawIpe<V, E> implements Transformer<OrthogonalLayout<V, E>, String> {
+public class DrawIpe<V, E, T> implements Transformer<Tuple<OrthogonalLayout<V, E>, OrthogonalDrawing<T>>, T> {
 	
 	private OrthogonalLayout<V, E> layout;
-	private OrthogonalIpeDrawing drawing;
+	private OrthogonalDrawing<T> drawing;
 	
 	@Override
-	public String transform(OrthogonalLayout<V, E> layout) {
-		this.layout = layout;
-		this.drawing = new OrthogonalIpeDrawing(new Pair<Integer>(10, 10));
+	public T transform(Tuple<OrthogonalLayout<V, E>, OrthogonalDrawing<T>> input) {
+		this.layout = input.getFirst();
+		this.drawing = input.getSecond();
 		
 		draw();
-		String result = drawing.create();
+		T result = drawing.create();
 		
 		this.layout = null;
 		this.drawing = null;
