@@ -14,8 +14,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JFrame;
 
-import org.apache.commons.collections15.Transformer;
-
 import de.uniwue.smooth.StOrdering;
 import de.uniwue.smooth.UndirectedTransformer;
 import de.uniwue.smooth.orthogonal.DrawIpe;
@@ -175,12 +173,7 @@ public class App {
 		VisualizationViewer<Vertex, Edge> vv = new VisualizationViewer<Vertex, Edge>(layout, new Dimension(600,600));
         vv.setVertexToolTipTransformer(new ToStringLabeller<Vertex>());
         vv.setEdgeToolTipTransformer(new ToStringLabeller<Edge>());
-//        vv.getRenderContext().setVertexLabelTransformer(new Transformer<Vertex, String>() {
-//			@Override
-//			public String transform(Vertex input) {
-//				return input.toString() + "-" + layout.transform(input).getX() + "," + layout.transform(input).getY();
-//			}
-//		});
+        vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<Vertex>());
         vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<Edge>());
 		vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line<Vertex, Edge>());
         
