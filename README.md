@@ -10,3 +10,4 @@ Links
 * [Ipe](http://ipe7.sourceforge.net/) drawing editor
 * [yEd](http://www.yworks.com/de/products_yed_about.html) graph editor
 * [rome](http://www.graphdrawing.org/data/) test graphs
+* [bibsonomy](http://www.bibsonomy.org/user/haeussner/thema%3ABA_smooth) literature and links
