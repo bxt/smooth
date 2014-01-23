@@ -35,6 +35,13 @@ public interface OrthogonalDrawing<T> {
 	public abstract void line(Pair<Pair<Integer>> endpoints);
 	
 	/**
+	 * Draws a label text.
+	 * @param position Left/top coordinates of the label.
+	 * @param labelText Text to write at the position.
+	 */
+	public abstract void label(Pair<Integer> position, String labelText);
+
+	/**
 	 * Finish the painting.
 	 * @return The completed painting.
 	 */

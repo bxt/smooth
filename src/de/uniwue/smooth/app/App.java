@@ -169,8 +169,8 @@ public class App {
 		for(OrthogonalLayout<Vertex, Edge> layout : layouts) {
 			layout.initialize();
 			AffineTransform transform = new AffineTransform();
-			transform.scale(10, 10);
-			transform.translate(50, 50);
+			transform.scale(15, 15);
+			transform.translate(30, 30);
 			OrthogonalDrawing<String> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
 			String ipeCode = new OrthogonalDrawer<Vertex, Edge, String>().transform(new ImmutableTuple<>(layout, drawing));
 			Util.writeFile("resources/drawings/out-"+layout.getClass().getSimpleName()+".ipe", ipeCode);

@@ -50,6 +50,7 @@ public class OrthogonalDrawer<V, E, T> implements Transformer<Tuple<OrthogonalLa
 		for (V v : layout.getGraph().getVertices()) {
 			Pair<Integer> coordinates = layout.getVertexLocation(v);
 			drawing.vertex(coordinates);
+			drawing.label(coordinates, v.toString());
 		}
 	}
 	

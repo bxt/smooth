@@ -26,4 +26,9 @@ public class OrthogonalIpeDrawing extends AbstractIpeDrawing implements Orthogon
 	public void line(Pair<Pair<Integer>> endpoints) {
 		line(endpoints.getFirst(), endpoints.getSecond());
 	}
+
+	@Override
+	public void label(Pair<Integer> position, String labelText) {
+		draw(IpeDraw.writeIpeText(labelText, position.getFirst(), position.getSecond()));
+	}
 }

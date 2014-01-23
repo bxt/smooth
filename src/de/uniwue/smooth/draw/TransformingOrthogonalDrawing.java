@@ -48,6 +48,11 @@ public class TransformingOrthogonalDrawing<T> implements OrthogonalDrawing<T> {
 	}
 
 	@Override
+	public void label(Pair<Integer> position, String labelText) {
+		delegate.label(transform(position), labelText);
+	}
+
+	@Override
 	public T create() {
 		return delegate.create();
 	}
