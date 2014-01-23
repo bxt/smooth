@@ -3,14 +3,20 @@ package de.uniwue.smooth.orthogonal;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
+import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Factory;
 import org.apache.commons.collections15.ListUtils;
+import org.apache.commons.collections15.MapUtils;
+import org.apache.commons.collections15.functors.MapTransformer;
 import org.apache.commons.collections15.map.LazyMap;
 
 import de.uniwue.smooth.StOrdering;
@@ -22,6 +28,8 @@ import de.uniwue.smooth.planar.EmbeddingTools;
 import de.uniwue.smooth.planar.NotPlanarException;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
@@ -58,6 +66,10 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	 */
 	private Tier initialTier = new Tier();
 	
+	/**
+	 * Which row a vertex belongs to.
+	 */
+	private Map<V, Integer> vertexRows = new HashMap<>();
 	/**
 	 * Which column a vertex belongs to.
 	 */
@@ -96,11 +108,14 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		
 		embedEdgesAndVertices();
 		
+		yCompression();
+		
 		initialTier.setTierCoordinates();
 		
 		calculateCoordinates();
 	}
 	
+
 	/**
 	 * The main step which does the placement of vertices and edges and the port assignments.
 	 */
@@ -122,6 +137,82 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		}
 	}
 	
+	private void yCompression() { // TODO: remove columns of s-edges?
+		DirectedGraph<Integer, E> setGraph = new DirectedSparseGraph<>();
+		final Map<V, Integer> vertexSet = new HashMap<>();
+		
+		int setCounter = 0;
+		for (V v : getGraph().getVertices()) {
+			if(!vertexSet.containsKey(v)) {
+				assignVertexSet(setCounter, vertexSet, v, Port.L);
+				assignVertexSet(setCounter, vertexSet, v, Port.R);
+				setGraph.addVertex(setCounter);
+				setCounter++;
+			}
+		}
+		
+		for (E e: getGraph().getEdges()) {
+			List<V> originalEndpoints = new ArrayList<>(getGraph().getEndpoints(e));
+			Collections.sort(originalEndpoints, stOrdering);
+			Collection<Integer> endpoints = CollectionUtils.collect(originalEndpoints, MapTransformer.getInstance(vertexSet));
+			if(!allEqual(endpoints)) // no self edge loops
+				setGraph.addEdge(e, endpoints);
+		}
+		
+		final Map<Integer, Integer> setHeights = new HashMap<>();
+		
+		Queue<Integer> setQueue = new LinkedList<>();
+		Integer firstSet = vertexSet.get(stOrdering.getList().get(0));
+		setQueue.add(firstSet);
+		setHeights.put(firstSet, 0);
+		while (!setQueue.isEmpty()) {
+			Integer set = setQueue.remove();
+			if(setGraph.getPredecessorCount(set) == 0) {
+				for (Integer adjacentSet : new ArrayList<>(setGraph.getSuccessors(set))) {
+					setGraph.removeEdge(setGraph.findEdge(set, adjacentSet));
+					if(!setHeights.containsKey(adjacentSet)) setQueue.add(adjacentSet);
+					setHeights.put(adjacentSet, Math.max(setHeights.get(set) + 1, MapUtils.getObject(setHeights, adjacentSet, 0)));
+				}
+			} else {
+				setQueue.add(set);
+			}
+		}
+		
+		for (V v : getGraph().getVertices()) {
+			vertexRows.put(v, setHeights.get(vertexSet.get(v)));
+		}
+	}
+	
+	private static <E> boolean allEqual(Collection<E> collection) {
+		if(collection.isEmpty()) return false;
+		E ref = null;
+		for (E e : collection) {
+			if (ref == null) {
+				ref = e;
+			} else {
+				if (!ref.equals(e)) return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Move along S-shaped edges.
+	 * @param setCounter Set number to assing to the vertices in this height.
+	 * @param vertexSet Map of vertices to their set number.
+	 * @param v Start vertex.
+	 * @param direction Direction to find s-edges at.
+	 */
+	private void assignVertexSet(int setCounter, Map<V, Integer> vertexSet, V v, Port direction) {
+		V u, w = v; E e;
+		do {
+			vertexSet.put(w, setCounter);
+			u = w;
+			e = portAssignments.get(u).get(direction);
+			if(e != null) w = getGraph().getOpposite(u, e);
+		} while (e != null && e.equals(portAssignments.get(w).get(direction.getOpposite())));
+	}
+	
 	/**
 	 * Calculates the coordinates of the vertices, only used for {@link Layout} compatibility.
 	 */
@@ -133,16 +224,13 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 			double xOffset = d.getWidth() * 0.05;
 			double yOffset = d.getHeight() * 0.05;
 
-			int i = 0;
 			for (V v : stOrdering.getList()) {
 				Point2D coord = transform(v);
 
 				double x = vertexColumns.get(v).getCoordinate() / (double) getGraph().getVertices().size();
-				double y = i / (double) getGraph().getVertices().size();
+				double y = vertexRows.get(v) / (double) getGraph().getVertices().size();
 
 				coord.setLocation(x * width + xOffset, y * height + yOffset);
-				
-				i++;
 			}
 		}
 	}
@@ -163,6 +251,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		tLeftmost = embeddingIterator.getEdge();
 		
 		stOrdering = new StOrdering<V, E>(undirectedGraph, s, t);
+		vertexRows = new HashMap<>(stOrdering.asNumbers());
 	}
 	
 	/**
@@ -331,12 +420,12 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 
 	@Override
 	public Pair<Integer> getVertexLocation(V v) {
-		return new Pair<Integer>(vertexColumns.get(v).getCoordinate(), stOrdering.asNumbers().get(v));
+		return new Pair<Integer>(vertexColumns.get(v).getCoordinate(), vertexRows.get(v));
 	}
 
 	@Override
 	public Pair<Integer> getEdgeLocation(E e) {
-		return new Pair<Integer>(edgeColumns.get(e).getCoordinate(), stOrdering.asNumbers().get(Collections.min(getGraph().getEndpoints(e), stOrdering)));
+		return new Pair<Integer>(edgeColumns.get(e).getCoordinate(), vertexRows.get(Collections.min(getGraph().getEndpoints(e), stOrdering)));
 	}
 
 	@Override
