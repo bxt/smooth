@@ -10,21 +10,37 @@ import org.apache.commons.collections15.Transformer;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 
+/**
+ * Transforms the coordinates of a delegate layout.
+ *
+ * @param <L> Delegate layout type.
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public class TransformingLayout<L extends Layout<V, E>, V, E> implements Layout<V, E> {
 	
 	private L delegate;
 	private AffineTransform transform;
 	
+	/**
+	 * Intialize a layout with a delegate and the transformation to apply.
+	 * @param delegate Layout whose coordinates are transformed.
+	 * @param transform Transformation to apply.
+	 */
 	public TransformingLayout(L delegate, AffineTransform transform) {
 		super();
 		this.delegate = delegate;
 		this.transform = transform;
 	}
-
+	
+	/**
+	 * Access the underlying delegate.
+	 * @return The original untransformed layout.
+	 */
 	public L getDelegate() {
 		return delegate;
 	}
-
+	
 	protected AffineTransform getTransform() {
 		return transform;
 	}
@@ -58,12 +74,20 @@ public class TransformingLayout<L extends Layout<V, E>, V, E> implements Layout<
 	public void reset() {
 		delegate.reset();
 	}
-
+	
+	/**
+	 * Not supported in this implementation. Use {@link #getDelegate()} and set the size
+	 * of the unerlying layout.
+	 */
 	@Override
 	public void setSize(Dimension d) {
 		throw new UnsupportedOperationException("Set the size of the underlying layout!");
 	}
 
+	/**
+	 * Not supported in this implementation. Use {@link #getDelegate()} and get the size
+	 * of the unerlying layout.
+	 */
 	@Override
 	public Dimension getSize() {
 		throw new UnsupportedOperationException("Use the size of the underlying layout!");

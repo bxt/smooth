@@ -9,6 +9,19 @@ import de.uniwue.smooth.util.Util;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 
+/**
+ * Generate a complete k-partite graph.
+ * 
+ * A k-partite graph consists of k disjoint vertex sets such that
+ * no two graph vertices within the same set are connected but
+ * every pair of graph vertices in different sets are connected.
+ * 
+ * This factory may be parameterized by the number and cardinality
+ * of the sets.
+ *
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public class CompleteKPartitGraphGenerator<V, E> implements Factory<UndirectedGraph<V, E>> {
 	
 	private boolean randomize;
@@ -16,6 +29,16 @@ public class CompleteKPartitGraphGenerator<V, E> implements Factory<UndirectedGr
 	private Factory<V> vertexFactory;
 	private Factory<E> edgeFactory;
 	
+	/**
+	 * Configure this graph generator.
+	 * 
+	 * @param randomize If or not the vertices are connected in a random order.
+	 *   Useful for testing special cases.
+	 * @param partitionSizes The sizes of the partitions, e.g. one partition 
+	 *   of size 5 yields K_5 and two partition of size 3 yield K_{3,3}
+	 * @param vertexFactory The factory to create the necessary vertices with.
+	 * @param edgeFactory The factory to create the necessary edges with.
+	 */
 	public CompleteKPartitGraphGenerator(boolean randomize,
 			int[] partitionSizes, Factory<V> vertexFactory,
 			Factory<E> edgeFactory) {

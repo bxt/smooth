@@ -24,7 +24,7 @@ import edu.uci.ics.jung.io.graphml.NodeMetadata;
  */
 public class GraphReaderFactory {
 	
-	public static final Transformer<GraphMetadata, Graph<Vertex, Edge>> graphTransformer = new Transformer<GraphMetadata, Graph<Vertex, Edge>>() {
+	private static final Transformer<GraphMetadata, Graph<Vertex, Edge>> graphTransformer = new Transformer<GraphMetadata, Graph<Vertex, Edge>>() {
 		@Override public Graph<Vertex, Edge> transform(GraphMetadata metadata) {
 			metadata.getEdgeDefault();
 			if (EdgeDefault.DIRECTED.equals(metadata.getEdgeDefault())) {
@@ -34,17 +34,17 @@ public class GraphReaderFactory {
 			}
 		}
 	};
-	public static final Transformer<NodeMetadata, Vertex> vertexTransformer = new Transformer<NodeMetadata, Vertex>() {
+	private static final Transformer<NodeMetadata, Vertex> vertexTransformer = new Transformer<NodeMetadata, Vertex>() {
 		@Override public Vertex transform(NodeMetadata metadata) {
 			return new Vertex(Integer.parseInt(metadata.getId().substring(1)));
 		}
 	};
-	public static final Transformer<EdgeMetadata, Edge> edgeTransformer = new Transformer<EdgeMetadata, Edge>() {
+	private static final Transformer<EdgeMetadata, Edge> edgeTransformer = new Transformer<EdgeMetadata, Edge>() {
 		public Edge transform(EdgeMetadata metadata) {
 			return new Edge(Integer.parseInt(metadata.getId().substring(1)));
 		}
 	};
-	public static final Transformer<HyperEdgeMetadata, Edge> hyperEdgeTransformer = new Transformer<HyperEdgeMetadata, Edge>() {
+	private static final Transformer<HyperEdgeMetadata, Edge> hyperEdgeTransformer = new Transformer<HyperEdgeMetadata, Edge>() {
 		@Override public Edge transform(HyperEdgeMetadata metadata) {
 			return new Edge(Integer.parseInt(metadata.getId().substring(1)));
 		}

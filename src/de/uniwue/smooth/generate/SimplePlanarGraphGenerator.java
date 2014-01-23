@@ -8,6 +8,23 @@ import de.uniwue.smooth.util.Util;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 
+/**
+ * Generate a simple planar graph.
+ * 
+ * The graph looks like this with vertex and edge numbers:
+ * <pre>
+ * (0)--0--(1)
+ *  | \     |
+ *  |  \    |
+ *  3   4   1
+ *  |    \  |
+ *  |     \ |
+ * (3)--2--(2) 
+ * </pre>
+ * 
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public class SimplePlanarGraphGenerator<V, E> implements Factory<UndirectedGraph<V, E>> {
 
 	private Factory<V> vertexFactory;

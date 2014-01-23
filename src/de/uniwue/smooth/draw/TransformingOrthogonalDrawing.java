@@ -5,11 +5,21 @@ import java.awt.geom.Point2D;
 
 import edu.uci.ics.jung.graph.util.Pair;
 
+/**
+ * Transforms the positions of an underlying {@link OrthogonalDrawing} using an {@link AffineTransform}.
+ *  
+ * @param <T> Type of the underlying drawing.
+ */
 public class TransformingOrthogonalDrawing<T> implements OrthogonalDrawing<T> {
 	
 	private OrthogonalDrawing<T> delegate;
 	private AffineTransform transform;
-
+	
+	/**
+	 * Initialize.
+	 * @param delegate Decorated drawing.
+	 * @param transform Transformation to apply to the coordinates.
+	 */
 	public TransformingOrthogonalDrawing(OrthogonalDrawing<T> delegate,
 			AffineTransform transform) {
 		super();

@@ -25,6 +25,12 @@ import edu.uci.ics.jung.graph.UndirectedGraph;
  */
 public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 	
+	/**
+	 * Uses this embedding to perform a planarity test on a graph.
+	 * 
+	 * @param graph Graph to test.
+	 * @return If or not the graph may be embedding in a plane without crossings.
+	 */
 	public static <V, E> boolean isPlanar(UndirectedGraph<V, E> graph) {
 		try {
 			new BrandesEmbedding<V, E>(graph);
@@ -58,6 +64,12 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 	private Map<V, E> leftReferences = new HashMap<>();
 	private Map<V, E> rightReferences = new HashMap<>();
 	
+	/**
+	 * Initializes by embedding a given graph.
+	 * 
+	 * @param graph Graph to embed.
+	 * @throws NotPlanarException Indicates that the given graph is not planar.
+	 */
 	public BrandesEmbedding(UndirectedGraph<V, E> graph) throws NotPlanarException {
 		// check for simple graph here?
 		
@@ -73,18 +85,21 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 		testing();
 		embedding();
 	}
-
+	
+	/**
+	 * STEP 1: Calculate an st ordering and collect some special attributes.
+	 */
 	private void orientation() {
 		for (V v : graph.getVertices()) {
 			if(heights.get(v) == null) {
 				heights.put(v, 0);
 				roots.add(v);
-				dfs1(v);
+				orientationDfs(v);
 			}
 		}
 	}
 	
-	private void dfs1(V v) {
+	private void orientationDfs(V v) {
 		 E e  = parentEdges.get(v);
 		 for (E f : graph.getIncidentEdges(v)) {
 			 if (!directedGraph.containsEdge(f)) {
@@ -95,7 +110,7 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 				 if (heights.get(w) == null) { // tree edge
 					 parentEdges.put(w, f);
 					 heights.put(w, heights.get(v) + 1);
-					 dfs1(w);
+					 orientationDfs(w);
 				 } else { // back edge
 					 lowPointers.put(f, heights.get(w));
 				 }
@@ -125,19 +140,24 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 		 }
 	}
 	
+	/**
+	 * STEP 2: Tests the graph for planarity and collects values for a later embedding.
+	 * This with {@link #testingDfs(Object)} is the main part of the algorithm.
+	 * 
+	 * @throws NotPlanarException If the graph is not planar.
+	 */
 	private void testing() throws NotPlanarException {
-		for(V v : roots) dfs2(v);
-		
+		for(V v : roots) testingDfs(v);
 	}
 
-	private void dfs2(V v) throws NotPlanarException {
+	private void testingDfs(V v) throws NotPlanarException {
 		E e = parentEdges.get(v);
 		List<E> adjacent = adjacentOrderedByNestingDepth(v);
 		for (E f : adjacent) {
 			stackBottoms.put(f, conflictStack.peek());
 			V target = directedGraph.getOpposite(v, f);
 			if (f == parentEdges.get(target)) { // tree edge
-				dfs2(target);
+				testingDfs(target);
 			} else { // back edge
 				lowPointingEdges.put(f, f);
 				conflictStack.push(new MutablePair<HLPair<E>>(new MutablePair<E>(), new MutablePair<>(f, f)));
@@ -266,7 +286,22 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 	private boolean conflicting(HLPair<E> interval, E edge) {
 		return ! isEmpty(interval) && lowPointers.get(interval.getHigh()) > lowPointers.get(edge);
 	}
-
+	
+	/**
+	 * STEP 3: Calculate the adjacency lists using the sides and nesting depths of the previous steps.
+	 */
+	private void embedding() {
+		for (E e  : graph.getEdges()) {
+			nestingDepths.put(e, nestingDepths.get(e) * sign(e));
+		}
+		for (V v: graph.getVertices()) {
+			adjacencies.put(v, adjacentOrderedByNestingDepth(v));
+		}
+		for (V s : roots) {
+			embeddingDfs(s);
+		}	
+	}
+	
 	private List<E> adjacentOrderedByNestingDepth(V v) {
 		ArrayList<E> adjacent = new ArrayList<>(directedGraph.getOutEdges(v));
 		Collections.sort(adjacent, new Comparator<E>() {
@@ -277,18 +312,6 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 		return adjacent;
 	}
 
-	private void embedding() {
-		for (E e  : graph.getEdges()) {
-			nestingDepths.put(e, nestingDepths.get(e) * sign(e));
-		}
-		for (V v: graph.getVertices()) {
-			adjacencies.put(v, adjacentOrderedByNestingDepth(v));
-		}
-		for (V s : roots) {
-			dfs3(s);
-		}	
-	}
-	
 	private int sign(E e) {
 		if(references.get(e) != null) {
 			sides.put(e, sides.get(e) *  sign(references.get(e)));
@@ -297,7 +320,7 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 		return sides.get(e);
 	}
 	
-	private void dfs3(V v) {
+	private void embeddingDfs(V v) {
 		List<E> temp = new ArrayList<E>(adjacencies.get(v));
 		for (E f : temp) {
 			V w = directedGraph.getDest(f);
@@ -308,7 +331,7 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 					adjacent.add(0, f);
 					leftReferences.put(v, f);
 					rightReferences.put(v, f);
-					dfs3(w);
+					embeddingDfs(w);
 				} else { // back edge
 					if(sides.get(f) == 1) {
 						adjacent.remove(f);
@@ -343,6 +366,9 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 		return new BrandesEmbeddingIterator(vertex, edge);
 	}
 
+	/**
+	 * Implements the {@link EmbeddingIterator} for an embedding based on adjacency lists.
+	 */
 	private class BrandesEmbeddingIterator implements EmbeddingIterator<V, E> {
 		private V vertex;
 		private E edge;

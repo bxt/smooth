@@ -2,6 +2,9 @@ package de.uniwue.smooth.draw;
 
 import edu.uci.ics.jung.graph.util.Pair;
 
+/**
+ * Draws the primitives of orthogonal layouts using Ipe.
+ */
 public class OrthogonalIpeDrawing extends AbstractIpeDrawing implements OrthogonalDrawing<String> {
 	
 	@Override

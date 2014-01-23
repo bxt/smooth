@@ -9,20 +9,33 @@ public class AbstractIpeDrawing implements Factory<String> {
 	
 	private StringBuilder sb = new StringBuilder();
 	
+	/**
+	 * Initialize the drawing.
+	 */
 	public AbstractIpeDrawing() {
 		sb.append(IpeDraw.getIpePreamble());
 		sb.append(IpeDraw.getIpeConf());
 	}
 	
+	/**
+	 * Draw a string of ipe code into the buffer.
+	 * @param ipeContent The string to save.
+	 */
 	public void draw(String ipeContent) {
 		sb.append(ipeContent);
 	}
 	
+	/**
+	 * Return the accumulated string with a suitable header and footer to create an ipe document.
+	 */
 	@Override
 	public String create() {
 		return toString();
 	}
 	
+	/**
+	 * Returns what {@link #create()} would return. 
+	 */
 	@Override
 	public String toString() {
 		return sb.toString() + IpeDraw.getIpeEnd();

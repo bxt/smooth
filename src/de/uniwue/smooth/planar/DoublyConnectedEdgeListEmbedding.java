@@ -4,6 +4,12 @@ import org.apache.commons.collections15.Transformer;
 
 import edu.uci.ics.jung.graph.DirectedGraph;
 
+/**
+ * A planar embedding based on doubly connected edge adjacency lists around vertices.
+ *
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public class DoublyConnectedEdgeListEmbedding<V, E> implements Embedding<V, E> {
 	
 	private DirectedGraph<V, E> graph;

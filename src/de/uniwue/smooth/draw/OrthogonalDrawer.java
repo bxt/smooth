@@ -9,6 +9,13 @@ import de.uniwue.smooth.util.Util;
 import de.uniwue.smooth.util.tuples.Tuple;
 import edu.uci.ics.jung.graph.util.Pair;
 
+/**
+ * Performs the drawing of primitives into an {@link OrthogonalDrawing} given an {@link OrthogonalLayout}.
+ *  
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ * @param <T> Type of resulting painting.
+ */
 public class OrthogonalDrawer<V, E, T> implements Transformer<Tuple<OrthogonalLayout<V, E>, OrthogonalDrawing<T>>, T> {
 	
 	private OrthogonalLayout<V, E> layout;
@@ -28,11 +35,17 @@ public class OrthogonalDrawer<V, E, T> implements Transformer<Tuple<OrthogonalLa
 		return result;
 	}
 	
+	/**
+	 * Draws everything.
+	 */
 	private void draw() {
 		drawVertices();
 		drawEdges();
 	}
 	
+	/**
+	 * Draws the vertices, setting a marker at each vertex' position.
+	 */
 	private void drawVertices() {
 		for (V v : layout.getGraph().getVertices()) {
 			Pair<Integer> coordinates = layout.getVertexLocation(v);
@@ -40,6 +53,17 @@ public class OrthogonalDrawer<V, E, T> implements Transformer<Tuple<OrthogonalLa
 		}
 	}
 	
+	/**
+	 * Draws the edges with the following method:
+	 * <ul>
+	 *   <li>Start at one endpoint vertex.
+	 *   <li>Move and draw 1 unit into the direction of the port
+	 *   <li>Move and draw horizontally to the left-position of the edge midpoint
+	 *   <li>Save that position
+	 *   <li>Repeat these steps for the other endpoint vertex.
+	 *   <li>Connect both saved positions with a vertical line.
+	 * </ul>
+	 */
 	private void drawEdges() {
 		for (final E e : layout.getGraph().getEdges()) {
 			Pair<Pair<Integer>> edgeCoordinates = new Pair<>(CollectionUtils.collect(layout.getGraph().getEndpoints(e), new Transformer<V, Pair<Integer>>() {

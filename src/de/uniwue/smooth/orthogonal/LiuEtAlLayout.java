@@ -137,6 +137,10 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		}
 	}
 	
+	/**
+	 * An optional step which moves vertices connected by s-shaped edges
+	 * into the same row and optimizes the height of the drawing.
+	 */
 	private void yCompression() { // TODO: remove columns of s-edges?
 		DirectedGraph<Integer, E> setGraph = new DirectedSparseGraph<>();
 		final Map<V, Integer> vertexSet = new HashMap<>();
@@ -183,6 +187,11 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		}
 	}
 	
+	/**
+	 * Tests if all objects in a collection are the same.
+	 * @param collection Collection to test.
+	 * @return <tt>False</tt> for empty collections, <tt>true</tt> for collections with one item; Otherwise <tt>true</tt> iff all elements are the same.
+	 */
 	private static <E> boolean allEqual(Collection<E> collection) {
 		if(collection.isEmpty()) return false;
 		E ref = null;
@@ -198,7 +207,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	
 	/**
 	 * Move along S-shaped edges.
-	 * @param setCounter Set number to assing to the vertices in this height.
+	 * @param setCounter Set number to assign to the vertices in this height.
 	 * @param vertexSet Map of vertices to their set number.
 	 * @param v Start vertex.
 	 * @param direction Direction to find s-edges at.
@@ -236,7 +245,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	}
 	
 	/**
-	 * Intialize the st ordering, also chose s and t and caluclate the leftmost edges.
+	 * Initialize the st ordering, also chose s and t and calculate the leftmost edges.
 	 * @param undirectedGraph Undirected version of the input graph.
 	 */
 	private void buildStOrdering(UndirectedGraph<V, E> undirectedGraph) {
@@ -257,7 +266,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	/**
 	 * Assign ports for the incoming edges depending on indegree and order in the adjacency list embedding.
 	 * @param in Adjacency list of incoming edges.
-	 * @param portAssignment Map to store the assinment into.
+	 * @param portAssignment Map to store the assignment into.
 	 */
 	private void inPortAssignment(List<E> in, Map<Port, E> portAssignment) {
 		if(in.size() == 0) {
@@ -284,7 +293,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	/**
 	 * Assign ports for the outgoing edges depending on outdegree and order in the adjacency list embedding.
 	 * @param out Adjacency list of outgoing edges.
-	 * @param portAssignment Map to store the assinment into.
+	 * @param portAssignment Map to store the assignment into.
 	 */
 	private void outPortAssignment(List<E> out, Map<Port, E> portAssignment) {
 		if(out.size() == 0) {
@@ -339,7 +348,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	/**
 	 * Get the list of incoming and the list of outgoing edges at a certain vertex.
 	 * 
-	 * Determines if an edge is incoming or outgoing using the st odering, checks
+	 * Determines if an edge is incoming or outgoing using the st ordering, checks
 	 * if the edges are prepartitioned nicely and returns the two lists.
 	 * For s (and t), where there are only outgoing (incoming) edges, also makes sure
 	 * that the leftmost edges are at the start of the list.

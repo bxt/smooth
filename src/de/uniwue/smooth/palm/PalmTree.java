@@ -14,27 +14,64 @@ import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Forest;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
+/**
+ * Partitions a graph into a spanning tree (forest if not connected) and
+ * back edges. Used as a basis for several algorithms on (planar) graphs.
+ *
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public class PalmTree<V,E> {
-
+	
+	/**
+	 * A sequence of numbers is assinged to the vertices for the time they are first encountered by the DFS.
+	 */
 	private Map<V, Integer> discoveryTimes = new HashMap<V, Integer>();
+	/**
+	 * The graph to split.
+	 */
 	private UndirectedGraph<V, E> graph;
+	/**
+	 * The discovery time for the next vertex. Increased while the DFS is running.
+	 */
 	private int nextDiscoveryTime = 0;
+	/**
+	 * Vertex with the lowest discovery time reachable from a vertex using directed edges.
+	 */
 	private Map<V, V> lowerVertices = new HashMap<V, V>();
 	
+	/**
+	 * Height (path length from root) in the resulting spanning forest.
+	 */
 	private Map<V, Integer> heights = new HashMap<V, Integer>();
+	/**
+	 * Edge and vertex to go to for reaching the vertex with the lowest discovery time
+	 */
 	private Map<V, Tuple<V, E>> backwards = new HashMap<V, Tuple<V, E>>();
+	/**
+	 * Edges not in the spanning forest.
+	 */
 	private DirectedGraph<V, E> cycle = new DirectedSparseGraph<V, E>();
+	/**
+	 * The spanning forest.
+	 */
 	private Forest<V, E> spanningTrees = new DelegateForest<V, E>();
+	/**
+	 * Optionally a fixed start vertex.
+	 */
 	V preselectedV = null;
+	/**
+	 * Optionally a fixed end vertex.
+	 */
 	V preselectedW = null;
 	
 	
 	/**
+	 * Build a palm tree from a graph.
 	 * 
-	 * 
-	 * @param graph
-	 * @param s
-	 * @param t
+	 * @param graph Graph to work on.
+	 * @param s Custom start node.
+	 * @param t Custom end node.
 	 */
 	public PalmTree(UndirectedGraph<V, E> graph, V s, V t) {
 		preselectedV = s;
@@ -42,39 +79,75 @@ public class PalmTree<V,E> {
 		process(graph);
 	}
 	
+	/**
+	 * Build a palm tree from a graph.
+	 * 
+	 * @param graph Graph to work on.
+	 * @param s Custom start node.
+	 */
 	public PalmTree(UndirectedGraph<V, E> graph, V s) {
 		preselectedV = s;
 		process(graph);
 	}
 	
+	/**
+	 * Build a palm tree from a graph. Start and end nodes are chosen arbitrarily. 
+	 * 
+	 * @param graph Graph to work on.
+	 */
 	public PalmTree(UndirectedGraph<V, E> graph) {
 		process(graph);
 	}
 	
 	
-	
+	/**
+	 * Access the spanning forest created through DFS.
+	 * @return The spanning forest.
+	 */
 	public Forest<V,E> getSpanningTrees() {
 		return this.spanningTrees;
 	}
 	
+	/**
+	 * Access the graph of edges not in the spanning forest.
+	 * @return
+	 */
 	public DirectedGraph<V, E> getCycle() {
 		return this.cycle;
 	}
 	
+	/**
+	 * Next edge to go over for reaching the vertex with the lowest discovery time.
+	 * @param v Vertex to start from.
+	 * @return Next edge on the path to the lowest vertex.
+	 */
 	public E getBackwardEdge(V v) {
 		return this.backwards.get(v).getSecond();
 	}
 	
+	/**
+	 * Next vertex to go to for reaching the vertex with the lowest discovery time.
+	 * @param v Vertex to start from.
+	 * @return Next vertex on the path to the lowest vertex.
+	 */
 	public V getBackwardVertex(V v) {
 		return this.backwards.get(v).getFirst();
 	}
 	
+	/**
+	 * Vertex with the lowest discovery time reachable from a vertex using directed edges.
+	 * @param v Vertex to start from.
+	 * @return Lowest vertex to reach from <tt>v</tt> over a directed path.
+	 */
 	public V getLowerVertex(V v) {
 		return lowerVertices.get(v);
 	}
 	
 	
-	
+	/**
+	 * Calculates the palm tree.
+	 * @param graph The input graph to work on.
+	 */
 	private void process(UndirectedGraph<V, E> graph) {
 		initialize(graph);
 		for(V v : getVertices()) {
@@ -134,6 +207,10 @@ public class PalmTree<V,E> {
 		}
 	}
 	
+	/**
+	 * Get the vertices in the order they should be processed.
+	 * @return Ordered list of vertices when there are ordering constraints or an arbitrary vertex collection otherwise.
+	 */
 	private Collection<V> getVertices() {
 		Collection<V> vertices = graph.getVertices();
 		if (preselectedV == null) {
