@@ -21,6 +21,7 @@ import de.uniwue.smooth.draw.OrthogonalDrawer;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
 import de.uniwue.smooth.draw.TransformingOrthogonalDrawing;
+import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.palm.PalmTree;
@@ -39,6 +40,7 @@ import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
+import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphIOException;
 import edu.uci.ics.jung.io.GraphReader;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -163,14 +165,16 @@ public class App {
 	}
 	
 	public void drawLiuIpe(Graph<Vertex, Edge> graph) {
-		AffineTransform transform = new AffineTransform();
-		transform.scale(10, 10);
-		transform.translate(50, 50);
-		OrthogonalDrawing<String> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
-		OrthogonalLayout<Vertex, Edge> layout = new LiuEtAlLayout<Vertex, Edge>(graph);
-		layout.initialize();
-		String ipeCode = new OrthogonalDrawer<Vertex, Edge, String>().transform(new ImmutableTuple<>(layout, drawing));
-		Util.writeFile("resources/drawings/out.ipe", ipeCode);
+		Pair<OrthogonalLayout<Vertex, Edge>> layouts = new Pair<OrthogonalLayout<Vertex, Edge>>(new LiuEtAlLayout<Vertex, Edge>(graph), new CompressingLiuEtAlLayout<Vertex, Edge>(graph));
+		for(OrthogonalLayout<Vertex, Edge> layout : layouts) {
+			layout.initialize();
+			AffineTransform transform = new AffineTransform();
+			transform.scale(10, 10);
+			transform.translate(50, 50);
+			OrthogonalDrawing<String> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
+			String ipeCode = new OrthogonalDrawer<Vertex, Edge, String>().transform(new ImmutableTuple<>(layout, drawing));
+			Util.writeFile("resources/drawings/out-"+layout.getClass().getSimpleName()+".ipe", ipeCode);
+		}
 	}
 	
 	public void drawCircle(Graph<Vertex, Edge> graph) {

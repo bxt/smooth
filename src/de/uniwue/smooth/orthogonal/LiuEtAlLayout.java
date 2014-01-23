@@ -3,20 +3,14 @@ package de.uniwue.smooth.orthogonal;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
-import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Factory;
 import org.apache.commons.collections15.ListUtils;
-import org.apache.commons.collections15.MapUtils;
-import org.apache.commons.collections15.functors.MapTransformer;
 import org.apache.commons.collections15.map.LazyMap;
 
 import de.uniwue.smooth.StOrdering;
@@ -28,8 +22,6 @@ import de.uniwue.smooth.planar.EmbeddingTools;
 import de.uniwue.smooth.planar.NotPlanarException;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.graph.DirectedGraph;
-import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
@@ -51,7 +43,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	/**
 	 * The st ordering for the order of vertices.
 	 */
-	private StOrdering<V, E> stOrdering;
+	protected StOrdering<V, E> stOrdering;
 	/**
 	 * Leftmost (left outer face) edge at s
 	 */
@@ -69,7 +61,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	/**
 	 * Which row a vertex belongs to.
 	 */
-	private Map<V, Integer> vertexRows = new HashMap<>();
+	protected Map<V, Integer> vertexRows = new HashMap<>();
 	/**
 	 * Which column a vertex belongs to.
 	 */
@@ -108,7 +100,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		
 		embedEdgesAndVertices();
 		
-		yCompression();
+		compression();
 		
 		initialTier.setTierCoordinates();
 		
@@ -138,88 +130,10 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	}
 	
 	/**
-	 * An optional step which moves vertices connected by s-shaped edges
-	 * into the same row and optimizes the height of the drawing.
+	 * An optional post-processing which further reduces the size of the layout.
 	 */
-	private void yCompression() { // TODO: remove columns of s-edges?
-		DirectedGraph<Integer, E> setGraph = new DirectedSparseGraph<>();
-		final Map<V, Integer> vertexSet = new HashMap<>();
-		
-		int setCounter = 0;
-		for (V v : getGraph().getVertices()) {
-			if(!vertexSet.containsKey(v)) {
-				assignVertexSet(setCounter, vertexSet, v, Port.L);
-				assignVertexSet(setCounter, vertexSet, v, Port.R);
-				setGraph.addVertex(setCounter);
-				setCounter++;
-			}
-		}
-		
-		for (E e: getGraph().getEdges()) {
-			List<V> originalEndpoints = new ArrayList<>(getGraph().getEndpoints(e));
-			Collections.sort(originalEndpoints, stOrdering);
-			Collection<Integer> endpoints = CollectionUtils.collect(originalEndpoints, MapTransformer.getInstance(vertexSet));
-			if(!allEqual(endpoints)) // no self edge loops
-				setGraph.addEdge(e, endpoints);
-		}
-		
-		final Map<Integer, Integer> setHeights = new HashMap<>();
-		
-		Queue<Integer> setQueue = new LinkedList<>();
-		Integer firstSet = vertexSet.get(stOrdering.getList().get(0));
-		setQueue.add(firstSet);
-		setHeights.put(firstSet, 0);
-		while (!setQueue.isEmpty()) {
-			Integer set = setQueue.remove();
-			if(setGraph.getPredecessorCount(set) == 0) {
-				for (Integer adjacentSet : new ArrayList<>(setGraph.getSuccessors(set))) {
-					setGraph.removeEdge(setGraph.findEdge(set, adjacentSet));
-					if(!setHeights.containsKey(adjacentSet)) setQueue.add(adjacentSet);
-					setHeights.put(adjacentSet, Math.max(setHeights.get(set) + 1, MapUtils.getObject(setHeights, adjacentSet, 0)));
-				}
-			} else {
-				setQueue.add(set);
-			}
-		}
-		
-		for (V v : getGraph().getVertices()) {
-			vertexRows.put(v, setHeights.get(vertexSet.get(v)));
-		}
-	}
-	
-	/**
-	 * Tests if all objects in a collection are the same.
-	 * @param collection Collection to test.
-	 * @return <tt>False</tt> for empty collections, <tt>true</tt> for collections with one item; Otherwise <tt>true</tt> iff all elements are the same.
-	 */
-	private static <E> boolean allEqual(Collection<E> collection) {
-		if(collection.isEmpty()) return false;
-		E ref = null;
-		for (E e : collection) {
-			if (ref == null) {
-				ref = e;
-			} else {
-				if (!ref.equals(e)) return false;
-			}
-		}
-		return true;
-	}
-	
-	/**
-	 * Move along S-shaped edges.
-	 * @param setCounter Set number to assign to the vertices in this height.
-	 * @param vertexSet Map of vertices to their set number.
-	 * @param v Start vertex.
-	 * @param direction Direction to find s-edges at.
-	 */
-	private void assignVertexSet(int setCounter, Map<V, Integer> vertexSet, V v, Port direction) {
-		V u, w = v; E e;
-		do {
-			vertexSet.put(w, setCounter);
-			u = w;
-			e = portAssignments.get(u).get(direction);
-			if(e != null) w = getGraph().getOpposite(u, e);
-		} while (e != null && e.equals(portAssignments.get(w).get(direction.getOpposite())));
+	protected void compression() {
+		// We don't do any compression. Overridden in subclasses.
 	}
 	
 	/**
