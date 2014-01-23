@@ -62,9 +62,4 @@ public class GraphReaderFactory {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	public static GraphReader<Graph<Vertex, Edge>, Vertex, Edge> create(String filename) {
-		return create(new File("resources/rome/grafo" + filename + ".graphml"));
-	}
-	
 }
