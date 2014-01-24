@@ -1,0 +1,2416 @@
+<?xml version="1.0"?>
+    <!DOCTYPE ipe SYSTEM "ipe.dtd">
+    <ipe version="70005" creator="Ipe 7.1.4">
+    <info created="D:20131106154934" modified="D:20131106160041"/>
+    <preamble>\usepackage[english]{babel}</preamble>
+    <ipestyle name="basic">
+    <symbol name="arrow/arc(spx)">
+    <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -1 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="arrow/farc(spx)">
+    <path stroke="sym-stroke" fill="white" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -1 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="mark/circle(sx)" transformations="translations">
+    <path fill="sym-stroke">
+    0.6 0 0 0.6 0 0 e
+    0.4 0 0 0.4 0 0 e
+    </path>
+    </symbol>
+    <symbol name="mark/disk(sx)" transformations="translations">
+    <path fill="sym-stroke">
+    0.6 0 0 0.6 0 0 e
+    </path>
+    </symbol>
+    <symbol name="mark/fdisk(sfx)" transformations="translations">
+    <group>
+    <path fill="sym-fill">
+    0.5 0 0 0.5 0 0 e
+    </path>
+    <path fill="sym-stroke" fillrule="eofill">
+    0.6 0 0 0.6 0 0 e
+    0.4 0 0 0.4 0 0 e
+    </path>
+    </group>
+    </symbol>
+    <symbol name="mark/box(sx)" transformations="translations">
+    <path fill="sym-stroke" fillrule="eofill">
+    -0.6 -0.6 m
+    0.6 -0.6 l
+    0.6 0.6 l
+    -0.6 0.6 l
+    h
+    -0.4 -0.4 m
+    0.4 -0.4 l
+    0.4 0.4 l
+    -0.4 0.4 l
+    h
+    </path>
+    </symbol>
+    <symbol name="mark/square(sx)" transformations="translations">
+    <path fill="sym-stroke">
+    -0.6 -0.6 m
+    0.6 -0.6 l
+    0.6 0.6 l
+    -0.6 0.6 l
+    h
+    </path>
+    </symbol>
+    <symbol name="mark/fsquare(sfx)" transformations="translations">
+    <group>
+    <path fill="sym-fill">
+    -0.5 -0.5 m
+    0.5 -0.5 l
+    0.5 0.5 l
+    -0.5 0.5 l
+    h
+    </path>
+    <path fill="sym-stroke" fillrule="eofill">
+    -0.6 -0.6 m
+    0.6 -0.6 l
+    0.6 0.6 l
+    -0.6 0.6 l
+    h
+    -0.4 -0.4 m
+    0.4 -0.4 l
+    0.4 0.4 l
+    -0.4 0.4 l
+    h
+    </path>
+    </group>
+    </symbol>
+    <symbol name="mark/cross(sx)" transformations="translations">
+    <group>
+    <path fill="sym-stroke">
+    -0.43 -0.57 m
+    0.57 0.43 l
+    0.43 0.57 l
+    -0.57 -0.43 l
+    h
+    </path>
+    <path fill="sym-stroke">
+    -0.43 0.57 m
+    0.57 -0.43 l
+    0.43 -0.57 l
+    -0.57 0.43 l
+    h
+    </path>
+    </group>
+    </symbol>
+    <symbol name="arrow/fnormal(spx)">
+    <path stroke="sym-stroke" fill="white" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -1 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="arrow/pointed(spx)">
+    <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -0.8 0 l
+    -1 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="arrow/fpointed(spx)">
+    <path stroke="sym-stroke" fill="white" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -0.8 0 l
+    -1 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="arrow/linear(spx)">
+    <path stroke="sym-stroke" pen="sym-pen">
+    -1 0.333 m
+    0 0 l
+    -1 -0.333 l
+    </path>
+    </symbol>
+    <symbol name="arrow/fdouble(spx)">
+    <path stroke="sym-stroke" fill="white" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -1 -0.333 l
+    h
+    -1 0 m
+    -2 0.333 l
+    -2 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="arrow/double(spx)">
+    <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -1 -0.333 l
+    h
+    -1 0 m
+    -2 0.333 l
+    -2 -0.333 l
+    h
+    </path>
+    </symbol>
+    <pen name="heavier" value="0.8"/>
+    <pen name="fat" value="1.2"/>
+    <pen name="ultrafat" value="2"/>
+    <symbolsize name="large" value="5"/>
+    <symbolsize name="small" value="2"/>
+    <symbolsize name="tiny" value="1.1"/>
+    <arrowsize name="large" value="10"/>
+    <arrowsize name="small" value="5"/>
+    <arrowsize name="tiny" value="3"/>
+    <color name="red" value="1 0 0"/>
+    <color name="green" value="0 1 0"/>
+    <color name="blue" value="0 0 1"/>
+    <color name="yellow" value="1 1 0"/>
+    <color name="orange" value="1 0.647 0"/>
+    <color name="gold" value="1 0.843 0"/>
+    <color name="purple" value="0.627 0.125 0.941"/>
+    <color name="gray" value="0.745"/>
+    <color name="brown" value="0.647 0.165 0.165"/>
+    <color name="navy" value="0 0 0.502"/>
+    <color name="pink" value="1 0.753 0.796"/>
+    <color name="seagreen" value="0.18 0.545 0.341"/>
+    <color name="turquoise" value="0.251 0.878 0.816"/>
+    <color name="violet" value="0.933 0.51 0.933"/>
+    <color name="darkblue" value="0 0 0.545"/>
+    <color name="darkcyan" value="0 0.545 0.545"/>
+    <color name="darkgray" value="0.663"/>
+    <color name="darkgreen" value="0 0.392 0"/>
+    <color name="darkmagenta" value="0.545 0 0.545"/>
+    <color name="darkorange" value="1 0.549 0"/>
+    <color name="darkred" value="0.545 0 0"/>
+    <color name="lightblue" value="0.678 0.847 0.902"/>
+    <color name="lightcyan" value="0.878 1 1"/>
+    <color name="lightgray" value="0.827"/>
+    <color name="lightgreen" value="0.565 0.933 0.565"/>
+    <color name="lightyellow" value="1 1 0.878"/>
+    <dashstyle name="dashed" value="[4] 0"/>
+    <dashstyle name="dotted" value="[1 3] 0"/>
+    <dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
+    <dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
+    <textsize name="large" value="\large"/>
+    <textsize name="Large" value="\Large"/>
+    <textsize name="LARGE" value="\LARGE"/>
+    <textsize name="huge" value="\huge"/>
+    <textsize name="Huge" value="\Huge"/>
+    <textsize name="small" value="\small"/>
+    <textsize name="footnote" value="\footnotesize"/>
+    <textsize name="tiny" value="\tiny"/>
+    <textstyle name="center" begin="\begin{center}" end="\end{center}"/>
+    <textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
+    <textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
+    <gridsize name="4 pts" value="4"/>
+    <gridsize name="8 pts (~3 mm)" value="8"/>
+    <gridsize name="16 pts (~6 mm)" value="16"/>
+    <gridsize name="32 pts (~12 mm)" value="32"/>
+    <gridsize name="10 pts (~3.5 mm)" value="10"/>
+    <gridsize name="20 pts (~7 mm)" value="20"/>
+    <gridsize name="14 pts (~5 mm)" value="14"/>
+    <gridsize name="28 pts (~10 mm)" value="28"/>
+    <gridsize name="56 pts (~20 mm)" value="56"/>
+    <anglesize name="90 deg" value="90"/>
+    <anglesize name="60 deg" value="60"/>
+    <anglesize name="45 deg" value="45"/>
+    <anglesize name="30 deg" value="30"/>
+    <anglesize name="22.5 deg" value="22.5"/>
+    <tiling name="falling" angle="-60" step="4" width="1"/>
+    <tiling name="rising" angle="30" step="4" width="1"/>
+    <layout paper="1000 1000" origin="0 0" frame="1000 1000" skip="32" crop="yes"/>
+    </ipestyle>
+    <page>
+    <layer name="alpha"/>
+    <view layers="alpha" active="alpha"/>
+<use name="mark/disk(sx)" pos="450 450" size="normal" stroke="black"/>
+<text transformations="translations" pos="450 450" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="465 1230" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1230" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/disk(sx)" pos="465 480" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 480" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V2</text><use name="mark/disk(sx)" pos="465 1560" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1560" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V3</text><use name="mark/disk(sx)" pos="465 1605" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1605" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V4</text><use name="mark/disk(sx)" pos="465 1320" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1320" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V5</text><use name="mark/disk(sx)" pos="465 1515" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1515" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V6</text><use name="mark/disk(sx)" pos="465 1770" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1770" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V7</text><use name="mark/disk(sx)" pos="465 465" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 465" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V8</text><use name="mark/disk(sx)" pos="465 1200" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1200" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V9</text><use name="mark/disk(sx)" pos="465 750" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 750" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V10</text><use name="mark/disk(sx)" pos="465 885" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 885" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V11</text><use name="mark/disk(sx)" pos="465 660" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 660" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V12</text><use name="mark/disk(sx)" pos="465 840" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 840" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V13</text><use name="mark/disk(sx)" pos="465 1005" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1005" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V14</text><use name="mark/disk(sx)" pos="465 1485" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1485" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V15</text><use name="mark/disk(sx)" pos="465 495" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 495" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V17</text><use name="mark/disk(sx)" pos="465 1125" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1125" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V16</text><use name="mark/disk(sx)" pos="465 585" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 585" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V19</text><use name="mark/disk(sx)" pos="465 1755" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1755" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V18</text><use name="mark/disk(sx)" pos="465 1275" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1275" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V21</text><use name="mark/disk(sx)" pos="465 810" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 810" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V20</text><use name="mark/disk(sx)" pos="465 690" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 690" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V23</text><use name="mark/disk(sx)" pos="465 1920" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1920" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V22</text><use name="mark/disk(sx)" pos="465 1905" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1905" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V25</text><use name="mark/disk(sx)" pos="465 1455" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1455" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V24</text><use name="mark/disk(sx)" pos="465 1875" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1875" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V27</text><use name="mark/disk(sx)" pos="465 1185" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1185" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V26</text><use name="mark/disk(sx)" pos="465 525" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 525" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V29</text><use name="mark/disk(sx)" pos="465 1440" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1440" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V28</text><use name="mark/disk(sx)" pos="465 1845" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1845" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V31</text><use name="mark/disk(sx)" pos="465 975" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 975" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V30</text><use name="mark/disk(sx)" pos="465 1545" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1545" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V34</text><use name="mark/disk(sx)" pos="465 1815" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1815" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V35</text><use name="mark/disk(sx)" pos="465 600" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 600" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V32</text><use name="mark/disk(sx)" pos="465 1830" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1830" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V33</text><use name="mark/disk(sx)" pos="465 1350" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1350" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V38</text><use name="mark/disk(sx)" pos="465 1260" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1260" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V39</text><use name="mark/disk(sx)" pos="465 1140" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1140" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V36</text><use name="mark/disk(sx)" pos="465 1110" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1110" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V37</text><use name="mark/disk(sx)" pos="465 1785" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1785" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V42</text><use name="mark/disk(sx)" pos="465 765" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 765" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V43</text><use name="mark/disk(sx)" pos="465 990" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 990" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V40</text><use name="mark/disk(sx)" pos="465 1665" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1665" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V41</text><use name="mark/disk(sx)" pos="465 1590" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1590" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V46</text><use name="mark/disk(sx)" pos="465 1500" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V47</text><use name="mark/disk(sx)" pos="465 1050" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1050" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V44</text><use name="mark/disk(sx)" pos="465 630" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 630" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V45</text><use name="mark/disk(sx)" pos="465 960" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 960" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V51</text><use name="mark/disk(sx)" pos="465 825" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 825" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V50</text><use name="mark/disk(sx)" pos="465 1575" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1575" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V49</text><use name="mark/disk(sx)" pos="465 1020" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1020" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V48</text><use name="mark/disk(sx)" pos="465 1860" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1860" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V55</text><use name="mark/disk(sx)" pos="465 1215" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1215" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V54</text><use name="mark/disk(sx)" pos="465 1710" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1710" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V53</text><use name="mark/disk(sx)" pos="465 870" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 870" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V52</text><use name="mark/disk(sx)" pos="465 945" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 945" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V59</text><use name="mark/disk(sx)" pos="465 1335" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1335" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V58</text><use name="mark/disk(sx)" pos="465 705" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 705" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V57</text><use name="mark/disk(sx)" pos="465 1740" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1740" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V56</text><use name="mark/disk(sx)" pos="465 1170" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1170" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V63</text><use name="mark/disk(sx)" pos="465 645" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 645" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V62</text><use name="mark/disk(sx)" pos="465 900" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 900" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V61</text><use name="mark/disk(sx)" pos="465 720" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 720" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V60</text><use name="mark/disk(sx)" pos="465 1380" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1380" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V68</text><use name="mark/disk(sx)" pos="465 1365" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1365" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V69</text><use name="mark/disk(sx)" pos="465 1035" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1035" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V70</text><use name="mark/disk(sx)" pos="465 1635" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1635" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V71</text><use name="mark/disk(sx)" pos="465 1290" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1290" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V64</text><use name="mark/disk(sx)" pos="465 1680" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1680" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V65</text><use name="mark/disk(sx)" pos="465 540" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 540" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V66</text><use name="mark/disk(sx)" pos="465 615" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 615" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V67</text><use name="mark/disk(sx)" pos="465 1620" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1620" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V76</text><use name="mark/disk(sx)" pos="465 1245" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1245" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V77</text><use name="mark/disk(sx)" pos="465 1800" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1800" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V78</text><use name="mark/disk(sx)" pos="465 1650" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1650" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V79</text><use name="mark/disk(sx)" pos="465 1155" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1155" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V72</text><use name="mark/disk(sx)" pos="465 675" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 675" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V73</text><use name="mark/disk(sx)" pos="465 1080" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1080" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V74</text><use name="mark/disk(sx)" pos="465 855" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 855" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V75</text><use name="mark/disk(sx)" pos="465 1410" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1410" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V85</text><use name="mark/disk(sx)" pos="465 915" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 915" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V84</text><use name="mark/disk(sx)" pos="465 555" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 555" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V87</text><use name="mark/disk(sx)" pos="465 1065" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1065" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V86</text><use name="mark/disk(sx)" pos="465 1530" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1530" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V81</text><use name="mark/disk(sx)" pos="465 795" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 795" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V80</text><use name="mark/disk(sx)" pos="465 1725" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1725" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V83</text><use name="mark/disk(sx)" pos="465 1470" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1470" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V82</text><use name="mark/disk(sx)" pos="465 780" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 780" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V93</text><use name="mark/disk(sx)" pos="465 930" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 930" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V92</text><use name="mark/disk(sx)" pos="465 735" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 735" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V95</text><use name="mark/disk(sx)" pos="465 1305" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1305" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V94</text><use name="mark/disk(sx)" pos="465 1695" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1695" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V89</text><use name="mark/disk(sx)" pos="465 1095" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1095" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V88</text><use name="mark/disk(sx)" pos="465 1425" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1425" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V91</text><use name="mark/disk(sx)" pos="465 1890" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1890" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V90</text><use name="mark/disk(sx)" pos="465 570" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 570" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V98</text><use name="mark/disk(sx)" pos="465 1395" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 1395" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V96</text><use name="mark/disk(sx)" pos="465 510" size="normal" stroke="black"/>
+<text transformations="translations" pos="465 510" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V97</text><path stroke="black" pen="normal" dash="normal">
+ 465 945 m
+ 465 960 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 960 m
+ 465 960 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 960 m
+ 465 945 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 945 m
+ 465 945 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 960 m
+ 465 945 l
+ </path>
+<use name="mark/cross(sx)" pos="465 945" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 525 m
+ 465 540 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 540 m
+ 465 540 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 540 m
+ 465 525 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 525 m
+ 465 525 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 540 m
+ 465 525 l
+ </path>
+<use name="mark/cross(sx)" pos="465 525" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1260 m
+ 465 1275 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1275 m
+ 465 1275 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1275 m
+ 465 1260 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1260 m
+ 465 1260 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1275 m
+ 465 1260 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1260" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 570 m
+ 465 585 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 585 m
+ 465 585 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 585 m
+ 465 570 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 570 m
+ 465 570 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 585 m
+ 465 570 l
+ </path>
+<use name="mark/cross(sx)" pos="465 570" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1755 m
+ 465 1770 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1770 m
+ 465 1770 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1770 m
+ 465 1755 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1755 m
+ 465 1755 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1770 m
+ 465 1755 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1755" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1575 m
+ 465 1590 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1590 m
+ 465 1590 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1590 m
+ 465 1575 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1575 m
+ 465 1575 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1590 m
+ 465 1575 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1575" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 495 m
+ 465 510 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 510 m
+ 465 510 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 510 m
+ 465 495 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 495 m
+ 465 495 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 510 m
+ 465 495 l
+ </path>
+<use name="mark/cross(sx)" pos="465 495" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 450 450 m
+ 465 450 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 450 m
+ 465 450 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 465 m
+ 465 450 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 450 m
+ 465 450 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 450 m
+ 465 450 l
+ </path>
+<use name="mark/cross(sx)" pos="465 450" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1080 m
+ 465 1095 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1095 m
+ 465 1095 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1095 m
+ 465 1080 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1080 m
+ 465 1080 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1095 m
+ 465 1080 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1080" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1650 m
+ 465 1665 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1665 m
+ 465 1665 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1665 m
+ 465 1650 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1650 m
+ 465 1650 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1665 m
+ 465 1650 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1650" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 720 m
+ 465 735 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 735 m
+ 465 735 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 735 m
+ 465 720 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 720 m
+ 465 720 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 735 m
+ 465 720 l
+ </path>
+<use name="mark/cross(sx)" pos="465 720" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1905 m
+ 465 1920 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1920 m
+ 465 1920 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1920 m
+ 465 1905 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1905 m
+ 465 1905 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1920 m
+ 465 1905 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1905" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 885 m
+ 465 900 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 900 m
+ 465 900 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 900 m
+ 465 885 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 885 m
+ 465 885 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 900 m
+ 465 885 l
+ </path>
+<use name="mark/cross(sx)" pos="465 885" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1110 m
+ 465 1125 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1125 m
+ 465 1125 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1125 m
+ 465 1110 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1110 m
+ 465 1110 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1125 m
+ 465 1110 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1110" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1530 m
+ 465 1545 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1545 m
+ 465 1545 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1545 m
+ 465 1530 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1530 m
+ 465 1530 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1545 m
+ 465 1530 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1530" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 780 m
+ 465 795 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 795 m
+ 465 795 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 795 m
+ 465 780 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 780 m
+ 465 780 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 795 m
+ 465 780 l
+ </path>
+<use name="mark/cross(sx)" pos="465 780" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 930 m
+ 465 945 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 945 m
+ 465 945 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 945 m
+ 465 930 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 930 m
+ 465 930 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 945 m
+ 465 930 l
+ </path>
+<use name="mark/cross(sx)" pos="465 930" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1620 m
+ 465 1635 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1635 m
+ 465 1635 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1635 m
+ 465 1620 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1620 m
+ 465 1620 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1635 m
+ 465 1620 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1620" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1440 m
+ 465 1455 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1455 m
+ 465 1455 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1455 m
+ 465 1440 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1440 m
+ 465 1440 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1455 m
+ 465 1440 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1440" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 510 m
+ 465 525 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 525 m
+ 465 525 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 525 m
+ 465 510 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 510 m
+ 465 510 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 525 m
+ 465 510 l
+ </path>
+<use name="mark/cross(sx)" pos="465 510" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 630 m
+ 465 645 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 645 m
+ 465 645 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 645 m
+ 465 630 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 630 m
+ 465 630 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 645 m
+ 465 630 l
+ </path>
+<use name="mark/cross(sx)" pos="465 630" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 690 m
+ 465 705 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 705 m
+ 465 705 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 705 m
+ 465 690 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 690 m
+ 465 690 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 705 m
+ 465 690 l
+ </path>
+<use name="mark/cross(sx)" pos="465 690" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 600 m
+ 465 615 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 615 m
+ 465 615 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 615 m
+ 465 600 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 600 m
+ 465 600 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 615 m
+ 465 600 l
+ </path>
+<use name="mark/cross(sx)" pos="465 600" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 825 m
+ 465 840 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 840 m
+ 465 840 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 840 m
+ 465 825 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 825 m
+ 465 825 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 840 m
+ 465 825 l
+ </path>
+<use name="mark/cross(sx)" pos="465 825" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 615 m
+ 465 630 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 630 m
+ 465 630 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 630 m
+ 465 615 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 615 m
+ 465 615 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 630 m
+ 465 615 l
+ </path>
+<use name="mark/cross(sx)" pos="465 615" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1830 m
+ 465 1845 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1845 m
+ 465 1845 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1845 m
+ 465 1830 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1830 m
+ 465 1830 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1845 m
+ 465 1830 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1830" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 975 m
+ 465 990 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 990 m
+ 465 990 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 990 m
+ 465 975 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 975 m
+ 465 975 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 990 m
+ 465 975 l
+ </path>
+<use name="mark/cross(sx)" pos="465 975" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1875 m
+ 465 1890 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1890 m
+ 465 1890 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1890 m
+ 465 1875 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1875 m
+ 465 1875 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1890 m
+ 465 1875 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1875" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1380 m
+ 465 1395 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1395 m
+ 465 1395 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1395 m
+ 465 1380 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1380 m
+ 465 1380 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1395 m
+ 465 1380 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1380" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 480 m
+ 465 495 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 495 m
+ 465 495 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 495 m
+ 465 480 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 480 m
+ 465 480 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 495 m
+ 465 480 l
+ </path>
+<use name="mark/cross(sx)" pos="465 480" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1305 m
+ 465 1320 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1320 m
+ 465 1320 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1320 m
+ 465 1305 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1305 m
+ 465 1305 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1320 m
+ 465 1305 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1305" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 735 m
+ 465 750 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 750 m
+ 465 750 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 750 m
+ 465 735 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 735 m
+ 465 735 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 750 m
+ 465 735 l
+ </path>
+<use name="mark/cross(sx)" pos="465 735" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1155 m
+ 465 1170 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1170 m
+ 465 1170 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1170 m
+ 465 1155 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1155 m
+ 465 1155 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1170 m
+ 465 1155 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1155" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1200 m
+ 465 1215 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1215 m
+ 465 1215 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1215 m
+ 465 1200 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1200 m
+ 465 1200 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1215 m
+ 465 1200 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1200" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1890 m
+ 465 1905 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1905 m
+ 465 1905 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1905 m
+ 465 1890 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1890 m
+ 465 1890 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1905 m
+ 465 1890 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1890" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 660 m
+ 465 675 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 675 m
+ 465 675 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 675 m
+ 465 660 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 660 m
+ 465 660 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 675 m
+ 465 660 l
+ </path>
+<use name="mark/cross(sx)" pos="465 660" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1335 m
+ 465 1350 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1350 m
+ 465 1350 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1350 m
+ 465 1335 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1335 m
+ 465 1335 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1350 m
+ 465 1335 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1335" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1740 m
+ 465 1755 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1755 m
+ 465 1755 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1755 m
+ 465 1740 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1740 m
+ 465 1740 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1755 m
+ 465 1740 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1740" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1095 m
+ 465 1110 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1110 m
+ 465 1110 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1110 m
+ 465 1095 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1095 m
+ 465 1095 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1110 m
+ 465 1095 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1095" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 675 m
+ 465 690 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 690 m
+ 465 690 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 690 m
+ 465 675 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 675 m
+ 465 675 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 690 m
+ 465 675 l
+ </path>
+<use name="mark/cross(sx)" pos="465 675" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1350 m
+ 465 1365 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1365 m
+ 465 1365 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1365 m
+ 465 1350 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1350 m
+ 465 1350 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1365 m
+ 465 1350 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1350" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1050 m
+ 465 1065 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1065 m
+ 465 1065 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1065 m
+ 465 1050 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1050 m
+ 465 1050 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1065 m
+ 465 1050 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1050" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1845 m
+ 465 1860 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1860 m
+ 465 1860 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1860 m
+ 465 1845 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1845 m
+ 465 1845 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1860 m
+ 465 1845 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1845" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 810 m
+ 465 825 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 825 m
+ 465 825 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 825 m
+ 465 810 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 810 m
+ 465 810 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 825 m
+ 465 810 l
+ </path>
+<use name="mark/cross(sx)" pos="465 810" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1035 m
+ 465 1050 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1050 m
+ 465 1050 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1050 m
+ 465 1035 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1035 m
+ 465 1035 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1050 m
+ 465 1035 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1035" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1215 m
+ 465 1230 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1230 m
+ 465 1230 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1230 m
+ 465 1215 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1215 m
+ 465 1215 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1230 m
+ 465 1215 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1215" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 840 m
+ 465 855 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 855 m
+ 465 855 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 855 m
+ 465 840 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 840 m
+ 465 840 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 855 m
+ 465 840 l
+ </path>
+<use name="mark/cross(sx)" pos="465 840" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1140 m
+ 465 1155 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1155 m
+ 465 1155 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1155 m
+ 465 1140 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1140 m
+ 465 1140 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1155 m
+ 465 1140 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1140" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1815 m
+ 465 1830 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1830 m
+ 465 1830 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1830 m
+ 465 1815 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1815 m
+ 465 1815 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1830 m
+ 465 1815 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1815" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 555 m
+ 465 570 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 570 m
+ 465 570 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 570 m
+ 465 555 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 555 m
+ 465 555 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 570 m
+ 465 555 l
+ </path>
+<use name="mark/cross(sx)" pos="465 555" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 705 m
+ 465 720 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 720 m
+ 465 720 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 720 m
+ 465 705 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 705 m
+ 465 705 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 720 m
+ 465 705 l
+ </path>
+<use name="mark/cross(sx)" pos="465 705" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 870 m
+ 465 885 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 885 m
+ 465 885 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 885 m
+ 465 870 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 870 m
+ 465 870 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 885 m
+ 465 870 l
+ </path>
+<use name="mark/cross(sx)" pos="465 870" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1635 m
+ 465 1650 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1650 m
+ 465 1650 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1650 m
+ 465 1635 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1635 m
+ 465 1635 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1650 m
+ 465 1635 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1635" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1005 m
+ 465 1020 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1020 m
+ 465 1020 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1020 m
+ 465 1005 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1005 m
+ 465 1005 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1020 m
+ 465 1005 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1005" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 765 m
+ 465 780 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 780 m
+ 465 780 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 780 m
+ 465 765 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 765 m
+ 465 765 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 780 m
+ 465 765 l
+ </path>
+<use name="mark/cross(sx)" pos="465 765" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 795 m
+ 465 810 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 810 m
+ 465 810 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 810 m
+ 465 795 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 795 m
+ 465 795 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 810 m
+ 465 795 l
+ </path>
+<use name="mark/cross(sx)" pos="465 795" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1665 m
+ 465 1680 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1680 m
+ 465 1680 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1680 m
+ 465 1665 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1665 m
+ 465 1665 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1680 m
+ 465 1665 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1665" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1560 m
+ 465 1575 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1575 m
+ 465 1575 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1575 m
+ 465 1560 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1560 m
+ 465 1560 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1575 m
+ 465 1560 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1560" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 960 m
+ 465 975 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 975 m
+ 465 975 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 975 m
+ 465 960 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 960 m
+ 465 960 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 975 m
+ 465 960 l
+ </path>
+<use name="mark/cross(sx)" pos="465 960" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1515 m
+ 465 1530 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1530 m
+ 465 1530 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1530 m
+ 465 1515 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1515 m
+ 465 1515 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1530 m
+ 465 1515 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1515" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 645 m
+ 465 660 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 660 m
+ 465 660 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 660 m
+ 465 645 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 645 m
+ 465 645 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 660 m
+ 465 645 l
+ </path>
+<use name="mark/cross(sx)" pos="465 645" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 915 m
+ 465 930 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 930 m
+ 465 930 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 930 m
+ 465 915 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 915 m
+ 465 915 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 930 m
+ 465 915 l
+ </path>
+<use name="mark/cross(sx)" pos="465 915" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1695 m
+ 465 1710 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1710 m
+ 465 1710 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1710 m
+ 465 1695 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1695 m
+ 465 1695 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1710 m
+ 465 1695 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1695" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1065 m
+ 465 1080 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1080 m
+ 465 1080 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1080 m
+ 465 1065 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1065 m
+ 465 1065 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1080 m
+ 465 1065 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1065" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1425 m
+ 465 1440 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1440 m
+ 465 1440 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1440 m
+ 465 1425 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1425 m
+ 465 1425 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1440 m
+ 465 1425 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1425" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 855 m
+ 465 870 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 870 m
+ 465 870 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 870 m
+ 465 855 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 855 m
+ 465 855 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 870 m
+ 465 855 l
+ </path>
+<use name="mark/cross(sx)" pos="465 855" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1485 m
+ 465 1500 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1500 m
+ 465 1500 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1500 m
+ 465 1485 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1485 m
+ 465 1485 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1500 m
+ 465 1485 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1485" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1680 m
+ 465 1695 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1695 m
+ 465 1695 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1695 m
+ 465 1680 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1680 m
+ 465 1680 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1695 m
+ 465 1680 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1680" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1545 m
+ 465 1560 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1560 m
+ 465 1560 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1560 m
+ 465 1545 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1545 m
+ 465 1545 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1560 m
+ 465 1545 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1545" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1770 m
+ 465 1785 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1785 m
+ 465 1785 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1785 m
+ 465 1770 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1770 m
+ 465 1770 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1785 m
+ 465 1770 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1770" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1785 m
+ 465 1800 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1800 m
+ 465 1800 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1800 m
+ 465 1785 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1785 m
+ 465 1785 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1800 m
+ 465 1785 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1785" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1395 m
+ 465 1410 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1410 m
+ 465 1410 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1410 m
+ 465 1395 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1395 m
+ 465 1395 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1410 m
+ 465 1395 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1395" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1185 m
+ 465 1200 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1200 m
+ 465 1200 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1200 m
+ 465 1185 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1185 m
+ 465 1185 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1200 m
+ 465 1185 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1185" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1860 m
+ 465 1875 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1875 m
+ 465 1875 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1875 m
+ 465 1860 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1860 m
+ 465 1860 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1875 m
+ 465 1860 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1860" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1275 m
+ 465 1290 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1290 m
+ 465 1290 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1290 m
+ 465 1275 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1275 m
+ 465 1275 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1290 m
+ 465 1275 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1275" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1290 m
+ 465 1305 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1305 m
+ 465 1305 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1305 m
+ 465 1290 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1290 m
+ 465 1290 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1305 m
+ 465 1290 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1290" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 465 m
+ 465 480 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 480 m
+ 465 480 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 480 m
+ 465 465 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 465 m
+ 465 465 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 480 m
+ 465 465 l
+ </path>
+<use name="mark/cross(sx)" pos="465 465" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1920 m
+ 450 1920 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 450 1920 m
+ 450 1920 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 450 450 m
+ 450 465 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 450 465 m
+ 450 465 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 450 1920 m
+ 450 465 l
+ </path>
+<use name="mark/cross(sx)" pos="450 450" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1470 m
+ 465 1485 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1485 m
+ 465 1485 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1485 m
+ 465 1470 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1470 m
+ 465 1470 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1485 m
+ 465 1470 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1470" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1500 m
+ 465 1515 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1515 m
+ 465 1515 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1515 m
+ 465 1500 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1500 m
+ 465 1500 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1515 m
+ 465 1500 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1500" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1125 m
+ 465 1140 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1140 m
+ 465 1140 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1140 m
+ 465 1125 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1125 m
+ 465 1125 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1140 m
+ 465 1125 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1125" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1605 m
+ 465 1620 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1620 m
+ 465 1620 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1620 m
+ 465 1605 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1605 m
+ 465 1605 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1620 m
+ 465 1605 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1605" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1170 m
+ 465 1185 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1185 m
+ 465 1185 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1185 m
+ 465 1170 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1170 m
+ 465 1170 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1185 m
+ 465 1170 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1170" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1410 m
+ 465 1425 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1425 m
+ 465 1425 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1425 m
+ 465 1410 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1410 m
+ 465 1410 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1425 m
+ 465 1410 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1410" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1590 m
+ 465 1605 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1605 m
+ 465 1605 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1605 m
+ 465 1590 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1590 m
+ 465 1590 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1605 m
+ 465 1590 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1590" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 750 m
+ 465 765 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 765 m
+ 465 765 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 765 m
+ 465 750 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 750 m
+ 465 750 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 765 m
+ 465 750 l
+ </path>
+<use name="mark/cross(sx)" pos="465 750" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 900 m
+ 465 915 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 915 m
+ 465 915 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 915 m
+ 465 900 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 900 m
+ 465 900 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 915 m
+ 465 900 l
+ </path>
+<use name="mark/cross(sx)" pos="465 900" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1800 m
+ 465 1815 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1815 m
+ 465 1815 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1815 m
+ 465 1800 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1800 m
+ 465 1800 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1815 m
+ 465 1800 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1800" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1725 m
+ 465 1740 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1740 m
+ 465 1740 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1740 m
+ 465 1725 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1725 m
+ 465 1725 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1740 m
+ 465 1725 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1725" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 585 m
+ 465 600 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 600 m
+ 465 600 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 600 m
+ 465 585 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 585 m
+ 465 585 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 600 m
+ 465 585 l
+ </path>
+<use name="mark/cross(sx)" pos="465 585" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1365 m
+ 465 1380 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1380 m
+ 465 1380 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1380 m
+ 465 1365 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1365 m
+ 465 1365 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1380 m
+ 465 1365 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1365" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 540 m
+ 465 555 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 555 m
+ 465 555 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 555 m
+ 465 540 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 540 m
+ 465 540 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 555 m
+ 465 540 l
+ </path>
+<use name="mark/cross(sx)" pos="465 540" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1230 m
+ 465 1245 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1245 m
+ 465 1245 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1245 m
+ 465 1230 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1230 m
+ 465 1230 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1245 m
+ 465 1230 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1230" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1710 m
+ 465 1725 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1725 m
+ 465 1725 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1725 m
+ 465 1710 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1710 m
+ 465 1710 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1725 m
+ 465 1710 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1710" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1245 m
+ 465 1260 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1260 m
+ 465 1260 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1260 m
+ 465 1245 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1245 m
+ 465 1245 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1260 m
+ 465 1245 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1245" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1455 m
+ 465 1470 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1470 m
+ 465 1470 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1470 m
+ 465 1455 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1455 m
+ 465 1455 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1470 m
+ 465 1455 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1455" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1320 m
+ 465 1335 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1335 m
+ 465 1335 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1335 m
+ 465 1320 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1320 m
+ 465 1320 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1335 m
+ 465 1320 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1320" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 990 m
+ 465 1005 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1005 m
+ 465 1005 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1005 m
+ 465 990 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 990 m
+ 465 990 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1005 m
+ 465 990 l
+ </path>
+<use name="mark/cross(sx)" pos="465 990" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1020 m
+ 465 1035 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1035 m
+ 465 1035 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1035 m
+ 465 1020 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1020 m
+ 465 1020 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 465 1035 m
+ 465 1020 l
+ </path>
+<use name="mark/cross(sx)" pos="465 1020" size="normal" stroke="gray"/>
+</page>
+</ipe>
