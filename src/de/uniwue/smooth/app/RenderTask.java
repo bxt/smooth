@@ -4,7 +4,6 @@ import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,23 +21,22 @@ import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphIOException;
 import edu.uci.ics.jung.io.GraphReader;
 
-public class RenderTask implements Callable<String> {
+public class RenderTask implements Runnable {
 	
 	public static void main(String[] args) throws Exception {
 		List<RenderTask> tasks = Arrays.asList
-				( new RenderTask(15, 30, 30, Generators.wheel(3), "wheel_3")
-				, new RenderTask(15, 30, 30, Generators.wheel(7), "wheel_7")
-				, new RenderTask(15, 30, 30, Generators.wheel(99), "wheel_99")
-				, new RenderTask(15, 30, 30, Generators.hexahedron(), "hexahedron")
-				, new RenderTask(15, 30, 30, Generators.octahedron(), "octahedron")
-				, new RenderTask(15, 30, 30, Generators.simplePlanarGraph(), "simplePlanarGraph")
-				, new RenderTask(15, 30, 30, Generators.circle(3), "circle_3")
-				, new RenderTask(15, 30, 30, Generators.circle(7), "circle_7")
-				, new RenderTask(15, 30, 30, Generators.circle(99), "circle_99")
-				, new RenderTask(15, 30, 30, getTestGraph(), "test")
+				( new RenderTask(100, 400, 600, Generators.circle(3), "circle_3")
+				, new RenderTask( 60, 400, 500, Generators.circle(7), "circle_7")
+				, new RenderTask(  5, 400, 480, Generators.circle(99), "circle_99")
+				, new RenderTask( 30, 400, 600, Generators.hexahedron(), "hexahedron")
+				, new RenderTask( 30, 400, 600, Generators.octahedron(), "octahedron")
+				, new RenderTask(100, 400, 600, Generators.simplePlanarGraph(), "simplePlanarGraph")
+				, new RenderTask( 30, 400, 500, getTestGraph(), "test")
+				, new RenderTask(100, 300, 600, Generators.wheel(3), "wheel_3")
+				, new RenderTask( 80, 300, 550, Generators.wheel(4), "wheel_4")
 				);
 		ExecutorService executor = Executors.newFixedThreadPool(8);
-		executor.invokeAll(tasks);
+		for (RenderTask task : tasks) executor.execute(task);
 	}
 	
 	private static Graph<Vertex, Edge> getTestGraph() {
@@ -50,8 +48,8 @@ public class RenderTask implements Callable<String> {
 		} catch (GraphIOException e) {
 			throw new RuntimeException(e);
 		}
-		return graph;
 		
+		return graph;
 	}
 	
 	private double scale;
@@ -71,18 +69,17 @@ public class RenderTask implements Callable<String> {
 	}
 
 	@Override
-	public String call() throws Exception {
+	public void run() {
 		Pair<OrthogonalLayout<Vertex, Edge>> layouts = new Pair<OrthogonalLayout<Vertex, Edge>>(
 				new LiuEtAlLayout<Vertex, Edge>(graph), new CompressingLiuEtAlLayout<Vertex, Edge>(graph));
 		for(OrthogonalLayout<Vertex, Edge> layout : layouts) {
 			layout.initialize();
 			AffineTransform transform = new AffineTransform();
-			transform.scale(scale, scale);
 			transform.translate(translateX, translateY);
+			transform.scale(scale, scale);
 			OrthogonalDrawing<String> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
 			String ipeCode = new OrthogonalDrawer<Vertex, Edge, String>().transform(new ImmutableTuple<>(layout, drawing));
 			Util.writeFile("resources/drawings/"+name+"-"+layout.getClass().getSimpleName()+".ipe", ipeCode);
 		}
-		return "Done :)";
 	}
 }
