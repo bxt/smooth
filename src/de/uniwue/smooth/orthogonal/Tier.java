@@ -1,6 +1,7 @@
 package de.uniwue.smooth.orthogonal;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * A row/column to place vertices in. Also, a doubly linked list entry.
@@ -39,6 +40,16 @@ class Tier implements Iterable<Tier> {
 	}
 	
 	/**
+	 * Unlink this tier from the list.
+	 */
+	public void remove() {
+		if (next != null) next.prev = prev;
+		if (prev != null) prev.next = next;
+		prev = null;
+		next = null;
+	}
+	
+	/**
 	 * Return the index of this tier.
 	 * Returns 0 unless {@link #setTierCoordinates()} is run first.
 	 * @return The position of this tier in the list of tiers.
@@ -67,28 +78,36 @@ class Tier implements Iterable<Tier> {
 	}
 	
 	private static class TierIterator implements Iterator<Tier> {
-		Tier entry;
+		Tier next;
+		Tier lastReturned;
 
-		public TierIterator(Tier entry) {
+		public TierIterator(Tier next) {
 			super();
-			this.entry = entry;
+			this.next = next;
 		}
 
 		@Override
 		public boolean hasNext() {
-			return entry != null;
+			return next != null;
 		}
 
 		@Override
 		public Tier next() {
-			Tier tmp = entry;
-			entry = entry.next;
-			return tmp;
+            if (!hasNext())
+                throw new NoSuchElementException();
+
+            lastReturned = next;
+            next = next.next;
+            return lastReturned;
 		}
 
 		@Override
 		public void remove() {
-			throw new UnsupportedOperationException("Remove is not implemented");
+            if (lastReturned == null)
+                throw new IllegalStateException();
+            
+            lastReturned.remove();
+            lastReturned = null;
 		}
 		
 	}
