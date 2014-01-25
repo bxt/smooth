@@ -65,11 +65,11 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	/**
 	 * Which column a vertex belongs to.
 	 */
-	private Map<V, Tier> vertexColumns = new HashMap<>();
+	protected Map<V, Tier> vertexColumns = new HashMap<>();
 	/**
 	 * Which column an (open) edge belongs to.
 	 */
-	private Map<E, Tier> edgeColumns = new HashMap<>();
+	protected Map<E, Tier> edgeColumns = new HashMap<>();
 	/**
 	 * Which edges are at which port for each vertex.
 	 */

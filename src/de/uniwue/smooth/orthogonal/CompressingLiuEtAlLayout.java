@@ -106,8 +106,12 @@ public class CompressingLiuEtAlLayout<V, E> extends LiuEtAlLayout<V, E> {
 	 * @param direction Direction to find s-edges at.
 	 */
 	private void assignVertexSet(int setCounter, Map<V, Integer> vertexSet, V v, Port direction) {
-		V u, w = v; E e;
+		V u, w = v; E e = null;
 		do {
+			if(e != null) {
+				edgeColumns.get(e).remove();
+				edgeColumns.put(e, vertexColumns.get(v));
+			}
 			vertexSet.put(w, setCounter);
 			u = w;
 			e = getPortAssignment(u).get(direction);

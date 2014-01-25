@@ -236,9 +236,9 @@
     <view layers="alpha" active="alpha"/>
 <use name="mark/disk(sx)" pos="490 600" size="normal" stroke="black"/>
 <text transformations="translations" pos="490 600" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="460 720" size="normal" stroke="black"/>
-<text transformations="translations" pos="460 720" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/disk(sx)" pos="550 690" size="normal" stroke="black"/>
-<text transformations="translations" pos="550 690" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V2</text><use name="mark/disk(sx)" pos="550 660" size="normal" stroke="black"/>
-<text transformations="translations" pos="550 660" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V3</text><use name="mark/disk(sx)" pos="490 660" size="normal" stroke="black"/>
+<text transformations="translations" pos="460 720" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/disk(sx)" pos="520 690" size="normal" stroke="black"/>
+<text transformations="translations" pos="520 690" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V2</text><use name="mark/disk(sx)" pos="520 660" size="normal" stroke="black"/>
+<text transformations="translations" pos="520 660" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V3</text><use name="mark/disk(sx)" pos="490 660" size="normal" stroke="black"/>
 <text transformations="translations" pos="490 660" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V4</text><use name="mark/disk(sx)" pos="490 630" size="normal" stroke="black"/>
 <text transformations="translations" pos="490 630" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V5</text><path stroke="black" pen="normal" dash="normal">
  490 600 m
@@ -267,42 +267,42 @@
  </path>
 <path stroke="black" pen="normal" dash="normal">
  490 570 m
- 610 570 l
+ 580 570 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 520 690 m
+ 550 690 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  550 690 m
  580 690 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 580 690 m
- 610 690 l
+ 580 570 m
+ 580 690 l
  </path>
-<path stroke="black" pen="normal" dash="normal">
- 610 570 m
- 610 690 l
- </path>
-<use name="mark/cross(sx)" pos="610 600" size="normal" stroke="gray"/>
+<use name="mark/cross(sx)" pos="580 600" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
  490 600 m
  520 600 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  520 600 m
- 580 600 l
+ 550 600 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 520 660 m
+ 550 660 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  550 660 m
- 580 660 l
+ 550 660 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 580 660 m
- 580 660 l
+ 550 600 m
+ 550 660 l
  </path>
-<path stroke="black" pen="normal" dash="normal">
- 580 600 m
- 580 660 l
- </path>
-<use name="mark/cross(sx)" pos="580 600" size="normal" stroke="gray"/>
+<use name="mark/cross(sx)" pos="550 600" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
  490 600 m
  490 630 l
@@ -330,21 +330,21 @@
  </path>
 <path stroke="black" pen="normal" dash="normal">
  490 720 m
- 550 720 l
+ 520 720 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 550 690 m
- 550 720 l
+ 520 690 m
+ 520 720 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 550 720 m
- 550 720 l
+ 520 720 m
+ 520 720 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 550 720 m
- 550 720 l
+ 520 720 m
+ 520 720 l
  </path>
-<use name="mark/cross(sx)" pos="550 690" size="normal" stroke="gray"/>
+<use name="mark/cross(sx)" pos="520 690" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
  460 720 m
  460 690 l
@@ -388,32 +388,32 @@
  </path>
 <use name="mark/cross(sx)" pos="430 630" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
- 550 690 m
- 550 660 l
+ 520 690 m
+ 520 660 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 550 660 m
- 550 660 l
+ 520 660 m
+ 520 660 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 550 660 m
- 550 690 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
- 550 690 m
- 550 690 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
- 550 660 m
- 550 690 l
- </path>
-<use name="mark/cross(sx)" pos="550 660" size="normal" stroke="gray"/>
-<path stroke="black" pen="normal" dash="normal">
- 550 690 m
+ 520 660 m
  520 690 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  520 690 m
+ 520 690 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 520 660 m
+ 520 690 l
+ </path>
+<use name="mark/cross(sx)" pos="520 660" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 520 690 m
+ 490 690 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 490 690 m
  490 690 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
@@ -430,11 +430,11 @@
  </path>
 <use name="mark/cross(sx)" pos="490 660" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
- 550 660 m
- 520 660 l
+ 520 660 m
+ 490 660 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 520 660 m
+ 490 660 m
  520 660 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
@@ -451,12 +451,12 @@
  </path>
 <use name="mark/cross(sx)" pos="520 660" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
- 550 660 m
- 550 630 l
+ 520 660 m
+ 520 630 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 550 630 m
- 550 630 l
+ 520 630 m
+ 520 630 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  490 630 m
@@ -464,13 +464,13 @@
  </path>
 <path stroke="black" pen="normal" dash="normal">
  520 630 m
- 550 630 l
+ 520 630 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 550 630 m
- 550 630 l
+ 520 630 m
+ 520 630 l
  </path>
-<use name="mark/cross(sx)" pos="550 630" size="normal" stroke="gray"/>
+<use name="mark/cross(sx)" pos="520 630" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
  490 660 m
  490 630 l
