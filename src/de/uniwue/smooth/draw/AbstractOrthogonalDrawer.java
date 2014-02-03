@@ -1,7 +1,5 @@
 package de.uniwue.smooth.draw;
 
-import org.apache.commons.collections15.Transformer;
-
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.util.tuples.Tuple;
 import edu.uci.ics.jung.graph.util.Pair;
@@ -13,7 +11,7 @@ import edu.uci.ics.jung.graph.util.Pair;
  * @param <E> Edge type.
  * @param <T> Type of resulting painting.
  */
-public abstract class AbstractOrthogonalDrawer<V, E, T> implements Transformer<Tuple<OrthogonalLayout<V, E>, OrthogonalDrawing<T>>, T> {
+public abstract class AbstractOrthogonalDrawer<V, E, T> implements OrthogonalDrawer<V, E, T> {
 	
 	protected OrthogonalLayout<V, E> layout;
 	protected OrthogonalDrawing<T> drawing;

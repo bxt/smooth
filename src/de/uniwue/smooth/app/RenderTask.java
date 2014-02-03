@@ -8,8 +8,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import de.uniwue.smooth.draw.OrthogonalDrawer;
+import de.uniwue.smooth.draw.StraightlineOrthogonalDrawer;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
+import de.uniwue.smooth.draw.SmoothOrthogonalDrawer;
 import de.uniwue.smooth.draw.TransformingOrthogonalDrawing;
 import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
@@ -72,14 +74,19 @@ public class RenderTask implements Runnable {
 	public void run() {
 		Pair<OrthogonalLayout<Vertex, Edge>> layouts = new Pair<OrthogonalLayout<Vertex, Edge>>(
 				new LiuEtAlLayout<Vertex, Edge>(graph), new CompressingLiuEtAlLayout<Vertex, Edge>(graph));
+		Pair<OrthogonalDrawer<Vertex, Edge, String>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge, String>>(
+				new StraightlineOrthogonalDrawer<Vertex, Edge, String>(), new SmoothOrthogonalDrawer<Vertex, Edge, String>());
 		for(OrthogonalLayout<Vertex, Edge> layout : layouts) {
 			layout.initialize();
 			AffineTransform transform = new AffineTransform();
 			transform.translate(translateX, translateY);
 			transform.scale(scale, scale);
-			OrthogonalDrawing<String> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
-			String ipeCode = new OrthogonalDrawer<Vertex, Edge, String>().transform(new ImmutableTuple<>(layout, drawing));
-			Util.writeFile("resources/drawings/"+name+"-"+layout.getClass().getSimpleName()+".ipe", ipeCode);
+			for(OrthogonalDrawer<Vertex, Edge, String> drawer : drawers) {
+				if(layout.getClass() == LiuEtAlLayout.class && drawer.getClass() == SmoothOrthogonalDrawer.class) continue;
+				OrthogonalDrawing<String> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
+				String ipeCode = drawer.transform(new ImmutableTuple<>(layout, drawing));
+				Util.writeFile("resources/drawings/"+name+"-"+layout.getClass().getSimpleName()+"-"+drawer.getClass().getSimpleName()+".ipe", ipeCode);
+			}
 		}
 	}
 }
