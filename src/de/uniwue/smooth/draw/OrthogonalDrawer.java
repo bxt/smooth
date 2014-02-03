@@ -16,43 +16,7 @@ import edu.uci.ics.jung.graph.util.Pair;
  * @param <E> Edge type.
  * @param <T> Type of resulting painting.
  */
-public class OrthogonalDrawer<V, E, T> implements Transformer<Tuple<OrthogonalLayout<V, E>, OrthogonalDrawing<T>>, T> {
-	
-	private OrthogonalLayout<V, E> layout;
-	private OrthogonalDrawing<T> drawing;
-	
-	@Override
-	public T transform(Tuple<OrthogonalLayout<V, E>, OrthogonalDrawing<T>> input) {
-		this.layout = input.getFirst();
-		this.drawing = input.getSecond();
-		
-		draw();
-		T result = drawing.create();
-		
-		this.layout = null;
-		this.drawing = null;
-		
-		return result;
-	}
-	
-	/**
-	 * Draws everything.
-	 */
-	private void draw() {
-		drawVertices();
-		drawEdges();
-	}
-	
-	/**
-	 * Draws the vertices, setting a marker at each vertex' position.
-	 */
-	private void drawVertices() {
-		for (V v : layout.getGraph().getVertices()) {
-			Pair<Integer> coordinates = layout.getVertexLocation(v);
-			drawing.vertex(coordinates);
-			drawing.label(coordinates, v.toString());
-		}
-	}
+public class OrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V, E, T> implements Transformer<Tuple<OrthogonalLayout<V, E>, OrthogonalDrawing<T>>, T> {
 	
 	/**
 	 * Draws the edges with the following method:
@@ -65,7 +29,8 @@ public class OrthogonalDrawer<V, E, T> implements Transformer<Tuple<OrthogonalLa
 	 *   <li>Connect both saved positions with a vertical line.
 	 * </ul>
 	 */
-	private void drawEdges() {
+	@Override
+	protected void drawEdges() {
 		for (final E e : layout.getGraph().getEdges()) {
 			Pair<Pair<Integer>> edgeCoordinates = new Pair<>(CollectionUtils.collect(layout.getGraph().getEndpoints(e), new Transformer<V, Pair<Integer>>() {
 				@Override
