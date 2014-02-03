@@ -47,4 +47,12 @@ public interface OrthogonalDrawing<T> {
 	 */
 	public abstract T create();
 
+	/**
+	 * Draws a circular arc.
+	 * @param from Left/top coordinates of the origin of the arc.
+	 * @param mid Left/top coordinates of the midpoint of the arc.
+	 * @param to Left/top coordinates of the endpoint of the arc.
+	 */
+	public abstract void arc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to);
+
 }

@@ -53,6 +53,11 @@ public class TransformingOrthogonalDrawing<T> implements OrthogonalDrawing<T> {
 	}
 
 	@Override
+	public void arc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to) {
+		delegate.arc(transform(from), transform(mid), transform(to));
+	}
+
+	@Override
 	public T create() {
 		return delegate.create();
 	}
