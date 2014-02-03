@@ -26,6 +26,7 @@ public enum Port {
 	
 	private Port opposite;
 	private Pair<Integer> direction;
+	private boolean horizontal;
 	
 	static {
 		L.opposite = R;
@@ -39,6 +40,13 @@ public enum Port {
 		R.direction = new Pair<>( 1, 0);
 		T.direction = new Pair<>( 0, 1);
 		B.direction = new Pair<>( 0,-1);
+	}
+
+	static {
+		L.horizontal = true;
+		R.horizontal = true;
+		T.horizontal = false;
+		B.horizontal = false;
 	}
 
 	/**
@@ -56,5 +64,21 @@ public enum Port {
 	 */
 	public Pair<Integer> getDirection() {
 		return direction;
+	}
+	
+	/**
+	 * If or not the port points to a horizontal direction.
+	 * @return true, iff the port is horizontal.
+	 */
+	public boolean isHorizontal() {
+		return horizontal;
+	}
+	
+	/**
+	 * If or not the port points to a vertical direction.
+	 * @return true, iff the port is vertical.
+	 */
+	public boolean isVertical() {
+		return ! horizontal;
 	}
 }
