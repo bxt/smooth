@@ -27,15 +27,15 @@ public class RenderTask implements Runnable {
 	
 	public static void main(String[] args) throws Exception {
 		List<RenderTask> tasks = Arrays.asList
-				( new RenderTask(100, 400, 600, Generators.circle(3), "circle_3")
-				, new RenderTask( 60, 400, 500, Generators.circle(7), "circle_7")
-				, new RenderTask(  5, 400, 480, Generators.circle(99), "circle_99")
-				, new RenderTask( 30, 400, 600, Generators.hexahedron(), "hexahedron")
-				, new RenderTask( 30, 400, 600, Generators.octahedron(), "octahedron")
-				, new RenderTask(100, 400, 600, Generators.simplePlanarGraph(), "simplePlanarGraph")
-				, new RenderTask( 30, 400, 500, getTestGraph(), "test")
-				, new RenderTask(100, 300, 600, Generators.wheel(3), "wheel_3")
-				, new RenderTask( 80, 300, 550, Generators.wheel(4), "wheel_4")
+//				( new RenderTask(100, 400, 600, Generators.circle(3), "circle_3")
+//				, new RenderTask( 60, 400, 500, Generators.circle(7), "circle_7")
+//				, new RenderTask(  5, 400, 480, Generators.circle(99), "circle_99")
+//				, new RenderTask( 30, 400, 600, Generators.hexahedron(), "hexahedron")
+				( new RenderTask( 30, 400, 600, Generators.octahedron(), "octahedron")
+//				, new RenderTask(100, 400, 600, Generators.simplePlanarGraph(), "simplePlanarGraph")
+//				, new RenderTask( 30, 400, 500, getTestGraph(), "test")
+//				, new RenderTask(100, 300, 600, Generators.wheel(3), "wheel_3")
+//				, new RenderTask( 80, 300, 550, Generators.wheel(4), "wheel_4")
 				);
 		ExecutorService executor = Executors.newFixedThreadPool(8);
 		for (RenderTask task : tasks) executor.execute(task);

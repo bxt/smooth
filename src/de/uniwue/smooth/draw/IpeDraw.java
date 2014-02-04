@@ -577,6 +577,13 @@ public class IpeDraw {
 		return drawIpeCircularArc(xCenter, yCenter, xStart, yStart, xEnd, yEnd,
 				"black", "normal", "normal");
 	}
+	
+	public static String drawIpeSemiCircle(int xStart, int yStart, int xEnd, int yEnd) {
+		int xCenter = (xStart + xEnd) / 2;
+		int yCenter = (yStart + yEnd) / 2;
+		return drawIpeCircularArc(xCenter, yCenter, xStart, yStart, xEnd, yEnd,
+				"black", "normal", "normal");
+	}
 
 	/**
 	 * Draws a spline.

@@ -262,7 +262,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	/**
 	 * Get the list of incoming and the list of outgoing edges at a certain vertex.
 	 * 
-	 * Determines if an edge is incoming or outgoing using the st ordering, checks
+	 * Determines if an edge is incoming or outgoing using the st-ordering, checks
 	 * if the edges are prepartitioned nicely and returns the two lists.
 	 * For s (and t), where there are only outgoing (incoming) edges, also makes sure
 	 * that the leftmost edges are at the start of the list.

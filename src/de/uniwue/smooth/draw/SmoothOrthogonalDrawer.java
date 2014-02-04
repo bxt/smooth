@@ -39,8 +39,11 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 					start = vertexCoordinates.getFirst();
 				}
 				Pair<Integer> end = new Pair<>(start.getFirst(), tucked.getSecond());
-				Pair<Integer> mid = new Pair<>(start.getFirst(), (tucked.getSecond() + start.getSecond())/2);
-				drawing.arc(start, mid, end);
+//				Pair<Integer> mid = new Pair<>(start.getFirst(), (tucked.getSecond() + start.getSecond())/2);
+				if (isLeft)
+					drawing.arc(start, end);
+				else
+					drawing.arc(end, start);
 				drawing.line(tucked, end);
 				drawing.edgeMidpoint(end);
 			}

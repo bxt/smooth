@@ -241,8 +241,8 @@
 <text transformations="translations" pos="520 660" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V3</text><use name="mark/disk(sx)" pos="490 660" size="normal" stroke="black"/>
 <text transformations="translations" pos="490 660" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V4</text><use name="mark/disk(sx)" pos="490 630" size="normal" stroke="black"/>
 <text transformations="translations" pos="490 630" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V5</text><path stroke="black" pen="normal" dash="normal">
- 520 660 m
- 30,000 0 0 30,000 520 630 520 600 a
+ 520 600 m
+ 30,000 0 0 30,000 520 630 520 660 a
 </path>
 <path stroke="black" pen="normal" dash="normal">
  490 600 m
@@ -255,7 +255,7 @@
  </path>
 <path stroke="black" pen="normal" dash="normal">
  460 720 m
- 60,000 0 0 60,000 460 660 460 630 a
+ 45,000 0 0 45,000 460 675 460 630 a
 </path>
 <path stroke="black" pen="normal" dash="normal">
  490 630 m
