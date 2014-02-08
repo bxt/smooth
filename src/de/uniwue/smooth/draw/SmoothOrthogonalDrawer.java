@@ -29,22 +29,22 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 			} else if (ports.getFirst().isHorizontal() && ports.getSecond().isHorizontal()) { // C
 				boolean firstIsRighter = vertexCoordinates.getFirst().getFirst() > vertexCoordinates.getSecond().getFirst();
 				boolean isLeft = ports.getFirst() == Port.L;
-				Pair<Integer> tucked;
+				Pair<Integer> kink;
 				Pair<Integer> start;
 				if ((firstIsRighter && isLeft) || (!firstIsRighter && !isLeft)) {
-					tucked = vertexCoordinates.getFirst();
+					kink = vertexCoordinates.getFirst();
 					start = vertexCoordinates.getSecond();
 				} else {
-					tucked = vertexCoordinates.getSecond();
+					kink = vertexCoordinates.getSecond();
 					start = vertexCoordinates.getFirst();
 				}
-				Pair<Integer> end = new Pair<>(start.getFirst(), tucked.getSecond());
+				Pair<Integer> end = new Pair<>(start.getFirst(), kink.getSecond());
 //				Pair<Integer> mid = new Pair<>(start.getFirst(), (tucked.getSecond() + start.getSecond())/2);
 				if (isLeft)
 					drawing.arc(start, end);
 				else
 					drawing.arc(end, start);
-				drawing.line(tucked, end);
+				drawing.line(kink, end);
 				drawing.edgeMidpoint(end);
 			}
 			
