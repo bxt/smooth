@@ -52,31 +52,32 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 				int dy =  vertexCoordinates.getSecond().getSecond() - vertexCoordinates.getFirst().getSecond();
 				boolean slopeGreaterOne = dx / dy > 1;
 				boolean firstIsVertical = ports.getFirst().isVertical();
-				boolean slopePositive = dy > 0 == dy > 0;
+				boolean slopePositive = dx > 0 == dy > 0;
 				boolean firstIsDiagonalStart = firstIsVertical == slopeGreaterOne;
 				
 				boolean mid_addToFirst = firstIsDiagonalStart;
 				boolean mid_changeXandAddDy = slopeGreaterOne;
-				boolean mid_subtract = slopeGreaterOne == firstIsDiagonalStart;
+				boolean mid_subtract = slopePositive != firstIsDiagonalStart;
 				
 				Pair<Integer> mid;
 				Pair<Integer> kink;
 				Pair<Integer> ref = mid_addToFirst ? vertexCoordinates.getFirst() : vertexCoordinates.getSecond();
-				int factor = (mid_subtract ? -1 : 1);
+				int mid_factor = (mid_subtract ? -1 : 1);
 				int kink_factor = (firstIsDiagonalStart ? 1 : -1);
 				if(mid_changeXandAddDy) {
-					mid = new Pair<>(ref.getFirst() + dy * factor,ref.getSecond());
-					kink = new Pair<>(ref.getFirst() + dy * factor,ref.getSecond() - dy);
+					mid = new Pair<>(ref.getFirst() + dy * mid_factor,ref.getSecond());
+					kink = new Pair<>(ref.getFirst() + dy * mid_factor,ref.getSecond() - dy);
 				} else {
-					mid = new Pair<>(ref.getFirst(),ref.getSecond() + dx * factor);
-					kink = new Pair<>(ref.getFirst() + dx * kink_factor,ref.getSecond() + dx * factor);
+					mid = new Pair<>(ref.getFirst(),ref.getSecond() + dx * mid_factor);
+					kink = new Pair<>(ref.getFirst() + dx * kink_factor,ref.getSecond() + dx * mid_factor);
 				}
 				drawing.edgeMidpoint(mid, "blue");
 				drawing.edgeMidpoint(kink, "red");
 				
 				drawing.line(firstIsDiagonalStart ? vertexCoordinates.getSecond() : vertexCoordinates.getFirst(), kink);
 				
-				drawing.arc(firstIsDiagonalStart ? vertexCoordinates.getFirst() : vertexCoordinates.getSecond(), mid, kink);
+				boolean diagStartFirst = slopePositive != slopeGreaterOne;
+				if(diagStartFirst) drawing.arc(ref, mid, kink); else drawing.arc(kink, mid, ref);
 			}
 			
 			//drawing.edgeMidpoint(layout.getEdgeLocation(e));

@@ -248,27 +248,27 @@
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="470 590" size="normal" stroke="black"/>
-<text transformations="translations" pos="470 590" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="470 620" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="500 620" size="normal" stroke="red"/>
+<text transformations="translations" pos="470 590" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="470 560" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="500 560" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  500 500 m
- 500 620 l
+ 500 560 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 470 590 m
- 30,000 0 0 30,000 470 620 500 620 a
+ 500 560 m
+ 30,000 0 0 30,000 470 560 470 590 a
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="530 410" size="normal" stroke="black"/>
-<text transformations="translations" pos="530 410" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="530 380" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="500 380" size="normal" stroke="red"/>
+<text transformations="translations" pos="530 410" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="530 440" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="500 440" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  500 500 m
- 500 380 l
+ 500 440 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 530 410 m
- 30,000 0 0 30,000 530 380 500 380 a
+ 500 440 m
+ 30,000 0 0 30,000 530 440 530 410 a
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="470 410" size="normal" stroke="black"/>
@@ -284,51 +284,51 @@
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="590 530" size="normal" stroke="black"/>
-<text transformations="translations" pos="590 530" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="470 500" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="470 470" size="normal" stroke="red"/>
+<text transformations="translations" pos="590 530" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="530 500" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="530 470" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  590 530 m
- 470 470 l
+ 530 470 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 500 500 m
- 30,000 0 0 30,000 470 500 470 470 a
+ 530 470 m
+ 30,000 0 0 30,000 530 500 500 500 a
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="410 530" size="normal" stroke="black"/>
-<text transformations="translations" pos="410 530" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="410 620" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="500 620" size="normal" stroke="red"/>
+<text transformations="translations" pos="410 530" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="410 440" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="500 440" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  500 500 m
- 500 620 l
+ 500 440 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 410 530 m
- 90,000 0 0 90,000 410 620 500 620 a
+ 500 440 m
+ 90,000 0 0 90,000 410 440 410 530 a
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="590 470" size="normal" stroke="black"/>
-<text transformations="translations" pos="590 470" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="590 380" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="500 380" size="normal" stroke="red"/>
+<text transformations="translations" pos="590 470" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="590 560" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="500 560" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  500 500 m
- 500 380 l
+ 500 560 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 590 470 m
- 90,000 0 0 90,000 590 380 500 380 a
+ 500 560 m
+ 90,000 0 0 90,000 590 560 590 470 a
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="410 470" size="normal" stroke="black"/>
-<text transformations="translations" pos="410 470" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="530 500" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="530 530" size="normal" stroke="red"/>
+<text transformations="translations" pos="410 470" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="470 500" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="470 530" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  410 470 m
- 530 530 l
+ 470 530 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 500 500 m
- 30,000 0 0 30,000 530 500 530 530 a
+ 470 530 m
+ 30,000 0 0 30,000 470 500 500 500 a
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="530 590" size="normal" stroke="black"/>
@@ -344,27 +344,27 @@
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="470 590" size="normal" stroke="black"/>
-<text transformations="translations" pos="470 590" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="500 470" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="470 470" size="normal" stroke="red"/>
+<text transformations="translations" pos="470 590" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="500 530" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="470 530" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  470 590 m
- 470 470 l
+ 470 530 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 500 500 m
- 30,000 0 0 30,000 500 470 470 470 a
+ 470 530 m
+ 30,000 0 0 30,000 500 530 500 500 a
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="530 410" size="normal" stroke="black"/>
-<text transformations="translations" pos="530 410" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="500 530" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="530 530" size="normal" stroke="red"/>
+<text transformations="translations" pos="530 410" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="500 470" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="530 470" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  530 410 m
- 530 530 l
+ 530 470 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 500 500 m
- 30,000 0 0 30,000 500 530 530 530 a
+ 530 470 m
+ 30,000 0 0 30,000 500 470 500 500 a
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="470 410" size="normal" stroke="black"/>
@@ -380,51 +380,51 @@
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="590 530" size="normal" stroke="black"/>
-<text transformations="translations" pos="590 530" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="620 530" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="620 500" size="normal" stroke="red"/>
+<text transformations="translations" pos="590 530" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="560 530" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="560 500" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  500 500 m
- 620 500 l
+ 560 500 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 590 530 m
- 30,000 0 0 30,000 620 530 620 500 a
+ 560 500 m
+ 30,000 0 0 30,000 560 530 590 530 a
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="410 530" size="normal" stroke="black"/>
-<text transformations="translations" pos="410 530" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="500 410" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="410 410" size="normal" stroke="red"/>
+<text transformations="translations" pos="410 530" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="500 590" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="410 590" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  410 530 m
- 410 410 l
+ 410 590 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 500 500 m
- 90,000 0 0 90,000 500 410 410 410 a
+ 410 590 m
+ 90,000 0 0 90,000 500 590 500 500 a
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="590 470" size="normal" stroke="black"/>
-<text transformations="translations" pos="590 470" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="500 590" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="590 590" size="normal" stroke="red"/>
+<text transformations="translations" pos="590 470" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="500 410" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="590 410" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  590 470 m
- 590 590 l
+ 590 410 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 500 500 m
- 90,000 0 0 90,000 500 590 590 590 a
+ 590 410 m
+ 90,000 0 0 90,000 500 410 500 500 a
 </path>
 <use name="mark/disk(sx)" pos="500 500" size="normal" stroke="black"/>
 <text transformations="translations" pos="500 500" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="410 470" size="normal" stroke="black"/>
-<text transformations="translations" pos="410 470" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="380 470" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="380 500" size="normal" stroke="red"/>
+<text transformations="translations" pos="410 470" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="440 470" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="440 500" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  500 500 m
- 380 500 l
+ 440 500 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 410 470 m
- 30,000 0 0 30,000 380 470 380 500 a
+ 440 500 m
+ 30,000 0 0 30,000 440 470 410 470 a
 </path>
 </page>
 </ipe>
