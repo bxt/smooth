@@ -50,7 +50,7 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 			} else { // L or G
 				int dx =  vertexCoordinates.getSecond().getFirst() - vertexCoordinates.getFirst().getFirst();
 				int dy =  vertexCoordinates.getSecond().getSecond() - vertexCoordinates.getFirst().getSecond();
-				boolean slopeGreaterOne = dx / dy > 1;
+				boolean slopeGreaterOne = Math.abs(dx / dy) > 1;
 				boolean firstIsVertical = ports.getFirst().isVertical();
 				boolean slopePositive = dx > 0 == dy > 0;
 				boolean firstIsDiagonalStart = firstIsVertical == slopeGreaterOne;
@@ -58,15 +58,16 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 				boolean mid_addToFirst = firstIsDiagonalStart;
 				boolean mid_changeXandAddDy = slopeGreaterOne;
 				boolean mid_subtract = slopePositive != firstIsDiagonalStart;
+				boolean kink_subtract = firstIsDiagonalStart;
 				
 				Pair<Integer> mid;
 				Pair<Integer> kink;
 				Pair<Integer> ref = mid_addToFirst ? vertexCoordinates.getFirst() : vertexCoordinates.getSecond();
 				int mid_factor = (mid_subtract ? -1 : 1);
-				int kink_factor = (firstIsDiagonalStart ? 1 : -1);
+				int kink_factor = (kink_subtract ? 1 : -1);
 				if(mid_changeXandAddDy) {
 					mid = new Pair<>(ref.getFirst() + dy * mid_factor,ref.getSecond());
-					kink = new Pair<>(ref.getFirst() + dy * mid_factor,ref.getSecond() - dy);
+					kink = new Pair<>(ref.getFirst() + dy * mid_factor,ref.getSecond() + dy * kink_factor);
 				} else {
 					mid = new Pair<>(ref.getFirst(),ref.getSecond() + dx * mid_factor);
 					kink = new Pair<>(ref.getFirst() + dx * kink_factor,ref.getSecond() + dx * mid_factor);
