@@ -53,31 +53,30 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 				boolean slopeGreaterOne = Math.abs(dx / dy) > 1;
 				boolean firstIsVertical = ports.getFirst().isVertical();
 				boolean slopePositive = dx > 0 == dy > 0;
-				boolean firstIsDiagonalStart = firstIsVertical == slopeGreaterOne;
 				
-				boolean mid_addToFirst = firstIsDiagonalStart;
-				boolean mid_changeXandAddDy = slopeGreaterOne;
-				boolean mid_subtract = slopePositive != firstIsDiagonalStart;
-				boolean kink_subtract = firstIsDiagonalStart;
+				boolean firstIsDiagonalStart = firstIsVertical == slopeGreaterOne; // choose second or first point as reference for further calculations
+				boolean mid_changeXandAddDy = slopeGreaterOne; // which delta value to add to which coordinate
+				boolean mid_subtract = slopePositive != firstIsDiagonalStart; // if or not to subtract the delta value from the reference point
+				boolean kink_subtract = !firstIsDiagonalStart; // if or not to subtract the delta value from the midpoint
+				boolean diagStartFirst = slopePositive != slopeGreaterOne; // if or not to go ccw from ref to kink or the other way around
 				
-				Pair<Integer> mid;
-				Pair<Integer> kink;
-				Pair<Integer> ref = mid_addToFirst ? vertexCoordinates.getFirst() : vertexCoordinates.getSecond();
-				int mid_factor = (mid_subtract ? -1 : 1);
-				int kink_factor = (kink_subtract ? 1 : -1);
+				Pair<Integer> mid; // center of the circle arc
+				Pair<Integer> kink; // point connecting line and circle arc
+				Pair<Integer> ref = firstIsDiagonalStart ? vertexCoordinates.getFirst() : vertexCoordinates.getSecond(); // endpoint connected to arc
+				int mid_factor = (mid_subtract ? -1 : 1); // fix sign of delta value for midpoint
+				int kink_factor = (kink_subtract ? -1 : 1); // fix sign of delta value for kink point
 				if(mid_changeXandAddDy) {
 					mid = new Pair<>(ref.getFirst() + dy * mid_factor,ref.getSecond());
-					kink = new Pair<>(ref.getFirst() + dy * mid_factor,ref.getSecond() + dy * kink_factor);
+					kink = Util.add(mid, new Pair<>(0, dy * kink_factor));
 				} else {
 					mid = new Pair<>(ref.getFirst(),ref.getSecond() + dx * mid_factor);
-					kink = new Pair<>(ref.getFirst() + dx * kink_factor,ref.getSecond() + dx * mid_factor);
+					kink = Util.add(mid, new Pair<>(dx * kink_factor, 0));
 				}
 				drawing.edgeMidpoint(mid, "blue");
 				drawing.edgeMidpoint(kink, "red");
 				
 				drawing.line(firstIsDiagonalStart ? vertexCoordinates.getSecond() : vertexCoordinates.getFirst(), kink);
 				
-				boolean diagStartFirst = slopePositive != slopeGreaterOne;
 				if(diagStartFirst) drawing.arc(ref, mid, kink); else drawing.arc(kink, mid, ref);
 			}
 			
