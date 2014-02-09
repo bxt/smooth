@@ -22,6 +22,12 @@ public interface OrthogonalDrawing<T> {
 	public abstract void edgeMidpoint(Pair<Integer> position);
 
 	/**
+	 * Draws an edge marker.
+	 * @param position Left/top coordinates of the edge.
+	 */
+	public abstract void edgeMidpoint(Pair<Integer> position, String color);
+
+	/**
 	 * Draws a straight line.
 	 * @param from Left/top coordinates of the origin of the line.
 	 * @param to Left/top coordinates of the endpoint of the line.

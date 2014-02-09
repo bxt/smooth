@@ -38,6 +38,11 @@ public class TransformingOrthogonalDrawing<T> implements OrthogonalDrawing<T> {
 	}
 
 	@Override
+	public void edgeMidpoint(Pair<Integer> position, String color) {
+		delegate.edgeMidpoint(transform(position), color);
+	}
+
+	@Override
 	public void line(Pair<Integer> from, Pair<Integer> to) {
 		delegate.line(transform(from), transform(to));
 	}

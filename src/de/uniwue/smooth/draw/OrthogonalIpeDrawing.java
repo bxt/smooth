@@ -18,6 +18,11 @@ public class OrthogonalIpeDrawing extends AbstractIpeDrawing implements Orthogon
 	}
 	
 	@Override
+	public void edgeMidpoint(Pair<Integer> position, String color) {
+		draw(IpeDraw.drawIpeMark(position.getFirst(), position.getSecond(), "cross", color));
+	}
+	
+	@Override
 	public void line(Pair<Integer> from, Pair<Integer> to) {
 		draw(IpeDraw.drawIpeEdge(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond()));
 	}
@@ -40,4 +45,5 @@ public class OrthogonalIpeDrawing extends AbstractIpeDrawing implements Orthogon
 	public void arc(Pair<Integer> from, Pair<Integer> to) {
 		draw(IpeDraw.drawIpeSemiCircle(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond()));
 	}
+
 }
