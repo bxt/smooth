@@ -39,6 +39,7 @@ public class RenderTask implements Runnable {
 				);
 		ExecutorService executor = Executors.newFixedThreadPool(8);
 		for (RenderTask task : tasks) executor.execute(task);
+		executor.shutdown();
 	}
 	
 	private static Graph<Vertex, Edge> getTestGraph() {
