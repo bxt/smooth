@@ -26,29 +26,58 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 			
 			if (ports.getFirst().getOpposite() == ports.getSecond()) { // Line
 				drawing.line(vertexCoordinates);
+			} else if (ports.getFirst().isVertical() && ports.getSecond().isVertical()) { // U
+				throw new UnsupportedOperationException("U edges not implemented.");
 			} else if (ports.getFirst().isHorizontal() && ports.getSecond().isHorizontal()) { // C
 				boolean firstIsRighter = vertexCoordinates.getFirst().getFirst() > vertexCoordinates.getSecond().getFirst();
 				boolean isLeft = ports.getFirst() == Port.L;
-				Pair<Integer> kink;
+				Pair<Integer> end;
 				Pair<Integer> start;
 				if ((firstIsRighter && isLeft) || (!firstIsRighter && !isLeft)) {
-					kink = vertexCoordinates.getFirst();
+					end = vertexCoordinates.getFirst();
 					start = vertexCoordinates.getSecond();
 				} else {
-					kink = vertexCoordinates.getSecond();
+					end = vertexCoordinates.getSecond();
 					start = vertexCoordinates.getFirst();
 				}
-				Pair<Integer> end = new Pair<>(start.getFirst(), kink.getSecond());
-//				Pair<Integer> mid = new Pair<>(start.getFirst(), (tucked.getSecond() + start.getSecond())/2);
+				Pair<Integer> kink = new Pair<>(start.getFirst(), end.getSecond());
 				if (isLeft)
-					drawing.arc(start, end);
+					drawing.arc(start, kink);
 				else
-					drawing.arc(end, start);
-				drawing.line(kink, end);
-				drawing.edgeMidpoint(end);
+					drawing.arc(kink, start);
+				drawing.line(end, kink);
+				drawing.edgeMidpoint(kink);
+			} else { // L or G
+				int dx =  vertexCoordinates.getSecond().getFirst() - vertexCoordinates.getFirst().getFirst();
+				int dy =  vertexCoordinates.getSecond().getSecond() - vertexCoordinates.getFirst().getSecond();
+				boolean slopeGreaterOne = dx / dy > 1;
+				boolean firstIsVertical = ports.getFirst().isVertical();
+				boolean slopePositive = dy > 0 == dy > 0;
+				boolean firstIsDiagonalStart = firstIsVertical == slopeGreaterOne;
+				
+				boolean mid_addToFirst = firstIsDiagonalStart;
+				boolean mid_changeXandAddDy = slopeGreaterOne;
+				boolean mid_subtract = slopeGreaterOne == firstIsDiagonalStart;
+				
+				Pair<Integer> mid;
+				Pair<Integer> kink;
+				Pair<Integer> ref = mid_addToFirst ? vertexCoordinates.getFirst() : vertexCoordinates.getSecond();
+				int factor = (mid_subtract ? -1 : 1);
+				int kink_factor = (firstIsDiagonalStart ? 1 : -1);
+				if(mid_changeXandAddDy) {
+					mid = new Pair<>(ref.getFirst() + dy * factor,ref.getSecond());
+					kink = new Pair<>(ref.getFirst() + dy * factor,ref.getSecond() - dy);
+				} else {
+					mid = new Pair<>(ref.getFirst(),ref.getSecond() + dx * factor);
+					kink = new Pair<>(ref.getFirst() + dx * kink_factor,ref.getSecond() + dx * factor);
+				}
+				drawing.edgeMidpoint(mid, "blue");
+				drawing.edgeMidpoint(kink, "red");
+				
+				drawing.line(firstIsDiagonalStart ? vertexCoordinates.getSecond() : vertexCoordinates.getFirst(), kink);
+				
+				drawing.arc(firstIsDiagonalStart ? vertexCoordinates.getFirst() : vertexCoordinates.getSecond(), mid, kink);
 			}
-			
-			// TODO: L, O edge
 			
 			//drawing.edgeMidpoint(layout.getEdgeLocation(e));
 		}
