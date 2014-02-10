@@ -28,23 +28,23 @@ public class GEdgeTest<T> implements Runnable {
 		
 		OrthogonalDrawing<String> drawing = new OrthogonalIpeDrawing();
 		
-		new GEdgeTest<String>(Port.B, Port.R, drawing, 500, 500, 1, 3).run();
-		new GEdgeTest<String>(Port.B, Port.L, drawing, 500, 500,-1, 3).run();
-		new GEdgeTest<String>(Port.T, Port.R, drawing, 500, 500, 1,-3).run();
-		new GEdgeTest<String>(Port.T, Port.L, drawing, 500, 500,-1,-3).run();
-		new GEdgeTest<String>(Port.B, Port.R, drawing, 500, 500, 3, 1).run();
-		new GEdgeTest<String>(Port.B, Port.L, drawing, 500, 500,-3, 1).run();
-		new GEdgeTest<String>(Port.T, Port.R, drawing, 500, 500, 3,-1).run();
-		new GEdgeTest<String>(Port.T, Port.L, drawing, 500, 500,-3,-1).run();
+		new GEdgeTest<String>(Port.B, Port.R, drawing, 700, 500, 1, 3).run();
+		new GEdgeTest<String>(Port.B, Port.L, drawing, 700, 500,-1, 3).run();
+		new GEdgeTest<String>(Port.T, Port.R, drawing, 300, 500, 1,-3).run();
+		new GEdgeTest<String>(Port.T, Port.L, drawing, 300, 500,-1,-3).run();
+		new GEdgeTest<String>(Port.B, Port.R, drawing, 700, 500, 3, 1).run();
+		new GEdgeTest<String>(Port.B, Port.L, drawing, 300, 500,-3, 1).run();
+		new GEdgeTest<String>(Port.T, Port.R, drawing, 700, 500, 3,-1).run();
+		new GEdgeTest<String>(Port.T, Port.L, drawing, 300, 500,-3,-1).run();
 		
-		new GEdgeTest<String>(Port.L, Port.T, drawing, 500, 500, 1, 3).run();
-		new GEdgeTest<String>(Port.R, Port.T, drawing, 500, 500,-1, 3).run();
-		new GEdgeTest<String>(Port.L, Port.B, drawing, 500, 500, 1,-3).run();
-		new GEdgeTest<String>(Port.R, Port.B, drawing, 500, 500,-1,-3).run();
-		new GEdgeTest<String>(Port.L, Port.T, drawing, 500, 500, 3, 1).run();
-		new GEdgeTest<String>(Port.R, Port.T, drawing, 500, 500,-3, 1).run();
-		new GEdgeTest<String>(Port.L, Port.B, drawing, 500, 500, 3,-1).run();
-		new GEdgeTest<String>(Port.R, Port.B, drawing, 500, 500,-3,-1).run();
+		new GEdgeTest<String>(Port.L, Port.T, drawing, 700, 500, 1, 3).run();
+		new GEdgeTest<String>(Port.R, Port.T, drawing, 700, 500,-1, 3).run();
+		new GEdgeTest<String>(Port.L, Port.B, drawing, 300, 500, 1,-3).run();
+		new GEdgeTest<String>(Port.R, Port.B, drawing, 300, 500,-1,-3).run();
+		new GEdgeTest<String>(Port.L, Port.T, drawing, 700, 500, 3, 1).run();
+		new GEdgeTest<String>(Port.R, Port.T, drawing, 300, 500,-3, 1).run();
+		new GEdgeTest<String>(Port.L, Port.B, drawing, 700, 500, 3,-1).run();
+		new GEdgeTest<String>(Port.R, Port.B, drawing, 300, 500,-3,-1).run();
 		
 		Util.writeFile("resources/drawings/G-edgetest.ipe", drawing.create());
 	}
