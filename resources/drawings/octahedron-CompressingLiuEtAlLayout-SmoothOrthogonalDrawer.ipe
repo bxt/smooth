@@ -250,25 +250,25 @@
  460 630 m
  30,000 0 0 30,000 490 630 490 600 a
 </path>
-<use name="mark/cross(sx)" pos="520 660" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="490 660" size="normal" stroke="red"/>
-<path stroke="black" pen="normal" dash="normal">
- 490 600 m
- 490 660 l
- </path>
+<use name="mark/cross(sx)" pos="580 600" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="580 690" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  520 690 m
- 30,000 0 0 30,000 520 660 490 660 a
-</path>
+ 580 690 l
+ </path>
 <path stroke="black" pen="normal" dash="normal">
- 520 600 m
- 30,000 0 0 30,000 520 630 520 660 a
+ 490 600 m
+ 90,000 0 0 90,000 580 600 580 690 a
 </path>
+<use name="mark/cross(sx)" pos="520 600" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
  490 600 m
  520 600 l
  </path>
-<use name="mark/cross(sx)" pos="520 600" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 520 600 m
+ 30,000 0 0 30,000 520 630 520 660 a
+</path>
 <path stroke="black" pen="normal" dash="normal">
  490 600 m
  490 630 l
@@ -293,15 +293,15 @@
  460 690 m
  30,000 0 0 30,000 490 690 490 660 a
 </path>
-<path stroke="black" pen="normal" dash="normal">
- 460 720 m
- 45,000 0 0 45,000 460 675 460 630 a
-</path>
+<use name="mark/cross(sx)" pos="460 630" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
  490 630 m
  460 630 l
  </path>
-<use name="mark/cross(sx)" pos="460 630" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 460 720 m
+ 45,000 0 0 45,000 460 675 460 630 a
+</path>
 <path stroke="black" pen="normal" dash="normal">
  520 690 m
  520 660 l
