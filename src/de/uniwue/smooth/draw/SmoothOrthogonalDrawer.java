@@ -30,6 +30,7 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 				throw new UnsupportedOperationException("U edges not implemented.");
 			} else if (ports.getFirst().isHorizontal() && ports.getSecond().isHorizontal()) { // C
 				boolean firstIsRighter = vertexCoordinates.getFirst().getFirst() > vertexCoordinates.getSecond().getFirst();
+				boolean firstIsHigher = vertexCoordinates.getFirst().getSecond() > vertexCoordinates.getSecond().getSecond();
 				boolean isLeft = ports.getFirst() == Port.L;
 				Pair<Integer> end;
 				Pair<Integer> start;
@@ -41,7 +42,7 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 					start = vertexCoordinates.getFirst();
 				}
 				Pair<Integer> kink = new Pair<>(start.getFirst(), end.getSecond());
-				if (isLeft)
+				if (firstIsRighter != firstIsHigher)
 					drawing.arc(start, kink);
 				else
 					drawing.arc(kink, start);
