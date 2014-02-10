@@ -28,6 +28,18 @@ public class LEdgeTest<T> implements Runnable {
 		
 		OrthogonalDrawing<String> drawing = new OrthogonalIpeDrawing();
 		
+		// C
+		
+		new LEdgeTest<String>(Port.L, Port.L, drawing, 850, 300, 1, 3).run();
+		new LEdgeTest<String>(Port.L, Port.L, drawing, 700, 300,-1, 3).run();
+		new LEdgeTest<String>(Port.L, Port.L, drawing, 850, 300, 1,-3).run();
+		new LEdgeTest<String>(Port.L, Port.L, drawing, 700, 300,-1,-3).run();
+		
+		new LEdgeTest<String>(Port.R, Port.R, drawing, 850, 300, 1, 3).run();
+		new LEdgeTest<String>(Port.R, Port.R, drawing, 700, 300,-1, 3).run();
+		new LEdgeTest<String>(Port.R, Port.R, drawing, 850, 300, 1,-3).run();
+		new LEdgeTest<String>(Port.R, Port.R, drawing, 700, 300,-1,-3).run();
+		
 		// L
 		
 		new LEdgeTest<String>(Port.T, Port.L, drawing, 500, 300, 1, 3).run();
