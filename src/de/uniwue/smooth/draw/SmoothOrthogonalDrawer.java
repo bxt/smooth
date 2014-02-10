@@ -25,16 +25,23 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 			Pair<Pair<Integer>> vertexCoordinates = new Pair<>(layout.getVertexLocation(endpoints.getFirst()), layout.getVertexLocation(endpoints.getSecond()));
 			
 			if (ports.getFirst().getOpposite() == ports.getSecond()) { // Line
+				
 				drawing.line(vertexCoordinates);
+				
 			} else if (ports.getFirst().isVertical() && ports.getSecond().isVertical()) { // U
+				
 				throw new UnsupportedOperationException("U edges not implemented.");
+				
 			} else if (ports.getFirst().isHorizontal() && ports.getSecond().isHorizontal()) { // C
+				
 				boolean firstIsRighter = vertexCoordinates.getFirst().getFirst() > vertexCoordinates.getSecond().getFirst();
 				boolean firstIsHigher = vertexCoordinates.getFirst().getSecond() > vertexCoordinates.getSecond().getSecond();
+				boolean slopePositive = firstIsRighter == firstIsHigher;
 				boolean isLeft = ports.getFirst() == Port.L;
+				
 				Pair<Integer> end;
 				Pair<Integer> start;
-				if ((firstIsRighter && isLeft) || (!firstIsRighter && !isLeft)) {
+				if (firstIsRighter == isLeft) {
 					end = vertexCoordinates.getFirst();
 					start = vertexCoordinates.getSecond();
 				} else {
@@ -42,13 +49,14 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 					start = vertexCoordinates.getFirst();
 				}
 				Pair<Integer> kink = new Pair<>(start.getFirst(), end.getSecond());
-				if (firstIsRighter != firstIsHigher)
-					drawing.arc(start, kink);
-				else
-					drawing.arc(kink, start);
-				drawing.line(end, kink);
 				drawing.edgeMidpoint(kink);
+				
+				drawing.line(end, kink);
+				
+				if (slopePositive) drawing.arc(kink, start); else drawing.arc(start, kink);
+				
 			} else { // L or G
+				
 				int dx =  vertexCoordinates.getSecond().getFirst() - vertexCoordinates.getFirst().getFirst();
 				int dy =  vertexCoordinates.getSecond().getSecond() - vertexCoordinates.getFirst().getSecond();
 				boolean slopeGreaterOne = Math.abs(dx / dy) > 1;
