@@ -22,7 +22,7 @@ import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 
-public class LEdgeTest<T> implements Runnable {
+public class EdgeTestDrawings<T> implements Runnable {
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -30,55 +30,55 @@ public class LEdgeTest<T> implements Runnable {
 		
 		// C
 		
-		new LEdgeTest<String>(Port.L, Port.L, drawing, 850, 300, 1, 3).run();
-		new LEdgeTest<String>(Port.L, Port.L, drawing, 700, 300,-1, 3).run();
-		new LEdgeTest<String>(Port.L, Port.L, drawing, 850, 300, 1,-3).run();
-		new LEdgeTest<String>(Port.L, Port.L, drawing, 700, 300,-1,-3).run();
+		new EdgeTestDrawings<String>(Port.L, Port.L, drawing, 850, 300, 1, 3).run();
+		new EdgeTestDrawings<String>(Port.L, Port.L, drawing, 700, 300,-1, 3).run();
+		new EdgeTestDrawings<String>(Port.L, Port.L, drawing, 850, 300, 1,-3).run();
+		new EdgeTestDrawings<String>(Port.L, Port.L, drawing, 700, 300,-1,-3).run();
 		
-		new LEdgeTest<String>(Port.R, Port.R, drawing, 850, 300, 1, 3).run();
-		new LEdgeTest<String>(Port.R, Port.R, drawing, 700, 300,-1, 3).run();
-		new LEdgeTest<String>(Port.R, Port.R, drawing, 850, 300, 1,-3).run();
-		new LEdgeTest<String>(Port.R, Port.R, drawing, 700, 300,-1,-3).run();
+		new EdgeTestDrawings<String>(Port.R, Port.R, drawing, 850, 300, 1, 3).run();
+		new EdgeTestDrawings<String>(Port.R, Port.R, drawing, 700, 300,-1, 3).run();
+		new EdgeTestDrawings<String>(Port.R, Port.R, drawing, 850, 300, 1,-3).run();
+		new EdgeTestDrawings<String>(Port.R, Port.R, drawing, 700, 300,-1,-3).run();
 		
 		// L
 		
-		new LEdgeTest<String>(Port.T, Port.L, drawing, 500, 300, 1, 3).run();
-		new LEdgeTest<String>(Port.T, Port.R, drawing, 500, 300,-1, 3).run();
-		new LEdgeTest<String>(Port.B, Port.L, drawing, 500, 300, 1,-3).run();
-		new LEdgeTest<String>(Port.B, Port.R, drawing, 500, 300,-1,-3).run();
-		new LEdgeTest<String>(Port.T, Port.L, drawing, 500, 300, 3, 1).run();
-		new LEdgeTest<String>(Port.T, Port.R, drawing, 500, 300,-3, 1).run();
-		new LEdgeTest<String>(Port.B, Port.L, drawing, 500, 300, 3,-1).run();
-		new LEdgeTest<String>(Port.B, Port.R, drawing, 500, 300,-3,-1).run();
+		new EdgeTestDrawings<String>(Port.T, Port.L, drawing, 500, 300, 1, 3).run();
+		new EdgeTestDrawings<String>(Port.T, Port.R, drawing, 500, 300,-1, 3).run();
+		new EdgeTestDrawings<String>(Port.B, Port.L, drawing, 500, 300, 1,-3).run();
+		new EdgeTestDrawings<String>(Port.B, Port.R, drawing, 500, 300,-1,-3).run();
+		new EdgeTestDrawings<String>(Port.T, Port.L, drawing, 500, 300, 3, 1).run();
+		new EdgeTestDrawings<String>(Port.T, Port.R, drawing, 500, 300,-3, 1).run();
+		new EdgeTestDrawings<String>(Port.B, Port.L, drawing, 500, 300, 3,-1).run();
+		new EdgeTestDrawings<String>(Port.B, Port.R, drawing, 500, 300,-3,-1).run();
 		
-		new LEdgeTest<String>(Port.R, Port.B, drawing, 500, 300, 1, 3).run();
-		new LEdgeTest<String>(Port.L, Port.B, drawing, 500, 300,-1, 3).run();
-		new LEdgeTest<String>(Port.R, Port.T, drawing, 500, 300, 1,-3).run();
-		new LEdgeTest<String>(Port.L, Port.T, drawing, 500, 300,-1,-3).run();
-		new LEdgeTest<String>(Port.R, Port.B, drawing, 500, 300, 3, 1).run();
-		new LEdgeTest<String>(Port.L, Port.B, drawing, 500, 300,-3, 1).run();
-		new LEdgeTest<String>(Port.R, Port.T, drawing, 500, 300, 3,-1).run();
-		new LEdgeTest<String>(Port.L, Port.T, drawing, 500, 300,-3,-1).run();
+		new EdgeTestDrawings<String>(Port.R, Port.B, drawing, 500, 300, 1, 3).run();
+		new EdgeTestDrawings<String>(Port.L, Port.B, drawing, 500, 300,-1, 3).run();
+		new EdgeTestDrawings<String>(Port.R, Port.T, drawing, 500, 300, 1,-3).run();
+		new EdgeTestDrawings<String>(Port.L, Port.T, drawing, 500, 300,-1,-3).run();
+		new EdgeTestDrawings<String>(Port.R, Port.B, drawing, 500, 300, 3, 1).run();
+		new EdgeTestDrawings<String>(Port.L, Port.B, drawing, 500, 300,-3, 1).run();
+		new EdgeTestDrawings<String>(Port.R, Port.T, drawing, 500, 300, 3,-1).run();
+		new EdgeTestDrawings<String>(Port.L, Port.T, drawing, 500, 300,-3,-1).run();
 		
 		// G
 		
-		new LEdgeTest<String>(Port.B, Port.R, drawing, 700, 700, 1, 3).run();
-		new LEdgeTest<String>(Port.B, Port.L, drawing, 700, 700,-1, 3).run();
-		new LEdgeTest<String>(Port.T, Port.R, drawing, 300, 700, 1,-3).run();
-		new LEdgeTest<String>(Port.T, Port.L, drawing, 300, 700,-1,-3).run();
-		new LEdgeTest<String>(Port.B, Port.R, drawing, 700, 700, 3, 1).run();
-		new LEdgeTest<String>(Port.B, Port.L, drawing, 300, 700,-3, 1).run();
-		new LEdgeTest<String>(Port.T, Port.R, drawing, 700, 700, 3,-1).run();
-		new LEdgeTest<String>(Port.T, Port.L, drawing, 300, 700,-3,-1).run();
+		new EdgeTestDrawings<String>(Port.B, Port.R, drawing, 700, 700, 1, 3).run();
+		new EdgeTestDrawings<String>(Port.B, Port.L, drawing, 700, 700,-1, 3).run();
+		new EdgeTestDrawings<String>(Port.T, Port.R, drawing, 300, 700, 1,-3).run();
+		new EdgeTestDrawings<String>(Port.T, Port.L, drawing, 300, 700,-1,-3).run();
+		new EdgeTestDrawings<String>(Port.B, Port.R, drawing, 700, 700, 3, 1).run();
+		new EdgeTestDrawings<String>(Port.B, Port.L, drawing, 300, 700,-3, 1).run();
+		new EdgeTestDrawings<String>(Port.T, Port.R, drawing, 700, 700, 3,-1).run();
+		new EdgeTestDrawings<String>(Port.T, Port.L, drawing, 300, 700,-3,-1).run();
 		
-		new LEdgeTest<String>(Port.L, Port.T, drawing, 700, 700, 1, 3).run();
-		new LEdgeTest<String>(Port.R, Port.T, drawing, 700, 700,-1, 3).run();
-		new LEdgeTest<String>(Port.L, Port.B, drawing, 300, 700, 1,-3).run();
-		new LEdgeTest<String>(Port.R, Port.B, drawing, 300, 700,-1,-3).run();
-		new LEdgeTest<String>(Port.L, Port.T, drawing, 700, 700, 3, 1).run();
-		new LEdgeTest<String>(Port.R, Port.T, drawing, 300, 700,-3, 1).run();
-		new LEdgeTest<String>(Port.L, Port.B, drawing, 700, 700, 3,-1).run();
-		new LEdgeTest<String>(Port.R, Port.B, drawing, 300, 700,-3,-1).run();
+		new EdgeTestDrawings<String>(Port.L, Port.T, drawing, 700, 700, 1, 3).run();
+		new EdgeTestDrawings<String>(Port.R, Port.T, drawing, 700, 700,-1, 3).run();
+		new EdgeTestDrawings<String>(Port.L, Port.B, drawing, 300, 700, 1,-3).run();
+		new EdgeTestDrawings<String>(Port.R, Port.B, drawing, 300, 700,-1,-3).run();
+		new EdgeTestDrawings<String>(Port.L, Port.T, drawing, 700, 700, 3, 1).run();
+		new EdgeTestDrawings<String>(Port.R, Port.T, drawing, 300, 700,-3, 1).run();
+		new EdgeTestDrawings<String>(Port.L, Port.B, drawing, 700, 700, 3,-1).run();
+		new EdgeTestDrawings<String>(Port.R, Port.B, drawing, 300, 700,-3,-1).run();
 		
 		Util.writeFile("resources/drawings/edgetest.ipe", drawing.create());
 	}
@@ -91,7 +91,7 @@ public class LEdgeTest<T> implements Runnable {
 	private int endX;
 	private int endY;
 	
-	public LEdgeTest(Port startPort, Port endPort,
+	public EdgeTestDrawings(Port startPort, Port endPort,
 			OrthogonalDrawing<T> outputDrawing, double translateX,
 			double translateY, int endX, int endY) {
 		super();
