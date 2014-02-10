@@ -234,6 +234,30 @@
     <page>
     <layer name="alpha"/>
     <view layers="alpha" active="alpha"/>
+<use name="mark/disk(sx)" pos="150 300" size="normal" stroke="black"/>
+<text transformations="translations" pos="150 300" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="240 300" size="normal" stroke="black"/>
+<text transformations="translations" pos="240 300" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><path stroke="black" pen="normal" dash="normal">
+ 150 300 m
+ 240 300 l
+ </path>
+<use name="mark/disk(sx)" pos="150 300" size="normal" stroke="black"/>
+<text transformations="translations" pos="150 300" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="60 300" size="normal" stroke="black"/>
+<text transformations="translations" pos="60 300" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><path stroke="black" pen="normal" dash="normal">
+ 150 300 m
+ 60 300 l
+ </path>
+<use name="mark/disk(sx)" pos="150 300" size="normal" stroke="black"/>
+<text transformations="translations" pos="150 300" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="150 390" size="normal" stroke="black"/>
+<text transformations="translations" pos="150 390" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><path stroke="black" pen="normal" dash="normal">
+ 150 300 m
+ 150 390 l
+ </path>
+<use name="mark/disk(sx)" pos="150 300" size="normal" stroke="black"/>
+<text transformations="translations" pos="150 300" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="150 210" size="normal" stroke="black"/>
+<text transformations="translations" pos="150 210" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><path stroke="black" pen="normal" dash="normal">
+ 150 300 m
+ 150 210 l
+ </path>
 <use name="mark/disk(sx)" pos="850 300" size="normal" stroke="black"/>
 <text transformations="translations" pos="850 300" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="880 390" size="normal" stroke="black"/>
 <text transformations="translations" pos="880 390" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/cross(sx)" pos="850 390" size="normal" stroke="gray"/>

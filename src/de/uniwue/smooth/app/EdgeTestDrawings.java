@@ -28,6 +28,13 @@ public class EdgeTestDrawings<T> implements Runnable {
 		
 		OrthogonalDrawing<String> drawing = new OrthogonalIpeDrawing();
 		
+		// I
+		
+		draw(Port.L, Port.R, drawing, 150, 300, 3, 0);
+		draw(Port.R, Port.L, drawing, 150, 300,-3, 0);
+		draw(Port.T, Port.B, drawing, 150, 300, 0, 3);
+		draw(Port.B, Port.T, drawing, 150, 300, 0,-3);
+		
 		// C
 		
 		draw(Port.L, Port.L, drawing, 850, 300, 1, 3);
