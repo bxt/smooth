@@ -53,9 +53,10 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 				boolean slopeGreaterOne = Math.abs(dx / dy) > 1;
 				boolean firstIsVertical = ports.getFirst().isVertical();
 				boolean slopePositive = dx > 0 == dy > 0;
+				boolean lTyped = firstIsVertical ? ports.getFirst().equals(Port.T) == dy > 0 : ports.getFirst().equals(Port.R) == dx > 0;
 				
-				boolean firstIsDiagonalStart = firstIsVertical == slopeGreaterOne; // choose second or first point as reference for further calculations
-				boolean mid_changeXandAddDy = slopeGreaterOne; // which delta value to add to which coordinate
+				boolean firstIsDiagonalStart = firstIsVertical == slopeGreaterOne == lTyped; // choose second or first point as reference for further calculations
+				boolean mid_changeXandAddDy = slopeGreaterOne == lTyped; // which delta value to add to which coordinate
 				boolean mid_subtract = slopePositive != firstIsDiagonalStart; // if or not to subtract the delta value from the reference point
 				boolean kink_subtract = !firstIsDiagonalStart; // if or not to subtract the delta value from the midpoint
 				boolean diagStartFirst = slopePositive != slopeGreaterOne; // if or not to go ccw from ref to kink or the other way around
