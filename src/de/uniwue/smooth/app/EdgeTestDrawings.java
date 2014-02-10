@@ -30,59 +30,64 @@ public class EdgeTestDrawings<T> implements Runnable {
 		
 		// C
 		
-		new EdgeTestDrawings<String>(Port.L, Port.L, drawing, 850, 300, 1, 3).run();
-		new EdgeTestDrawings<String>(Port.L, Port.L, drawing, 700, 300,-1, 3).run();
-		new EdgeTestDrawings<String>(Port.L, Port.L, drawing, 850, 300, 1,-3).run();
-		new EdgeTestDrawings<String>(Port.L, Port.L, drawing, 700, 300,-1,-3).run();
+		draw(Port.L, Port.L, drawing, 850, 300, 1, 3);
+		draw(Port.L, Port.L, drawing, 700, 300,-1, 3);
+		draw(Port.L, Port.L, drawing, 850, 300, 1,-3);
+		draw(Port.L, Port.L, drawing, 700, 300,-1,-3);
 		
-		new EdgeTestDrawings<String>(Port.R, Port.R, drawing, 850, 300, 1, 3).run();
-		new EdgeTestDrawings<String>(Port.R, Port.R, drawing, 700, 300,-1, 3).run();
-		new EdgeTestDrawings<String>(Port.R, Port.R, drawing, 850, 300, 1,-3).run();
-		new EdgeTestDrawings<String>(Port.R, Port.R, drawing, 700, 300,-1,-3).run();
+		draw(Port.R, Port.R, drawing, 850, 300, 1, 3);
+		draw(Port.R, Port.R, drawing, 700, 300,-1, 3);
+		draw(Port.R, Port.R, drawing, 850, 300, 1,-3);
+		draw(Port.R, Port.R, drawing, 700, 300,-1,-3);
 		
 		// L
 		
-		new EdgeTestDrawings<String>(Port.T, Port.L, drawing, 500, 300, 1, 3).run();
-		new EdgeTestDrawings<String>(Port.T, Port.R, drawing, 500, 300,-1, 3).run();
-		new EdgeTestDrawings<String>(Port.B, Port.L, drawing, 500, 300, 1,-3).run();
-		new EdgeTestDrawings<String>(Port.B, Port.R, drawing, 500, 300,-1,-3).run();
-		new EdgeTestDrawings<String>(Port.T, Port.L, drawing, 500, 300, 3, 1).run();
-		new EdgeTestDrawings<String>(Port.T, Port.R, drawing, 500, 300,-3, 1).run();
-		new EdgeTestDrawings<String>(Port.B, Port.L, drawing, 500, 300, 3,-1).run();
-		new EdgeTestDrawings<String>(Port.B, Port.R, drawing, 500, 300,-3,-1).run();
+		draw(Port.T, Port.L, drawing, 500, 300, 1, 3);
+		draw(Port.T, Port.R, drawing, 500, 300,-1, 3);
+		draw(Port.B, Port.L, drawing, 500, 300, 1,-3);
+		draw(Port.B, Port.R, drawing, 500, 300,-1,-3);
+		draw(Port.T, Port.L, drawing, 500, 300, 3, 1);
+		draw(Port.T, Port.R, drawing, 500, 300,-3, 1);
+		draw(Port.B, Port.L, drawing, 500, 300, 3,-1);
+		draw(Port.B, Port.R, drawing, 500, 300,-3,-1);
 		
-		new EdgeTestDrawings<String>(Port.R, Port.B, drawing, 500, 300, 1, 3).run();
-		new EdgeTestDrawings<String>(Port.L, Port.B, drawing, 500, 300,-1, 3).run();
-		new EdgeTestDrawings<String>(Port.R, Port.T, drawing, 500, 300, 1,-3).run();
-		new EdgeTestDrawings<String>(Port.L, Port.T, drawing, 500, 300,-1,-3).run();
-		new EdgeTestDrawings<String>(Port.R, Port.B, drawing, 500, 300, 3, 1).run();
-		new EdgeTestDrawings<String>(Port.L, Port.B, drawing, 500, 300,-3, 1).run();
-		new EdgeTestDrawings<String>(Port.R, Port.T, drawing, 500, 300, 3,-1).run();
-		new EdgeTestDrawings<String>(Port.L, Port.T, drawing, 500, 300,-3,-1).run();
+		draw(Port.R, Port.B, drawing, 500, 300, 1, 3);
+		draw(Port.L, Port.B, drawing, 500, 300,-1, 3);
+		draw(Port.R, Port.T, drawing, 500, 300, 1,-3);
+		draw(Port.L, Port.T, drawing, 500, 300,-1,-3);
+		draw(Port.R, Port.B, drawing, 500, 300, 3, 1);
+		draw(Port.L, Port.B, drawing, 500, 300,-3, 1);
+		draw(Port.R, Port.T, drawing, 500, 300, 3,-1);
+		draw(Port.L, Port.T, drawing, 500, 300,-3,-1);
 		
 		// G
 		
-		new EdgeTestDrawings<String>(Port.B, Port.R, drawing, 700, 700, 1, 3).run();
-		new EdgeTestDrawings<String>(Port.B, Port.L, drawing, 700, 700,-1, 3).run();
-		new EdgeTestDrawings<String>(Port.T, Port.R, drawing, 300, 700, 1,-3).run();
-		new EdgeTestDrawings<String>(Port.T, Port.L, drawing, 300, 700,-1,-3).run();
-		new EdgeTestDrawings<String>(Port.B, Port.R, drawing, 700, 700, 3, 1).run();
-		new EdgeTestDrawings<String>(Port.B, Port.L, drawing, 300, 700,-3, 1).run();
-		new EdgeTestDrawings<String>(Port.T, Port.R, drawing, 700, 700, 3,-1).run();
-		new EdgeTestDrawings<String>(Port.T, Port.L, drawing, 300, 700,-3,-1).run();
+		draw(Port.B, Port.R, drawing, 700, 700, 1, 3);
+		draw(Port.B, Port.L, drawing, 700, 700,-1, 3);
+		draw(Port.T, Port.R, drawing, 300, 700, 1,-3);
+		draw(Port.T, Port.L, drawing, 300, 700,-1,-3);
+		draw(Port.B, Port.R, drawing, 700, 700, 3, 1);
+		draw(Port.B, Port.L, drawing, 300, 700,-3, 1);
+		draw(Port.T, Port.R, drawing, 700, 700, 3,-1);
+		draw(Port.T, Port.L, drawing, 300, 700,-3,-1);
 		
-		new EdgeTestDrawings<String>(Port.L, Port.T, drawing, 700, 700, 1, 3).run();
-		new EdgeTestDrawings<String>(Port.R, Port.T, drawing, 700, 700,-1, 3).run();
-		new EdgeTestDrawings<String>(Port.L, Port.B, drawing, 300, 700, 1,-3).run();
-		new EdgeTestDrawings<String>(Port.R, Port.B, drawing, 300, 700,-1,-3).run();
-		new EdgeTestDrawings<String>(Port.L, Port.T, drawing, 700, 700, 3, 1).run();
-		new EdgeTestDrawings<String>(Port.R, Port.T, drawing, 300, 700,-3, 1).run();
-		new EdgeTestDrawings<String>(Port.L, Port.B, drawing, 700, 700, 3,-1).run();
-		new EdgeTestDrawings<String>(Port.R, Port.B, drawing, 300, 700,-3,-1).run();
+		draw(Port.L, Port.T, drawing, 700, 700, 1, 3);
+		draw(Port.R, Port.T, drawing, 700, 700,-1, 3);
+		draw(Port.L, Port.B, drawing, 300, 700, 1,-3);
+		draw(Port.R, Port.B, drawing, 300, 700,-1,-3);
+		draw(Port.L, Port.T, drawing, 700, 700, 3, 1);
+		draw(Port.R, Port.T, drawing, 300, 700,-3, 1);
+		draw(Port.L, Port.B, drawing, 700, 700, 3,-1);
+		draw(Port.R, Port.B, drawing, 300, 700,-3,-1);
 		
 		Util.writeFile("resources/drawings/edgetest.ipe", drawing.create());
 	}
-	
+		
+	private static void draw(Port startPort, Port endPort,
+			OrthogonalDrawing<String> drawing, int translateX, int translateY, int endX, int endY) {
+		new EdgeTestDrawings<String>(startPort, endPort, drawing, translateX, translateY, endX, endY).run();
+	}
+
 	private Port startPort;
 	private Port endPort;
 	private OrthogonalDrawing<T> outputDrawing;
