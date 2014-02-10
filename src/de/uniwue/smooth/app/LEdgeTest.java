@@ -28,25 +28,47 @@ public class LEdgeTest<T> implements Runnable {
 		
 		OrthogonalDrawing<String> drawing = new OrthogonalIpeDrawing();
 		
-		new LEdgeTest<String>(Port.T, Port.L, drawing, 500, 500, 1, 3).run();
-		new LEdgeTest<String>(Port.T, Port.R, drawing, 500, 500,-1, 3).run();
-		new LEdgeTest<String>(Port.B, Port.L, drawing, 500, 500, 1,-3).run();
-		new LEdgeTest<String>(Port.B, Port.R, drawing, 500, 500,-1,-3).run();
-		new LEdgeTest<String>(Port.T, Port.L, drawing, 500, 500, 3, 1).run();
-		new LEdgeTest<String>(Port.T, Port.R, drawing, 500, 500,-3, 1).run();
-		new LEdgeTest<String>(Port.B, Port.L, drawing, 500, 500, 3,-1).run();
-		new LEdgeTest<String>(Port.B, Port.R, drawing, 500, 500,-3,-1).run();
+		// L
 		
-		new LEdgeTest<String>(Port.R, Port.B, drawing, 500, 500, 1, 3).run();
-		new LEdgeTest<String>(Port.L, Port.B, drawing, 500, 500,-1, 3).run();
-		new LEdgeTest<String>(Port.R, Port.T, drawing, 500, 500, 1,-3).run();
-		new LEdgeTest<String>(Port.L, Port.T, drawing, 500, 500,-1,-3).run();
-		new LEdgeTest<String>(Port.R, Port.B, drawing, 500, 500, 3, 1).run();
-		new LEdgeTest<String>(Port.L, Port.B, drawing, 500, 500,-3, 1).run();
-		new LEdgeTest<String>(Port.R, Port.T, drawing, 500, 500, 3,-1).run();
-		new LEdgeTest<String>(Port.L, Port.T, drawing, 500, 500,-3,-1).run();
+		new LEdgeTest<String>(Port.T, Port.L, drawing, 500, 300, 1, 3).run();
+		new LEdgeTest<String>(Port.T, Port.R, drawing, 500, 300,-1, 3).run();
+		new LEdgeTest<String>(Port.B, Port.L, drawing, 500, 300, 1,-3).run();
+		new LEdgeTest<String>(Port.B, Port.R, drawing, 500, 300,-1,-3).run();
+		new LEdgeTest<String>(Port.T, Port.L, drawing, 500, 300, 3, 1).run();
+		new LEdgeTest<String>(Port.T, Port.R, drawing, 500, 300,-3, 1).run();
+		new LEdgeTest<String>(Port.B, Port.L, drawing, 500, 300, 3,-1).run();
+		new LEdgeTest<String>(Port.B, Port.R, drawing, 500, 300,-3,-1).run();
 		
-		Util.writeFile("resources/drawings/L-edgetest.ipe", drawing.create());
+		new LEdgeTest<String>(Port.R, Port.B, drawing, 500, 300, 1, 3).run();
+		new LEdgeTest<String>(Port.L, Port.B, drawing, 500, 300,-1, 3).run();
+		new LEdgeTest<String>(Port.R, Port.T, drawing, 500, 300, 1,-3).run();
+		new LEdgeTest<String>(Port.L, Port.T, drawing, 500, 300,-1,-3).run();
+		new LEdgeTest<String>(Port.R, Port.B, drawing, 500, 300, 3, 1).run();
+		new LEdgeTest<String>(Port.L, Port.B, drawing, 500, 300,-3, 1).run();
+		new LEdgeTest<String>(Port.R, Port.T, drawing, 500, 300, 3,-1).run();
+		new LEdgeTest<String>(Port.L, Port.T, drawing, 500, 300,-3,-1).run();
+		
+		// G
+		
+		new LEdgeTest<String>(Port.B, Port.R, drawing, 700, 700, 1, 3).run();
+		new LEdgeTest<String>(Port.B, Port.L, drawing, 700, 700,-1, 3).run();
+		new LEdgeTest<String>(Port.T, Port.R, drawing, 300, 700, 1,-3).run();
+		new LEdgeTest<String>(Port.T, Port.L, drawing, 300, 700,-1,-3).run();
+		new LEdgeTest<String>(Port.B, Port.R, drawing, 700, 700, 3, 1).run();
+		new LEdgeTest<String>(Port.B, Port.L, drawing, 300, 700,-3, 1).run();
+		new LEdgeTest<String>(Port.T, Port.R, drawing, 700, 700, 3,-1).run();
+		new LEdgeTest<String>(Port.T, Port.L, drawing, 300, 700,-3,-1).run();
+		
+		new LEdgeTest<String>(Port.L, Port.T, drawing, 700, 700, 1, 3).run();
+		new LEdgeTest<String>(Port.R, Port.T, drawing, 700, 700,-1, 3).run();
+		new LEdgeTest<String>(Port.L, Port.B, drawing, 300, 700, 1,-3).run();
+		new LEdgeTest<String>(Port.R, Port.B, drawing, 300, 700,-1,-3).run();
+		new LEdgeTest<String>(Port.L, Port.T, drawing, 700, 700, 3, 1).run();
+		new LEdgeTest<String>(Port.R, Port.T, drawing, 300, 700,-3, 1).run();
+		new LEdgeTest<String>(Port.L, Port.B, drawing, 700, 700, 3,-1).run();
+		new LEdgeTest<String>(Port.R, Port.B, drawing, 300, 700,-3,-1).run();
+		
+		Util.writeFile("resources/drawings/edgetest.ipe", drawing.create());
 	}
 	
 	private Port startPort;
