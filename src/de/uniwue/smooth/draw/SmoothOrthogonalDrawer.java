@@ -26,6 +26,7 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 			
 			if (ports.getFirst().getOpposite() == ports.getSecond()) { // Line
 				
+				// TODO: check for S shape?
 				drawing.line(vertexCoordinates);
 				
 			} else if (ports.getFirst().isVertical() && ports.getSecond().isVertical()) { // U
@@ -57,9 +58,9 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 				
 			} else { // L or G
 				
-				Quadrant lQuadrant = null;
-				boolean antidiagonal = false;
-				boolean flipDiagonalStart = false;
+				Quadrant lQuadrant = null; // Quadrant in which the edges are L shaped
+				boolean antidiagonal = false; // Which diagonal is significant for determining the start point of the circle arc
+				boolean flipDiagonalStart = false; // Is the circle start above or below the diagonal
 				if(ports.getFirst() == Port.R && ports.getSecond() == Port.T) { lQuadrant = Quadrant.IV ; antidiagonal =  true; flipDiagonalStart =  true; }
 				if(ports.getFirst() == Port.B && ports.getSecond() == Port.L) { lQuadrant = Quadrant.IV ; antidiagonal =  true; flipDiagonalStart = false; }
 				if(ports.getFirst() == Port.T && ports.getSecond() == Port.L) { lQuadrant = Quadrant.I  ; antidiagonal = false; flipDiagonalStart =  true; }
@@ -73,8 +74,8 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 				
 				int dx =  vertexCoordinates.getSecond().getFirst() - vertexCoordinates.getFirst().getFirst();
 				int dy =  vertexCoordinates.getSecond().getSecond() - vertexCoordinates.getFirst().getSecond();
-				boolean lTyped = quadrant(dx, dy) == lQuadrant;
-				boolean upper = (antidiagonal ? -1 : 1) * dx < dy;
+				boolean lTyped = quadrant(dx, dy) == lQuadrant; // L shaped?
+				boolean upper = (antidiagonal ? -1 : 1) * dx < dy; // Above or below diagonal?
 				
 				boolean firstIsDiagonalStart = upper != flipDiagonalStart; // choose second or first point as reference for further calculations
 				boolean mid_changeXandAddDy = firstIsDiagonalStart != clockwise != antidiagonal; // which delta value to add to which coordinate
