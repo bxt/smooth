@@ -58,19 +58,18 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 			} else { // L or G
 				
 				Quadrant lQuadrant = null;
-				int mask = 0;
-				if(ports.getFirst() == Port.R && ports.getSecond() == Port.T) { lQuadrant = Quadrant.IV ; mask = 0b110; }
-				if(ports.getFirst() == Port.B && ports.getSecond() == Port.L) { lQuadrant = Quadrant.IV ; mask = 0b011; }
-				if(ports.getFirst() == Port.T && ports.getSecond() == Port.L) { lQuadrant = Quadrant.I  ; mask = 0b100; }
-				if(ports.getFirst() == Port.R && ports.getSecond() == Port.B) { lQuadrant = Quadrant.I  ; mask = 0b001; }
-				if(ports.getFirst() == Port.L && ports.getSecond() == Port.B) { lQuadrant = Quadrant.II ; mask = 0b010; }
-				if(ports.getFirst() == Port.T && ports.getSecond() == Port.R) { lQuadrant = Quadrant.II ; mask = 0b111; }
-				if(ports.getFirst() == Port.B && ports.getSecond() == Port.R) { lQuadrant = Quadrant.III; mask = 0b000; }
-				if(ports.getFirst() == Port.L && ports.getSecond() == Port.T) { lQuadrant = Quadrant.III; mask = 0b101; }
+				boolean antidiagonal = false;
+				boolean flipDiagonalStart = false;
+				if(ports.getFirst() == Port.R && ports.getSecond() == Port.T) { lQuadrant = Quadrant.IV ; antidiagonal =  true; flipDiagonalStart =  true; }
+				if(ports.getFirst() == Port.B && ports.getSecond() == Port.L) { lQuadrant = Quadrant.IV ; antidiagonal =  true; flipDiagonalStart = false; }
+				if(ports.getFirst() == Port.T && ports.getSecond() == Port.L) { lQuadrant = Quadrant.I  ; antidiagonal = false; flipDiagonalStart =  true; }
+				if(ports.getFirst() == Port.R && ports.getSecond() == Port.B) { lQuadrant = Quadrant.I  ; antidiagonal = false; flipDiagonalStart = false; }
+				if(ports.getFirst() == Port.L && ports.getSecond() == Port.B) { lQuadrant = Quadrant.II ; antidiagonal =  true; flipDiagonalStart = false; }
+				if(ports.getFirst() == Port.T && ports.getSecond() == Port.R) { lQuadrant = Quadrant.II ; antidiagonal =  true; flipDiagonalStart =  true; }
+				if(ports.getFirst() == Port.B && ports.getSecond() == Port.R) { lQuadrant = Quadrant.III; antidiagonal = false; flipDiagonalStart = false; }
+				if(ports.getFirst() == Port.L && ports.getSecond() == Port.T) { lQuadrant = Quadrant.III; antidiagonal = false; flipDiagonalStart =  true; }
 				if(lQuadrant == null) throw new IllegalStateException();
-				boolean antidiagonal = 0 < (mask & 2);
-				boolean clockwise = 0 < (mask & 1);
-				boolean flipDiagonalStart = 0 < (mask & 4);
+				boolean clockwise = ports.getFirst().getNext() == ports.getSecond();
 				
 				int dx =  vertexCoordinates.getSecond().getFirst() - vertexCoordinates.getFirst().getFirst();
 				int dy =  vertexCoordinates.getSecond().getSecond() - vertexCoordinates.getFirst().getSecond();
