@@ -1,6 +1,5 @@
 package de.uniwue.smooth.draw;
 
-import de.uniwue.smooth.app.EdgeTestDrawings;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.orthogonal.Port;
 import de.uniwue.smooth.util.Util;
@@ -59,29 +58,30 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 			} else { // L or G
 				
 				Quadrant lQuadrant = null;
-				Port fIDS1 = null;
-				Port fIDS2 = null;
 				int mask = 0;
-				if(ports.getFirst() == Port.R && ports.getSecond() == Port.T) { lQuadrant = Quadrant.IV ; fIDS1 = Port.B; fIDS2 = Port.L; mask = 0b11001; }
-				if(ports.getFirst() == Port.B && ports.getSecond() == Port.L) { lQuadrant = Quadrant.IV ; fIDS1 = Port.T; fIDS2 = Port.R; mask = 0b01100; }
-				if(ports.getFirst() == Port.T && ports.getSecond() == Port.L) { lQuadrant = Quadrant.I  ; fIDS1 = Port.R; fIDS2 = Port.B; mask = 0b10010; }
-				if(ports.getFirst() == Port.R && ports.getSecond() == Port.B) { lQuadrant = Quadrant.I  ; fIDS1 = Port.L; fIDS2 = Port.T; mask = 0b00111; }
-				if(ports.getFirst() == Port.L && ports.getSecond() == Port.B) { lQuadrant = Quadrant.II ; fIDS1 = Port.B; fIDS2 = Port.L; mask = 0b01001; }
-				if(ports.getFirst() == Port.T && ports.getSecond() == Port.R) { lQuadrant = Quadrant.II ; fIDS1 = Port.T; fIDS2 = Port.R; mask = 0b11100; }
-				if(ports.getFirst() == Port.B && ports.getSecond() == Port.R) { lQuadrant = Quadrant.III; fIDS1 = Port.R; fIDS2 = Port.B; mask = 0b00010; }
-				if(ports.getFirst() == Port.L && ports.getSecond() == Port.T) { lQuadrant = Quadrant.III; fIDS1 = Port.L; fIDS2 = Port.T; mask = 0b10111; }
+				if(ports.getFirst() == Port.R && ports.getSecond() == Port.T) { lQuadrant = Quadrant.IV ; mask = 0b110; }
+				if(ports.getFirst() == Port.B && ports.getSecond() == Port.L) { lQuadrant = Quadrant.IV ; mask = 0b011; }
+				if(ports.getFirst() == Port.T && ports.getSecond() == Port.L) { lQuadrant = Quadrant.I  ; mask = 0b100; }
+				if(ports.getFirst() == Port.R && ports.getSecond() == Port.B) { lQuadrant = Quadrant.I  ; mask = 0b001; }
+				if(ports.getFirst() == Port.L && ports.getSecond() == Port.B) { lQuadrant = Quadrant.II ; mask = 0b010; }
+				if(ports.getFirst() == Port.T && ports.getSecond() == Port.R) { lQuadrant = Quadrant.II ; mask = 0b111; }
+				if(ports.getFirst() == Port.B && ports.getSecond() == Port.R) { lQuadrant = Quadrant.III; mask = 0b000; }
+				if(ports.getFirst() == Port.L && ports.getSecond() == Port.T) { lQuadrant = Quadrant.III; mask = 0b101; }
+				if(lQuadrant == null) throw new IllegalStateException();
+				boolean antidiagonal = 0 < (mask & 2);
+				boolean clockwise = 0 < (mask & 1);
+				boolean flipDiagonalStart = 0 < (mask & 4);
 				
 				int dx =  vertexCoordinates.getSecond().getFirst() - vertexCoordinates.getFirst().getFirst();
 				int dy =  vertexCoordinates.getSecond().getSecond() - vertexCoordinates.getFirst().getSecond();
-				Quadrant quadrant = quadrant(dx, dy);
-				boolean upper = (0 < (mask & 8) ? -1 : 1) * dx < dy;
-				boolean lTyped = quadrant == lQuadrant;
+				boolean lTyped = quadrant(dx, dy) == lQuadrant;
+				boolean upper = (antidiagonal ? -1 : 1) * dx < dy;
 				
-				boolean firstIsDiagonalStart = upper != (0 < (mask & 16)); // choose second or first point as reference for further calculations
-				boolean mid_changeXandAddDy = firstIsDiagonalStart != (0 < (mask & 1)); // which delta value to add to which coordinate
-				boolean mid_subtract = firstIsDiagonalStart != (0 < (mask & 2)); // if or not to subtract the delta value from the reference point
+				boolean firstIsDiagonalStart = upper != flipDiagonalStart; // choose second or first point as reference for further calculations
+				boolean mid_changeXandAddDy = firstIsDiagonalStart != clockwise != antidiagonal; // which delta value to add to which coordinate
+				boolean mid_subtract = firstIsDiagonalStart == antidiagonal; // if or not to subtract the delta value from the reference point
 				boolean kink_subtract = !firstIsDiagonalStart; // if or not to subtract the delta value from the midpoint
-				boolean diagStartFirst = firstIsDiagonalStart != lTyped != (0 < (mask & 4)); // if or not to go ccw from ref to kink or the other way around
+				boolean diagStartFirst = firstIsDiagonalStart != lTyped != clockwise; // if or not to go ccw from ref to kink or the other way around
 				
 				Pair<Integer> mid; // center of the circle arc
 				Pair<Integer> kink; // point connecting line and circle arc
