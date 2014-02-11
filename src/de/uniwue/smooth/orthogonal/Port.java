@@ -25,6 +25,7 @@ public enum Port {
 	;
 	
 	private Port opposite;
+	private Port next;
 	private Pair<Integer> direction;
 	private boolean horizontal;
 	
@@ -33,6 +34,13 @@ public enum Port {
 		R.opposite = L;
 		T.opposite = B;
 		B.opposite = T;
+	}
+	
+	static {
+		L.next = T;
+		R.next = B;
+		T.next = R;
+		B.next = L;
 	}
 	
 	static {
@@ -55,6 +63,14 @@ public enum Port {
 	 */
 	public Port getOpposite() {
 		return opposite;
+	}
+	
+	/**
+	 * The next port clockwise of this port (rotate by 90 degrees). 
+	 * @return The next port.
+	 */
+	public Port getNext() {
+		return next;
 	}
 	
 	/**
