@@ -238,22 +238,42 @@
 <text transformations="translations" pos="500 600" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="600 900" size="normal" stroke="black"/>
 <text transformations="translations" pos="600 900" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/disk(sx)" pos="600 800" size="normal" stroke="black"/>
 <text transformations="translations" pos="600 800" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V2</text><use name="mark/disk(sx)" pos="500 700" size="normal" stroke="black"/>
-<text transformations="translations" pos="500 700" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V3</text><path stroke="black" pen="normal" dash="normal">
- 500 600 m
- 100,000 0 0 100,000 500 700 500 900 a
-</path>
+<text transformations="translations" pos="500 700" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V3</text><use name="mark/cross(sx)" pos="500 900" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
  600 900 m
  500 900 l
  </path>
-<use name="mark/cross(sx)" pos="500 900" size="normal" stroke="gray"/>
+<path stroke="black" pen="normal" dash="normal">
+ 500 900 m
+ 150,000 0 0 150,000 500 750 500 600 a
+</path>
 <path stroke="black" pen="normal" dash="normal">
  600 900 m
  600 800 l
  </path>
+<use name="mark/cross(sx)" pos="600 700" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="500 700" size="normal" stroke="red"/>
+<path stroke="black" pen="normal" dash="normal">
+ 500 700 m
+ 500 700 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 600 800 m
+ 100,000 0 0 100,000 600 700 500 700 a
+</path>
 <path stroke="black" pen="normal" dash="normal">
  500 700 m
  500 600 l
  </path>
+<use name="mark/cross(sx)" pos="500 700" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="600 700" size="normal" stroke="red"/>
+<path stroke="black" pen="normal" dash="normal">
+ 600 800 m
+ 600 700 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 500 600 m
+ 100,000 0 0 100,000 500 700 600 700 a
+</path>
 </page>
 </ipe>
