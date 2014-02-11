@@ -29,52 +29,30 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 				// TODO: check for S shape?
 				drawing.line(vertexCoordinates);
 				
-			} else if (ports.getFirst().isVertical() && ports.getSecond().isVertical()) { // U
+			} else if (ports.getFirst().isVertical() == ports.getSecond().isVertical()) { // U or C
 				
+				boolean isU = ports.getFirst().isVertical();
 				boolean firstIsRighter = vertexCoordinates.getFirst().getFirst() > vertexCoordinates.getSecond().getFirst();
 				boolean firstIsHigher = vertexCoordinates.getFirst().getSecond() > vertexCoordinates.getSecond().getSecond();
 				boolean slopePositive = firstIsRighter == firstIsHigher;
-				boolean isBottom = ports.getFirst() == Port.B;
+				boolean isNegative = ports.getFirst() == Port.B || ports.getFirst() == Port.L;
+				boolean firstIsGreater = isU ? firstIsHigher : firstIsRighter;
 				
 				Pair<Integer> end;
 				Pair<Integer> start;
-				if (firstIsHigher == isBottom) {
+				if (firstIsGreater == isNegative) {
 					end = vertexCoordinates.getFirst();
 					start = vertexCoordinates.getSecond();
 				} else {
 					end = vertexCoordinates.getSecond();
 					start = vertexCoordinates.getFirst();
 				}
-				Pair<Integer> kink = new Pair<>(end.getFirst(), start.getSecond());
+				Pair<Integer> kink = isU ?  new Pair<>(end.getFirst(), start.getSecond()) : new Pair<>(start.getFirst(), end.getSecond());
 				drawing.edgeMidpoint(kink);
 				
 				drawing.line(end, kink);
 				
-				if (!slopePositive) drawing.arc(kink, start); else drawing.arc(start, kink);
-								
-			} else if (ports.getFirst().isHorizontal() && ports.getSecond().isHorizontal()) { // C
-				
-				boolean firstIsRighter = vertexCoordinates.getFirst().getFirst() > vertexCoordinates.getSecond().getFirst();
-				boolean firstIsHigher = vertexCoordinates.getFirst().getSecond() > vertexCoordinates.getSecond().getSecond();
-				boolean slopePositive = firstIsRighter == firstIsHigher;
-				boolean isLeft = ports.getFirst() == Port.L;
-				
-				Pair<Integer> end;
-				Pair<Integer> start;
-				if (firstIsRighter == isLeft) {
-					end = vertexCoordinates.getFirst();
-					start = vertexCoordinates.getSecond();
-				} else {
-					end = vertexCoordinates.getSecond();
-					start = vertexCoordinates.getFirst();
-				}
-				Pair<Integer> kink = new Pair<>(start.getFirst(), end.getSecond());
-				drawing.edgeMidpoint(kink);
-				
-				drawing.line(end, kink);
-				
-				if (slopePositive) drawing.arc(kink, start); else drawing.arc(start, kink);
-				
+				if (slopePositive != isU) drawing.arc(kink, start); else drawing.arc(start, kink);
 			} else { // L or G
 				
 				Quadrant lQuadrant = null; // Quadrant in which the edges are L shaped
