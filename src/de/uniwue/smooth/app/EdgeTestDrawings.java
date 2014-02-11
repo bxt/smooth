@@ -43,17 +43,17 @@ public class EdgeTestDrawings<T> implements Runnable {
 		draw(Port.B, Port.T, drawing, 350, 130, 0,-3);
 		
 		// U
-		/*
-		draw(Port.T, Port.T, drawing, 850, 300, 1, 3);
-		draw(Port.T, Port.T, drawing, 700, 300,-1, 3);
-		draw(Port.T, Port.T, drawing, 850, 300, 1,-3);
-		draw(Port.T, Port.T, drawing, 700, 300,-1,-3);
 		
-		draw(Port.B, Port.B, drawing, 850, 300, 1, 3);
-		draw(Port.B, Port.B, drawing, 700, 300,-1, 3);
-		draw(Port.B, Port.B, drawing, 850, 300, 1,-3);
-		draw(Port.B, Port.B, drawing, 700, 300,-1,-3);
-		*/
+		draw(Port.T, Port.T, drawing, 300, 300, 3, 1);
+		draw(Port.T, Port.T, drawing, 300, 300,-3, 1);
+		draw(Port.T, Port.T, drawing, 100, 330, 3,-1);
+		draw(Port.T, Port.T, drawing, 100, 330,-3,-1);
+		
+		draw(Port.B, Port.B, drawing, 300, 300, 3, 1);
+		draw(Port.B, Port.B, drawing, 300, 300,-3, 1);
+		draw(Port.B, Port.B, drawing, 100, 330, 3,-1);
+		draw(Port.B, Port.B, drawing, 100, 330,-3,-1);
+		
 		// C
 		
 		draw(Port.L, Port.L, drawing, 850, 300, 1, 3);

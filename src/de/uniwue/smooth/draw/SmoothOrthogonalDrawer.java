@@ -38,19 +38,19 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 				
 				Pair<Integer> end;
 				Pair<Integer> start;
-				if (firstIsRighter == isBottom) {
+				if (firstIsHigher == isBottom) {
 					end = vertexCoordinates.getFirst();
 					start = vertexCoordinates.getSecond();
 				} else {
 					end = vertexCoordinates.getSecond();
 					start = vertexCoordinates.getFirst();
 				}
-				Pair<Integer> kink = new Pair<>(start.getFirst(), end.getSecond());
+				Pair<Integer> kink = new Pair<>(end.getFirst(), start.getSecond());
 				drawing.edgeMidpoint(kink);
 				
 				drawing.line(end, kink);
 				
-				if (slopePositive) drawing.arc(kink, start); else drawing.arc(start, kink);
+				if (!slopePositive) drawing.arc(kink, start); else drawing.arc(start, kink);
 								
 			} else if (ports.getFirst().isHorizontal() && ports.getSecond().isHorizontal()) { // C
 				
