@@ -31,8 +31,27 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 				
 			} else if (ports.getFirst().isVertical() && ports.getSecond().isVertical()) { // U
 				
-				throw new UnsupportedOperationException("U edges not implemented.");
+				boolean firstIsRighter = vertexCoordinates.getFirst().getFirst() > vertexCoordinates.getSecond().getFirst();
+				boolean firstIsHigher = vertexCoordinates.getFirst().getSecond() > vertexCoordinates.getSecond().getSecond();
+				boolean slopePositive = firstIsRighter == firstIsHigher;
+				boolean isBottom = ports.getFirst() == Port.B;
 				
+				Pair<Integer> end;
+				Pair<Integer> start;
+				if (firstIsRighter == isBottom) {
+					end = vertexCoordinates.getFirst();
+					start = vertexCoordinates.getSecond();
+				} else {
+					end = vertexCoordinates.getSecond();
+					start = vertexCoordinates.getFirst();
+				}
+				Pair<Integer> kink = new Pair<>(start.getFirst(), end.getSecond());
+				drawing.edgeMidpoint(kink);
+				
+				drawing.line(end, kink);
+				
+				if (slopePositive) drawing.arc(kink, start); else drawing.arc(start, kink);
+								
 			} else if (ports.getFirst().isHorizontal() && ports.getSecond().isHorizontal()) { // C
 				
 				boolean firstIsRighter = vertexCoordinates.getFirst().getFirst() > vertexCoordinates.getSecond().getFirst();
