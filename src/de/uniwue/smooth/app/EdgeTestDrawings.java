@@ -26,6 +26,13 @@ public class EdgeTestDrawings<T> implements Runnable {
 	
 	public static void main(String[] args) throws Exception {
 		
+		edgetest();
+		extendedEdgetest();
+		
+	}
+		
+
+	private static void edgetest() {
 		OrthogonalDrawing<String> drawing = new OrthogonalIpeDrawing();
 		
 		// I
@@ -89,10 +96,99 @@ public class EdgeTestDrawings<T> implements Runnable {
 		
 		Util.writeFile("resources/drawings/edgetest.ipe", drawing.create());
 	}
+	
+	private static void extendedEdgetest() {
 		
+		OrthogonalDrawing<String> drawing = new OrthogonalIpeDrawing();
+		
+		drawSmall(Port.R, Port.T, drawing, 200, 400, 1, 3);
+		drawSmall(Port.R, Port.T, drawing, 200, 400,-1, 3);
+		drawSmall(Port.R, Port.T, drawing, 200, 400, 1,-3);
+		drawSmall(Port.R, Port.T, drawing, 200, 400,-1,-3);
+		drawSmall(Port.R, Port.T, drawing, 200, 400, 3, 1);
+		drawSmall(Port.R, Port.T, drawing, 200, 400,-3, 1);
+		drawSmall(Port.R, Port.T, drawing, 200, 400, 3,-1);
+		drawSmall(Port.R, Port.T, drawing, 200, 400,-3,-1);
+		
+		drawSmall(Port.B, Port.L, drawing, 400, 400, 1, 3);
+		drawSmall(Port.B, Port.L, drawing, 400, 400,-1, 3);
+		drawSmall(Port.B, Port.L, drawing, 400, 400, 1,-3);
+		drawSmall(Port.B, Port.L, drawing, 400, 400,-1,-3);
+		drawSmall(Port.B, Port.L, drawing, 400, 400, 3, 1);
+		drawSmall(Port.B, Port.L, drawing, 400, 400,-3, 1);
+		drawSmall(Port.B, Port.L, drawing, 400, 400, 3,-1);
+		drawSmall(Port.B, Port.L, drawing, 400, 400,-3,-1);
+		
+		drawSmall(Port.T, Port.L, drawing, 600, 400, 1, 3);
+		drawSmall(Port.T, Port.L, drawing, 600, 400,-1, 3);
+		drawSmall(Port.T, Port.L, drawing, 600, 400, 1,-3);
+		drawSmall(Port.T, Port.L, drawing, 600, 400,-1,-3);
+		drawSmall(Port.T, Port.L, drawing, 600, 400, 3, 1);
+		drawSmall(Port.T, Port.L, drawing, 600, 400,-3, 1);
+		drawSmall(Port.T, Port.L, drawing, 600, 400, 3,-1);
+		drawSmall(Port.T, Port.L, drawing, 600, 400,-3,-1);
+		
+		drawSmall(Port.R, Port.B, drawing, 800, 400, 1, 3);
+		drawSmall(Port.R, Port.B, drawing, 800, 400,-1, 3);
+		drawSmall(Port.R, Port.B, drawing, 800, 400, 1,-3);
+		drawSmall(Port.R, Port.B, drawing, 800, 400,-1,-3);
+		drawSmall(Port.R, Port.B, drawing, 800, 400, 3, 1);
+		drawSmall(Port.R, Port.B, drawing, 800, 400,-3, 1);
+		drawSmall(Port.R, Port.B, drawing, 800, 400, 3,-1);
+		drawSmall(Port.R, Port.B, drawing, 800, 400,-3,-1);
+		
+		drawSmall(Port.L, Port.B, drawing, 200, 600, 1, 3);
+		drawSmall(Port.L, Port.B, drawing, 200, 600,-1, 3);
+		drawSmall(Port.L, Port.B, drawing, 200, 600, 1,-3);
+		drawSmall(Port.L, Port.B, drawing, 200, 600,-1,-3);
+		drawSmall(Port.L, Port.B, drawing, 200, 600, 3, 1);
+		drawSmall(Port.L, Port.B, drawing, 200, 600,-3, 1);
+		drawSmall(Port.L, Port.B, drawing, 200, 600, 3,-1);
+		drawSmall(Port.L, Port.B, drawing, 200, 600,-3,-1);
+		
+		drawSmall(Port.T, Port.R, drawing, 400, 600, 1, 3);
+		drawSmall(Port.T, Port.R, drawing, 400, 600,-1, 3);
+		drawSmall(Port.T, Port.R, drawing, 400, 600, 1,-3);
+		drawSmall(Port.T, Port.R, drawing, 400, 600,-1,-3);
+		drawSmall(Port.T, Port.R, drawing, 400, 600, 3, 1);
+		drawSmall(Port.T, Port.R, drawing, 400, 600,-3, 1);
+		drawSmall(Port.T, Port.R, drawing, 400, 600, 3,-1);
+		drawSmall(Port.T, Port.R, drawing, 400, 600,-3,-1);
+		
+		drawSmall(Port.B, Port.R, drawing, 600, 600, 1, 3);
+		drawSmall(Port.B, Port.R, drawing, 600, 600,-1, 3);
+		drawSmall(Port.B, Port.R, drawing, 600, 600, 1,-3);
+		drawSmall(Port.B, Port.R, drawing, 600, 600,-1,-3);
+		drawSmall(Port.B, Port.R, drawing, 600, 600, 3, 1);
+		drawSmall(Port.B, Port.R, drawing, 600, 600,-3, 1);
+		drawSmall(Port.B, Port.R, drawing, 600, 600, 3,-1);
+		drawSmall(Port.B, Port.R, drawing, 600, 600,-3,-1);
+		
+		drawSmall(Port.L, Port.T, drawing, 800, 600, 1, 3);
+		drawSmall(Port.L, Port.T, drawing, 800, 600,-1, 3);
+		drawSmall(Port.L, Port.T, drawing, 800, 600, 1,-3);
+		drawSmall(Port.L, Port.T, drawing, 800, 600,-1,-3);
+		drawSmall(Port.L, Port.T, drawing, 800, 600, 3, 1);
+		drawSmall(Port.L, Port.T, drawing, 800, 600,-3, 1);
+		drawSmall(Port.L, Port.T, drawing, 800, 600, 3,-1);
+		drawSmall(Port.L, Port.T, drawing, 800, 600,-3,-1);
+		
+		Util.writeFile("resources/drawings/extendedEdgetest.ipe", drawing.create());
+	}
+	
+	private static void drawSmall(Port startPort, Port endPort,
+			OrthogonalDrawing<String> drawing, int translateX, int translateY, int endX, int endY) {
+		draw(startPort, endPort, drawing, translateX, translateY, 15, endX, endY);
+	}
+
 	private static void draw(Port startPort, Port endPort,
 			OrthogonalDrawing<String> drawing, int translateX, int translateY, int endX, int endY) {
-		new EdgeTestDrawings<String>(startPort, endPort, drawing, translateX, translateY, endX, endY).run();
+		draw(startPort, endPort, drawing, translateX, translateY, 30, endX, endY);
+	}
+
+	private static void draw(Port startPort, Port endPort,
+			OrthogonalDrawing<String> drawing, int translateX, int translateY, double scale, int endX, int endY) {
+		new EdgeTestDrawings<String>(startPort, endPort, drawing, translateX, translateY, scale, endX, endY).run();
 	}
 
 	private Port startPort;
@@ -100,18 +196,20 @@ public class EdgeTestDrawings<T> implements Runnable {
 	private OrthogonalDrawing<T> outputDrawing;
 	private double translateX;
 	private double translateY;
+	private double scale;
 	private int endX;
 	private int endY;
 	
 	public EdgeTestDrawings(Port startPort, Port endPort,
 			OrthogonalDrawing<T> outputDrawing, double translateX,
-			double translateY, int endX, int endY) {
+			double translateY, double scale, int endX, int endY) {
 		super();
 		this.startPort = startPort;
 		this.endPort = endPort;
 		this.outputDrawing = outputDrawing;
 		this.translateX = translateX;
 		this.translateY = translateY;
+		this.scale = scale;
 		this.endX = endX;
 		this.endY = endY;
 	}
@@ -132,7 +230,7 @@ public class EdgeTestDrawings<T> implements Runnable {
 		layout.initialize();
 		AffineTransform transform = new AffineTransform();
 		transform.translate(translateX, translateY);
-		transform.scale(30, 30);
+		transform.scale(scale, scale);
 		OrthogonalDrawing<T> drawing = new TransformingOrthogonalDrawing<>(outputDrawing, transform);
 		drawer.transform(new ImmutableTuple<>(layout, drawing));
 	}
