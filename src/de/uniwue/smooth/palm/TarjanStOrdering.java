@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
-public class TarjanStOrdering<V, E> implements StOrdering<V, E> {
+public class TarjanStOrdering<V, E> extends AbstractStOrdering<V, E> implements StOrdering<V, E> {
 	
 	private Set<V> oldVertices = new HashSet<>();
 	private Set<E> oldEdges = new HashSet<>();
@@ -24,7 +22,6 @@ public class TarjanStOrdering<V, E> implements StOrdering<V, E> {
 	private V t;
 	
 	private List<V> vertexList = new ArrayList<>();
-	private Map<V, Integer> numbers = new HashMap<V, Integer>();
 	
 	public TarjanStOrdering(UndirectedGraph<V, E> graph, V s, V t) {
 		this.graph = graph;
@@ -117,23 +114,10 @@ public class TarjanStOrdering<V, E> implements StOrdering<V, E> {
 				vertexList.add(v);
 			}
 		}
-		for (int i = 0; i < getList().size(); i++) {
-			numbers.put(getList().get(i), i);
-		}
 	}
 
 	@Override
 	public List<V> getList() {
 		return vertexList;
-	}
-	
-	@Override
-	public Map<V, Integer> asNumbers() {
-		return numbers;
-	}
-	
-	@Override
-	public int compare(V o1, V o2) {
-		return numbers.get(o1).compareTo(numbers.get(o2));
 	}
 }
