@@ -13,6 +13,7 @@ import org.apache.commons.collections15.Factory;
 import org.apache.commons.collections15.ListUtils;
 import org.apache.commons.collections15.map.LazyMap;
 
+import de.uniwue.smooth.palm.StOrdering;
 import de.uniwue.smooth.palm.TarjanStOrdering;
 import de.uniwue.smooth.planar.BrandesEmbedding;
 import de.uniwue.smooth.planar.Embedding;
@@ -41,9 +42,9 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	private Embedding<V, E> embedding;
 	
 	/**
-	 * The st ordering for the order of vertices.
+	 * The st-ordering for the order of vertices.
 	 */
-	protected TarjanStOrdering<V, E> stOrdering;
+	protected StOrdering<V, E> stOrdering;
 	/**
 	 * Leftmost (left outer face) edge at s
 	 */
@@ -82,6 +83,11 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		super(graph);
 	}
 	
+	public LiuEtAlLayout(Graph<V, E> graph, StOrdering<V, E> stOrdering) {
+		this(graph);
+		this.stOrdering = stOrdering;
+	}
+	
 	/**
 	 * Embed the whole graph into an orthogonal drawing.
 	 */
@@ -96,7 +102,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 			throw new IllegalArgumentException("Can only layout planar graphs.", e);
 		}
 		
-		buildStOrdering(undirectedGraph);
+		if (stOrdering == null) buildStOrdering(undirectedGraph);
 		
 		embedEdgesAndVertices();
 		
@@ -112,6 +118,8 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	 * The main step which does the placement of vertices and edges and the port assignments.
 	 */
 	private void embedEdgesAndVertices() {
+		vertexRows = new HashMap<>(stOrdering.asNumbers());
+		
 		List<V> vertexList = stOrdering.getList();
 		for (int i = 0; i < vertexList.size(); i++) {
 			V vetex = vertexList.get(i);
@@ -174,7 +182,6 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		tLeftmost = embeddingIterator.getEdge();
 		
 		stOrdering = new TarjanStOrdering<V, E>(undirectedGraph, s, t);
-		vertexRows = new HashMap<>(stOrdering.asNumbers());
 	}
 	
 	/**
