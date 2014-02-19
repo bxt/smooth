@@ -13,7 +13,7 @@ import org.apache.commons.collections15.Factory;
 import org.apache.commons.collections15.ListUtils;
 import org.apache.commons.collections15.map.LazyMap;
 
-import de.uniwue.smooth.palm.StOrdering;
+import de.uniwue.smooth.palm.TarjanStOrdering;
 import de.uniwue.smooth.planar.BrandesEmbedding;
 import de.uniwue.smooth.planar.Embedding;
 import de.uniwue.smooth.planar.EmbeddingIterator;
@@ -43,7 +43,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	/**
 	 * The st ordering for the order of vertices.
 	 */
-	protected StOrdering<V, E> stOrdering;
+	protected TarjanStOrdering<V, E> stOrdering;
 	/**
 	 * Leftmost (left outer face) edge at s
 	 */
@@ -173,7 +173,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		V t = embeddingIterator.getVertex();
 		tLeftmost = embeddingIterator.getEdge();
 		
-		stOrdering = new StOrdering<V, E>(undirectedGraph, s, t);
+		stOrdering = new TarjanStOrdering<V, E>(undirectedGraph, s, t);
 		vertexRows = new HashMap<>(stOrdering.asNumbers());
 	}
 	
