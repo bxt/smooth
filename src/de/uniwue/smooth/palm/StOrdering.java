@@ -1,4 +1,4 @@
-package de.uniwue.smooth;
+package de.uniwue.smooth.palm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import de.uniwue.smooth.palm.PalmTree;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
 public class StOrdering<V,E> implements Comparator<V> {
