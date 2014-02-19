@@ -13,6 +13,7 @@ import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.MapUtils;
 import org.apache.commons.collections15.functors.MapTransformer;
 
+import de.uniwue.smooth.palm.StOrdering;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -24,11 +25,16 @@ import edu.uci.ics.jung.graph.Graph;
  * @param <E> Edge type.
  */
 public class CompressingLiuEtAlLayout<V, E> extends LiuEtAlLayout<V, E> {
-	
+		
+	public CompressingLiuEtAlLayout(Graph<V, E> graph,
+			StOrdering<V, E> stOrdering) {
+		super(graph, stOrdering);
+	}
+
 	public CompressingLiuEtAlLayout(Graph<V, E> graph) {
 		super(graph);
 	}
-	
+
 	/**
 	 * An optional step which moves vertices connected by s-shaped edges
 	 * into the same row and optimizes the height of the drawing.
