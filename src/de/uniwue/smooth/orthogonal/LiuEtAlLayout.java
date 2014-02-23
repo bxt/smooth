@@ -102,7 +102,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 			throw new IllegalArgumentException("Can only layout planar graphs.", e);
 		}
 		
-		if (stOrdering == null) buildStOrdering(undirectedGraph);
+		buildStOrdering(undirectedGraph);
 		
 		embedEdgesAndVertices();
 		
@@ -181,7 +181,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		V t = embeddingIterator.getVertex();
 		tLeftmost = embeddingIterator.getEdge();
 		
-		stOrdering = new TarjanStOrdering<V, E>(undirectedGraph, s, t);
+		if (stOrdering == null) stOrdering = new TarjanStOrdering<V, E>(undirectedGraph, s, t);
 	}
 	
 	/**
