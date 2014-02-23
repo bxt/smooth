@@ -12,10 +12,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import de.uniwue.smooth.draw.OrthogonalDrawer;
-import de.uniwue.smooth.draw.StraightlineOrthogonalDrawer;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
 import de.uniwue.smooth.draw.SmoothOrthogonalDrawer;
+import de.uniwue.smooth.draw.StraightlineOrthogonalDrawer;
 import de.uniwue.smooth.draw.TransformingOrthogonalDrawing;
 import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
@@ -27,8 +27,6 @@ import de.uniwue.smooth.util.Util;
 import de.uniwue.smooth.util.tuples.ImmutableTuple;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
-import edu.uci.ics.jung.io.GraphIOException;
-import edu.uci.ics.jung.io.GraphReader;
 
 
 public class ConflictingRenderTask implements Runnable {
@@ -44,14 +42,8 @@ public class ConflictingRenderTask implements Runnable {
 		
 	private static Graph<Vertex, Edge> getGraph(String name) {
 		File file = new File("resources/conflicting_graphs/" + name + ".graphml");
-		GraphReader<Graph<Vertex, Edge>, Vertex, Edge> graphReader = GraphReaderFactory.create(file);
-		Graph<Vertex, Edge> graph;
-		try {
-			graph = graphReader.readGraph();
-		} catch (GraphIOException e) {
-			throw new RuntimeException(e);
-		}
-		
+		GraphAndLayoutReader reader = new GraphAndLayoutReader(file);
+		Graph<Vertex, Edge> graph = reader.getGraph();
 		return graph;
 	}
 	
