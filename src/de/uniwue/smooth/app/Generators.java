@@ -71,10 +71,20 @@ public abstract class Generators {
 		return circle(3);
 	}
 	
-	public static UndirectedGraph<Vertex, Edge> wheel(int size) {
+	public static UndirectedGraph<Vertex, Edge> deteministic_wheel(int size) {
 		UndirectedGraph<Vertex, Edge> graph = new WheelGraphGenerator<Vertex, Edge>(true, size, Vertex.getFactory(), Edge.getFactory()).create();
 		System.out.println(graph);
 		return graph;
+	}
+	
+	public static UndirectedGraph<Vertex, Edge> wheel(int size, boolean randomize) {
+		UndirectedGraph<Vertex, Edge> graph = new WheelGraphGenerator<Vertex, Edge>(randomize, size, Vertex.getFactory(), Edge.getFactory()).create();
+		System.out.println(graph);
+		return graph;
+	}
+	
+	public static UndirectedGraph<Vertex, Edge> wheel(int size) {
+		return wheel(size, true);
 	}
 	
 	public static UndirectedGraph<Vertex, Edge> tetrahedron() {
