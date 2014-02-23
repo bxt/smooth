@@ -2,7 +2,11 @@ package de.uniwue.smooth.app;
 
 import java.awt.geom.AffineTransform;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,6 +20,9 @@ import de.uniwue.smooth.draw.TransformingOrthogonalDrawing;
 import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
+import de.uniwue.smooth.palm.ListStOrdering;
+import de.uniwue.smooth.palm.StOrdering;
+import de.uniwue.smooth.util.NotAnExecutorService;
 import de.uniwue.smooth.util.Util;
 import de.uniwue.smooth.util.tuples.ImmutableTuple;
 import edu.uci.ics.jung.graph.Graph;
@@ -35,9 +42,10 @@ public class RenderTask implements Runnable {
 				, new RenderTask(100, 400, 600, Generators.simplePlanarGraph(), "simplePlanarGraph")
 				, new RenderTask( 30, 400, 500, getTestGraph(), "test")
 				, new RenderTask(100, 300, 600, Generators.wheel(3), "wheel_3")
-				, new RenderTask( 80, 300, 550, Generators.wheel(4), "wheel_4")
+				, new RenderTask( 80, 300, 550, Generators.wheel(4, false), "wheel_4")
+				, new RenderTask( 80, 300, 550, Generators.wheel(4, false), "wheel_4.customSt", new int[]{0, 1, 3, 2, 4})
 				);
-		ExecutorService executor = Executors.newFixedThreadPool(8);
+		ExecutorService executor = new NotAnExecutorService(); Executors.newFixedThreadPool(8);
 		for (RenderTask task : tasks) executor.execute(task);
 		executor.shutdown();
 	}
@@ -60,10 +68,10 @@ public class RenderTask implements Runnable {
 	private double translateY;
 	private Graph<Vertex, Edge> graph;
 	private String name;
+	private StOrdering<Vertex, Edge> stOrdering = null;
 	
 	public RenderTask(double scale, double translateX, double translateY,
 			Graph<Vertex, Edge> graph, String name) {
-		super();
 		this.scale = scale;
 		this.translateX = translateX;
 		this.translateY = translateY;
@@ -71,10 +79,25 @@ public class RenderTask implements Runnable {
 		this.name = name;
 	}
 
+	public RenderTask(double scale, double translateX, double translateY,
+			Graph<Vertex, Edge> graph, String name, int[] preStOrdering) {
+		this(scale, translateX, translateY, graph, name);
+		this.stOrdering = makeStOrdering(preStOrdering, graph);
+	}
+
+	private static StOrdering<Vertex, Edge> makeStOrdering(int[] preStOrdering, Graph<Vertex, Edge> graph) {
+		List<Vertex> vertexInList = new ArrayList<>(graph.getVertices());
+		List<Vertex> vertexOutList = new ArrayList<>();
+		for(int index : preStOrdering) vertexOutList.add(vertexInList.get(index));
+		if(new HashSet<>(vertexOutList).size() != vertexInList.size()) throw new IllegalStateException("Mising vertices in custom st order");
+		return new ListStOrdering<>(vertexOutList);
+	}
+
 	@Override
 	public void run() {
-		Pair<OrthogonalLayout<Vertex, Edge>> layouts = new Pair<OrthogonalLayout<Vertex, Edge>>(
-				new LiuEtAlLayout<Vertex, Edge>(graph), new CompressingLiuEtAlLayout<Vertex, Edge>(graph));
+		/*Collection<OrthogonalLayout<Vertex, Edge>> layouts = new Pair<OrthogonalLayout<Vertex, Edge>>(
+				new LiuEtAlLayout<Vertex, Edge>(graph, stOrdering), new CompressingLiuEtAlLayout<Vertex, Edge>(graph, stOrdering));*/
+		Collection<OrthogonalLayout<Vertex, Edge>> layouts = Collections.<OrthogonalLayout<Vertex, Edge>>singleton(new CompressingLiuEtAlLayout<Vertex, Edge>(graph, stOrdering));
 		Pair<OrthogonalDrawer<Vertex, Edge, String>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge, String>>(
 				new StraightlineOrthogonalDrawer<Vertex, Edge, String>(), new SmoothOrthogonalDrawer<Vertex, Edge, String>());
 		for(OrthogonalLayout<Vertex, Edge> layout : layouts) {
