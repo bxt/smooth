@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class AdjacencyListEmbedding<V, E> implements Embedding<V, E> {
 	
 	/**
-	 * Get the list of edges around a vertex in the order of the embedding.
+	 * Get the list of edges around a vertex in the clockwise order of the embedding.
 	 * @param vertex The vertex whose connected edges are returned.
 	 * @return A list of edges around the given vertex.
 	 */
