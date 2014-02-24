@@ -23,7 +23,7 @@ import edu.uci.ics.jung.graph.UndirectedGraph;
  * @param <V> Vertex type.
  * @param <E> Edge type.
  */
-public class BrandesEmbedding<V, E> implements Embedding<V, E> {
+public class BrandesEmbedding<V, E> extends AdjacencyListEmbedding<V, E> implements Embedding<V, E> {
 	
 	/**
 	 * Uses this embedding to perform a planarity test on a graph.
@@ -347,63 +347,24 @@ public class BrandesEmbedding<V, E> implements Embedding<V, E> {
 	}
 
 	@Override
+	protected List<E> getAdjacent(V vertex) {
+		return adjacencies.get(vertex);
+	}
+	
+	@Override
+	protected V getOpposite(V vertex, E edge) {
+		return graph.getOpposite(vertex, edge);
+		
+	}
+	
+	@Override
 	public EmbeddingIterator<V, E> getEmbeddingIteratorOnOuterface() {
 		return getEmbeddingIteratorAtVertex(roots.get(0));
 	}
 
 	@Override
 	public EmbeddingIterator<V, E> getEmbeddingIteratorAtEdge(E edge) {
-		return new BrandesEmbeddingIterator(graph.getIncidentVertices(edge).iterator().next(), edge);
+		return getEmbeddingIterator(graph.getIncidentVertices(edge).iterator().next(), edge);
 	}
 
-	@Override
-	public EmbeddingIterator<V, E> getEmbeddingIteratorAtVertex(V vertex) {
-		return new BrandesEmbeddingIterator(vertex, adjacencies.get(vertex).get(0));
-	}
-
-	@Override
-	public EmbeddingIterator<V, E> getEmbeddingIterator(V vertex, E edge) {
-		return new BrandesEmbeddingIterator(vertex, edge);
-	}
-
-	/**
-	 * Implements the {@link EmbeddingIterator} for an embedding based on adjacency lists.
-	 */
-	private class BrandesEmbeddingIterator implements EmbeddingIterator<V, E> {
-		private V vertex;
-		private E edge;
-		
-		public BrandesEmbeddingIterator(V vertex, E edge) {
-			this.vertex = vertex;
-			this.edge = edge;
-		}
-
-		@Override
-		public V getVertex() {
-			return vertex;
-		}
-		
-		@Override
-		public E getEdge() {
-			return edge;
-		}
-		
-		@Override
-		public void nextAroundVertex() {
-			List<E> adjacent = adjacencies.get(vertex);
-			edge = adjacent.get((adjacent.indexOf(edge) + 1) % adjacent.size());
-		}
-		
-		@Override
-		public void nextAroundFace() {
-			oppositeOnEdge();
-			nextAroundVertex();
-		}
-		
-		@Override
-		public void oppositeOnEdge() {
-			vertex = graph.getOpposite(vertex, edge);
-		}
-	}
-	
 }
