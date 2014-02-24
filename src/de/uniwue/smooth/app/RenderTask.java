@@ -43,7 +43,7 @@ public class RenderTask implements Runnable {
 				, new RenderTask( 30, 400, 500, getTestGraph(), "test")
 				, new RenderTask(100, 300, 600, Generators.wheel(3), "wheel_3")
 				, new RenderTask( 80, 300, 550, Generators.wheel(4, false), "wheel_4")
-				, new RenderTask( 80, 300, 550, Generators.wheel(4, false), "wheel_4.customSt", new int[]{0, 1, 3, 2, 4})
+				, new RenderTask( 80, 300, 550, Generators.wheel(4, false), "wheel_4.customSt", new int[]{0, 4, 3, 2, 1})
 				);
 		ExecutorService executor = new NotAnExecutorService(); Executors.newFixedThreadPool(8);
 		for (Runnable task : tasks) executor.execute(task);
