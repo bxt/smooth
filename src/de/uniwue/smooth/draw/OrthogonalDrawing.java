@@ -67,5 +67,10 @@ public interface OrthogonalDrawing<T> {
 	 * @param to Left/top coordinates of the endpoint of the arc.
 	 */
 	public abstract void arc(Pair<Integer> from, Pair<Integer> to);
+	
+	/**
+	 * Continue the drawing on a new page.
+	 */
+	public abstract void newPage();
 
 }

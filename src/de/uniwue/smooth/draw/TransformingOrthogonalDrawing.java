@@ -68,6 +68,11 @@ public class TransformingOrthogonalDrawing<T> implements OrthogonalDrawing<T> {
 	}
 
 	@Override
+	public void newPage() {
+		delegate.newPage();
+	}
+
+	@Override
 	public T create() {
 		return delegate.create();
 	}

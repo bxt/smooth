@@ -46,4 +46,9 @@ public class OrthogonalIpeDrawing extends AbstractIpeDrawing implements Orthogon
 		draw(IpeDraw.drawIpeSemiCircle(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond()));
 	}
 
+	@Override
+	public void newPage() {
+		draw(IpeDraw.newPage());
+	}
+
 }
