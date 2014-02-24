@@ -6,10 +6,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.collections15.Transformer;
+import org.apache.commons.collections15.comparators.ComparableComparator;
 import org.apache.commons.collections15.comparators.ReverseComparator;
 import org.apache.commons.collections15.comparators.TransformingComparator;
+import org.apache.commons.collections15.functors.ChainedTransformer;
 
-import de.uniwue.smooth.util.Point2DAngleComparator;
+import de.uniwue.smooth.util.Point2DTranformers;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 
 public class LayoutEmbedding<V, E> extends AdjacencyListEmbedding<V, E> implements Embedding<V, E> {
@@ -31,7 +33,7 @@ public class LayoutEmbedding<V, E> extends AdjacencyListEmbedding<V, E> implemen
 				Point2D inputPoint = layout.transform(getOpposite(vertex, input));
 				return subtract(inputPoint, refPoint);
 			}
-		}, new Point2DAngleComparator())));
+		}, new TransformingComparator<Point2D, Double>(new Point2DTranformers.Atan2(), new ComparableComparator<Double>()))));
 		return adjacent;
 	}
 
@@ -42,8 +44,9 @@ public class LayoutEmbedding<V, E> extends AdjacencyListEmbedding<V, E> implemen
 
 	@Override
 	public EmbeddingIterator<V, E> getEmbeddingIteratorOnOuterface() {
-		// TODO Auto-generated method stub
-		return null;
+		V outerfaceVertex = Collections.max(layout.getGraph().getVertices(), new TransformingComparator<>(
+				ChainedTransformer.getInstance(layout, new Point2DTranformers.Y()), new ComparableComparator<Double>()));
+		return getEmbeddingIteratorAtVertex(outerfaceVertex);
 	}
 
 	@Override
