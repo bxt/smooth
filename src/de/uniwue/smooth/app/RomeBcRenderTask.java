@@ -4,7 +4,10 @@ import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import au.com.bytecode.opencsv.CSVReader;
 import de.uniwue.smooth.draw.OrthogonalDrawer;
@@ -38,17 +41,21 @@ public class RomeBcRenderTask implements Runnable {
 			throw new RuntimeException(e);
 		}
 		
+		Set<String> interesting = new HashSet<>();
+		Collections.addAll(interesting, "bc_grafo10182.33.lgr.graphml", "bc_grafo10187.33.lgr.graphml", "bc_grafo1019.11.lgr.graphml");
+		
 		//List<String[]> filesCsvList = java.util.Arrays.asList(new String[]{"bc_grafo2173.21.lgr.graphml"}, new String[]{"bc_grafo2341.24.lgr.graphml"});
 
-		AffineTransform transform = new AffineTransform();
-		transform.translate(400, 100);
-		transform.scale(30, 30);
-		
-		OrthogonalDrawing<String> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
+		OrthogonalDrawing<String> drawing = createDrawing();
 		
 		for (final String[] cvsLine : filesCsvList) {
 			try {
 				String filename = cvsLine[0];
+				
+				OrthogonalDrawing<String> interesingDrawing = null;
+				if(interesting.contains(filename)) {
+					interesingDrawing =  createDrawing();
+				}
 				
 				File file = new File("resources/rome_bc/" + filename);
 				System.out.println(filename);
@@ -60,6 +67,10 @@ public class RomeBcRenderTask implements Runnable {
 				OrthogonalDrawer<Vertex, Edge, String> drawer = new SmoothOrthogonalDrawer<Vertex, Edge, String>();
 				layout.initialize();
 				drawer.transform(new ImmutableTuple<>(layout, drawing));
+				if(interesingDrawing != null) {
+					drawer.transform(new ImmutableTuple<>(layout, interesingDrawing));
+					Util.writeFile("resources/drawings/rome_bc/" + filename + ".ipe", interesingDrawing.create());
+				}
 				
 				graphReader.close();
 				drawing.newPage();
@@ -74,6 +85,12 @@ public class RomeBcRenderTask implements Runnable {
 		b.print();
 	}
 	
-	
+	OrthogonalDrawing<String> createDrawing() {
+		AffineTransform transform = new AffineTransform();
+		transform.translate(400, 100);
+		transform.scale(30, 30);
+		
+		return new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
+	}
 	
 }
