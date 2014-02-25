@@ -33,7 +33,7 @@ public class RomeBcRenderTask implements Runnable {
 		
 		List<String[]> filesCsvList;
 		try {
-			filesCsvList = new CSVReader(new FileReader("resources/rome_bc/dir.txt"), ';').readAll();
+			filesCsvList = new CSVReader(new FileReader("resources/rome_bc/degree-4-rm_duplicates.txt"), ';').readAll();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
