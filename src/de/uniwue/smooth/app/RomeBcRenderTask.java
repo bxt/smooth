@@ -14,6 +14,7 @@ import de.uniwue.smooth.draw.SmoothOrthogonalDrawer;
 import de.uniwue.smooth.draw.TransformingOrthogonalDrawing;
 import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
+import de.uniwue.smooth.util.Benchmark;
 import de.uniwue.smooth.util.Util;
 import de.uniwue.smooth.util.tuples.ImmutableTuple;
 import edu.uci.ics.jung.graph.Graph;
@@ -28,6 +29,8 @@ public class RomeBcRenderTask implements Runnable {
 
 	@Override
 	public void run() {
+		Benchmark b = new Benchmark();
+		
 		List<String[]> filesCsvList;
 		try {
 			filesCsvList = new CSVReader(new FileReader("resources/rome_bc/dir.txt"), ';').readAll();
@@ -66,7 +69,9 @@ public class RomeBcRenderTask implements Runnable {
 			}
 		}
 		
+		System.out.println("Generated " + filesCsvList.size() +  " drawings. ");
 		Util.writeFile("resources/drawings/rome_bc/all.ipe", drawing.create());
+		b.print();
 	}
 	
 	
