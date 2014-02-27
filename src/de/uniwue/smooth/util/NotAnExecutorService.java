@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * Its harder to debug stuff across threads so this {@link ExecutorService}
+ * It's harder to debug stuff across threads so this {@link ExecutorService}
  * just doesn't give an ef and executes the {@link Runnable}s right away in
  * the current thread. Other than that it does not work at all.
  */

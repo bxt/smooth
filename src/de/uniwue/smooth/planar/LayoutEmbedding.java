@@ -14,10 +14,23 @@ import org.apache.commons.collections15.functors.ChainedTransformer;
 import de.uniwue.smooth.util.Point2DTranformers;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 
+/**
+ * A planar embedding based on the node positions in an existing layout.
+ * 
+ * For this embedding it is assumed that the layout represents a planar drawing with
+ * straight line edges.
+ *
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public class LayoutEmbedding<V, E> extends AdjacencyListEmbedding<V, E> implements Embedding<V, E> {
 
 	Layout<V, E> layout;
 
+	/**
+	 * Build a layout based on a given embedding.
+	 * @param layout A layout with the positions of the vertices in a planar straight line drawing.
+	 */
 	public LayoutEmbedding(Layout<V, E> layout) {
 		super();
 		this.layout = layout;

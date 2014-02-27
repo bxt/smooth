@@ -11,6 +11,12 @@ import java.util.Set;
 
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
+/**
+ * Builds the st-odering for a graph based in Tarjan's algorithm.
+ *
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public class TarjanStOrdering<V, E> extends AbstractStOrdering<V, E> implements StOrdering<V, E> {
 	
 	private Set<V> oldVertices = new HashSet<>();
