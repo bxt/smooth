@@ -20,7 +20,7 @@ import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
 
 /**
- * Based on {@link LiuEtAlLayout} but does the removal o s-shaped edges, too.
+ * Based on {@link LiuEtAlLayout} but does the removal of s-shaped edges, too.
  *
  * @param <V> Vertex type.
  * @param <E> Edge type.
