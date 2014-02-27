@@ -27,7 +27,7 @@ public class LayoutEmbedding<V, E> extends AdjacencyListEmbedding<V, E> implemen
 	protected List<E> getAdjacent(final V vertex) {
 		final Point2D refPoint = layout.transform(vertex);
 		List<E> adjacent = new ArrayList<E>(layout.getGraph().getIncidentEdges(vertex));
-		Collections.sort(adjacent, new ReverseComparator<E>(new TransformingComparator<>(new Transformer<E, Point2D>() {
+		Collections.sort(adjacent, new ReverseComparator<>(new TransformingComparator<>(new Transformer<E, Point2D>() {
 			@Override
 			public Point2D transform(E input) {
 				Point2D inputPoint = layout.transform(getOpposite(vertex, input));
@@ -44,7 +44,7 @@ public class LayoutEmbedding<V, E> extends AdjacencyListEmbedding<V, E> implemen
 
 	@Override
 	public EmbeddingIterator<V, E> getEmbeddingIteratorOnOuterface() {
-		V outerfaceVertex = Collections.max(layout.getGraph().getVertices(), new TransformingComparator<>(
+		V outerfaceVertex = Collections.min(layout.getGraph().getVertices(), new TransformingComparator<>(
 				ChainedTransformer.getInstance(layout, new Point2DTranformers.Y()), new ComparableComparator<Double>()));
 		return getEmbeddingIteratorAtVertex(outerfaceVertex);
 	}

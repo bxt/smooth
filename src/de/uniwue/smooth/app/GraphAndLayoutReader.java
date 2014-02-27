@@ -54,7 +54,7 @@ public class GraphAndLayoutReader {
 	private final Transformer<NodeMetadata, Vertex> vertexTransformer = new Transformer<NodeMetadata, Vertex>() {
 		@Override public Vertex transform(NodeMetadata metadata) {
 			Vertex v = new Vertex(Integer.parseInt(metadata.getId().substring(1)));
-			vertexLocations.put(v, new Point2D.Double(Double.parseDouble(metadata.getProperty("x")), Double.parseDouble(metadata.getProperty("y"))));
+			vertexLocations.put(v, new Point2D.Double(Double.parseDouble(metadata.getProperty("x")), - Double.parseDouble(metadata.getProperty("y"))));
 			return v;
 		}
 	};
