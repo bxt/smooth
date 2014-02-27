@@ -39,12 +39,12 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	/**
 	 * The embedding which is used for the edge ordering.
 	 */
-	private Embedding<V, E> embedding;
+	private Embedding<V, E> embedding = null;
 	
 	/**
 	 * The st-ordering for the order of vertices.
 	 */
-	protected StOrdering<V, E> stOrdering;
+	protected StOrdering<V, E> stOrdering = null;
 	/**
 	 * Leftmost (left outer face) edge at s
 	 */
@@ -88,6 +88,17 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		this.stOrdering = stOrdering;
 	}
 	
+	public LiuEtAlLayout(Graph<V, E> graph, Embedding<V, E> embedding) {
+		this(graph);
+		this.embedding = embedding;
+	}
+	
+	public LiuEtAlLayout(Graph<V, E> graph, Embedding<V, E> embedding, StOrdering<V, E> stOrdering) {
+		this(graph);
+		this.embedding = embedding;
+		this.stOrdering = stOrdering;
+	}
+	
 	/**
 	 * Embed the whole graph into an orthogonal drawing.
 	 */
@@ -96,11 +107,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		
 		UndirectedGraph<V, E> undirectedGraph = new UndirectedTransformer<V, E>(UndirectedSparseGraph.<V, E>getFactory()).transform(graph);
 		
-		try {
-			embedding = new BrandesEmbedding<V, E>(undirectedGraph);
-		} catch (NotPlanarException e) {
-			throw new IllegalArgumentException("Can only layout planar graphs.", e);
-		}
+		buildEmbedding(undirectedGraph);
 		
 		buildStOrdering(undirectedGraph);
 		
@@ -182,6 +189,20 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 		tLeftmost = embeddingIterator.getEdge();
 		
 		if (stOrdering == null) stOrdering = new TarjanStOrdering<V, E>(undirectedGraph, s, t);
+	}
+	
+	/**
+	 * Initialize the embedding.
+	 * @param undirectedGraph Undirected version of the input graph.
+	 */
+	private void buildEmbedding(UndirectedGraph<V, E> undirectedGraph) {
+		if (embedding == null) {
+			try {
+				embedding = new BrandesEmbedding<V, E>(undirectedGraph);
+			} catch (NotPlanarException e) {
+				throw new IllegalArgumentException("Can only layout planar graphs.", e);
+			}
+		}
 	}
 	
 	/**

@@ -14,6 +14,7 @@ import org.apache.commons.collections15.MapUtils;
 import org.apache.commons.collections15.functors.MapTransformer;
 
 import de.uniwue.smooth.palm.StOrdering;
+import de.uniwue.smooth.planar.Embedding;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -33,6 +34,15 @@ public class CompressingLiuEtAlLayout<V, E> extends LiuEtAlLayout<V, E> {
 
 	public CompressingLiuEtAlLayout(Graph<V, E> graph) {
 		super(graph);
+	}
+
+	public CompressingLiuEtAlLayout(Graph<V, E> graph, Embedding<V, E> embedding) {
+		super(graph, embedding);
+	}
+
+	public CompressingLiuEtAlLayout(Graph<V, E> graph,
+			Embedding<V, E> embedding, StOrdering<V, E> stOrdering) {
+		super(graph, embedding, stOrdering);
 	}
 
 	/**
