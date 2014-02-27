@@ -22,4 +22,9 @@ public abstract class AbstractStOrdering<V, E> implements StOrdering<V, E> {
 	public int compare(V o1, V o2) {
 		return numbers.get(o1).compareTo(numbers.get(o2));
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + ":" + getList().toString();
+	}
 }
