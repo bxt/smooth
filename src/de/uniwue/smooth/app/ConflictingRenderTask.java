@@ -22,6 +22,8 @@ import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.palm.ListStOrdering;
 import de.uniwue.smooth.palm.StOrdering;
+import de.uniwue.smooth.planar.Embedding;
+import de.uniwue.smooth.planar.LayoutEmbedding;
 import de.uniwue.smooth.util.NotAnExecutorService;
 import de.uniwue.smooth.util.Util;
 import de.uniwue.smooth.util.tuples.ImmutableTuple;
@@ -40,19 +42,13 @@ public class ConflictingRenderTask implements Runnable {
 		executor.shutdown();
 	}
 		
-	private static Graph<Vertex, Edge> getGraph(String name) {
-		File file = new File("resources/conflicting_graphs/" + name + ".graphml");
-		GraphAndLayoutReader reader = new GraphAndLayoutReader(file);
-		Graph<Vertex, Edge> graph = reader.getGraph();
-		return graph;
-	}
-	
 	private double scale;
 	private double translateX;
 	private double translateY;
 	private Graph<Vertex, Edge> graph;
 	private String name;
 	private StOrdering<Vertex, Edge> stOrdering = null;
+	private Embedding<Vertex, Edge> embedding;
 	
 	public ConflictingRenderTask(double scale, double translateX, double translateY,
 			String name) {
@@ -60,9 +56,16 @@ public class ConflictingRenderTask implements Runnable {
 		this.translateX = translateX;
 		this.translateY = translateY;
 		this.name = name;
-		this.graph = getGraph(name);
+		loadGraphAndEmbedding();
 	}
 
+	private void loadGraphAndEmbedding() {
+		File file = new File("resources/conflicting_graphs/" + name + ".graphml");
+		GraphAndLayoutReader reader = new GraphAndLayoutReader(file);
+		this.graph = reader.getGraph();
+		this.embedding = new LayoutEmbedding<>(reader.getLayout());
+	}
+	
 	public ConflictingRenderTask(double scale, double translateX, double translateY,
 			String name, int[] preStOrdering) {
 		this(scale, translateX, translateY, name);
@@ -79,7 +82,7 @@ public class ConflictingRenderTask implements Runnable {
 
 	@Override
 	public void run() {
-		Collection<OrthogonalLayout<Vertex, Edge>> layouts = Collections.<OrthogonalLayout<Vertex, Edge>>singleton(new CompressingLiuEtAlLayout<Vertex, Edge>(graph, stOrdering));
+		Collection<OrthogonalLayout<Vertex, Edge>> layouts = Collections.<OrthogonalLayout<Vertex, Edge>>singleton(new CompressingLiuEtAlLayout<Vertex, Edge>(graph, embedding, stOrdering));
 		Pair<OrthogonalDrawer<Vertex, Edge, String>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge, String>>(
 				new StraightlineOrthogonalDrawer<Vertex, Edge, String>(), new SmoothOrthogonalDrawer<Vertex, Edge, String>());
 		for(OrthogonalLayout<Vertex, Edge> layout : layouts) {
