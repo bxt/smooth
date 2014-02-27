@@ -32,7 +32,7 @@ import edu.uci.ics.jung.io.graphml.NodeMetadata;
  * Also creates a Layout for the graph using the values of the x and y properties of the nodes.
  * 
  * If you layout graphs with yEd you can preprocess the *.graphml-Files with something like this to get the properties:
- * N;N;N; s/<node id="(.*?)">(.*?)<y:Geometry (.*?) x="(.*?)" y="(.*?)"/>/<node id="\1" x="\4" y="\5">\2<y:Geometry \3 x="\4" y="\5"/>/g
+ * N;N;N; s/<node id="([^"]*)">(.*?)<y:Geometry (.*?) x="(.*?)" y="(.*?)"/>/<node id="\1" x="\4" y="\5">\2<y:Geometry \3 x="\4" y="\5"/>/g
  */
 public class GraphAndLayoutReader {
 	
