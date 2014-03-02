@@ -14,11 +14,14 @@ import edu.uci.ics.jung.graph.util.Pair;
  */
 public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V, E, T> implements OrthogonalDrawer<V, E, T> {
 	
+	private CollisionDetector collisionDetecor;
+	
 	/**
 	 * Draws the edges smoothly.
 	 */
 	@Override
 	protected void drawEdges() {
+		collisionDetecor = new CollisionDetector();
 		for (final E e : layout.getGraph().getEdges()) {
 			Pair<V> endpoints = layout.getGraph().getEndpoints(e);
 			Pair<Port> ports = new Pair<>(getPort(endpoints.getFirst(), e), getPort(endpoints.getSecond(), e));
@@ -36,6 +39,7 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 	
 	private void drawIEdges(Pair<Pair<Integer>> vertexCoordinates, Pair<Port> ports) {
 		// TODO: check for S shape?
+		collisionDetecor.line(vertexCoordinates);
 		drawing.line(vertexCoordinates);
 	}
 	
@@ -59,9 +63,16 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 		Pair<Integer> kink = isU ?  new Pair<>(end.getFirst(), start.getSecond()) : new Pair<>(start.getFirst(), end.getSecond());
 		drawing.edgeMidpoint(kink);
 		
+		collisionDetecor.line(end, kink);
 		drawing.line(end, kink);
 		
-		if (slopePositive != isU) drawing.arc(kink, start); else drawing.arc(start, kink);
+		if (slopePositive != isU) {
+			collisionDetecor.line(kink, start);
+			drawing.arc(kink, start);
+		} else {
+			collisionDetecor.line(start, kink);
+			drawing.arc(start, kink);
+		}
 	}
 	
 	private void drawLGEdges(Pair<Pair<Integer>> vertexCoordinates, Pair<Port> ports) {
@@ -114,9 +125,17 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 		drawing.edgeMidpoint(mid, "blue");
 		drawing.edgeMidpoint(kink, "red");
 		
-		drawing.line(firstIsDiagonalStart ? vertexCoordinates.getSecond() : vertexCoordinates.getFirst(), kink);
+		Pair<Integer> lineStart = firstIsDiagonalStart ? vertexCoordinates.getSecond() : vertexCoordinates.getFirst();
+		collisionDetecor.line(lineStart, kink);
+		drawing.line(lineStart, kink);
 		
-		if(diagStartFirst) drawing.arc(ref, mid, kink); else drawing.arc(kink, mid, ref);
+		if(diagStartFirst) {
+			collisionDetecor.arc(ref, mid, kink);
+			drawing.arc(ref, mid, kink);
+		} else {
+			collisionDetecor.arc(kink, mid, ref);
+			drawing.arc(kink, mid, ref);
+		}
 	}
 	
 	private Port getPort(V v, E e) {
