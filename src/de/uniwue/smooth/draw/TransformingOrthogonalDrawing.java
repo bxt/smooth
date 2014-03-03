@@ -3,6 +3,7 @@ package de.uniwue.smooth.draw;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
+import de.uniwue.smooth.util.Point2DTranformers;
 import edu.uci.ics.jung.graph.util.Pair;
 
 /**
@@ -78,9 +79,9 @@ public class TransformingOrthogonalDrawing<T> implements OrthogonalDrawing<T> {
 	}
 
 	private Pair<Integer> transform(Pair<Integer> position) {
-		Point2D point = new Point2D.Double(position.getFirst().doubleValue(), position.getSecond().doubleValue());
+		Point2D point = Point2DTranformers.fromIntegerPair(position);
 		transform.transform(point, point);
-		return new Pair<Integer>((int)(point.getX()+0.5), (int)(point.getY()+0.5));
+		return Point2DTranformers.toIntegerPair(point);
 	}
 
 }
