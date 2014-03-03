@@ -44,8 +44,6 @@ public class RomeBcRenderTask implements Runnable {
 		Set<String> interesting = new HashSet<>();
 		Collections.addAll(interesting, "bc_grafo10182.33.lgr.graphml", "bc_grafo10187.33.lgr.graphml");
 		
-		//List<String[]> filesCsvList = java.util.Arrays.asList(new String[]{"bc_grafo2173.21.lgr.graphml"}, new String[]{"bc_grafo2341.24.lgr.graphml"});
-
 		OrthogonalDrawing<String> drawing = createDrawing();
 		
 		for (final String[] cvsLine : filesCsvList) {
