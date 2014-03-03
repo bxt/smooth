@@ -1,5 +1,6 @@
 package de.uniwue.smooth.draw;
 
+import de.uniwue.smooth.collison.CollisionManager;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.orthogonal.Port;
 import de.uniwue.smooth.util.Util;
@@ -14,14 +15,14 @@ import edu.uci.ics.jung.graph.util.Pair;
  */
 public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V, E, T> implements OrthogonalDrawer<V, E, T> {
 	
-	private CollisionDetector collisionDetecor;
+	private CollisionManager collisionDetecor;
 	
 	/**
 	 * Draws the edges smoothly.
 	 */
 	@Override
 	protected void drawEdges() {
-		collisionDetecor = new CollisionDetector();
+		collisionDetecor = new CollisionManager();
 		for (final E e : layout.getGraph().getEdges()) {
 			Pair<V> endpoints = layout.getGraph().getEndpoints(e);
 			Pair<Port> ports = new Pair<>(getPort(endpoints.getFirst(), e), getPort(endpoints.getSecond(), e));
