@@ -82,6 +82,22 @@ public class CircleTest {
 		assertEquals(7,	intersections.get(1).getY(), DELTA);
 	}
 	
+	@Test
+	public void testGetChordal() {
+		Circle circleA = new Circle(p(3, 4), 2);
+		Circle circleB = new Circle(p(5, 6), 2);
+		Line chordal = circleA.getChordal(circleB);
+		assertTrue(chordal.contains(p(5, 4)));
+		assertTrue(chordal.contains(p(3, 6)));
+	}
+	
+	@Test(expected = RuntimeException.class) // TODO: figure better exception
+	public void testGetChordalFails() {
+		Circle circleA = new Circle(p(3, 4), 2);
+		Circle circleB = new Circle(p(3, 4), 2);
+		circleA.getChordal(circleB);
+	}
+	
 	private static List<Point2D> sortIntersections(Collection<Point2D> intersections) {
 		List<Point2D> intersectionList = new ArrayList<>(intersections);
 		Collections.sort(intersectionList, Point2DComparatorFactories.xy());

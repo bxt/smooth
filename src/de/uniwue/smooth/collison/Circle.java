@@ -38,8 +38,8 @@ public class Circle {
 	 * Calculates the intersection points between this circle and a {@link Line}.
 	 * 
 	 * @see <a href="http://mathworld.wolfram.com/Circle-LineIntersection.html">Circle-Line Intersection - from Wolfram MathWorld</a> 
-	 * @param line
-	 * @return
+	 * @param line The line to calculate the intersections for.
+	 * @return The 0, 1 or 2 intersection points.
 	 */
 	public Collection<Point2D> intersections(Line line) {
 		Line normalizedLine = new Line(Point2DOperations.subtract(line.getFrom(), center), Point2DOperations.subtract(line.getTo(), center));
@@ -69,6 +69,28 @@ public class Circle {
 			}
 		}
 		
+	}
+	
+	/**
+	 * Calculates the intersection points between this circle and a {@link Line}.
+	 * 
+	 * @param circle The other circle to calculate the intersections for.
+	 * @return The 0, 1 or 2 intersection points, null if the circles are equal.
+	 */
+	public Collection<Point2D> intersections(Circle circle) {
+		return null; // TODO
+	}
+	
+	/**
+	 * Get the line of points with equal distance to both circle lines.
+	 * @param circle Other circle.
+	 * @return A line of points at which a circle touching both circles exists.
+	 */
+	public Line getChordal(Circle circle) {
+		double a = 2 * (circle.getCenter().getX() - getCenter().getX());
+		double b = 2 * (circle.getCenter().getY() - getCenter().getY());
+		double c = sq(getRadius()) - sq(getCenter().getX()) - sq(getCenter().getY()) - sq(circle.getRadius()) + sq(circle.getCenter().getX()) + sq(circle.getCenter().getY());
+		return new Line(a, b, c);
 	}
 	
 	private static double sq(double a) {
