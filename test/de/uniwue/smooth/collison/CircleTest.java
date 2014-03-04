@@ -113,6 +113,45 @@ public class CircleTest {
 		assertEquals(4,	intersections.get(1).getY(), DELTA);
 	}
 	
+	/*
+	 * Values from http://ne.lo-net2.de/selbstlernmaterial/m/kg/kr/kr_gw8.pdf
+	 */
+	@Test
+	public void testIntersectionsCircle2() {
+		Circle circleA = new Circle(p(7.0, 6.0), 5);
+		Circle circleB = new Circle(p(7.5, 9.5), Math.sqrt(12.5));
+		
+		List<Point2D> intersections = sortIntersections(circleA.intersections(circleB));
+		assertEquals(2, intersections.size());
+		
+		assertEquals( 4,	intersections.get(0).getX(), DELTA);
+		assertEquals(10,	intersections.get(0).getY(), DELTA);
+		
+		assertEquals(11,	intersections.get(1).getX(), DELTA);
+		assertEquals( 9,	intersections.get(1).getY(), DELTA);
+	}
+	
+	@Test
+	public void testNoIntersectionsCircle() {
+		Circle circleA = new Circle(p(4.0, 5.0), 2);
+		Circle circleB = new Circle(p(7.5, 1.5), 2);
+		
+		List<Point2D> intersections = sortIntersections(circleA.intersections(circleB));
+		assertEquals(0, intersections.size());
+	}
+	
+	@Test
+	public void testTangentCircle() {
+		Circle circleA = new Circle(p(-2, 2), 3);
+		Circle circleB = new Circle(p(-6, 2), 1);
+		
+		List<Point2D> intersections = sortIntersections(circleA.intersections(circleB));
+		assertEquals(1, intersections.size());
+		
+		assertEquals(-5,	intersections.get(0).getX(), DELTA);
+		assertEquals( 2,	intersections.get(0).getY(), DELTA);
+	}
+	
 	private static List<Point2D> sortIntersections(Collection<Point2D> intersections) {
 		List<Point2D> intersectionList = new ArrayList<>(intersections);
 		Collections.sort(intersectionList, Point2DComparatorFactories.xy());
