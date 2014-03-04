@@ -3,7 +3,6 @@ package de.uniwue.smooth.collison;
 import java.awt.geom.Point2D;
 
 import de.uniwue.smooth.util.point2d.Point2DOperations;
-import de.uniwue.smooth.util.point2d.Point2DTranformers;
 import edu.uci.ics.jung.graph.util.Pair;
 
 public class Line {
