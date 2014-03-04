@@ -1,7 +1,6 @@
 package de.uniwue.smooth.util.point2d;
 
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 
 import edu.uci.ics.jung.graph.util.Pair;
 
@@ -38,11 +37,23 @@ public class Point2DOperations {
 		Point2D point = new Point2D.Double(pair.getFirst().doubleValue(), pair.getSecond().doubleValue());
 		return point;
 	}
-
+	
+	/**
+	 * Subtract two points, component wise.
+	 * @param a Input point.
+	 * @param b Point subtracted from the input point.
+	 * @return The point <tt>a - b</tt>.
+	 */
 	public static Point2D subtract(Point2D a, Point2D b) {
 		return new Point2D.Double(a.getX()-b.getX(), a.getY()-b.getY());
 	}
 
+	/**
+	 * Add two points, component wise.
+	 * @param a Input point.
+	 * @param b Point added to the input point.
+	 * @return The point <tt>a + b</tt>.
+	 */
 	public static Point2D add(Point2D a, Point2D b) {
 		return new Point2D.Double(a.getX()+b.getX(), a.getY()+b.getY());
 	}

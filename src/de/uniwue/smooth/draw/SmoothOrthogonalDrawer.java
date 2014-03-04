@@ -38,12 +38,22 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 		}
 	}
 	
+	/**
+	 * Draw linear edges (straight lines).
+	 * @param vertexCoordinates Start and end points of the edge.
+	 * @param ports Start and end port of the edge.
+	 */
 	private void drawIEdges(Pair<Pair<Integer>> vertexCoordinates, Pair<Port> ports) {
 		// TODO: check for S shape?
 		collisionDetecor.line(vertexCoordinates);
 		drawing.line(vertexCoordinates);
 	}
 	
+	/**
+	 * Draw U oder C edges, i.e. 180° turns.
+	 * @param vertexCoordinates Start and end points of the edge.
+	 * @param ports Start and end port of the edge.
+	 */
 	private void drawUCEdges(Pair<Pair<Integer>> vertexCoordinates, Pair<Port> ports) {
 		boolean isU = ports.getFirst().isVertical();
 		boolean firstIsRighter = vertexCoordinates.getFirst().getFirst() > vertexCoordinates.getSecond().getFirst();
@@ -76,6 +86,11 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 		}
 	}
 	
+	/**
+	 * Draw L (90° turns) and G (270° turns) edges.
+	 * @param vertexCoordinates Start and end points of the edge.
+	 * @param ports Start and end port of the edge.
+	 */
 	private void drawLGEdges(Pair<Pair<Integer>> vertexCoordinates, Pair<Port> ports) {
 		
 		// Depending on the ports we have some switches to flip:
