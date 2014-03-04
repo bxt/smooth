@@ -78,7 +78,9 @@ public class Circle {
 	 * @return The 0, 1 or 2 intersection points, null if the circles are equal.
 	 */
 	public Collection<Point2D> intersections(Circle circle) {
-		return null; // TODO
+		Line chordal = getChordal(circle);
+		if(chordal == null) return null;
+		return intersections(chordal);
 	}
 	
 	/**

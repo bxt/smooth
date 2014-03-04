@@ -87,8 +87,8 @@ public class CircleTest {
 		Circle circleA = new Circle(p(3, 4), 2);
 		Circle circleB = new Circle(p(5, 6), 2);
 		Line chordal = circleA.getChordal(circleB);
-		assertTrue(chordal.contains(p(5, 4)));
 		assertTrue(chordal.contains(p(3, 6)));
+		assertTrue(chordal.contains(p(5, 4)));
 	}
 	
 	@Test
@@ -96,6 +96,21 @@ public class CircleTest {
 		Circle circleA = new Circle(p(3, 4), 2);
 		Circle circleB = new Circle(p(3, 4), 2);
 		assertNull(circleA.getChordal(circleB));
+	}
+	
+	@Test
+	public void testIntersectionsCircle() {
+		Circle circleA = new Circle(p(3, 4), 2);
+		Circle circleB = new Circle(p(5, 6), 2);
+		
+		List<Point2D> intersections = sortIntersections(circleA.intersections(circleB));
+		assertEquals(2, intersections.size());
+		
+		assertEquals(3,	intersections.get(0).getX(), DELTA);
+		assertEquals(6,	intersections.get(0).getY(), DELTA);
+		
+		assertEquals(5,	intersections.get(1).getX(), DELTA);
+		assertEquals(4,	intersections.get(1).getY(), DELTA);
 	}
 	
 	private static List<Point2D> sortIntersections(Collection<Point2D> intersections) {
