@@ -84,11 +84,12 @@ public class Circle {
 	/**
 	 * Get the line of points with equal distance to both circle lines.
 	 * @param circle Other circle.
-	 * @return A line of points at which a circle touching both circles exists.
+	 * @return A line of points at which a circle touching both circles exists or <null> if infinitely many such lines exists, i.e. the center coincide.
 	 */
 	public Line getChordal(Circle circle) {
 		double a = 2 * (circle.getCenter().getX() - getCenter().getX());
 		double b = 2 * (circle.getCenter().getY() - getCenter().getY());
+		if (a == 0 && b == 0) return null;
 		double c = sq(getRadius()) - sq(getCenter().getX()) - sq(getCenter().getY()) - sq(circle.getRadius()) + sq(circle.getCenter().getX()) + sq(circle.getCenter().getY());
 		return new Line(a, b, c);
 	}

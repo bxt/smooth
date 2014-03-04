@@ -91,11 +91,11 @@ public class CircleTest {
 		assertTrue(chordal.contains(p(3, 6)));
 	}
 	
-	@Test(expected = RuntimeException.class) // TODO: figure better exception
+	@Test
 	public void testGetChordalFails() {
 		Circle circleA = new Circle(p(3, 4), 2);
 		Circle circleB = new Circle(p(3, 4), 2);
-		circleA.getChordal(circleB);
+		assertNull(circleA.getChordal(circleB));
 	}
 	
 	private static List<Point2D> sortIntersections(Collection<Point2D> intersections) {
