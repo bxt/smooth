@@ -57,5 +57,9 @@ public class Point2DOperations {
 	public static Point2D add(Point2D a, Point2D b) {
 		return new Point2D.Double(a.getX()+b.getX(), a.getY()+b.getY());
 	}
+
+	public static double dot(Point2D a, Point2D b) {
+		return a.getX() * b.getY() - b.getX() * a.getY();
+	}
 	
 }
