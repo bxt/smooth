@@ -10,6 +10,7 @@ import org.apache.commons.collections15.comparators.ReverseComparator;
 import org.apache.commons.collections15.comparators.TransformingComparator;
 
 import de.uniwue.smooth.util.point2d.Point2DComparatorFactories;
+import de.uniwue.smooth.util.point2d.Point2DOperations;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 
 /**
@@ -42,7 +43,7 @@ public class LayoutEmbedding<V, E> extends AdjacencyListEmbedding<V, E> implemen
 			@Override
 			public Point2D transform(E input) {
 				Point2D inputPoint = layout.transform(getOpposite(vertex, input));
-				return subtract(inputPoint, refPoint);
+				return Point2DOperations.subtract(inputPoint, refPoint);
 			}
 		}, Point2DComparatorFactories.atan2())));
 		return adjacent;
@@ -63,9 +64,5 @@ public class LayoutEmbedding<V, E> extends AdjacencyListEmbedding<V, E> implemen
 	@Override
 	public EmbeddingIterator<V, E> getEmbeddingIteratorAtEdge(E edge) {
 		return getEmbeddingIterator(layout.getGraph().getIncidentVertices(edge).iterator().next(), edge);
-	}
-	
-	public static Point2D subtract(Point2D p1, Point2D p2) {
-		return new Point2D.Double(p1.getX()-p2.getX(), p1.getY()-p2.getY());
 	}
 }
