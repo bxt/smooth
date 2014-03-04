@@ -10,11 +10,11 @@ public class CollisionManager {
 	private List<CollisionDomain> domains = new ArrayList<>();
 	
 	public void line(Pair<Integer> from, Pair<Integer> to) {
-		domains.add(new Line(from, to));
+		domains.add(new LineSegment(from, to));
 	}
 
 	public void line(Pair<Pair<Integer>> endpoints) {
-		domains.add(new Line(endpoints));
+		domains.add(new LineSegment(endpoints));
 	}
 
 	public void arc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to) {

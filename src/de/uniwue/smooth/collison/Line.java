@@ -1,27 +1,34 @@
 package de.uniwue.smooth.collison;
 
+import java.awt.geom.Point2D;
+
+import de.uniwue.smooth.util.point2d.Point2DOperations;
 import edu.uci.ics.jung.graph.util.Pair;
 
-public class Line extends AbstractCollisionDomain implements CollisionDomain {
+public class Line {
+	
+	private Point2D from;
+	private Point2D to;
 
 	public Line(Pair<Integer> from, Pair<Integer> to) {
-		// TODO Auto-generated constructor stub
+		this(new Pair<>(from, to));
 	}
 
 	public Line(Pair<Pair<Integer>> endpoints) {
-		// TODO Auto-generated constructor stub
+		this(Point2DOperations.fromIntegerPair(endpoints.getFirst() ),
+			 Point2DOperations.fromIntegerPair(endpoints.getSecond()));
 	}
 
-	@Override
-	protected Integer collisionOffset(CircleArc cirecleArc) {
-		// TODO Auto-generated method stub
-		return collisionOffsetUnknownCombination(cirecleArc);
+	public Line(Point2D from, Point2D to) {
+		this.from = from;
+		this.to = to;
 	}
 
-	@Override
-	protected Integer collisionOffset(Line line) {
-		// TODO Auto-generated method stub
-		return collisionOffsetUnknownCombination(line);
+	public Point2D getFrom() {
+		return from;
 	}
 
+	public Point2D getTo() {
+		return to;
+	}
 }

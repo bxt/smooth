@@ -19,7 +19,7 @@ public class CircleArc extends AbstractCollisionDomain implements CollisionDomai
 	}
 
 	@Override
-	protected Integer collisionOffset(Line line) {
+	protected Integer collisionOffset(LineSegment line) {
 		// TODO Auto-generated method stub
 		return collisionOffsetUnknownCombination(line);
 	}

@@ -13,8 +13,8 @@ public abstract class AbstractCollisionDomain implements CollisionDomain {
 		if(domain instanceof AbstractCollisionDomain) {
 			if (domain instanceof CircleArc) {
 				return collisionOffset((CircleArc) domain);
-			} else if (domain instanceof Line) {
-				return collisionOffset((Line) domain);
+			} else if (domain instanceof LineSegment) {
+				return collisionOffset((LineSegment) domain);
 			} else {
 				return collisionOffsetUnknownCombination((AbstractCollisionDomain) domain);
 			}
@@ -24,7 +24,7 @@ public abstract class AbstractCollisionDomain implements CollisionDomain {
 	}
 	
 	protected abstract Integer collisionOffset(CircleArc cirecleArc);
-	protected abstract Integer collisionOffset(Line line);
+	protected abstract Integer collisionOffset(LineSegment line);
 	
 	protected Integer collisionOffsetUnknownCombination(AbstractCollisionDomain domain) {
 		throw new UnsupportedOperationException("Can not detect collisions between " + this.getClass().getCanonicalName() + " and " + domain.getClass().getCanonicalName());
