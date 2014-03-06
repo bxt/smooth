@@ -82,11 +82,11 @@ public class LineTest {
 
 	@Test
 	public void testContainsVertical() {
-		Line line = new Line(p(0, 0), p(1,0));
-		assertTrue(line.contains(p(0,0)));
-		assertTrue(line.contains(p(1,0)));
-		assertTrue(line.contains(p(2,0)));
-		assertTrue(line.contains(p(-0.5,0)));
+		Line line = new Line(p(0, 0), p(1, 0));
+		assertTrue(line.contains(p(0, 0)));
+		assertTrue(line.contains(p(1, 0)));
+		assertTrue(line.contains(p(2, 0)));
+		assertTrue(line.contains(p(-0.5, 0)));
 		
 		assertFalse(line.contains(p(0, 1)));
 		assertFalse(line.contains(p(0, -1)));
@@ -94,6 +94,17 @@ public class LineTest {
 		assertFalse(line.contains(p(1, -1)));
 		assertFalse(line.contains(p(-1, 1)));
 		assertFalse(line.contains(p(-1, -1)));
+		assertFalse(line.contains(p(0.3, 0.3)));
+	}
+
+	@Test
+	public void testContainsUneven() {
+		Line line = new Line(p(0, 0), p(1,2));
+		assertTrue(line.contains(p(0, 0)));
+		assertTrue(line.contains(p(1.0/3, 2.0/3)));
+		assertTrue(line.contains(p(1.0/8, Math.sqrt(0.0625))));
+		assertTrue(line.contains(p(1.5, 3)));
+		
 		assertFalse(line.contains(p(0.3, 0.3)));
 	}
 
