@@ -12,6 +12,8 @@ import edu.uci.ics.jung.graph.util.Pair;
  */
 public class Circle {
 	
+	private static final double EPSILON = 1E-11;
+	
 	private Point2D center;
 	private double radius;
 	
@@ -96,6 +98,15 @@ public class Circle {
 		return new Line(a, b, c);
 	}
 	
+	/**
+	 * Check if a points lies on the circle.
+	 * @param point The point to check.
+	 * @return If or not the point is on the circle.
+	 */
+	public boolean contains(Point2D point) {
+		return fuzzyEquals(sq(getRadius()), sq(point.getX() - center.getX()) + sq(point.getY() - center.getY()));
+	}
+	
 	private static double sq(double a) {
 		return a*a;
 	}
@@ -104,4 +115,8 @@ public class Circle {
 		return a < 0 ? -1 : 1;
 	}
 	
+	private static boolean fuzzyEquals(double a, double b) {
+	    if (a==b) return true;
+	    return Math.abs(a - b) < EPSILON * Math.max(Math.abs(a), Math.abs(b));
+	 }
 }

@@ -152,6 +152,23 @@ public class CircleTest {
 		assertEquals( 2,	intersections.get(0).getY(), DELTA);
 	}
 	
+	@Test
+	public void testContains() {
+		Circle circle = new Circle(p(-2, 2), 3);
+		
+		assertTrue(circle.contains(p(-5, 2)));
+		assertTrue(circle.contains(p( 1, 2)));
+		assertTrue(circle.contains(p(-2, 5)));
+		assertTrue(circle.contains(p(-2,-1)));
+		assertTrue(circle.contains(p(-2 + Math.sqrt(4.5), 2 + Math.sqrt(4.5))));
+		
+		assertFalse(circle.contains(p(-5.00001, 2)));
+		assertFalse(circle.contains(p(-5, 1.99999)));
+		assertFalse(circle.contains(p(0, 0)));
+		assertFalse(circle.contains(p(-2, 2)));
+		assertFalse(circle.contains(p(42e12, 1337e11)));
+	}
+	
 	private static List<Point2D> sortIntersections(Collection<Point2D> intersections) {
 		List<Point2D> intersectionList = new ArrayList<>(intersections);
 		Collections.sort(intersectionList, Point2DComparatorFactories.xy());
