@@ -58,6 +58,27 @@ public abstract class Point2DOperations {
 		return new Point2D.Double(a.getX()+b.getX(), a.getY()+b.getY());
 	}
 
+	/**
+	 * Returns the point with negated components.
+	 * 
+	 * This is equivalent to a point reflection around the origin.
+	 * 
+	 * @param a Input point.
+	 * @param b Point added to the input point.
+	 * @return The point <tt>a + b</tt>.
+	 */
+	public static Point2D neg(Point2D a) {
+		return new Point2D.Double(-a.getX(), -a.getY());
+	}
+	
+	/**
+	 * Computes the dot (scalar) product of the coordinates of two points,
+	 * i.e. <tt>a.x * b.y + b.x * a.y</tt>.
+	 * 
+	 * @param a The first point.
+	 * @param b The second point.
+	 * @return The scalar product of the points.
+	 */
 	public static double dot(Point2D a, Point2D b) {
 		return a.getX() * b.getY() - b.getX() * a.getY();
 	}

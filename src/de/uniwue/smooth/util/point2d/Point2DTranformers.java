@@ -66,4 +66,23 @@ public abstract class Point2DTranformers {
 			return Point2DOperations.fromIntegerPair(input);
 		}
 	}
+	
+	/**
+	 * Transforms the input point to the result of a call to 
+	 * {@link Point2DOperations#add(Point2D, Point2D)} for the
+	 * input point and the point passed while constructing.
+	 */
+	public static class Add implements Transformer<Point2D, Point2D> {
+		private Point2D summand;
+		
+		public Add(Point2D summand) {
+			this.summand = summand;
+		}
+
+		@Override
+		public Point2D transform(Point2D input) {
+			return Point2DOperations.add(input, summand);
+		}
+	}
+	
 }
