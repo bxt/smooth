@@ -54,15 +54,15 @@ public class Box {
 	}
 	
 	/**
-	 * Check if a points lies on the line.
+	 * Check if a points lies in this box, or on its boundaries.
 	 * @param point The point to check.
-	 * @return If or not the point is on the line.
+	 * @return If or not the point is in the box.
 	 */
 	public boolean contains(Point2D point) {
-		return from.getX() < point.getX() && point.getX() < to.getX() &&
+		return from.getX() <= point.getX() && point.getX() <= to.getX() &&
 				(from.getY() < to.getY() ?
-						(from.getY() < point.getY() && point.getY() < to.getY()) :
-							(to.getY() < point.getY() && point.getY() < from.getY())); 
+						(from.getY() <= point.getY() && point.getY() <= to.getY()) :
+							(to.getY() <= point.getY() && point.getY() <= from.getY())); 
 	}
 
 	@Override
