@@ -1,8 +1,7 @@
 package de.uniwue.smooth.collison;
 
+import static de.uniwue.smooth.collison.TestUtils.p;
 import static org.junit.Assert.*;
-
-import java.awt.geom.Point2D;
 
 import org.junit.Test;
 
@@ -108,8 +107,4 @@ public class LineTest {
 		assertFalse(line.contains(p(0.3, 0.3)));
 	}
 
-	private static Point2D p(double x, double y) {
-		return new Point2D.Double(x, y);
-	}
-	
 }

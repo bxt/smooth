@@ -1,5 +1,6 @@
 package de.uniwue.smooth.collison;
 
+import static de.uniwue.smooth.collison.TestUtils.p;
 import static org.junit.Assert.*;
 
 import java.awt.geom.Point2D;
@@ -173,10 +174,6 @@ public class CircleTest {
 		List<Point2D> intersectionList = new ArrayList<>(intersections);
 		Collections.sort(intersectionList, Point2DComparatorFactories.xy());
 		return intersectionList;
-	}
-	
-	private static Point2D p(double x, double y) {
-		return new Point2D.Double(x, y);
 	}
 	
 }
