@@ -90,4 +90,9 @@ public class Line {
 	public boolean contains(Point2D point) {
 		return Point2DOperations.dot(point, Point2DOperations.subtract(to, from)) == Point2DOperations.dot(from, to);
 	}
+
+	@Override
+	public String toString() {
+		return "Line [from=" + from + ", to=" + to + "]";
+	}
 }

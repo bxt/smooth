@@ -116,6 +116,11 @@ public class Circle {
 		return fuzzyEquals(sq(getRadius()), sq(point.getX() - center.getX()) + sq(point.getY() - center.getY()));
 	}
 	
+	@Override
+	public String toString() {
+		return "Circle [center=" + center + ", radius=" + radius + "]";
+	}
+	
 	private static double sq(double a) {
 		return a*a;
 	}

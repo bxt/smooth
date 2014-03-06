@@ -65,9 +65,19 @@ public class Sector {
 		return offset > 0 && offset < extend;
 	}
 	
+	@Override
+	public String toString() {
+		return "Sector[from=" + radiansToDegrees(from) + ", extend=" + radiansToDegrees(extend) + "]";
+	}
+	
 	private static double normalizeAngle(double a) {
 		a = a % TWO_PI;
 		return a < 0 ? a + TWO_PI : a;
 	}
+	
+	private static double radiansToDegrees(double a) {
+		return (a/TWO_PI)*365;
+	}
+	
 
 }
