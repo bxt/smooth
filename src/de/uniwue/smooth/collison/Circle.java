@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Predicate;
 
 import de.uniwue.smooth.util.point2d.Point2DOperations;
 import de.uniwue.smooth.util.point2d.Point2DTranformers;
@@ -105,6 +106,22 @@ public class Circle {
 		if (a == 0 && b == 0) return null;
 		double c = sq(getRadius()) - sq(getCenter().getX()) - sq(getCenter().getY()) - sq(circle.getRadius()) + sq(circle.getCenter().getX()) + sq(circle.getCenter().getY());
 		return new Line(a, b, c);
+	}
+	
+	/**
+	 * Calculates the intersection points between this circle and a {@link LineSegment}.
+	 * 
+	 * @param lineSegment The line segment to calculate the intersections for.
+	 * @return The 0, 1 or 2 intersection points.
+	 */
+	public Collection<Point2D> intersections(final LineSegment lineSegment) {
+		Collection<Point2D> intersectionsLine = intersections(lineSegment.getLine());
+		return CollectionUtils.select(intersectionsLine, new Predicate<Point2D>() {
+			@Override
+			public boolean evaluate(Point2D point) {
+				return lineSegment.contains(point);
+			}
+		});
 	}
 	
 	/**
