@@ -5,6 +5,9 @@ import java.awt.geom.Point2D;
 import de.uniwue.smooth.util.point2d.Point2DOperations;
 import edu.uci.ics.jung.graph.util.Pair;
 
+/**
+ * Represents a 2D line.
+ */
 public class Line {
 	
 	private Point2D from;
@@ -79,6 +82,11 @@ public class Line {
 		return to;
 	}
 	
+	/**
+	 * Check if a points lies on the line.
+	 * @param point The point to check.
+	 * @return If or not the point is on the line.
+	 */
 	public boolean contains(Point2D point) {
 		return Point2DOperations.dot(point, Point2DOperations.subtract(to, from)) == Point2DOperations.dot(from, to);
 	}
