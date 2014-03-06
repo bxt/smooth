@@ -19,7 +19,7 @@ import edu.uci.ics.jung.graph.util.Pair;
 /**
  * Some utility functions that did not fit anywhere else.
  */
-public class Util {
+public abstract class Util {
 	
 	/**
 	 * Copy all vertixes from one graph into another graph. The vertices themselves are

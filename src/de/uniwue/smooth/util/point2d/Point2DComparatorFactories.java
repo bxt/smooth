@@ -12,7 +12,7 @@ import org.apache.commons.collections15.comparators.TransformingComparator;
 /**
  * Allows comparison of {@link Point2D} using various criteria. 
  */
-public class Point2DComparatorFactories {
+public abstract class Point2DComparatorFactories {
 	
 	/**
 	 * Build a comparator for sorting points by their x coordinate.

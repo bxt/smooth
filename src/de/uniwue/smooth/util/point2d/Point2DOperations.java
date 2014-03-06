@@ -7,7 +7,7 @@ import edu.uci.ics.jung.graph.util.Pair;
 /**
  * Some convenient static methods on {@link Point2D}s.  
  */
-public class Point2DOperations {
+public abstract class Point2DOperations {
 
 	/**
 	 * Calculates the result of the {@link Math#atan2(double, double)}

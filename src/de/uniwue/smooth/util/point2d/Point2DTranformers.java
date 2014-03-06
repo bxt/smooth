@@ -10,7 +10,7 @@ import edu.uci.ics.jung.graph.util.Pair;
  * Some convenient {@link Transformer}s that will call
  * methods on {@link Point2D}s.  
  */
-public class Point2DTranformers {
+public abstract class Point2DTranformers {
 	
 	/**
 	 * Transforms the input point to the result of a call to 
