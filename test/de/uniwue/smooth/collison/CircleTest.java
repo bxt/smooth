@@ -1,17 +1,13 @@
 package de.uniwue.smooth.collison;
 
-import static de.uniwue.smooth.collison.TestUtils.p;
+import static de.uniwue.smooth.collison.TestUtils.*;
 import static org.junit.Assert.*;
 
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
-
-import de.uniwue.smooth.util.point2d.Point2DComparatorFactories;
 
 public class CircleTest {
 
@@ -168,12 +164,6 @@ public class CircleTest {
 		assertFalse(circle.contains(p(0, 0)));
 		assertFalse(circle.contains(p(-2, 2)));
 		assertFalse(circle.contains(p(42e12, 1337e11)));
-	}
-	
-	private static List<Point2D> sortIntersections(Collection<Point2D> intersections) {
-		List<Point2D> intersectionList = new ArrayList<>(intersections);
-		Collections.sort(intersectionList, Point2DComparatorFactories.xy());
-		return intersectionList;
 	}
 	
 }
