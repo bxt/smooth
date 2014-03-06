@@ -4,7 +4,10 @@ import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.apache.commons.collections15.CollectionUtils;
+
 import de.uniwue.smooth.util.point2d.Point2DOperations;
+import de.uniwue.smooth.util.point2d.Point2DTranformers;
 import edu.uci.ics.jung.graph.util.Pair;
 
 /**
@@ -44,12 +47,18 @@ public class Circle {
 	 * @return The 0, 1 or 2 intersection points.
 	 */
 	public Collection<Point2D> intersections(Line line) {
-		Line normalizedLine = new Line(Point2DOperations.subtract(line.getFrom(), center), Point2DOperations.subtract(line.getTo(), center));
-		double dX = normalizedLine.getTo().getX() - normalizedLine.getFrom().getX();
-		double dY = normalizedLine.getTo().getY() - normalizedLine.getFrom().getY();
+		Line normalizedLine = new Line(Point2DOperations.subtract(line.getFrom(), getCenter()), Point2DOperations.subtract(line.getTo(), getCenter()));
+		Collection<Point2D> intersectionsOrigin = intersectionsOrigin(normalizedLine, getRadius());
+		return CollectionUtils.collect(intersectionsOrigin, new Point2DTranformers.Add(getCenter()));
+		
+	}
+	
+	private static Collection<Point2D> intersectionsOrigin(Line line, double radius) {
+		double dX = line.getTo().getX() - line.getFrom().getX();
+		double dY = line.getTo().getY() - line.getFrom().getY();
 		double dr2 =sq(dX) + sq(dY);
 		double dr = Math.sqrt(dr2);
-		double D  = Point2DOperations.dot(normalizedLine.getFrom(), normalizedLine.getTo());
+		double D  = Point2DOperations.dot(line.getFrom(), line.getTo());
 		
 		double discriminant = sq(radius) * sq(dr) - sq(D);
 		
@@ -63,11 +72,11 @@ public class Circle {
 				double c = sgn(dY) * dX * Math.sqrt(discriminant);
 				double d = Math.abs(dY) * Math.sqrt(discriminant);
 				
-				return new Pair<Point2D>(Point2DOperations.add(new Point2D.Double((a + c) / dr2, (b + d) / dr2), center) ,
-				                         Point2DOperations.add(new Point2D.Double((a - c) / dr2, (b - d) / dr2), center) );
+				return new Pair<Point2D>(new Point2D.Double((a + c) / dr2, (b + d) / dr2) ,
+				                         new Point2D.Double((a - c) / dr2, (b - d) / dr2) );
 			} else { // Tangent, one intersection
 				return Collections.<Point2D>singletonList(
-				                         Point2DOperations.add(new Point2D.Double( a      / dr2,  b      / dr2), center));
+				                         new Point2D.Double( a      / dr2,  b      / dr2) );
 			}
 		}
 		
