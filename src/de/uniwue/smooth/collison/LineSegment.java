@@ -11,15 +11,18 @@ public class LineSegment extends AbstractCollisionDomain implements CollisionDom
 	private Point2D to;
 
 	public LineSegment(Pair<Integer> from, Pair<Integer> to) {
-		this.from = Point2DOperations.fromIntegerPair(from);
-		this.to   = Point2DOperations.fromIntegerPair(to  );
+		this(Point2DOperations.fromIntegerPair(from), Point2DOperations.fromIntegerPair(to));
 	}
 
 	public LineSegment(Pair<Pair<Integer>> endpoints) {
-		this.from = Point2DOperations.fromIntegerPair(endpoints.getFirst());
-		this.to   = Point2DOperations.fromIntegerPair(endpoints.getSecond());
+		this(endpoints.getFirst(), endpoints.getSecond());
 	}
 	
+	public LineSegment(Point2D from, Point2D to) {
+		this.from = from;
+		this.to = to;
+	}
+
 	@Override
 	protected Integer collisionOffset(CircleArc cirecleArc) {
 		// TODO Auto-generated method stub
@@ -31,5 +34,26 @@ public class LineSegment extends AbstractCollisionDomain implements CollisionDom
 		// TODO Auto-generated method stub
 		return collisionOffsetUnknownCombination(line);
 	}
+	
+	public Line getLine() {
+		return new Line(from, to);
+	}
+	
+	public Box getBoundingBox() {
+		return new Box(from, to);
+	}
+	
+	/**
+	 * Check if a points lies on the line segment, or on one of its endpoints.
+	 * @param point The point to check.
+	 * @return If or not the point is on the line segment.
+	 */
+	public boolean contains(Point2D point) {
+		return getLine().contains(point) && getBoundingBox().contains(point);
+	}
 
+	@Override
+	public String toString() {
+		return "LineSegment [from=" + from + ", to=" + to + "]";
+	}
 }
