@@ -83,4 +83,15 @@ public abstract class Point2DOperations {
 		return a.getX() * b.getY() - b.getX() * a.getY();
 	}
 	
+	/**
+	 * Returns the point with scaled components.
+	 * 
+	 * @param a Input point.
+	 * @param b Factor to sale the components with.
+	 * @return The scaled point <tt>a * b</tt>.
+	 */
+	public static Point2D scale(Point2D a, double factor) {
+		return new Point2D.Double(factor * a.getX(), factor * a.getY());
+	}
+	
 }

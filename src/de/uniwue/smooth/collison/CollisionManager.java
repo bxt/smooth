@@ -18,11 +18,11 @@ public class CollisionManager {
 	}
 
 	public void arc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to) {
-		domains.add(new CircleArc(from, mid, to));
+		domains.add(CircleArc.getCircleArc(from, mid, to));
 	}
 
 	public void arc(Pair<Integer> from, Pair<Integer> to) {
-		domains.add(new CircleArc(from, to));
+		domains.add(CircleArc.getCircleArc(from, to));
 	}
 	
 	private List<Pair<CollisionDomain>> collisions() {
