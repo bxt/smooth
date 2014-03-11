@@ -2,6 +2,7 @@ package de.uniwue.smooth.collison;
 
 import java.awt.geom.Point2D;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
@@ -65,6 +66,26 @@ public class CircleArc extends AbstractCollisionDomain implements CollisionDomai
 	protected Integer collisionOffset(LineSegment line) {
 		// TODO Auto-generated method stub
 		return collisionOffsetUnknownCombination(line);
+	}
+	
+	/**
+	 * Calculates the intersection points between this circle arc and another one.
+	 * 
+	 * @param circleArc The other circle arc to calculate the intersections with this one for.
+	 * @return The 0, 1 or 2 intersection points or null if the arcs overlap.
+	 */
+	public Collection<Point2D> intersections(final CircleArc circleArc) {
+		Collection<Point2D> intersectionsCircles = getCircle().intersections(circleArc.getCircle());
+		if(intersectionsCircles == null) { // circles are equal
+			return getSector().intersects(circleArc.getSector()) ? null : Collections.<Point2D>emptyList();
+		} else {
+			return CollectionUtils.select(intersectionsCircles, new Predicate<Point2D>() {
+				@Override
+				public boolean evaluate(Point2D point) {
+					return sectorContains(point) && circleArc.sectorContains(point);
+				}
+			});
+		}
 	}
 	
 	/**

@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 public class CircleArcTest {
-
+	
 	@Test
 	public void testContainsA() {
 		CircleArc circleArc = CircleArc.getCircleArc(p(6, 2), p(1, 2), p(1, 7));
@@ -109,12 +109,86 @@ public class CircleArcTest {
 	}
 	
 	@Test
-	public void testNoIntersectionsLine() {
+	public void testNoIntersectionsLineTangentiallyConnected() {
 		CircleArc circleArc = CircleArc.getCircleArc(p(6, 2), p(1, 2), p(1, 7));
 		LineSegment lineSegment = new LineSegment(p(6, -2), p(6, 2));
 		
 		List<Point2D> intersections = sortIntersections(circleArc.intersections(lineSegment));
 		assertEquals(0, intersections.size());
+	}
+	
+	@Test
+	public void testIntersectionsCircleOneA() {
+		CircleArc circleArcA = CircleArc.getCircleArc(p( 1, -3), p( 1,  2), p( 1,  7));
+		CircleArc circleArcB = CircleArc.getCircleArc(p( 9,  7), p( 9,  2), p( 4,  2));
+		
+		List<Point2D> intersections = sortIntersections(circleArcA.intersections(circleArcB));
+		assertEquals(1, intersections.size());
+		
+		assertEquals(5,	intersections.get(0).getX(), DELTA);
+		assertEquals(5,	intersections.get(0).getY(), DELTA);
+	}
+	
+	@Test
+	public void testIntersectionsCircleOneB() {
+		CircleArc circleArcA = CircleArc.getCircleArc(p( 1, -3), p( 1,  2), p( 1,  7));
+		CircleArc circleArcB = CircleArc.getCircleArc(p( 4,  2), p( 9,  2), p( 9,  7));
+		
+		List<Point2D> intersections = sortIntersections(circleArcA.intersections(circleArcB));
+		assertEquals(1, intersections.size());
+		
+		assertEquals( 5,	intersections.get(0).getX(), DELTA);
+		assertEquals(-1,	intersections.get(0).getY(), DELTA);
+	}
+	
+	@Test
+	public void testIntersectionsCircleTwo() {
+		CircleArc circleArcA = CircleArc.getCircleArc(p( 1, -3), p( 1,  2), p( 1,  7));
+		CircleArc circleArcB = CircleArc.getCircleArc(p( 9,  7), p( 9, 2 ), p( 9, -3));
+		
+		List<Point2D> intersections = sortIntersections(circleArcA.intersections(circleArcB));
+		assertEquals(2, intersections.size());
+		
+		assertEquals( 5,	intersections.get(0).getX(), DELTA);
+		assertEquals(-1,	intersections.get(0).getY(), DELTA);
+		
+		assertEquals( 5,	intersections.get(1).getX(), DELTA);
+		assertEquals( 5,	intersections.get(1).getY(), DELTA);
+	}
+	
+	@Test
+	public void testNoIntersectionsCircleDifferentRadii() {
+		CircleArc circleArcA = CircleArc.getCircleArc(p(6, 2), p(1, 2), p(1, 7));
+		CircleArc circleArcB = CircleArc.getCircleArc(p(7, 2), p(1, 2), p(1, 8));
+		
+		List<Point2D> intersections = sortIntersections(circleArcA.intersections(circleArcB));
+		assertEquals(0, intersections.size());
+	}
+	
+	@Test
+	public void testNoIntersectionsCircleTangentiallyConnected() {
+		CircleArc circleArcA = CircleArc.getCircleArc(p(4, 6), p(1, 2), p(1, 7));
+		CircleArc circleArcB = CircleArc.getCircleArc(p(6, 2), p(1, 2), p(4, 6));
+		
+		List<Point2D> intersections = sortIntersections(circleArcA.intersections(circleArcB));
+		assertEquals(0, intersections.size());
+	}
+	
+	@Test
+	public void testNoIntersectionsCircleNoArcOverlap() {
+		CircleArc circleArcA = CircleArc.getCircleArc(p(4, 6), p(1, 2), p(1, 7));
+		CircleArc circleArcB = CircleArc.getCircleArc(p(6, 2), p(1, 2), p(5, 5));
+		
+		List<Point2D> intersections = sortIntersections(circleArcA.intersections(circleArcB));
+		assertEquals(0, intersections.size());
+	}
+	
+	@Test
+	public void testNoIntersectionsCircleArcOverlap() {
+		CircleArc circleArcA = CircleArc.getCircleArc(p(5, 5), p(1, 2), p(1, 7));
+		CircleArc circleArcB = CircleArc.getCircleArc(p(6, 2), p(1, 2), p(4, 6));
+		
+		assertNull(circleArcA.intersections(circleArcB));
 	}
 	
 }
