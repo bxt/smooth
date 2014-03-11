@@ -127,6 +127,14 @@ public class CircleTest {
 	}
 	
 	@Test
+	public void testIntersectionsCircleOverlap() {
+		Circle circleA = new Circle(p(7, 6), 5);
+		Circle circleB = new Circle(p(7, 6), 5);
+		
+		assertNull(circleA.intersections(circleB));
+	}
+	
+	@Test
 	public void testNoIntersectionsCircle() {
 		Circle circleA = new Circle(p(4.0, 5.0), 2);
 		Circle circleB = new Circle(p(7.5, 1.5), 2);
