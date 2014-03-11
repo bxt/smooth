@@ -14,7 +14,14 @@ import edu.uci.ics.jung.graph.util.Pair;
  */
 public class Box {
 	
+	/**
+	 * The spanning point with the the lower x coordinate.
+	 */
 	private Point2D from;
+	
+	/**
+	 * The spanning point with the the higher x coordinate.
+	 */
 	private Point2D to;
 
 	public Box(Pair<Integer> from, Pair<Integer> to) {

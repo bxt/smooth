@@ -13,7 +13,7 @@ public class CircleArc extends AbstractCollisionDomain implements CollisionDomai
 
 	private Circle circle; 
 	private Sector sector;
-		
+	
 	public static CircleArc getCircleArc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to) {
 		Point2D fromPoint = Point2DOperations.fromIntegerPair(from);
 		Point2D toPoint = Point2DOperations.fromIntegerPair(to);
@@ -21,6 +21,13 @@ public class CircleArc extends AbstractCollisionDomain implements CollisionDomai
 		return getCircleArc(fromPoint, midPoint, toPoint);
 	}
 
+	/**
+	 * Create a half circle between two points. The circle wills start at
+	 * <tt>from</tt> and end at </tt>to</tt> in counter clockwise direction.
+	 * @param from Start point of the circle.
+	 * @param to End point of the circle.
+	 * @return A half circle between the two input points.
+	 */
 	public static CircleArc getCircleArc(Pair<Integer> from, Pair<Integer> to) {
 		Point2D fromPoint = Point2DOperations.fromIntegerPair(from);
 		Point2D toPoint = Point2DOperations.fromIntegerPair(to);

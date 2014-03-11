@@ -47,6 +47,7 @@ public class Sector {
 		return new Sector(normalizeAngle(from), normalizeAngle(extend));
 	}
 
+	
 	private double from;
 	private double extend;
 	
