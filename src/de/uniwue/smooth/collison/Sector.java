@@ -56,19 +56,53 @@ public class Sector {
 		this.extend = extend;
 	}
 	
+	public double getFrom() {
+		return from;
+	}
+
+	public double getTo() {
+		return normalizeAngle(from + extend);
+	}
+
+	public double getExtend() {
+		return extend;
+	}
+	
+	public boolean intersects(Sector sector) {
+		return intersect(sector) != null;
+	}
+	
+	public Sector intersect(Sector sector) {
+		if(!sector.contains(getTo()) && !contains(sector.getTo())) return null;
+		double intersectionFrom = contains(sector.getFrom()) ? sector.getFrom() : getFrom();
+		double intersectionTo = contains(sector.getTo()) ? sector.getTo() : getTo();
+		return Sector.getSectorBetween(intersectionFrom, intersectionTo);
+	}
+	
+	/**
+	 * Check if an angle is in this sector.
+	 * @param angle The angle to check in radians.
+	 * @return If or not the angle is in this sector.
+	 */
+	public boolean contains(double angle) {
+		double offset = normalizeAngle(angle - from);
+		return offset > 0 && offset < extend;
+	}
+	
 	/**
 	 * Check if a points is in this sector.
 	 * @param point The point to check.
 	 * @return If or not the point is in this sector.
 	 */
 	public boolean contains(Point2D point) {
-		double offset = normalizeAngle(Point2DOperations.atan2(point) - from);
-		return offset > 0 && offset < extend;
+		return contains(Point2DOperations.atan2(point));
 	}
 	
 	@Override
 	public String toString() {
-		return "Sector[from=" + radiansToDegrees(from) + ", extend=" + radiansToDegrees(extend) + "]";
+		return "Sector[" + Math.round(radiansToDegrees(getFrom()))
+				+ "+" + Math.round(radiansToDegrees(getExtend()))
+				+ "=" + Math.round(radiansToDegrees(getTo())) + "]";
 	}
 	
 	private static double normalizeAngle(double a) {
@@ -79,6 +113,5 @@ public class Sector {
 	private static double radiansToDegrees(double a) {
 		return (a/TWO_PI)*365;
 	}
-	
 
 }

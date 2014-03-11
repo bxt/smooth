@@ -1,8 +1,7 @@
 package de.uniwue.smooth.collison;
 
-import static de.uniwue.smooth.collison.TestUtils.p;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static de.uniwue.smooth.collison.TestUtils.*;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -118,5 +117,5 @@ public class SectorTest {
 		assertTrue(sector.contains(p( 1, -1)));
 		assertFalse(sector.contains(p(-1,  1)));
 	}
-
+	
 }
