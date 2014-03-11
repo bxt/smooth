@@ -130,7 +130,7 @@ public class Circle {
 	 * @return If or not the point is on the circle.
 	 */
 	public boolean contains(Point2D point) {
-		return fuzzyEquals(sq(getRadius()), sq(point.getX() - center.getX()) + sq(point.getY() - center.getY()));
+		return fuzzyEquals(sq(getRadius()), sq(point.getX() - getCenter().getX()) + sq(point.getY() - getCenter().getY()));
 	}
 	
 	@Override

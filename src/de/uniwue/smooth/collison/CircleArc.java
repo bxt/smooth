@@ -82,7 +82,7 @@ public class CircleArc extends AbstractCollisionDomain implements CollisionDomai
 	 * @return If or not the point is on the circle arc.
 	 */
 	public boolean contains(Point2D point) {
-		return circle.contains(point) && sectorContains(point);
+		return getCircle().contains(point) && sectorContains(point);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class CircleArc extends AbstractCollisionDomain implements CollisionDomai
 	 * @return If or not the point is on the sector of this arc.
 	 */
 	private boolean sectorContains(Point2D point) {
-		return sector.contains(Point2DOperations.subtract(point, circle.getCenter()));
+		return getSector().contains(Point2DOperations.subtract(point, getCircle().getCenter()));
 	}
 
 	@Override

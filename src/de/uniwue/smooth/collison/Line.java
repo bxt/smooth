@@ -88,7 +88,7 @@ public class Line {
 	 * @return If or not the point is on the line.
 	 */
 	public boolean contains(Point2D point) {
-		return Point2DOperations.dot(point, Point2DOperations.subtract(to, from)) == Point2DOperations.dot(from, to);
+		return Point2DOperations.dot(point, Point2DOperations.subtract(getTo(), getFrom())) == Point2DOperations.dot(getFrom(), getTo());
 	}
 
 	@Override
