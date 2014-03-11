@@ -71,7 +71,7 @@ public class CircleArc extends AbstractCollisionDomain implements CollisionDomai
 		return CollectionUtils.select(intersectionsLine, new Predicate<Point2D>() {
 			@Override
 			public boolean evaluate(Point2D point) {
-				return getSector().contains(point);
+				return sectorContains(point);
 			}
 		});
 	}
@@ -82,7 +82,16 @@ public class CircleArc extends AbstractCollisionDomain implements CollisionDomai
 	 * @return If or not the point is on the circle arc.
 	 */
 	public boolean contains(Point2D point) {
-		return circle.contains(point) && sector.contains(Point2DOperations.subtract(point, circle.getCenter()));
+		return circle.contains(point) && sectorContains(point);
+	}
+
+	/**
+	 * Check if a points lies in the sector of this circle arc.
+	 * @param point The point to check.
+	 * @return If or not the point is on the sector of this arc.
+	 */
+	private boolean sectorContains(Point2D point) {
+		return sector.contains(Point2DOperations.subtract(point, circle.getCenter()));
 	}
 
 	@Override
