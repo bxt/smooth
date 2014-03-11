@@ -68,10 +68,20 @@ public class Sector {
 		return extend;
 	}
 	
+	/**
+	 * If or not this sector overlaps with another sector.
+	 * @param sector The sector to test for intersections.
+	 * @return If or not this sector overlaps with the given sector.
+	 */
 	public boolean intersects(Sector sector) {
 		return intersect(sector) != null;
 	}
 	
+	/**
+	 * Get resulting sector when intersecting with another sector.
+	 * @param sector Calculate overlap with this sector.
+	 * @return The overlap or <tt>null</tt> if there is not overlap.
+	 */
 	public Sector intersect(Sector sector) {
 		if(!sector.contains(getTo()) && !contains(sector.getTo())) return null;
 		double intersectionFrom = contains(sector.getFrom()) ? sector.getFrom() : getFrom();
@@ -85,8 +95,8 @@ public class Sector {
 	 * @return If or not the angle is in this sector.
 	 */
 	public boolean contains(double angle) {
-		double offset = normalizeAngle(angle - from);
-		return offset > 0 && offset < extend;
+		double offset = normalizeAngle(angle - getFrom());
+		return offset > 0 && offset < getExtend();
 	}
 	
 	/**
