@@ -32,12 +32,22 @@ public class BoxTest {
 	public void testContains() {
 		Box box = new Box(p(xFactor * 1, yFactor * 2), p(xFactor * 3, yFactor * 5));
 		
+		// Inside
 		assertTrue(box.contains(p(xFactor * 2, yFactor * 3)));
 		assertTrue(box.contains(p(xFactor * 2, yFactor * 4)));
 		
-		assertFalse(box.contains(p(xFactor * 1, yFactor * 2)));
-		assertFalse(box.contains(p(xFactor * 3, yFactor * 5)));
-		assertFalse(box.contains(p(xFactor * 1, yFactor * 3)));
+		// Endpoints
+		assertTrue(box.contains(p(xFactor * 1, yFactor * 2)));
+		assertTrue(box.contains(p(xFactor * 3, yFactor * 5)));
+		
+		// Boundaries
+		assertTrue(box.contains(p(xFactor * 1, yFactor * 3)));
+		
+		// Outside
+		assertFalse(box.contains(p(xFactor * 0, yFactor * 1)));
+		assertFalse(box.contains(p(xFactor * 4, yFactor * 4)));
+		assertFalse(box.contains(p(xFactor * 2, yFactor * 6)));
+		assertFalse(box.contains(p(xFactor * 4, yFactor * 6)));
 	}
 
 }
