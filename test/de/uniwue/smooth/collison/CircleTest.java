@@ -144,6 +144,15 @@ public class CircleTest {
 	}
 	
 	@Test
+	public void testNoIntersectionsCircleSameCenter() {
+		Circle circleA = new Circle(p(3, 4), 2);
+		Circle circleB = new Circle(p(3, 4), 3);
+		
+		List<Point2D> intersections = sortIntersections(circleA.intersections(circleB));
+		assertEquals(0, intersections.size());
+	}
+	
+	@Test
 	public void testTangentCircle() {
 		Circle circleA = new Circle(p(-2, 2), 3);
 		Circle circleB = new Circle(p(-6, 2), 1);

@@ -91,7 +91,8 @@ public class Circle {
 	 */
 	public Collection<Point2D> intersections(Circle circle) {
 		Line chordal = getChordal(circle);
-		if(chordal == null) return null;
+		if(chordal == null)
+			return getRadius() == circle.getRadius() ? null : Collections.<Point2D>emptyList();
 		return intersections(chordal);
 	}
 	
