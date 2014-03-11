@@ -10,8 +10,6 @@ import org.junit.Test;
 
 public class CircleArcTest {
 
-	private static double DELTA = 0.0001;
-	
 	@Test
 	public void testContainsA() {
 		CircleArc circleArc = CircleArc.getCircleArc(p(6, 2), p(1, 2), p(1, 7));

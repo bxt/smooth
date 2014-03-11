@@ -11,8 +11,6 @@ import org.junit.Test;
 
 public class CircleTest {
 
-	private static double DELTA = 0.0001;
-	
 	@Test
 	public void testNoIntersectionsLine() {
 		Circle circle = new Circle(p(4, 5), 2);

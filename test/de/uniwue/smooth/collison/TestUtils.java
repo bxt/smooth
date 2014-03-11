@@ -10,6 +10,8 @@ import de.uniwue.smooth.util.point2d.Point2DComparatorFactories;
 
 public abstract class TestUtils {
 	
+	public static double DELTA = 0.0001;
+	
 	public static Point2D p(double x, double y) {
 		return new Point2D.Double(x, y);
 	}
