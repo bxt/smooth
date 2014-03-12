@@ -42,7 +42,7 @@ public class CollisionDomain<T> {
 		if (body instanceof CircleArc) {
 			return nullsafeNegate(collisionOffset(lineSegment, (CircleArc) body));
 		} else {
-			return collisionOffsetUnknownCombination(lineSegment);
+			return collisionOffset((LineSegment) body, lineSegment);
 		}
 	}
 	
@@ -55,12 +55,20 @@ public class CollisionDomain<T> {
 	
 	private static Integer collisionOffset(CircleArc cirecleArcA, CircleArc cirecleArcB) {
 		Collection<Point2D> intersections = cirecleArcA.intersections(cirecleArcB);
-		return intersections == null ? 1 : (intersections.size() > 0 ? 1 : null);
+		if (intersections == null) {
+			return 1;
+		} else {
+			return intersections.size() > 0 ? 1 : null;
+		}
 	}
 	
 	private static Integer collisionOffset(LineSegment lineSegment, CircleArc cirecleArc) {
 		Collection<Point2D> intersections = cirecleArc.intersections(lineSegment);
 		return intersections.size() > 0 ? 1 : null;
+	}
+	
+	private static Integer collisionOffset(LineSegment lineSegmentA, LineSegment lineSegmentB) {
+		return null; // TODO: check anyways!
 	}
 	
 	private static Integer nullsafeNegate(Integer integer) {
