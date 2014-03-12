@@ -12,6 +12,7 @@ public class CollisionManager {
 	private List<CollisionDomain<?>> domains = new ArrayList<>();
 	
 	public void line(Pair<Integer> from, Pair<Integer> to) {
+		if(from.equals(to)) return;
 		addDomain(new LineSegment(from, to));
 	}
 
@@ -28,6 +29,7 @@ public class CollisionManager {
 	}
 	
 	public boolean collidesLine(Pair<Integer> from, Pair<Integer> to) {
+		if(from.equals(to)) return false;
 		return collidesDomain(new LineSegment(from, to));
 	}
 
