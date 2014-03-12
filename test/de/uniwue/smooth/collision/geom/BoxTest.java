@@ -49,5 +49,17 @@ public class BoxTest {
 		assertFalse(box.contains(p(xFactor * 2, yFactor * 6)));
 		assertFalse(box.contains(p(xFactor * 4, yFactor * 6)));
 	}
+	
+	@Test
+	public void testIntersection() {
+		Box boxA = new Box(p(xFactor * 1, yFactor * 1), p(xFactor * 5, yFactor * 3));
+		Box boxB = new Box(p(xFactor * 2, yFactor * 0), p(xFactor * 4, yFactor * 2));
+		
+		Box boxIntersection = boxA.intersect(boxB);
+		assertTrue(boxIntersection.contains(p(xFactor * 2, yFactor * 1)));
+		assertTrue(boxIntersection.contains(p(xFactor * 4, yFactor * 2)));
+		assertFalse(boxIntersection.contains(p(xFactor * 1, yFactor * 1)));
+		
+	}
 
 }
