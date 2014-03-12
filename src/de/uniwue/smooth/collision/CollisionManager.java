@@ -1,8 +1,10 @@
-package de.uniwue.smooth.collison;
+package de.uniwue.smooth.collision;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.uniwue.smooth.collision.geom.CircleArc;
+import de.uniwue.smooth.collision.geom.LineSegment;
 import edu.uci.ics.jung.graph.util.Pair;
 
 public class CollisionManager {

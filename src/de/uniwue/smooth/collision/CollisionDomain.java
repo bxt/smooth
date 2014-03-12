@@ -1,7 +1,10 @@
-package de.uniwue.smooth.collison;
+package de.uniwue.smooth.collision;
 
 import java.awt.geom.Point2D;
 import java.util.Collection;
+
+import de.uniwue.smooth.collision.geom.CircleArc;
+import de.uniwue.smooth.collision.geom.LineSegment;
 
 
 public class CollisionDomain<T> {

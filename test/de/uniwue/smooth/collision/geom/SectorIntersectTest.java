@@ -1,6 +1,6 @@
-package de.uniwue.smooth.collison;
+package de.uniwue.smooth.collision.geom;
 
-import static de.uniwue.smooth.collison.TestUtils.*;
+import static de.uniwue.smooth.collision.geom.TestUtils.*;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
@@ -11,6 +11,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+
+import de.uniwue.smooth.collision.geom.Sector;
 
 @RunWith(Parameterized.class)
 public class SectorIntersectTest {

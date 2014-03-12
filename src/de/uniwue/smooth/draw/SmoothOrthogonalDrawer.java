@@ -1,6 +1,6 @@
 package de.uniwue.smooth.draw;
 
-import de.uniwue.smooth.collison.CollisionManager;
+import de.uniwue.smooth.collision.CollisionManager;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.orthogonal.Port;
 import de.uniwue.smooth.util.Util;

@@ -1,9 +1,11 @@
-package de.uniwue.smooth.collison;
+package de.uniwue.smooth.collision.geom;
 
-import static de.uniwue.smooth.collison.TestUtils.*;
+import static de.uniwue.smooth.collision.geom.TestUtils.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import de.uniwue.smooth.collision.geom.Sector;
 
 public class SectorTest {
 

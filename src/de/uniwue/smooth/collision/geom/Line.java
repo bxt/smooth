@@ -1,4 +1,4 @@
-package de.uniwue.smooth.collison;
+package de.uniwue.smooth.collision.geom;
 
 import java.awt.geom.Point2D;
 

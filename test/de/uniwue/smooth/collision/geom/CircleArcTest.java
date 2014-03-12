@@ -1,12 +1,15 @@
-package de.uniwue.smooth.collison;
+package de.uniwue.smooth.collision.geom;
 
-import static de.uniwue.smooth.collison.TestUtils.*;
+import static de.uniwue.smooth.collision.geom.TestUtils.*;
 import static org.junit.Assert.*;
 
 import java.awt.geom.Point2D;
 import java.util.List;
 
 import org.junit.Test;
+
+import de.uniwue.smooth.collision.geom.CircleArc;
+import de.uniwue.smooth.collision.geom.LineSegment;
 
 public class CircleArcTest {
 	
