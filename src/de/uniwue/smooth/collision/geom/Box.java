@@ -65,18 +65,44 @@ public class Box {
 		return to;
 	}
 	
+	/**
+	 * Get the interval that this box occupies on the x axis.
+	 * @return Interval that this box occupies on the x axis.
+	 */
 	public Interval getXInterval() {
 		return Interval.getIntervalBetween(from.getX(), to.getX());
 	}
 	
+	/**
+	 * Get the interval that this box occupies on the y axis.
+	 * @return Interval that this box occupies on the y axis.
+	 */
 	public Interval getYInterval() {
 		return Interval.getIntervalBetween(from.getY(), to.getY());
 	}
 	
+	/**
+	 * Return of or not the area of the box is zero, i.e. start end end point are equal.
+	 * @return True iff the box is empty.
+	 */
+	public boolean isEmpty() {
+		return getXInterval().isEmpty() && getYInterval().isEmpty();
+	}
+	
+	/**
+	 * Check if or not this box intersects another one.
+	 * @param box The other box.
+	 * @return True iff this box overlaps with the given box.
+	 */
 	public boolean intersects(Box box) {
 		return intersect(box) != null;
 	}
 	
+	/**
+	 * Calculate the intersection with another box.
+	 * @param box The other box.
+	 * @return Intersection box between this box and the given box.
+	 */
 	public Box intersect(Box box) {
 		Interval xIntersect = getXInterval().intersect(box.getXInterval());
 		Interval yIntersect = getYInterval().intersect(box.getYInterval());

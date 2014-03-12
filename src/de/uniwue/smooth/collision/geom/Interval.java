@@ -50,6 +50,18 @@ public class Interval {
 	}
 	
 	/**
+	 * Check if this interval is empty, i.e.
+	 * it contains only one point,
+	 * start and end points are equal
+	 * and the extend is zero.
+	 * 
+	 * @return If or not this interval is empty.
+	 */
+	public boolean isEmpty() {
+		return getExtend() == 0;
+	}
+	
+	/**
 	 * If or not this interval overlaps with another interval.
 	 * @param interval The interval to test for intersections.
 	 * @return If or not this interval overlaps with the given interval.
