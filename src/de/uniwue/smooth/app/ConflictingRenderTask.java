@@ -36,6 +36,7 @@ public class ConflictingRenderTask implements Runnable {
 	public static void main(String[] args) throws Exception {
 		List<ConflictingRenderTask> tasks = Arrays.asList
 				( new ConflictingRenderTask(30, 400, 400, "gates")
+				, new ConflictingRenderTask(30, 400, 400, "three")
 				);
 		ExecutorService executor = new NotAnExecutorService(); Executors.newFixedThreadPool(8);
 		for (Runnable task : tasks) executor.execute(task);
