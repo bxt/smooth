@@ -1,6 +1,11 @@
 package de.uniwue.smooth.collision.geom;
 
 import java.awt.geom.Point2D;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Predicate;
 
 import de.uniwue.smooth.util.point2d.Point2DOperations;
 import edu.uci.ics.jung.graph.util.Pair;
@@ -80,6 +85,50 @@ public class Line {
 
 	public Point2D getTo() {
 		return to;
+	}
+	
+	/**
+	 * Calculates the intersection points between this line and another one.
+	 * 
+	 * @param line The other circle to calculate the intersections for.
+	 * @return The 0 or 1 intersection points, null if the lines are equal.
+	 */
+	public Collection<Point2D> intersections(Line line) {
+		double dX = getTo().getX() - getFrom().getX();
+		double dY = getTo().getY() - getFrom().getY();
+		double ldX = line.getTo().getX() - line.getFrom().getX();
+		double ldY = line.getTo().getY() - line.getFrom().getY();
+		double denominator = dX * ldY - dY * ldX;
+		if(denominator == 0) {
+			if(line.contains(getFrom())) { // equal
+				return null;
+			} else { // parallel
+				return Collections.<Point2D>emptyList();
+			}
+		} else {
+			double diffThis =      getTo().getX() *      getFrom().getY() -      getTo().getY() *      getFrom().getX();
+			double diffLine = line.getTo().getX() * line.getFrom().getY() - line.getTo().getY() * line.getFrom().getX();
+			return Collections.<Point2D>singletonList(new Point2D.Double(
+					(diffThis * ldX - dX * diffLine)/denominator,
+					(diffThis * ldY - dY * diffLine)/denominator));
+		}
+	}
+	
+	/**
+	 * Calculates the intersection points between this line and a {@link LineSegment}.
+	 * 
+	 * @param lineSegment The line segment to calculate the intersections for.
+	 * @return The 0 or 1 intersection points, null if the line segment is fully contained in this line.
+	 */
+	public Collection<Point2D> intersections(final LineSegment lineSegment) {
+		Collection<Point2D> intersectionsLine = intersections(lineSegment.getLine());
+		if(intersectionsLine == null) return null;
+		return CollectionUtils.select(intersectionsLine, new Predicate<Point2D>() {
+			@Override
+			public boolean evaluate(Point2D point) {
+				return lineSegment.contains(point);
+			}
+		});
 	}
 	
 	/**

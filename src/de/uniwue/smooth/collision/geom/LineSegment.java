@@ -1,6 +1,11 @@
 package de.uniwue.smooth.collision.geom;
 
 import java.awt.geom.Point2D;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Predicate;
 
 import de.uniwue.smooth.util.point2d.Point2DOperations;
 import edu.uci.ics.jung.graph.util.Pair;
@@ -62,6 +67,33 @@ public class LineSegment {
 	 */
 	public Box getBoundingBox() {
 		return new Box(from, to);
+	}
+	
+	/**
+	 * Calculates the intersection points between this line segment and another one.
+	 * 
+	 * @param lineSegment The other line segment to calculate the intersections for.
+	 * @return The 0 or 1 intersection points, null if the line segments overlap in more then one point.
+	 */
+	public Collection<Point2D> intersections(final LineSegment lineSegment) {
+		Collection<Point2D> intersectionsLines = getLine().intersections(lineSegment.getLine());
+		if(intersectionsLines == null) { // their lines are equal
+			Box boundingBoxIntersection = getBoundingBox().intersect(lineSegment.getBoundingBox());
+			if(boundingBoxIntersection == null) { // discrete
+				return Collections.<Point2D>emptyList();
+			} else if (boundingBoxIntersection.isEmpty()) { // endpoints overlap
+				return Collections.singletonList(boundingBoxIntersection.getFrom());
+			} else { // multiple points overlap
+				return null;
+			}
+		} else { // their lines have 0 or 1 intersections
+			return CollectionUtils.select(intersectionsLines, new Predicate<Point2D>() {
+				@Override
+				public boolean evaluate(Point2D point) {
+					return getBoundingBox().contains(point) && lineSegment.getBoundingBox().contains(point);
+				}
+			});
+		}
 	}
 	
 	/**
