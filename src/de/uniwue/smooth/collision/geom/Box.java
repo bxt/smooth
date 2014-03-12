@@ -28,6 +28,11 @@ public class Box {
 		this(new Pair<>(from, to));
 	}
 
+	public Box(Interval xInterval, Interval yInterval) {
+		this(new Point2D.Double(xInterval.getFrom(), yInterval.getFrom()),
+		     new Point2D.Double(xInterval.getTo(),   yInterval.getTo()  ) );
+	}
+
 	public Box(Pair<Pair<Integer>> endpoints) {
 		this(Point2DOperations.fromIntegerPair(endpoints.getFirst() ),
 			 Point2DOperations.fromIntegerPair(endpoints.getSecond()));
@@ -60,16 +65,35 @@ public class Box {
 		return to;
 	}
 	
+	public Interval getXInterval() {
+		return Interval.getIntervalBetween(from.getX(), to.getX());
+	}
+	
+	public Interval getYInterval() {
+		return Interval.getIntervalBetween(from.getY(), to.getY());
+	}
+	
+	public boolean intersects(Box box) {
+		return intersect(box) != null;
+	}
+	
+	public Box intersect(Box box) {
+		Interval xIntersect = getXInterval().intersect(box.getXInterval());
+		Interval yIntersect = getYInterval().intersect(box.getYInterval());
+		if(xIntersect != null && yIntersect != null) {
+			return new Box(xIntersect, yIntersect);
+		} else {
+			return null;
+		}
+	}
+	
 	/**
 	 * Check if a points lies in this box, or on its boundaries.
 	 * @param point The point to check.
 	 * @return If or not the point is in the box.
 	 */
 	public boolean contains(Point2D point) {
-		return from.getX() <= point.getX() && point.getX() <= to.getX() &&
-				(from.getY() < to.getY() ?
-						(from.getY() <= point.getY() && point.getY() <= to.getY()) :
-							(to.getY() <= point.getY() && point.getY() <= from.getY())); 
+		return getXInterval().contains(point.getX()) && getYInterval().contains(point.getY());
 	}
 
 	@Override
