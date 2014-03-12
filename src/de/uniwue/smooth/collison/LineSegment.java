@@ -8,7 +8,7 @@ import edu.uci.ics.jung.graph.util.Pair;
 /**
  * Represents a finite part of a 2D line.
  */
-public class LineSegment extends AbstractCollisionDomain implements CollisionDomain {
+public class LineSegment {
 	
 	private Point2D from;
 	private Point2D to;
@@ -40,18 +40,6 @@ public class LineSegment extends AbstractCollisionDomain implements CollisionDom
 		this.to = to;
 	}
 
-	@Override
-	protected Integer collisionOffset(CircleArc cirecleArc) {
-		// TODO Auto-generated method stub
-		return collisionOffsetUnknownCombination(cirecleArc);
-	}
-
-	@Override
-	protected Integer collisionOffset(LineSegment line) {
-		// TODO Auto-generated method stub
-		return collisionOffsetUnknownCombination(line);
-	}
-	
 	/**
 	 * Get the line that this line segment lies on.
 	 * 

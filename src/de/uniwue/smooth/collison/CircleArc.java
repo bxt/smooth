@@ -10,7 +10,7 @@ import org.apache.commons.collections15.Predicate;
 import de.uniwue.smooth.util.point2d.Point2DOperations;
 import edu.uci.ics.jung.graph.util.Pair;
 
-public class CircleArc extends AbstractCollisionDomain implements CollisionDomain {
+public class CircleArc {
 
 	private Circle circle; 
 	private Sector sector;
@@ -56,18 +56,6 @@ public class CircleArc extends AbstractCollisionDomain implements CollisionDomai
 		return sector;
 	}
 
-	@Override
-	protected Integer collisionOffset(CircleArc cirecleArc) {
-		// TODO Auto-generated method stub
-		return collisionOffsetUnknownCombination(cirecleArc);
-	}
-
-	@Override
-	protected Integer collisionOffset(LineSegment line) {
-		// TODO Auto-generated method stub
-		return collisionOffsetUnknownCombination(line);
-	}
-	
 	/**
 	 * Calculates the intersection points between this circle arc and another one.
 	 * 
