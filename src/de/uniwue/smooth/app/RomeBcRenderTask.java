@@ -71,10 +71,11 @@ public class RomeBcRenderTask implements Runnable {
 				}
 				
 				graphReader.close();
-				drawing.newPage();
 			} catch (Exception e) {
 				if (!e.getLocalizedMessage().contains("vertex degree of 4"))
 					e.printStackTrace();
+			} finally {
+				drawing.newPage();
 			}
 		}
 		
