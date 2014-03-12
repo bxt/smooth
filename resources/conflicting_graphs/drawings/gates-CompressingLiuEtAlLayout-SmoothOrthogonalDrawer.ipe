@@ -294,7 +294,7 @@
  460 430 m
  460 430 l
  </path>
-<path stroke="black" pen="normal" dash="normal">
+<path stroke="red" pen="normal" dash="normal">
  460 430 m
  60,000 0 0 60,000 460 490 460 550 a
 </path>

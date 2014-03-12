@@ -273,7 +273,7 @@
  550 430 m
  490 430 l
  </path>
-<path stroke="black" pen="normal" dash="normal">
+<path stroke="red" pen="normal" dash="normal">
  460 460 m
  30,000 0 0 30,000 490 460 490 430 a
 </path>
@@ -301,7 +301,7 @@
  430 490 m
  30,000 0 0 30,000 460 490 460 460 a
 </path>
-<path stroke="black" pen="normal" dash="normal">
+<path stroke="red" pen="normal" dash="normal">
  460 460 m
  460 490 l
  </path>
@@ -311,7 +311,7 @@
  460 460 m
  460 460 l
  </path>
-<path stroke="black" pen="normal" dash="normal">
+<path stroke="red" pen="normal" dash="normal">
  460 460 m
  30,000 0 0 30,000 460 490 490 490 a
 </path>
@@ -383,7 +383,7 @@
  700 430 m
  150,000 0 0 150,000 550 430 550 580 a
 </path>
-<path stroke="black" pen="normal" dash="normal">
+<path stroke="red" pen="normal" dash="normal">
  460 490 m
  460 520 l
  </path>
@@ -413,7 +413,7 @@
  460 520 m
  460 520 l
  </path>
-<path stroke="black" pen="normal" dash="normal">
+<path stroke="red" pen="normal" dash="normal">
  490 490 m
  30,000 0 0 30,000 460 490 460 520 a
 </path>
@@ -451,7 +451,7 @@
  550 550 m
  490 550 l
  </path>
-<path stroke="black" pen="normal" dash="normal">
+<path stroke="red" pen="normal" dash="normal">
  490 550 m
  30,000 0 0 30,000 490 520 460 520 a
 </path>

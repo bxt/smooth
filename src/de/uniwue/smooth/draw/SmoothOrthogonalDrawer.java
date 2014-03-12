@@ -45,8 +45,8 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 	 */
 	private void drawIEdges(Pair<Pair<Integer>> vertexCoordinates, Pair<Port> ports) {
 		// TODO: check for S shape?
+		drawing.line(vertexCoordinates, collisionDetecor.collidesLine(vertexCoordinates));
 		collisionDetecor.line(vertexCoordinates);
-		drawing.line(vertexCoordinates);
 	}
 	
 	/**
@@ -74,15 +74,15 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 		Pair<Integer> kink = isU ?  new Pair<>(end.getFirst(), start.getSecond()) : new Pair<>(start.getFirst(), end.getSecond());
 		drawing.edgeMidpoint(kink);
 		
+		drawing.line(end, kink, collisionDetecor.collidesLine(end, kink));
 		collisionDetecor.line(end, kink);
-		drawing.line(end, kink);
 		
 		if (slopePositive != isU) {
-			collisionDetecor.line(kink, start);
-			drawing.arc(kink, start);
+			drawing.arc(kink, start, collisionDetecor.collidesArc(kink, start));
+			collisionDetecor.arc(kink, start);
 		} else {
-			collisionDetecor.line(start, kink);
-			drawing.arc(start, kink);
+			drawing.arc(start, kink, collisionDetecor.collidesArc(start, kink));
+			collisionDetecor.arc(start, kink);
 		}
 	}
 	
@@ -142,15 +142,15 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 		drawing.edgeMidpoint(kink, "red");
 		
 		Pair<Integer> lineStart = firstIsDiagonalStart ? vertexCoordinates.getSecond() : vertexCoordinates.getFirst();
+		drawing.line(lineStart, kink, collisionDetecor.collidesLine(lineStart, kink));
 		collisionDetecor.line(lineStart, kink);
-		drawing.line(lineStart, kink);
 		
 		if(diagStartFirst) {
+			drawing.arc(ref, mid, kink, collisionDetecor.collidesArc(ref, mid, kink));
 			collisionDetecor.arc(ref, mid, kink);
-			drawing.arc(ref, mid, kink);
 		} else {
+			drawing.arc(kink, mid, ref, collisionDetecor.collidesArc(kink, mid, ref));
 			collisionDetecor.arc(kink, mid, ref);
-			drawing.arc(kink, mid, ref);
 		}
 	}
 	
