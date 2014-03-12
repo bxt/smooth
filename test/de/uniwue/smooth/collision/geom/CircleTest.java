@@ -9,9 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import de.uniwue.smooth.collision.geom.Circle;
-import de.uniwue.smooth.collision.geom.Line;
-
 public class CircleTest {
 
 	@Test

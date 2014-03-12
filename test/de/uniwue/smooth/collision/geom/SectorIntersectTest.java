@@ -12,8 +12,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
-import de.uniwue.smooth.collision.geom.Sector;
-
 @RunWith(Parameterized.class)
 public class SectorIntersectTest {
 

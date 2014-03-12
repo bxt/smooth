@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import de.uniwue.smooth.collision.geom.Sector;
-
 public class SectorTest {
 
 	@Test

@@ -8,9 +8,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import de.uniwue.smooth.collision.geom.CircleArc;
-import de.uniwue.smooth.collision.geom.LineSegment;
-
 public class CircleArcTest {
 	
 	@Test
