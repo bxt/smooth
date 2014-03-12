@@ -47,6 +47,27 @@ public class OrthogonalIpeDrawing extends AbstractIpeDrawing implements Orthogon
 	}
 
 	@Override
+	public void line(Pair<Integer> from, Pair<Integer> to, boolean collidesLine) {
+		draw(IpeDraw.drawIpeEdge(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond(), collidesLine ? "red" : "black"));
+	}
+
+	@Override
+	public void line(Pair<Pair<Integer>> endpoints, boolean collidesLine) {
+		line(endpoints.getFirst(), endpoints.getSecond(), collidesLine);
+	}
+
+	@Override
+	public void arc(Pair<Integer> from, Pair<Integer> to, boolean collidesArc) {
+		draw(IpeDraw.drawIpeSemiCircle(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond(), collidesArc ? "red" : "black"));
+	}
+
+	@Override
+	public void arc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to,
+			boolean collidesArc) {
+		draw(IpeDraw.drawIpeCircularArc(mid.getFirst(), mid.getSecond(), from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond(), collidesArc ? "red" : "black"));
+	}
+
+	@Override
 	public void newPage() {
 		draw(IpeDraw.newPage());
 	}

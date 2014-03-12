@@ -68,6 +68,13 @@ public interface OrthogonalDrawing<T> {
 	 */
 	public abstract void arc(Pair<Integer> from, Pair<Integer> to);
 	
+	// Modified versions for visualizing collisions:
+	
+	public abstract void line(Pair<Integer> from, Pair<Integer> to, boolean collidesLine);
+	public abstract void line(Pair<Pair<Integer>> endpoints, boolean collidesLine);
+	public abstract void arc(Pair<Integer> from, Pair<Integer> to, boolean collidesArc);
+	public abstract void arc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to, boolean collidesArc);
+	
 	/**
 	 * Continue the drawing on a new page.
 	 */

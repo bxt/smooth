@@ -69,6 +69,27 @@ public class TransformingOrthogonalDrawing<T> implements OrthogonalDrawing<T> {
 	}
 
 	@Override
+	public void line(Pair<Integer> from, Pair<Integer> to, boolean collidesLine) {
+		delegate.line(transform(from), transform(to), collidesLine);
+	}
+
+	@Override
+	public void line(Pair<Pair<Integer>> endpoints, boolean collidesLine) {
+		line(endpoints.getFirst(), endpoints.getSecond(), collidesLine);
+	}
+
+	@Override
+	public void arc(Pair<Integer> from, Pair<Integer> to, boolean collidesArc) {
+		delegate.arc(transform(from), transform(to), collidesArc);
+	}
+
+	@Override
+	public void arc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to,
+			boolean collidesArc) {
+		delegate.arc(transform(from), transform(mid), transform(to), collidesArc);
+	}
+
+	@Override
 	public void newPage() {
 		delegate.newPage();
 	}

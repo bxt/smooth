@@ -578,11 +578,15 @@ public class IpeDraw {
 				"black", "normal", "normal");
 	}
 	
-	public static String drawIpeSemiCircle(int xStart, int yStart, int xEnd, int yEnd) {
+	public static String drawIpeSemiCircle(int xStart, int yStart, int xEnd, int yEnd, String color) {
 		int xCenter = (xStart + xEnd) / 2;
 		int yCenter = (yStart + yEnd) / 2;
 		return drawIpeCircularArc(xCenter, yCenter, xStart, yStart, xEnd, yEnd,
-				"black", "normal", "normal");
+				color, "normal", "normal");
+	}
+
+	public static String drawIpeSemiCircle(int xStart, int yStart, int xEnd, int yEnd) {
+		return drawIpeSemiCircle(xStart, yStart, xEnd, yEnd, "black");
 	}
 
 	/**
