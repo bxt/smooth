@@ -68,7 +68,17 @@ public class CollisionDomain<T> {
 	}
 	
 	private static Integer collisionOffset(LineSegment lineSegmentA, LineSegment lineSegmentB) {
-		return null; // TODO: check anyways!
+		Collection<Point2D> intersections = lineSegmentA.intersections(lineSegmentB);
+		if(intersections == null) return 1;
+		if(intersections.size() == 0) return null;
+		
+		Point2D intersection = intersections.iterator().next();
+		if(  ( intersection.equals(lineSegmentA.getFrom()) || intersection.equals(lineSegmentA.getTo()) )
+		  && ( intersection.equals(lineSegmentB.getFrom()) || intersection.equals(lineSegmentB.getTo()) ) ) {
+			return null; // ignore endpoint collision
+		} else {
+			return 1;
+		}
 	}
 	
 	private static Integer nullsafeNegate(Integer integer) {
