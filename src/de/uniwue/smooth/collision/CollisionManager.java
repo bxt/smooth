@@ -16,7 +16,7 @@ public class CollisionManager {
 	}
 
 	public void line(Pair<Pair<Integer>> endpoints) {
-		addDomain(new LineSegment(endpoints));
+		line(endpoints.getFirst(), endpoints.getSecond());
 	}
 
 	public void arc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to) {
@@ -27,8 +27,35 @@ public class CollisionManager {
 		addDomain(CircleArc.getCircleArc(from, to));
 	}
 	
+	public boolean collidesLine(Pair<Integer> from, Pair<Integer> to) {
+		return collidesDomain(new LineSegment(from, to));
+	}
+
+	public boolean collidesLine(Pair<Pair<Integer>> endpoints) {
+		return collidesDomain(new LineSegment(endpoints));
+	}
+
+	public boolean collidesArc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to) {
+		return collidesDomain(CircleArc.getCircleArc(from, mid, to));
+	}
+
+	public boolean collidesArc(Pair<Integer> from, Pair<Integer> to) {
+		return collidesDomain(CircleArc.getCircleArc(from, to));
+	}
+	
 	private void addDomain(Object body) {
 		domains.add(new CollisionDomain<Object>(body));
+	}
+	
+	private boolean collidesDomain(Object body) {
+		new CollisionDomain<Object>(body);
+		CollisionDomain<?> a = new CollisionDomain<Object>(body);
+		for (CollisionDomain<?> b : domains) {
+			if (a.collides(b) != b.collides(a)) throw new IllegalStateException("Collision detection is asymmetric!");
+			if (a.collides(b))
+				return true;
+		}
+		return false;
 	}
 	
 	private List<Pair<CollisionDomain<?>>> collisions() {
