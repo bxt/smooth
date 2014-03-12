@@ -45,6 +45,14 @@ public class LineSegment {
 		this.to = to;
 	}
 
+	public Point2D getFrom() {
+		return from;
+	}
+
+	public Point2D getTo() {
+		return to;
+	}
+
 	/**
 	 * Get the line that this line segment lies on.
 	 * 
@@ -54,7 +62,7 @@ public class LineSegment {
 	 * @return Line which contains this line segment.
 	 */
 	public Line getLine() {
-		return new Line(from, to);
+		return new Line(getFrom(), getTo());
 	}
 	
 	/**
@@ -66,7 +74,7 @@ public class LineSegment {
 	 * @return Boundaries of this line segment.
 	 */
 	public Box getBoundingBox() {
-		return new Box(from, to);
+		return new Box(getFrom(), getTo());
 	}
 	
 	/**
@@ -107,6 +115,6 @@ public class LineSegment {
 
 	@Override
 	public String toString() {
-		return "LineSegment [from=" + from + ", to=" + to + "]";
+		return "LineSegment [from=" + getFrom() + ", to=" + getTo() + "]";
 	}
 }
