@@ -62,4 +62,19 @@ public class BoxTest {
 		
 	}
 
+	@Test
+	public void testIntersects() {
+		Box boxA = new Box(p(xFactor * 1, yFactor * 1), p(xFactor * 5, yFactor * 3));
+		Box boxB = new Box(p(xFactor * 2, yFactor * 0), p(xFactor * 4, yFactor * 2));
+		Box boxC = new Box(p(xFactor * 6, yFactor * 1), p(xFactor * 7, yFactor * 3));
+		
+		assertTrue(boxA.intersects(boxB));
+		assertTrue(boxB.intersects(boxA));
+		assertFalse(boxA.intersects(boxC));
+		assertFalse(boxB.intersects(boxC));
+		assertFalse(boxC.intersects(boxA));
+		assertFalse(boxC.intersects(boxB));
+		
+	}
+
 }
