@@ -14,7 +14,7 @@ public class OrthogonalIpeDrawing extends AbstractIpeDrawing implements Orthogon
 	
 	@Override
 	public void edgeMidpoint(Pair<Integer> position) {
-		draw(IpeDraw.drawIpeMark(position.getFirst(), position.getSecond(), "cross", "gray"));
+		edgeMidpoint(position, "gray");
 	}
 	
 	@Override
