@@ -76,9 +76,9 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 		drawing.line(end, kink, collisionDetecor.addAndCollidesLine(end, kink));
 		
 		if (slopePositive != isU) {
-			drawing.arc(kink, start, collisionDetecor.addAndCollidesLine(kink, start));
+			drawing.arc(kink, start, collisionDetecor.addAndCollidesArc(kink, start));
 		} else {
-			drawing.arc(start, kink, collisionDetecor.addAndCollidesLine(start, kink));
+			drawing.arc(start, kink, collisionDetecor.addAndCollidesArc(start, kink));
 		}
 	}
 	
