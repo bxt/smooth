@@ -79,8 +79,10 @@ public class CollisionManager {
 		new CollisionDomain<Object>(body);
 		CollisionDomain<?> a = new CollisionDomain<Object>(body);
 		for (CollisionDomain<?> b : domains) {
-			if (a.collides(b) != b.collides(a)) throw new IllegalStateException("Collision detection is asymmetric!");
-			if (a.collides(b))
+			/*if (a.collides(b) != b.collides(a))
+				throw new IllegalStateException("Collision detection is asymmetric!");*/
+			// TODO: make sure collisions are not asymmetric?
+			if (a.collides(b) && b.collides(a))
 				return true;
 		}
 		return false;

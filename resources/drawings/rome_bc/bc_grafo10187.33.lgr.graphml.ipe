@@ -337,7 +337,7 @@
  610 220 m
  610 490 l
  </path>
-<path stroke="black" pen="normal" dash="normal">
+<path stroke="red" pen="normal" dash="normal">
  610 490 m
  90,000 0 0 90,000 520 490 520 580 a
 </path>
@@ -390,7 +390,7 @@
  550 310 l
  </path>
 <use name="mark/cross(sx)" pos="460 640" size="normal" stroke="gray"/>
-<path stroke="black" pen="normal" dash="normal">
+<path stroke="red" pen="normal" dash="normal">
  520 640 m
  460 640 l
  </path>
@@ -494,7 +494,7 @@
  640 130 m
  640 520 l
  </path>
-<path stroke="black" pen="normal" dash="normal">
+<path stroke="red" pen="normal" dash="normal">
  640 520 m
  120,000 0 0 120,000 520 520 520 640 a
 </path>
