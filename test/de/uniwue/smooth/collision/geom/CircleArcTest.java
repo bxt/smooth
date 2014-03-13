@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import java.awt.geom.Point2D;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class CircleArcTest {
@@ -189,6 +190,14 @@ public class CircleArcTest {
 		CircleArc circleArcB = CircleArc.getCircleArc(p(6, 2), p(1, 2), p(4, 6));
 		
 		assertNull(circleArcA.intersections(circleArcB));
+	}
+	
+	@Test @Ignore("Does not work for now - but failure case is handled") // TODO fix
+	public void testAsymmetricIntersections() {
+		CircleArc circleArcA = CircleArc.getCircleArc(p(5, 20), p(-15, 20), p(-15, 10));
+		CircleArc circleArcB = CircleArc.getCircleArc(p(6, 19), p(5, 19), p(5, 20));
+		
+		assertEquals(circleArcA.intersections(circleArcB), circleArcB.intersections(circleArcA));
 	}
 	
 }
