@@ -122,6 +122,44 @@ optimiert werden kann, im Hinblick auf Komplexität und Platzbedarf.
 
 % TODO: Verweise auf Abschnitte, jeweils NACH der Beschreibung des Abschnitts
 
+
+
+
+
+
+
+\chapter{Übersicht und Grundlagen}
+
+In diesem Abschnitt sollen einige Grundlagen definiert werden. Zu jedem Begriff gibt es eine knappe Definition und einige Anmerkungen zur Relevanz für den Algorithmus. So wird die Problemstellung im Verlauf dieses Abschnittes immer klarer und im nächsten Abschnitt kann der Algorithmus mit den definierten Grundlagen präzise beschrieben werden.
+
+\section{Graphen}
+
+\begin{definition}
+  Ein \emph{(ungerichteter) Graph} $G$ ist ein Tupel $(V, E)$ von Mengen, wobei $E \subset \mathcal{P}(V)$.
+  Die $v \in V$ heißen \emph{Knoten}, die $e \in E$ \emph{Kanten}.
+
+  Ein \emph{einfacher Graph} ist ein Graph mit $|e| = 2$ für $e \in E$.
+\end{definition}
+
+Graphen bilden die Eingabe für die Zeichenalgorithmen. Die hier behandelten Graphen werden auch \emph{Netzwerkgraphen} bezeichnet, sie beschreiben Verbindungen zwischen Elementen als Kanten zwischen Knoten. 
+
+Graphen können im Computer als Adjazenzmatrix $(a_{i,j})$ dargestellt werden, mit $a_{i,j} = 1$ falls $\{v_i, v_j\} \in E$ und $0$ sonst. Hier wird jedoch $|V|^2$ Speicherplatz verwendet. Für Graphen mit vergleichsweise wenigen Kanten eignet sich die Darstellung als Adjazenzliste $A$ mit $A(v) = {e \in E | v \in e}$. Hierfür wird $O(|V| + |E|)$ Speicher benötigt. % TODO: genau Checken!!!
+
+Die Darstellung von Graphen für Menschen, die $Zeichnung$, besteht üblicherweise aus Punkten oder Kreisen für jeden Knoten und Verbindungslinien für die Kanten. Die Überführung von einer Adjazenzliste in einer solche Darstellung nennt man das $Zeichnen$ von Graphen. Hierfür gibt es keine kanonische Vorgehensweise. Der Weg von der Zeichnung zur Adjazenzliste jedoch ist (bei geeigneter Repräsentation der Zeichnung) trivial zu lösen.
+
+\section{Zusammenhang}
+
+\begin{definition}
+  Ein \emph{zusammenhängender} Graph...
+
+  Ein \emph{n-fach-knotenzusammenhängender} Graph...
+\end{definition}
+
+
+
+
+
+
 \chapter{Algorithmus}
 
 \section{Übersicht}
@@ -150,7 +188,7 @@ Zunächst werden nur 2-fach knotenzusammenhängende Graphen gezeichnet, mittels 
 
 % TODO
 
-\section{Ermittlung einer st-Ordnung}
+\section{Ermitteln einer st-Ordnung}
 
 Im nächsten Schritt wird eine \emph{st-Ordnung} berechnet, eine Reihenfolge der Knoten $v_1, \dots, v_n$, mit $s=v_1$ und $t=v_n$. Jeder Knoten (außer $s$ und $t$) soll mindestens einen Nachbarn mit einem höheren Index und mindestens einen mit einem niedrigeren Index haben. Da die Indizes paarweise verschieden sind, erhalten wir zudem einen gerichteten Graphen, wenn wir die ungerichteten Kanten so ausrichten, dass sie vom niedrigeren Index zum höheren verlaufen.\footnote {Umgekehrt könnten wir aus dem ungerichteten Graphen durch topologisches Sortieren eine st-Ordnung erhalten.}
 
