@@ -75,13 +75,12 @@ Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers and
 \chapter{Einleitung}
 
 
-Das automatisierte Zeichnen von Graphen bereitet eine Vielzahl von Problemen. 
-Eine Herangehensweise an dieses Problem ist es, zunächst einfachere oder speziellere Probleme zu betrachten. 
+Das automatisierte Zeichnen von Graphen stellt eine Vielzahl von Herausforderungen. 
+Eine Herangehensweise ist es, zunächst einfachere oder speziellere Graphen zu zeichnen. 
 Dazu Teilt man die Graphen in Klassen ein, die eine Aussage machen über die Schwierigkeit, den Graphen zu zeichnen. 
-Von diesen Klassen ist die der planaren Graphen vorteilhaft:
-Planare Graphen lassen sich ohne Kantenüberschneidung in einer Ebene zeichnen und haben nur polynomial viele Kanten. 
+In dieser Arbeit geht es um die Klasse der planaren Graphen. Sie zeichnen sich dadurch aus, dass sie sich ohne Kantenüberschneidung in einer Ebene zeichnen und sie haben nur polynomial viele Kanten. 
 
-Eine Anwendung planarer Graphen ist die automatisierte oder computergestützte Erstellung von Layouts für Schaltkreis-Platinen. Hierbei werden Komponenten, wie integrierte Schaltkreise (Chips), als Knoten und die verbindenden Leiter als Kanten modelliert. Da die Leiter hier aufgrund des Herstellungsprozesses und aus technischen Überlegungen nur entweder horizontal oder vertikal auf einem Gitter verlaufen können, beschränkt man sich hier auf orthogonale Layouts. Bei solchen orthogonalen Zeichnungen planarer Graphen können (ohne Überdeckungen) je Knoten nur 4 Kanten verbunden werden. Man nennt die vier möglichen Richtungen Ports. Die Graphen, die sich so zeichnen lassen gehören zu der Klasse der 4-planaren Graphen, deren maximaler Kontengrad 4 ist. Abhängig von der Anzahl $k$ der maximalen Knicke in einer Kante in einem Layout, teilen wir es in die Klasse $OC_k$ ein. 
+Eine Anwendung des  automatisierte Zeichnens planarer Graphen ist die computergestützte Erstellung von Layouts für Schaltkreis-Platinen. Hierbei werden Komponenten, wie integrierte Schaltkreise (Chips), als Knoten modelliert und die verbindenden Leiter als Kanten. Da die Leiter im Herstellungsprozesses  aus technischen Überlegungen nur entweder horizontal oder vertikal auf einem Gitter verlaufen können, beschränkt man sich hier auf orthogonale Layouts. Bei solchen orthogonalen Zeichnungen planarer Graphen können nur 4~Kanten je Knoten ohne Überdeckungen verbunden werden. Man nennt diese vier möglichen Richtungen Ports. Die Graphen, die sich so zeichnen lassen gehören zu der Klasse der 4-planaren Graphen: planare Graphen, deren maximaler Kontengrad~4 ist. Abhängig von der maximalen Anzahl~$k$ der Knicke in einer Kante in einem Layout, teilen wir es in die Klasse $OC_k$ ein. % TODO: OC-x knicke oder komponenten? check liu, brandes und smooth
 
 Orthogonale Layouts wurden in der Vergangenheit auch aufgrund ihrer Praxisrelevanz stark verbessert. Sie sind zur Visualisierung von Graphen für Menschen (etwa für abstrahierte ÖPNV-Netze, Organigramme, UML-Diagramme) jedoch nur schlecht geeignet, da sie schnell unübersichtlich wirken. % TODO: Quelle?, Roberts et al.?
 Natürlich kann Übersichtlichkeit nicht genau definiert werden; jedoch werden die harten 90\degree-Knicke in den Kanten, an denen sich horizontale und vertikale Abschnitte treffen, leicht mit Knotenpunkten verwechselt. Auch wirken sie eher technisch und deshalb für bestimmte Zielgruppen wenig ansprechend.
@@ -90,7 +89,9 @@ Um dieses Problem zu lösen, glättet man die Knicke mit Kreisbögen. Man redet 
 
 Bestehende Algorithmen zur automatisierten Erstellung glatt-orthogonaler Zeichnungen bauen auf bewährten Algorithmen für orthogonale Zeichnungen auf und erweitern diese so, dass genügend Platz für die abgerundeten Kanten bleibt, ohne dabei Kantenüberschneidungen einzuführen. Als Grundlage wählt man Algorithmen, welche die Anzahl der Knicke (auch pro Kante) in der entstehenden Zeichnung klein halten. 
 
-Dabei müssen neue Herausforderungen angegangen werden. Ebenso wie Knicke in orthogonalen Zeichnungen für erhöhte Komplexität sorgen, sind in glatt-orthogonalen Zeichnungen Wechsel zwischen geraden und gekrümmten Abschnitten zu vermeiden. Gleichzeitig sollte die Fläche der Zeichnung nicht zu groß werden. Es wäre trivial möglich, alle Kanten abzurunden, indem man Kreisbögen mit dem Radius der Gittergröße einfügt. So würden neben dem Kreisbogen gerade Stücke über bleiben. Daher versucht man die Kreisbögen größer zu machen und so geschickt anzuordnen, dass möglichst wenige Wechsel zwischen verschiedenen Segmenten benötigt werden. Wir teilen die glatt-orthogonalen Zeichnungen in Abhängigkeit der maximalen Anzahl $k$ von Segmentwechseln in einer Kante in die Klasse $SC_k$ ein. 
+Dabei müssen neue Herausforderungen angegangen werden. Ebenso wie Knicke in orthogonalen Zeichnungen für erhöhte Komplexität sorgen, sind in glatt-orthogonalen Zeichnungen Wechsel zwischen geraden und gekrümmten Abschnitten und zwischen Abschnitten aus Bögen mit unterschiedlichen Radien zu vermeiden. Gleichzeitig sollte die Fläche der Zeichnung nicht zu groß werden.
+
+Es wäre trivial möglich, alle Kanten abzurunden, indem man Kreisbögen mit dem Radius der Gittergröße einfügt. So würden neben den Kreisbögen gerade Stücke über bleiben. Daher versucht man die Kreisbögen größer zu machen und so geschickt anzuordnen, dass möglichst wenige Wechsel zwischen verschiedenen Segmenten benötigt werden. Wir teilen die glatt-orthogonalen Zeichnungen in Abhängigkeit der maximalen Anzahl~$k$ von Segmentwechseln in einer Kante in die Klasse $SC_k$ ein. 
 
 \section{Ziel}
 
