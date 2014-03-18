@@ -46,6 +46,8 @@
 \newcommand{\degree}{\ensuremath{^\circ}}
 \newcommand{\go}{glatt-or\-tho\-go\-nal}
 \newcommand{\Go}{Glatt-or\-tho\-go\-nal}
+\newcommand{\Epsilon}{\mathcal{E}}
+
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -134,9 +136,9 @@ Zunächst werden nur 2-fach knotenzusammenhängende Graphen gezeichnet, mittels 
   \Ein{4-planarer, 2-fach knotenzusammenhängender Graph $G = (V,E)$}
   \Aus{$SC_2$-Layout von $G$}
   
-  $E \leftarrow$ PlanarEmbedding$(G)$ \;
-  $St \leftarrow$ StOrdering$(G, E)$ \;
-  $O \leftarrow$ OrthogonalDrawing$(G,St,E)$ \;
+  $\Epsilon \leftarrow$ PlanarEmbedding$(G)$ \;
+  $St \leftarrow$ StOrdering$(G, \Epsilon)$ \;
+  $O \leftarrow$ OrthogonalDrawing$(G,St,\Epsilon)$ \;
   $O' \leftarrow$ EliminateS-Shapes$(O)$ \;
   $\Gamma \leftarrow$ DrawSmoothEdges$(O')$ \;
   
