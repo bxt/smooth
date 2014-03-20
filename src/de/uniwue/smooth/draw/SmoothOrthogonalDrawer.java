@@ -28,7 +28,7 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 			Pair<Port> ports = new Pair<>(getPort(endpoints.getFirst(), e), getPort(endpoints.getSecond(), e));
 			Pair<Pair<Integer>> vertexCoordinates = new Pair<>(layout.getVertexLocation(endpoints.getFirst()), layout.getVertexLocation(endpoints.getSecond()));
 			
-			if (ports.getFirst().getOpposite() == ports.getSecond()) { // I
+			if (ports.getFirst().getOpposite() == ports.getSecond()) { // I or S
 				drawIEdges(vertexCoordinates, ports);
 			} else if (ports.getFirst().isVertical() == ports.getSecond().isVertical()) { // U or C
 				drawUCEdges(vertexCoordinates, ports);
