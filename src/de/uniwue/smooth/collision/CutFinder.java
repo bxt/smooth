@@ -40,6 +40,14 @@ public class CutFinder<V, E> {
 		return result;
 	}
 	
+	private void initialize(V vertex, Quadrant quadrant) {
+		leftStartVertices = new LinkedList<>();
+		rightStartVertices = new LinkedList<>();
+		restrictions = new HashSet<>();
+		this.vertex = vertex;
+		this.quadrant = quadrant;
+	}
+	
 	private void addFirstVertex() {
 		(quadrant.getHorizontalPort() == Port.L ? rightStartVertices : leftStartVertices).add(vertex);
 	}
@@ -100,6 +108,10 @@ public class CutFinder<V, E> {
 
 	}
 	
+	private boolean isAtBottom() {
+		return vertex == null;
+	}
+	
 	private boolean isHigher(V target) {
 		return  layout.getVertexLocation(target).getSecond().compareTo(layout.getVertexLocation(vertex).getSecond()) >= 0;
 	}
@@ -124,18 +136,6 @@ public class CutFinder<V, E> {
 	private void arrivedAtBottom() {
 		vertex = null;
 		quadrant = null;
-	}
-	
-	private boolean isAtBottom() {
-		return vertex == null;
-	}
-	
-	private void initialize(V vertex, Quadrant quadrant) {
-		leftStartVertices = new LinkedList<>();
-		rightStartVertices = new LinkedList<>();
-		restrictions = new HashSet<>();
-		this.vertex = vertex;
-		this.quadrant = quadrant;
 	}
 	
 	private Set<V> depthFirstFind(Collection<V> starts) {
