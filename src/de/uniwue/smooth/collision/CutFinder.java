@@ -31,6 +31,7 @@ public class CutFinder<V, E> {
 	public Pair<Set<V>> cut(V v, Quadrant q) {
 		
 		initialize(v, q);
+		addFirstVertex();
 		
 		findCut();
 		
@@ -39,7 +40,12 @@ public class CutFinder<V, E> {
 		return result;
 	}
 	
+	private void addFirstVertex() {
+		(quadrant.getHorizontalPort() == Port.L ? rightStartVertices : leftStartVertices).add(vertex);
+	}
+
 	private void findCut() {
+		
 		while(!isAtBottom()) {
 			if(quadrant.isUpper()) { // right above the current vertex
 				E edge = layout.getPortAssignment(vertex).get(quadrant.getHorizontalPort());
