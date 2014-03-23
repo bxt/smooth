@@ -126,8 +126,45 @@ public enum Quadrant {
 		return values()[(ordinal() + 2) % values().length];
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isDiagonal() {
 		return isRight == isUpper;
+	}
+	
+	/**
+	 * Get the port adjacent to this quadrant at the x-axis.
+	 * @return Left or right port, depending on the side of this quadrant around the y-axis.
+	 */
+	public Port getHorizontalPort() {
+		return isRight ? Port.R : Port.L;
+	}
+	
+	
+	/**
+	 * Get the port adjacent to this quadrant at the y-axis.
+	 * @return Top or bottom port, depending on the side of this quadrant around the x-axis.
+	 */
+	public Port getVerticalPort() {
+		return isUpper ? Port.T : Port.B;
+	}
+	
+	/**
+	 * Get the quadrant on the other side of the x-axis.
+	 * @return Quadrant on the other side of the x-axis.
+	 */
+	public Quadrant getVerticalOpposite() {
+		return Quadrant.getQuadrant(isRight, !isUpper);
+	}
+	
+	/**
+	 * Get the quadrant on the other side of the y-axis.
+	 * @return Quadrant on the other side of the y-axis.
+	 */
+	public Quadrant getHorizontalOpposite() {
+		return Quadrant.getQuadrant(!isRight, isUpper);
 	}
 	
 }
