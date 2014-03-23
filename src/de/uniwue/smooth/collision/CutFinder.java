@@ -41,49 +41,47 @@ public class CutFinder<V, E> {
 	
 	private void findCut() {
 		while(!isAtBottom()) {
-			if(quadrant == Quadrant.II) {
-				E edge = layout.getPortAssignment(vertex).get(Port.L);
-				if(edge == null) {
-					quadrant = Quadrant.III;
-				} else {
+			if(quadrant.isUpper()) { // right above the current vertex
+				E edge = layout.getPortAssignment(vertex).get(quadrant.getHorizontalPort());
+				if(edge == null) { // no edge to cross
+					quadrant = quadrant.getVerticalOpposite();
+				} else { // there is an edge
 					V target = layout.getGraph().getOpposite(vertex, edge);
-					boolean isHigher = layout.getVertexLocation(target).getSecond().compareTo(layout.getVertexLocation(vertex).getSecond()) >= 0;
-					if(isHigher) {
-						cutAt(edge, target, vertex);
-						quadrant = Quadrant.III;
-					} else {
+					if(isHigher(target)) { // cut through outgoing I, L or C edge
+						cutAt(edge, target);
+						quadrant = quadrant.getVerticalOpposite();
+					} else { // follow an edge downwards
 						vertex = target;
-						if(layout.getPortAssignment(target).get(Port.T).equals(edge)) {
-							quadrant = Quadrant.II;
-						} else if (layout.getPortAssignment(target).get(Port.L).equals(edge)) {
-							quadrant = Quadrant.III;
+						if(layout.getPortAssignment(target).get(Port.T).equals(edge)) { // follow L edge
+							// quadrant stays the same at new edge
+						} else if (layout.getPortAssignment(target).get(quadrant.getHorizontalPort()).equals(edge)) { // follow C edge
+							quadrant = quadrant.getVerticalOpposite();
 						} else {
 							throw new IllegalStateException("Bad edge. (1)");
 						}
 					}
 					
 				}
-			} else if(quadrant == Quadrant.III) {
+			} else { // right below the current vertex
 				E edge = layout.getPortAssignment(vertex).get(Port.B);
-				if(edge == null) {
-					arrivedAtBottom();
-				} else {
+				if(edge == null) { // no edge to follow
+					arrivedAtBottom(); // Only vertex "s" can have no edge on its bottom port, we're done.
+				} else { // follow an edge downwards
 					V target = layout.getGraph().getOpposite(vertex, edge);
-					boolean isHigher = layout.getVertexLocation(target).getSecond().compareTo(layout.getVertexLocation(vertex).getSecond()) >= 0;
-					if(isHigher) {
+					if(isHigher(target)) { // TODO: might happen for the last U edge.
 						throw new IllegalStateException("Bad edge. (2)");
 					} else {
-						if(layout.getPortAssignment(target).get(Port.R).equals(edge)) {
-							cutAt(edge, target, vertex);
+						if(layout.getPortAssignment(target).get(quadrant.getHorizontalPort().getOpposite()).equals(edge)) { // cut through L edge
+							cutAt(edge, target);
 							vertex = target;
-							quadrant = Quadrant.IV;
-						} else if(layout.getPortAssignment(target).get(Port.L).equals(edge)) {
+							quadrant = quadrant.getHorizontalOpposite();
+						} else if(layout.getPortAssignment(target).get(quadrant.getHorizontalPort()).equals(edge)) { // follow L edge
 							vertex = target;
-							quadrant = Quadrant.IV;
-						} else if(layout.getPortAssignment(target).get(Port.T).equals(edge)) {
+							// quadrant stays the same at new edge
+						} else if(layout.getPortAssignment(target).get(Port.T).equals(edge)) { // follow straight edge
 							vertex = target;
-							quadrant = Quadrant.II;
-						} else if(layout.getPortAssignment(target).get(Port.B).equals(edge)) {
+							quadrant = quadrant.getVerticalOpposite();
+						} else if(layout.getPortAssignment(target).get(Port.B).equals(edge)) { // U edge TODO possible?
 							restrictions.add(edge);
 							arrivedAtBottom();
 						} else {
@@ -91,13 +89,24 @@ public class CutFinder<V, E> {
 						}
 					}
 				}
-			} else if(quadrant == Quadrant.I) {
-				throw new RuntimeException("Not implemented yet.");
-			} else if(quadrant == Quadrant.III) {
-				throw new RuntimeException("Not implemented yet.");
 			}
 		}
 
+	}
+	
+	private boolean isHigher(V target) {
+		return  layout.getVertexLocation(target).getSecond().compareTo(layout.getVertexLocation(vertex).getSecond()) >= 0;
+	}
+	
+	private void cutAt(E edge, V target) {
+		Port targetVertexDirection = quadrant.getHorizontalPort();
+		if(targetVertexDirection == Port.L) {
+			cutAt(edge, target, vertex);
+		} else if (targetVertexDirection == Port.R) {
+			cutAt(edge, vertex, target);
+		} else {
+			throw new IllegalArgumentException("Only left or right are valid directions! Not: " + targetVertexDirection);
+		}
 	}
 	
 	private void cutAt(E edge, V leftVertex, V rightVertex) {
