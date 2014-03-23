@@ -3,6 +3,7 @@ package de.uniwue.smooth.draw;
 import de.uniwue.smooth.collision.CollisionManager;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.orthogonal.Port;
+import de.uniwue.smooth.orthogonal.Quadrant;
 import de.uniwue.smooth.util.Util;
 import edu.uci.ics.jung.graph.util.Pair;
 
@@ -92,24 +93,25 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 		// Depending on the ports we have some switches to flip:
 		
 		Quadrant lQuadrant = null; // Quadrant in which the edges are L shaped
-		boolean antidiagonal = false; // Which diagonal is significant for determining the start point of the circle arc
+		
 		boolean flipDiagonalStart = false; // Is the circle start above or below the diagonal
-		if(ports.getFirst() == Port.R && ports.getSecond() == Port.T) { lQuadrant = Quadrant.IV ; antidiagonal =  true; flipDiagonalStart =  true; }
-		if(ports.getFirst() == Port.B && ports.getSecond() == Port.L) { lQuadrant = Quadrant.IV ; antidiagonal =  true; flipDiagonalStart = false; }
-		if(ports.getFirst() == Port.T && ports.getSecond() == Port.L) { lQuadrant = Quadrant.I  ; antidiagonal = false; flipDiagonalStart =  true; }
-		if(ports.getFirst() == Port.R && ports.getSecond() == Port.B) { lQuadrant = Quadrant.I  ; antidiagonal = false; flipDiagonalStart = false; }
-		if(ports.getFirst() == Port.L && ports.getSecond() == Port.B) { lQuadrant = Quadrant.II ; antidiagonal =  true; flipDiagonalStart = false; }
-		if(ports.getFirst() == Port.T && ports.getSecond() == Port.R) { lQuadrant = Quadrant.II ; antidiagonal =  true; flipDiagonalStart =  true; }
-		if(ports.getFirst() == Port.B && ports.getSecond() == Port.R) { lQuadrant = Quadrant.III; antidiagonal = false; flipDiagonalStart = false; }
-		if(ports.getFirst() == Port.L && ports.getSecond() == Port.T) { lQuadrant = Quadrant.III; antidiagonal = false; flipDiagonalStart =  true; }
+		if(ports.getFirst() == Port.R && ports.getSecond() == Port.T) { lQuadrant = Quadrant.IV ; flipDiagonalStart =  true; }
+		if(ports.getFirst() == Port.B && ports.getSecond() == Port.L) { lQuadrant = Quadrant.IV ; flipDiagonalStart = false; }
+		if(ports.getFirst() == Port.T && ports.getSecond() == Port.L) { lQuadrant = Quadrant.I  ; flipDiagonalStart =  true; }
+		if(ports.getFirst() == Port.R && ports.getSecond() == Port.B) { lQuadrant = Quadrant.I  ; flipDiagonalStart = false; }
+		if(ports.getFirst() == Port.L && ports.getSecond() == Port.B) { lQuadrant = Quadrant.II ; flipDiagonalStart = false; }
+		if(ports.getFirst() == Port.T && ports.getSecond() == Port.R) { lQuadrant = Quadrant.II ; flipDiagonalStart =  true; }
+		if(ports.getFirst() == Port.B && ports.getSecond() == Port.R) { lQuadrant = Quadrant.III; flipDiagonalStart = false; }
+		if(ports.getFirst() == Port.L && ports.getSecond() == Port.T) { lQuadrant = Quadrant.III; flipDiagonalStart =  true; }
 		if(lQuadrant == null) throw new IllegalStateException();
-		boolean clockwise = ports.getFirst().getNext() == ports.getSecond();
+		boolean antidiagonal = ! lQuadrant.isDiagonal(); // Which diagonal is significant for determining the start point of the circle arc
+		boolean clockwise = ports.getFirst().getNext() == ports.getSecond(); // Draw the arc in clockwise or counter-clockwise direction
 		
 		// Depending on the coordinates we have some more switches to flip:
 		
 		int dx =  vertexCoordinates.getSecond().getFirst() - vertexCoordinates.getFirst().getFirst();
 		int dy =  vertexCoordinates.getSecond().getSecond() - vertexCoordinates.getFirst().getSecond();
-		boolean lTyped = quadrant(dx, dy) == lQuadrant; // L shaped?
+		boolean lTyped = Quadrant.getQuadrant(dx, dy) == lQuadrant; // L shaped?
 		boolean upper = (antidiagonal ? -1 : 1) * dx < dy; // Above or below diagonal?
 		
 		// Now with these switches we can gather the parameters for our algorithm:
@@ -149,32 +151,5 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 	
 	private Port getPort(V v, E e) {
 		return Util.getKeyByValue(layout.getPortAssignment(v), e);
-	}
-	
-	private static Quadrant quadrant(int x, int y) {
-		if(x>0) {
-			return y > 0 ? Quadrant.I : Quadrant.IV;
-		} else {
-			return y > 0 ? Quadrant.II : Quadrant.III;
-		}
-	}
-	
-	/**
-	 * Quadrants of our coordinate system.
-	 * 
-	 * The coordinate system can be visualized like this:
-	 *
-	 *           T
-	 *           ^ y
-	 *     II    |     I
-	 *           |
-	 *  L -------0--------> R
-	 *           |        x
-	 *     III   |    IV
-	 *           |
-	 *           B
-	 */
-	private enum Quadrant {
-		I,II,III,IV;	
 	}
 }

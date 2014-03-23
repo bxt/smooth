@@ -4,6 +4,18 @@ import edu.uci.ics.jung.graph.util.Pair;
 
 /**
  * Represents one of the four sides ("ports") around a vertex in an orthogonal drawing.
+ * 
+ * The coordinate system can be visualized like this:
+ *
+ *           T
+ *           ^ y
+ *     II    |     I
+ *           |
+ *  L -------0--------> R
+ *           |        x
+ *     III   |    IV
+ *           |
+ *           B
  */
 public enum Port {
 	/**
