@@ -167,7 +167,7 @@ Für \emph{Multigraphen} mit mehreren Kanten zwischen zwei Knoten kommen Variati
 
 Die Hauptaufgabe eines Zeichenalgorithmus ist die Positionierung der Knoten auf einer Zeichenebene. Die berechnete Positionszuweisung heißt Layout. In einer \emph{geradlinigen Zeichnung} werden die Kanten als gerade Linien zwischen den Knoten gezeichnet. Hier bestimmt also die Position der Knoten vollständig das Aussehen der Kanten.
 
-Bei orthogonalen Zeichnungen verlaufen die Kanten horizontal oder vertikal entlang des Koordinatengitters der Zeichenebene. Damit gibt es eine Vielzahl von Möglichkeiten für das Aussehen der Kanten. Eine Möglichkeit, das Aussehen zu normieren, wäre es, immer zunächst den vollständigen horizontalen Weg am unteren Knoten und dann den vertikalen Weg nach oben zu zeichnen, sodass jede Kante L-förmig ist. Hierbei kommt es jedoch zu Überschneidungen, wenn beispielsweise zwei Kanten einen Knoten in die selbe Richtung verlassen. Überschneidungen sorgen für Zweideutigkeiten in der Zeichnung und sollen vermieden werden. Deshalb weißt man den Kanten an jedem Knoten einen Port aus der Menge $\{\text{L, R, T, B}\}$, also Links, Rechts, Top (oben) Bottom (unten) zu. Die Richtungen der Ports sind auch in Abbildung~\ref{fig:coords} zu erkennen.
+Bei orthogonalen Zeichnungen bestehen die Kanten aus horizontalen und vertikalen Segmenten entlang des Koordinatengitters der Zeichenebene. Damit gibt es eine Vielzahl von Möglichkeiten für das Aussehen der Kanten. Eine Möglichkeit, das Aussehen zu normieren, wäre es, immer zunächst den vollständigen horizontalen Weg am unteren Knoten und dann den vertikalen Weg nach oben zu zeichnen, sodass jede Kante L-förmig ist. Hierbei kommt es jedoch zu Überschneidungen, wenn beispielsweise zwei Kanten einen Knoten in die selbe Richtung verlassen. Überschneidungen sorgen für Zweideutigkeiten in der Zeichnung und sollen vermieden werden. Deshalb weißt man den Kanten an jedem Knoten einen Port aus der Menge $\{\text{L, R, T, B}\}$, also Links, Rechts, Top (oben) Bottom (unten) zu. Die Richtungen der Ports sind auch in Abbildung~\ref{fig:coords} zu erkennen.
 \\
 
 Das Zeichnen einer Kante $e$ eines Graphen $G = (V,E)$ in einem orthogonalen Layout $(L_V,L_E,P)$ kann nun so erfolgen: Von den von $L_V$ gegebenen Positionen der beiden Endknoten $v \in e$ wird eine Gittereinheit in der Richtung des Ports gezeichnet. Von diesen Positionen aus wird eine horizontale Linie in Richtung des von $L_E$ gegebenen Kantenorts gezeichnet. Die beiden Endpositionen werden mit einer vertikalen Linie verbunden. %% TODO: Proof?
@@ -337,6 +337,11 @@ Algorithmus~\ref{alg:main}
 
 
 \chapter{Implementierung}
+
+\section{Software}
+
+Java, JUNG~\cite{jung}\footnote{\url{http://jung.sourceforge.net/}} (Java Universal Network/Graph Framework), GraphML~\cite{brandes+al-14}, yWorks yEd\footnote{\url{http://www.yworks.com/de/products_yed_about.html}}, Ipe\footnote{\url{http://ipe7.sourceforge.net/}}, Rome Test Graphs\footnote{\url{http://www.graphdrawing.org/data/}}
+
 
 \section{Schnitte finden}
 
