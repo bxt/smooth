@@ -1,0 +1,205 @@
+\documentclass[a4paper]{article}
+\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{ae}
+\usepackage{german}
+\usepackage{tabularx}
+\usepackage{amssymb}
+\usepackage{path}
+
+\title{\bf Tipps fürs wissenschaftliche Schreiben mit \LaTeX}
+\author{Alexander Wolff\thanks{Arbeitsgruppe Algorithmik, Institut für
+    Logik, Komplexität und Deduktionssysteme, Fakultät für Informatik,
+    Universität Karlsruhe, Postfach 6980, 76128 Karlsruhe, WWW:
+    http://i11www.ilkd.uni-karlsruhe.de/people/awolff}}
+\date{12.\ Januar 2004}
+
+\setlength{\parskip}{1ex}
+\setlength{\parindent}{0ex}
+\setlength{\extrarowheight}{1ex}
+\addtolength{\voffset}{-15ex}
+\addtolength{\hoffset}{-10ex}
+\addtolength{\textwidth}{20ex}
+\addtolength{\textheight}{20ex}
+
+\newcounter{myctr}
+\setcounter{myctr}{0}
+\newcommand{\regel}[1]{\multicolumn{3}{@{}l}{\addtocounter{myctr}{1}\arabic{myctr}.) #1}\\}
+
+\begin{document}
+\maketitle
+
+Für Seminarausarbeitungen, Diplom- und Doktorarbeiten gelten im
+Prinzip die gleichen Grundregeln wie für wissenschaftliche
+Veröffentlichungen.  Natürlich sollte man immer so gut strukturieren,
+so logisch aufbauen und so leicht verständlich schreiben wie irgend
+möglich.  Gerade bei mathematischen Texten mit ihrer speziellen
+Notation gibt es aber einige Konventionen, die dem Leser das
+Verständnis erleichtern.  Darum geht es in der Tabelle auf der
+nächsten Seite.
+
+Noch ein Trick: oft hilft es, sich den Leser als Ochsen vorzustellen,
+der dem Text des Schreibenden zwar meist gutmütig folgt, den man aber
+immer wieder motivieren muss, dem man besser alles gaaanz langsam und
+gründlich erklärt und der immer wieder wissen will, wohin die Reise
+geht.
+
+\vspace{2ex}
+
+\begin{tabularx}{\textwidth}{@{}p{7ex}XX@{}}
+
+  \em Regel & \em schlechtes Beispiel & \em gutes Beispiel
+  \\[1ex]\hline\\[-2ex]
+  
+  \regel{Spellchecker benutzen!!!}  
+  
+  & \multicolumn{2}{l}{In Unix z.B.\ so: 
+    \path+cat datei.tex | ispell -t -l -C -d german -T latin1 | sort -u+} \\
+  
+  \regel{Keine Variablen am Satzanfang!}
+  
+  & bla bla. $\theta$ ist hier wichtig.
+  & bla bla. Der Parameter $\theta$ ist hier wichtig. \\
+  
+  \regel{Worte, die betont werden sollen, mit \verb+\emph+ kursiv
+  setzen, nicht fett!} 
+  
+  & Für \textbf{gerade} Werte... & Für \emph{gerade} Werte... \\
+  
+  \regel{Worte, die neu eingeführt oder definiert werden, mit
+  \verb+\emph+ setzen!  (Aber nur einmal!)} 
+
+  & Ein Graph ist ein Tupel $(V,E)$...
+  & Ein \emph{Graph} ist ein Tupel $(V,E)$... \\
+
+  \regel{Dies gilt auch in einer \verb+definition+-Umgebung!}
+
+  & \emph{Ein Graph ist ein Tupel $(V,E)$...}
+  & \emph{Ein \emph{Graph} ist ein Tupel $(V,E)$...} \\
+
+  \regel{Keine Quantoren, Folgerungspfeile und Vergleichsoperatoren im
+    Fließtext verwenden!}  
+  
+  & Dies gilt $\forall x \in \mathbb{R}$.  
+  & Dies gilt für alle $x \in \mathbb{R}$. \\[-1ex]
+  & $a > b - c \Leftrightarrow a+c > b$
+  & $a > b - c$ ist äquivalent zu $a+c > b$. \\[-1ex]
+  & Der Faktor ist $>3$.
+  & Der Faktor ist größer als $3$.  Es gilt $f>3$. \\
+
+  \regel{Brüche im Fließtext nicht mit \verb+\frac+ setzen!} 
+
+  & Für $\tau \ge \frac{1}{\pi^2}$ gilt... 
+  & Für $\tau \ge 1/\pi^2$ gilt... \\ 
+  
+  \regel{Wörter oder Abkürzungen im Mathe-Modus (\verb+$...$+) 
+    mit \verb+\mathrm+ setzen!}
+  
+  & $\sigma_{opt} = |CH(P)|$ 
+  & $\sigma_\mathrm{opt} = |\mathrm{CH}(P)|$\\
+  
+  \regel{In mathematischen Aufzählungen \verb+\dots+ statt "`..."'
+    verwenden!}
+
+  & $p_1, ..., p_n$ und $x_1 + ... + x_m$ 
+  & $p_1, \dots, p_n$ und $x_1 + \dots + x_m$ \\
+
+  \regel{Satzzeichen (nicht aber Klammern) ohne Lücke an das
+  vorstehende Wort anschließen!} 
+
+  & Das ist doch(sicher) klar , oder ? & Das ist doch (sicher) klar, oder? \\
+
+\end{tabularx} 
+
+\vfill
+
+\hfill \emph{Bitte umblättern!}
+
+\vspace{2ex}
+
+\newpage
+
+\begin{tabularx}{\textwidth}{@{}p{7ex}XX@{}}
+
+  \em Regel & \em schlechtes Beispiel & \em gutes Beispiel
+  \\[1ex]\hline\\[-2ex]
+
+  \regel{Anzahlen (nicht aber Zahlen) bis zwölf ausschreiben!}
+
+  & Die 3 Knoten haben Grad 3.
+  & Die drei Knoten haben Grad 3. \\
+
+  \regel{In Mengendefinitionen \verb+\mid+ statt $|$ verwenden!} 
+
+  & $A_y = \{ x \in B | x \le y \}$
+  & $A_y = \{ x \in B \mid x \le y \}$ \\
+  
+  \regel{In \LaTeX\ vordefinierte Funktionsnamen wie \verb+\max+,
+    \verb+\log+ oder \verb+\det+ verwenden!}
+
+  & $sup_{x>0} max \{ cos x, sin x \} = 1$
+  & $\sup_{x>0} \max \{ \cos x, \sin x \} = 1$ \\
+
+  \regel{Doppelindizes wenn möglich vermeiden!}
+  
+  & $a_{i_j}$ 
+  & $a_{i,j}$ oder $a_{\sigma(i)}$ für $\sigma \in S_n$ \\
+  
+  \regel{Für Zahlensysteme \verb+\mathbb+ aus dem Paket \verb+amssymb+
+    verwenden!}
+
+  & $N, Z, Q, R, C$
+  & $\mathbb{N}, \mathbb{Z}, \mathbb{Q}, \mathbb{R}, \mathbb{C}$ \\
+  
+  \regel{Wörter, die \emph{ein} Ding bezeichnen, zusammenschreiben
+    oder Bindestriche verwenden!}
+
+  & Der Fair Split Tree ist eine Daten Struktur.
+  & Der Fair-Split-Tree ist eine Datenstruktur. \\
+
+  \regel{Unterschied zwischen verschiedenen Stricharten machen!}
+
+  & Seiten 5-6 sind - denke ich - wichtig. 
+  & Seiten 5--6 sind~-- denke ich~-- wichtig. \\[-1ex]
+  & Taschen und Deckenlampen erleuchten.
+  & Taschen- und Deckenlampen erleuchten.\\
+
+  \regel{Höchstens sehr gebräuchliche Abkürzungen (bzw., usw.) verwenden!}
+  
+  & $\Rightarrow$ OBdA. & Daraus folgt ohne Beschränkung der ... \\
+  
+  \regel{Abstand zwischen Satzpunkt (\verb+.+) und Abkürzungspunkt
+    (\verb+.\ +) unterscheiden!}
+
+  & A, B, usw. \hspace{.1ex} lernen gerne \LaTeX.  \hspace{.1ex} Aber Z...
+  & A, B, usw.\ lernen gerne \LaTeX.  \hspace{.1ex} Aber Z...\\
+
+  \regel{Je nach Sprache korrekte Anführungszeichen verwenden
+  (\verb+''engl.''+~-- \verb+"`dt."'+~-- \verb+"<fr.">+)!}
+
+  & ''Sure!''~-- ``Aber ja!''~-- ''Mais oui!'' 
+  & ''Sure!''~-- "`Aber ja!"'~-- "<Mais oui!"> \\
+  
+  \regel{Für Tabellen, bei denen eine Spalte den "`Rest"' des Platzes
+    verwenden soll: Paket \verb+tabularx+!}
+
+  \regel{Absätze nicht durch \verb+\\+ sondern durch eine Leerzeile
+    beenden! (\texttt{\verb+\ +setlength\{\verb+\ +parskip\}\{1ex\}})}
+  
+  \regel{Absätze, die nur aus ein, zwei Zeilen bestehen, wenn möglich
+    vermeiden!}
+
+  \regel{Abbildungen mit einer aussagekräftigen Bildunterschrift
+    (\verb+\caption+) versehen.} 
+
+  \regel{Im Fließtext auf \emph{jede} Abbildung Bezug nehmen:  
+    \verb+siehe Abbildung~\ref+\verb+{fig:super}+}
+
+\end{tabularx}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
