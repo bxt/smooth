@@ -265,6 +265,9 @@ Zunächst werden nur zweifach knotenzusammenhängende Graphen gezeichnet, mittel
 
 % TODO
 
+\cite{hopcroft+tarjan-74} \cite{patrignani-07} \cite{brandes-09}
+
+
 \section{Ermitteln einer st-Ordnung}
 
 Im nächsten Schritt wird eine \emph{st-Ordnung} berechnet, eine Reihenfolge der Knoten $v_1, \dots, v_n$, mit $s=v_1$ und $t=v_n$. Jeder Knoten (außer $s$ und $t$) soll mindestens einen Nachbarn mit einem höheren Index und mindestens einen mit einem niedrigeren Index haben. Da die Indizes paarweise verschieden sind, erhalten wir zudem einen gerichteten Graphen, wenn wir die ungerichteten Kanten so ausrichten, dass sie vom niedrigeren Index zum höheren verlaufen.\footnote {Umgekehrt könnten wir aus dem ungerichteten Graphen durch topologisches Sortieren eine st-Ordnung erhalten.}
