@@ -207,21 +207,21 @@ Werden die Zusammenhangskomponenten einzeln gezeichnet, dann können sie unabhä
 
 In dieser Sicht ist die reflexiv-transitive Hülle der Benachbart-Relation eine Äquivalenzrelation und ihre Äquivalenzklassen sind die Zusammenhangskomponenten des Graphen. %% TODO: Beweis?
 
-\section{Zweifach-Zusammengang und st-Ordnungen}
+\section{Zweifach-Zusammenhang und st-Ordnungen}
 
 \begin{definition}
-  Ein \emph{2-fach-(knoten)zusammenhängender} Graph ist ein Graph $G=(V, E)$ für den jeder induzierte Teilgraph $G_{V\\v}$ für alle $v \in V$ zusammenhängend ist.
-  Ist ein Graph $G=(V, E)$  nicht 2-fach-zusammenhängend, so nennt man die maximalen 2-fach-zusammenhängenden Teilgraphen die \emph{2-Zusammenhangskomponenten}. Die Zeugen $v \in V$, für die der induzierte Teilgraph $G_{V\\v}$ nicht zusammenhängend ist, nennt man \emph{Schnittknoten}. Kanten $e \in E$, für die $G' = (V, E\\e)$ nicht zusammenhängend ist, nennt man\emph{Brücken}.
+  Ein \emph{zweifach (knoten)zusammenhängender} Graph ist ein Graph $G=(V, E)$ für den jeder induzierte Teilgraph $G_{V \setminus v}$ für alle $v \in V$ zusammenhängend ist.
+  Ist ein Graph $G=(V, E)$  nicht zweifach zusammenhängend, so nennt man die maximalen zweifach zusammenhängenden Teilgraphen die \emph{Zweifach-Zusammenhangskomponenten}. Die Zeugen $v \in V$, für die der induzierte Teilgraph $G_{V \setminus v}$ nicht zusammenhängend ist, nennt man \emph{Schnittknoten}. Kanten $e \in E$, für die $G' = (V, E \setminus e)$ nicht zusammenhängend ist, nennt man \emph{Brücken}.
 \end{definition}
 
-Ein Kreis ist ein 2-fach-zusammenhängender Graph, da durch Hinwegnahme eines Knotens ein zusammenhängender Weg entsteht. Ein Baum ist nicht 2-fach-knotenzusammenhängend, da durch Hinwegnahme der Wurzel, die Kinder nicht mehr zusammenhängend sind.
+Ein Kreis ist ein zweifach zusammenhängender Graph, da durch Hinwegnahme eines Knotens ein zusammenhängender Weg entsteht. Ein Baum ist nicht  zweifach knotenzusammenhängend, da durch Hinwegnahme der Wurzel, die Kinder nicht mehr zusammenhängend sind.
 
-Die 2-Zusammenhangskomponenten eines Graphen bilden einen Baum.
+Die Zweifach-Zusammenhangskomponenten eines Graphen bilden einen Baum.
 
-Ein 2-fach-zusammenhängender Graph ist die Grundlage für eine weiteres Element das Zeichenalgorithmus:
+Ein zweifach zusammenhängender Graph ist die Grundlage für eine weiteres Element das Zeichenalgorithmus:
 
 \begin{definition}
-  Eine $st$-Ordnung eines {2-fach-zusammenhängenden} Graphen $G = (V, E)$ und zweier Knoten $s, t \in V$ ist eine Anordnung aller Knoten $v_1, v_2, \dots, v_n \in V$, sodass $s = v_1$, $t = v_n$ und alle Knoten $v_i$ außer $s$ und $t$  einen Nachbarn $v_j$ mit $j < i$ und einen Nachbarn $v_k$ mit $k > i$ haben.
+  Eine \emph{$st$-Ordnung} eines zweifach zusammenhängenden Graphen $G = (V, E)$ und zweier Knoten $s, t \in V$ ist eine Anordnung aller Knoten $v_1, v_2, \dots, v_n \in V$, sodass $s = v_1$, $t = v_n$ und alle Knoten $v_i$ außer $s$ und $t$  einen Nachbarn $v_j$ mit $j < i$ und einen Nachbarn $v_k$ mit $k > i$ haben.
 \end{definition}
 
 Durch die $st$-Ordnung können die Knoten in eine Reihenfolge gebracht werden, in der sie der Algorithmus bearbeiten kann. Die $st$-Ordnung hat noch einige weitere Eigenschaften in planaren Graphen, die im nächsten Abschnitt besprochen werden.
@@ -241,14 +241,14 @@ Durch die $st$-Ordnung können die Knoten in eine Reihenfolge gebracht werden, i
 
 \section{Übersicht}
 
-Zunächst werden nur 2-fach knotenzusammenhängende Graphen gezeichnet, mittels Algorithmus~\ref{alg:biconnected}: Für den Graphen wird eine planare Einbettung und eine st-Ordnung bestimmt. Im nächsten Schritt wird ein orthogonales Layout berechnet, welches die Einbettung beibehält und die Knoten in der von der st-Ordnung vorgegebenen Reihenfolge platziert. Dieses orthogonale Layout wird dann verkleinert, wobei stufenförmige Kanten entfernt werden. Das fertige $OC_3$-Layout wird im letzten Schritt in ein $SC_2$-Layout umgesetzt.
+Zunächst werden nur zweifach knotenzusammenhängende Graphen gezeichnet, mittels Algorithmus~\ref{alg:biconnected}: Für den Graphen wird eine planare Einbettung und eine st-Ordnung bestimmt. Im nächsten Schritt wird ein orthogonales Layout berechnet, welches die Einbettung beibehält und die Knoten in der von der st-Ordnung vorgegebenen Reihenfolge platziert. Dieses orthogonale Layout wird dann verkleinert, wobei stufenförmige Kanten entfernt werden. Das fertige $OC_3$-Layout wird im letzten Schritt in ein $SC_2$-Layout umgesetzt.
 
 \begin{algorithm}[ht]
   \SetKw{True}{true}
   \SetKw{False}{false}
   \caption{SmoothOrthogonalDrawBiconnected(Graph $G = (V,E)$)}
   \label{alg:biconnected}
-  \Ein{4-planarer, 2-fach knotenzusammenhängender Graph $G = (V,E)$}
+  \Ein{4-planarer, zweifach knotenzusammenhängender Graph $G = (V,E)$}
   \Aus{$SC_2$-Layout von $G$}
   
   $\Epsilon \leftarrow$ PlanarEmbedding$(G)$ \;
