@@ -1,5 +1,6 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+# * text=auto
+# Don't do that: EGit ignores this anyway...
 
 # Custom for Visual Studio
 *.cs     diff=csharp
