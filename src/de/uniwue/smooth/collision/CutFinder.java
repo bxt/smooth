@@ -63,12 +63,15 @@ public class CutFinder<V, E> {
 					V target = layout.getGraph().getOpposite(vertex, edge);
 					if(isHigher(target)) { // cut through outgoing I, L or C edge
 						cutAt(edge, target);
+						// stay at the same vertex
 						quadrant = quadrant.getVerticalOpposite();
-					} else { // follow an edge downwards
-						vertex = target;
-						if(layout.getPortAssignment(target).get(Port.T).equals(edge)) { // follow L edge
-							// quadrant stays the same at new edge
+					} else {
+						if(layout.getPortAssignment(target).get(Port.T).equals(edge)) { // cut downwards L edge
+							cutAt(edge, target);
+							// stay at the same vertex
+							quadrant = quadrant.getVerticalOpposite();
 						} else if (layout.getPortAssignment(target).get(quadrant.getHorizontalPort()).equals(edge)) { // follow C edge
+							vertex = target;
 							quadrant = quadrant.getVerticalOpposite();
 						} else {
 							throw new IllegalStateException("Bad edge. (1)");
@@ -85,11 +88,10 @@ public class CutFinder<V, E> {
 					if(isHigher(target)) { // TODO: might happen for the last U edge.
 						throw new IllegalStateException("Bad edge. (2)");
 					} else {
-						if(layout.getPortAssignment(target).get(quadrant.getHorizontalPort().getOpposite()).equals(edge)) { // cut through L edge
-							cutAt(edge, target);
+						if(layout.getPortAssignment(target).get(quadrant.getHorizontalPort().getOpposite()).equals(edge)) { // follow L edge above
 							vertex = target;
-							quadrant = quadrant.getHorizontalOpposite();
-						} else if(layout.getPortAssignment(target).get(quadrant.getHorizontalPort()).equals(edge)) { // follow L edge
+							quadrant = quadrant.getOpposite();
+						} else if(layout.getPortAssignment(target).get(quadrant.getHorizontalPort()).equals(edge)) { // follow L edge below
 							vertex = target;
 							// quadrant stays the same at new edge
 						} else if(layout.getPortAssignment(target).get(Port.T).equals(edge)) { // follow straight edge

@@ -119,7 +119,7 @@ public enum Quadrant {
 	}
 	
 	/**
-	 * The quadrant on the other side of this quadrant (mirror at origin, rotate by 180 degrees). 
+	 * The quadrant on the other side of this quadrant (mirror at origin, diagonal opposite, rotate by 180 degrees). 
 	 * @return The opposite quadrant.
 	 */
 	public Quadrant getOpposite() {
