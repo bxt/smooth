@@ -12,7 +12,6 @@ import java.util.Set;
 import au.com.bytecode.opencsv.CSVReader;
 import de.uniwue.smooth.collision.CollisionAvoidingSmoothLayout;
 import de.uniwue.smooth.draw.IpeDrawing;
-import de.uniwue.smooth.draw.OrthogonalDrawer;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
 import de.uniwue.smooth.draw.SmoothOrthogonalDrawer;
@@ -47,6 +46,7 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 		Collections.addAll(interesting, "bc_grafo1799.26.lgr.graphml", "bc_grafo1998.31.lgr.graphml", "bc_grafo2196.16.lgr.graphml", "bc_grafo2222.17.lgr.graphml", "bc_grafo2245.17.lgr.graphml"/*double C*/);
 		
 		OrthogonalDrawing<Appendable> drawing = createDrawing();
+		int collisionCounter = 0;
 		
 		for (final String[] cvsLine : filesCsvList) {
 			try {
@@ -65,9 +65,12 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 				
 				CompressingLiuEtAlLayout<Vertex, Edge> liuLayout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph);
 				OrthogonalLayout<Vertex, Edge> layout = new CollisionAvoidingSmoothLayout<Vertex, Edge>(liuLayout);
-				OrthogonalDrawer<Vertex, Edge> drawer = new SmoothOrthogonalDrawer<Vertex, Edge>();
+				SmoothOrthogonalDrawer<Vertex, Edge> drawer = new SmoothOrthogonalDrawer<Vertex, Edge>();
 				layout.initialize();
 				drawer.draw(layout, drawing);
+				
+				if (drawer.getCollisionCount() > 0) collisionCounter++;
+				
 				if(interesingDrawing != null) {
 					drawer.draw(layout, interesingDrawing);
 					Util.writeFile("resources/drawings/rome_bc/" + filename + "-nocollisions.ipe", interesingDrawing.create().toString());
@@ -84,6 +87,7 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 		}
 		
 		System.out.println("Generated " + filesCsvList.size() +  " drawings. ");
+		System.out.println("Had " + collisionCounter +  " drawings with collisions. ");
 		Util.writeFile("resources/drawings/rome_bc/all-nocollisions.ipe", drawing.create().toString());
 		b.print();
 	}

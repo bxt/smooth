@@ -17,6 +17,7 @@ public class SmoothOrthogonalDrawer<V, E> extends AbstractOrthogonalDrawer<V, E>
 	
 	private CollisionManager collisionManager;
 	private SmoothEdgeGenerator<V, E> edgeGenerator;
+	private int collisionCount;
 	
 	public CollisionManager getCollisionManager() {
 		return collisionManager;
@@ -47,10 +48,15 @@ public class SmoothOrthogonalDrawer<V, E> extends AbstractOrthogonalDrawer<V, E>
 				throw new IllegalStateException("Unknown edge type!");
 			}
 		}
+		collisionCount = collisionManager.collisions().size();
 		collisionManager = null;
 		edgeGenerator = null; 
 	}
-	
+
+	public int getCollisionCount() {
+		return collisionCount;
+	}
+
 	private void drawEdge(SmoothEdge edge) {
 		if(edge.getKink() != null) drawing.edgeMidpoint(edge.getKink());
 		drawSegments(edge);
