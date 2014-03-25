@@ -9,9 +9,8 @@ import java.util.Set;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.orthogonal.Port;
 import de.uniwue.smooth.orthogonal.Quadrant;
-import edu.uci.ics.jung.graph.util.Pair;
 
-public class CutFinder<V, E> {
+public class Cut<V, E> {
 	
 	private OrthogonalLayout<V, E> layout;
 	private Set<V> scope;
@@ -22,30 +21,57 @@ public class CutFinder<V, E> {
 	private V vertex = null;
 	private Quadrant quadrant = null;
 	
-	public CutFinder(OrthogonalLayout<V, E> layout, Set<V> scope) {
+	private Set<V> leftVertices = null;
+	private Set<V> rightVertices = null;
+	
+	private Set<E> leftEdges = null;
+	private Set<E> rightEdges = null;
+	
+	public Cut(OrthogonalLayout<V, E> layout, Set<V> scope, V vertex, Quadrant quadrant) {
 		super();
 		this.layout = layout;
 		this.scope = scope;
+		
+		this.vertex = vertex;
+		this.quadrant = quadrant;
+		
+		run();
 	}
 	
-	public Pair<Set<V>> cut(V v, Quadrant q) {
+	private void run() {
 		
-		initialize(v, q);
+		initialize();
 		addFirstVertex();
 		
 		findCut();
 		
-		Pair<Set<V>> result = new Pair<>(depthFirstFind(leftStartVertices), depthFirstFind(rightStartVertices));
+		leftVertices = depthFirstFind(leftStartVertices);
+		rightVertices = depthFirstFind(rightStartVertices);
 		
-		return result;
+		leftEdges.addAll(depthFirstFindEdges(leftStartVertices));
+		rightEdges.addAll(depthFirstFindEdges(rightStartVertices));
 	}
 	
-	private void initialize(V vertex, Quadrant quadrant) {
+	public Set<V> getLeftVertices() {
+		return leftVertices;
+	}
+
+	public Set<V> getRightVertices() {
+		return rightVertices;
+	}
+
+	public Set<E> getLeftEdges() {
+		return leftEdges;
+	}
+
+	public Set<E> getRightEdges() {
+		return rightEdges;
+	}
+
+	private void initialize() {
 		leftStartVertices = new LinkedList<>();
 		rightStartVertices = new LinkedList<>();
 		restrictions = new HashSet<>();
-		this.vertex = vertex;
-		this.quadrant = quadrant;
 	}
 	
 	private void addFirstVertex() {
@@ -122,8 +148,10 @@ public class CutFinder<V, E> {
 		Port targetVertexDirection = quadrant.getHorizontalPort();
 		if(targetVertexDirection == Port.L) {
 			cutAt(edge, target, vertex);
+			leftEdges.add(edge);
 		} else if (targetVertexDirection == Port.R) {
 			cutAt(edge, vertex, target);
+			rightEdges.add(edge);
 		} else {
 			throw new IllegalArgumentException("Only left or right are valid directions! Not: " + targetVertexDirection);
 		}
@@ -153,6 +181,27 @@ public class CutFinder<V, E> {
 			E edge = layout.getGraph().findEdge(v, w);
 			if(!results.contains(w) && !restrictions.contains(edge) && scope.contains(w)) {
 				depthFirstTraverse(w, results);
+			}
+		}
+	}
+	
+	private Set<E> depthFirstFindEdges(Collection<V> starts) {
+		Set<V> visited = new HashSet<>();
+		Set<E> results = new HashSet<>();
+		for(V v : starts)
+			depthFirstTraverse(v, visited, results);
+		return results;
+	}
+	
+	private void depthFirstTraverse(V v, Set<V> visited, Set<E> results) {
+		visited.add(v);
+		for(V w : layout.getGraph().getNeighbors(v)) {
+			E edge = layout.getGraph().findEdge(v, w);
+			if(!restrictions.contains(edge)) {
+				results.add(edge);
+				if(!results.contains(w) && scope.contains(w)) {
+					depthFirstTraverse(w, visited, results);
+				}
 			}
 		}
 	}
