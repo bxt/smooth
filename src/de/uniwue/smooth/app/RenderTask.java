@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import de.uniwue.smooth.draw.IpeDrawing;
 import de.uniwue.smooth.draw.OrthogonalDrawer;
 import de.uniwue.smooth.draw.StraightlineOrthogonalDrawer;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
@@ -98,17 +99,18 @@ public class RenderTask implements Runnable {
 		/*Collection<OrthogonalLayout<Vertex, Edge>> layouts = new Pair<OrthogonalLayout<Vertex, Edge>>(
 				new LiuEtAlLayout<Vertex, Edge>(graph, stOrdering), new CompressingLiuEtAlLayout<Vertex, Edge>(graph, stOrdering));*/
 		Collection<OrthogonalLayout<Vertex, Edge>> layouts = Collections.<OrthogonalLayout<Vertex, Edge>>singleton(new CompressingLiuEtAlLayout<Vertex, Edge>(graph, stOrdering));
-		Pair<OrthogonalDrawer<Vertex, Edge, String>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge, String>>(
-				new StraightlineOrthogonalDrawer<Vertex, Edge, String>(), new SmoothOrthogonalDrawer<Vertex, Edge, String>());
+		Pair<OrthogonalDrawer<Vertex, Edge, Appendable>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge, Appendable>>(
+				new StraightlineOrthogonalDrawer<Vertex, Edge, Appendable>(), new SmoothOrthogonalDrawer<Vertex, Edge, Appendable>());
 		for(OrthogonalLayout<Vertex, Edge> layout : layouts) {
 			layout.initialize();
 			AffineTransform transform = new AffineTransform();
 			transform.translate(translateX, translateY);
 			transform.scale(scale, scale);
-			for(OrthogonalDrawer<Vertex, Edge, String> drawer : drawers) {
+			for(OrthogonalDrawer<Vertex, Edge, Appendable> drawer : drawers) {
 				if(layout.getClass() == LiuEtAlLayout.class && drawer.getClass() == SmoothOrthogonalDrawer.class) continue;
-				OrthogonalDrawing<String> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
-				String ipeCode = drawer.transform(new ImmutableTuple<>(layout, drawing));
+				OrthogonalDrawing<Appendable> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(new IpeDrawing()), transform);
+				drawer.transform(new ImmutableTuple<>(layout, drawing));
+				String ipeCode = drawing.create().toString();
 				Util.writeFile("resources/drawings/"+name+"-"+layout.getClass().getSimpleName()+"-"+drawer.getClass().getSimpleName()+".ipe", ipeCode);
 			}
 		}

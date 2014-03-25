@@ -11,6 +11,7 @@ import java.util.Set;
 
 import au.com.bytecode.opencsv.CSVReader;
 import de.uniwue.smooth.collision.CollisionAvoidingSmoothLayout;
+import de.uniwue.smooth.draw.IpeDrawing;
 import de.uniwue.smooth.draw.OrthogonalDrawer;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
@@ -53,13 +54,13 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 		Set<String> interesting = new HashSet<>();
 		Collections.addAll(interesting, "bc_grafo1799.26.lgr.graphml", "bc_grafo1998.31.lgr.graphml", "bc_grafo2196.16.lgr.graphml", "bc_grafo2222.17.lgr.graphml", "bc_grafo2245.17.lgr.graphml"/*double C*/);
 		
-		OrthogonalDrawing<String> drawing = createDrawing();
+		OrthogonalDrawing<Appendable> drawing = createDrawing();
 		
 		for (final String[] cvsLine : filesCsvList) {
 			try {
 				String filename = cvsLine[0];
 				
-				OrthogonalDrawing<String> interesingDrawing = null;
+				OrthogonalDrawing<Appendable> interesingDrawing = null;
 				if(interesting.contains(filename)) {
 					interesingDrawing =  createDrawing();
 				}
@@ -72,12 +73,12 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 				
 				CompressingLiuEtAlLayout<Vertex, Edge> liuLayout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph);
 				OrthogonalLayout<Vertex, Edge> layout = new CollisionAvoidingSmoothLayout<Vertex, Edge>(liuLayout);
-				OrthogonalDrawer<Vertex, Edge, String> drawer = new SmoothOrthogonalDrawer<Vertex, Edge, String>();
+				OrthogonalDrawer<Vertex, Edge, Appendable> drawer = new SmoothOrthogonalDrawer<Vertex, Edge, Appendable>();
 				layout.initialize();
 				drawer.transform(new ImmutableTuple<>(layout, drawing));
 				if(interesingDrawing != null) {
 					drawer.transform(new ImmutableTuple<>(layout, interesingDrawing));
-					Util.writeFile("resources/drawings/rome_bc/" + filename + "-nocollisions.ipe", interesingDrawing.create());
+					Util.writeFile("resources/drawings/rome_bc/" + filename + "-nocollisions.ipe", interesingDrawing.create().toString());
 				}
 				
 				graphReader.close();
@@ -91,16 +92,16 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 		}
 		
 		System.out.println("Generated " + filesCsvList.size() +  " drawings. ");
-		Util.writeFile("resources/drawings/rome_bc/all-nocollisions.ipe", drawing.create());
+		Util.writeFile("resources/drawings/rome_bc/all-nocollisions.ipe", drawing.create().toString());
 		b.print();
 	}
 	
-	OrthogonalDrawing<String> createDrawing() {
+	OrthogonalDrawing<Appendable> createDrawing() {
 		AffineTransform transform = new AffineTransform();
 		transform.translate(400, 100);
 		transform.scale(30, 30);
 		
-		return new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
+		return new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(new IpeDrawing()), transform);
 	}
 	
 }

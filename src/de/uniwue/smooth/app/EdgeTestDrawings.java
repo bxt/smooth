@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.commons.collections15.Transformer;
 
+import de.uniwue.smooth.draw.IpeDrawing;
 import de.uniwue.smooth.draw.OrthogonalDrawer;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
@@ -33,7 +34,7 @@ public class EdgeTestDrawings<T> implements Runnable {
 		
 
 	private static void edgetest() {
-		OrthogonalDrawing<String> drawing = new OrthogonalIpeDrawing();
+		OrthogonalDrawing<Appendable> drawing = new OrthogonalIpeDrawing(new IpeDrawing());
 		
 		// I
 		
@@ -106,12 +107,12 @@ public class EdgeTestDrawings<T> implements Runnable {
 		draw(Port.L, Port.B, drawing, 700, 700, 3,-1);
 		draw(Port.R, Port.B, drawing, 300, 700,-3,-1);
 		
-		Util.writeFile("resources/drawings/edgetest.ipe", drawing.create());
+		Util.writeFile("resources/drawings/edgetest.ipe", drawing.create().toString());
 	}
 	
 	private static void extendedEdgetest() {
 		
-		OrthogonalDrawing<String> drawing = new OrthogonalIpeDrawing();
+		OrthogonalDrawing<Appendable> drawing = new OrthogonalIpeDrawing(new IpeDrawing());
 		
 		drawSmall(Port.R, Port.T, drawing, 200, 400, 1, 3);
 		drawSmall(Port.R, Port.T, drawing, 200, 400,-1, 3);
@@ -185,22 +186,22 @@ public class EdgeTestDrawings<T> implements Runnable {
 		drawSmall(Port.L, Port.T, drawing, 800, 600, 3,-1);
 		drawSmall(Port.L, Port.T, drawing, 800, 600,-3,-1);
 		
-		Util.writeFile("resources/drawings/extendedEdgetest.ipe", drawing.create());
+		Util.writeFile("resources/drawings/extendedEdgetest.ipe", drawing.create().toString());
 	}
 	
 	private static void drawSmall(Port startPort, Port endPort,
-			OrthogonalDrawing<String> drawing, int translateX, int translateY, int endX, int endY) {
+			OrthogonalDrawing<Appendable> drawing, int translateX, int translateY, int endX, int endY) {
 		draw(startPort, endPort, drawing, translateX, translateY, 15, endX, endY);
 	}
 
 	private static void draw(Port startPort, Port endPort,
-			OrthogonalDrawing<String> drawing, int translateX, int translateY, int endX, int endY) {
+			OrthogonalDrawing<Appendable> drawing, int translateX, int translateY, int endX, int endY) {
 		draw(startPort, endPort, drawing, translateX, translateY, 30, endX, endY);
 	}
 
 	private static void draw(Port startPort, Port endPort,
-			OrthogonalDrawing<String> drawing, int translateX, int translateY, double scale, int endX, int endY) {
-		new EdgeTestDrawings<String>(startPort, endPort, drawing, translateX, translateY, scale, endX, endY).run();
+			OrthogonalDrawing<Appendable> drawing, int translateX, int translateY, double scale, int endX, int endY) {
+		new EdgeTestDrawings<Appendable>(startPort, endPort, drawing, translateX, translateY, scale, endX, endY).run();
 	}
 
 	private Port startPort;

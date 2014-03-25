@@ -1,5 +1,7 @@
 package de.uniwue.smooth.draw;
 
+import org.apache.commons.collections15.Factory;
+
 import edu.uci.ics.jung.graph.util.Pair;
 
 /**
@@ -7,7 +9,7 @@ import edu.uci.ics.jung.graph.util.Pair;
  * 
  * @param <T> Type of the resulting (low level) painting.
  */
-public interface OrthogonalDrawing<T> {
+public interface OrthogonalDrawing<T> extends Factory<T> {
 	
 	/**
 	 * Draws a vertex marker.
@@ -48,8 +50,10 @@ public interface OrthogonalDrawing<T> {
 	public abstract void label(Pair<Integer> position, String labelText);
 
 	/**
-	 * Finish the painting.
+	 * Finish the painting. (optional)
+	 * 
 	 * @return The completed painting.
+	 * @throws UnsupportedOperationException When this drawing does not have a defined result (stateful drawing).
 	 */
 	public abstract T create();
 

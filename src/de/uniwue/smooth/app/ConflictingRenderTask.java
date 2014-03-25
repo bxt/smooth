@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import de.uniwue.smooth.draw.IpeDrawing;
 import de.uniwue.smooth.draw.OrthogonalDrawer;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
@@ -84,18 +85,19 @@ public class ConflictingRenderTask implements Runnable {
 	@Override
 	public void run() {
 		Collection<OrthogonalLayout<Vertex, Edge>> layouts = Collections.<OrthogonalLayout<Vertex, Edge>>singleton(new CompressingLiuEtAlLayout<Vertex, Edge>(graph, embedding, stOrdering));
-		Pair<OrthogonalDrawer<Vertex, Edge, String>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge, String>>(
-				new StraightlineOrthogonalDrawer<Vertex, Edge, String>(), new SmoothOrthogonalDrawer<Vertex, Edge, String>());
+		Pair<OrthogonalDrawer<Vertex, Edge, Appendable>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge, Appendable>>(
+				new StraightlineOrthogonalDrawer<Vertex, Edge, Appendable>(), new SmoothOrthogonalDrawer<Vertex, Edge, Appendable>());
 		for(OrthogonalLayout<Vertex, Edge> layout : layouts) {
 			layout.initialize();
 			AffineTransform transform = new AffineTransform();
 			transform.translate(translateX, translateY);
 			transform.scale(scale, scale);
-			for(OrthogonalDrawer<Vertex, Edge, String> drawer : drawers) {
+			for(OrthogonalDrawer<Vertex, Edge, Appendable> drawer : drawers) {
 				if(layout.getClass() == LiuEtAlLayout.class && drawer.getClass() == SmoothOrthogonalDrawer.class) continue;
-				OrthogonalDrawing<String> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
-				String ipeCode = drawer.transform(new ImmutableTuple<>(layout, drawing));
-				Util.writeFile("resources/conflicting_graphs/drawings/"+name+"-"+layout.getClass().getSimpleName()+"-"+drawer.getClass().getSimpleName()+".ipe", ipeCode);
+				IpeDrawing ipeDrawing = new IpeDrawing();
+				OrthogonalDrawing<Appendable> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(ipeDrawing), transform);
+				Appendable ipeCode = drawer.transform(new ImmutableTuple<>(layout, drawing));
+				Util.writeFile("resources/conflicting_graphs/drawings/"+name+"-"+layout.getClass().getSimpleName()+"-"+drawer.getClass().getSimpleName()+".ipe", ipeCode.toString());
 			}
 		}
 	}

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import au.com.bytecode.opencsv.CSVReader;
+import de.uniwue.smooth.draw.IpeDrawing;
 import de.uniwue.smooth.draw.OrthogonalDrawer;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
@@ -44,15 +45,15 @@ public class RomeBcRenderTask implements Runnable {
 		Set<String> interesting = new HashSet<>();
 		Collections.addAll(interesting, "bc_grafo10182.33.lgr.graphml", "bc_grafo10187.33.lgr.graphml");
 		
-		OrthogonalDrawing<String> drawing = createDrawing();
+		OrthogonalDrawing<Appendable> drawing = createDrawing("resources/drawings/rome_bc/all.ipe");
 		
 		for (final String[] cvsLine : filesCsvList) {
 			try {
 				String filename = cvsLine[0];
 				
-				OrthogonalDrawing<String> interesingDrawing = null;
+				OrthogonalDrawing<Appendable> interesingDrawing = null;
 				if(interesting.contains(filename)) {
-					interesingDrawing =  createDrawing();
+					interesingDrawing =  createDrawing("resources/drawings/rome_bc/" + filename + ".ipe");
 				}
 				
 				File file = new File("resources/rome_bc/" + filename);
@@ -62,12 +63,12 @@ public class RomeBcRenderTask implements Runnable {
 				Graph<Vertex, Edge> graph = graphReader.readGraph();
 				
 				OrthogonalLayout<Vertex, Edge> layout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph);
-				OrthogonalDrawer<Vertex, Edge, String> drawer = new SmoothOrthogonalDrawer<Vertex, Edge, String>();
+				OrthogonalDrawer<Vertex, Edge, Appendable> drawer = new SmoothOrthogonalDrawer<Vertex, Edge, Appendable>();
 				layout.initialize();
 				drawer.transform(new ImmutableTuple<>(layout, drawing));
 				if(interesingDrawing != null) {
 					drawer.transform(new ImmutableTuple<>(layout, interesingDrawing));
-					Util.writeFile("resources/drawings/rome_bc/" + filename + ".ipe", interesingDrawing.create());
+					Util.writeFile("resources/drawings/rome_bc/" + filename + ".ipe",interesingDrawing.create().toString());
 				}
 				
 				graphReader.close();
@@ -80,16 +81,16 @@ public class RomeBcRenderTask implements Runnable {
 		}
 		
 		System.out.println("Generated " + filesCsvList.size() +  " drawings. ");
-		Util.writeFile("resources/drawings/rome_bc/all.ipe", drawing.create());
+		Util.writeFile("resources/drawings/rome_bc/all.ipe", drawing.create().toString());
 		b.print();
 	}
 	
-	OrthogonalDrawing<String> createDrawing() {
+	OrthogonalDrawing<Appendable> createDrawing(String fileName) {
 		AffineTransform transform = new AffineTransform();
 		transform.translate(400, 100);
 		transform.scale(30, 30);
 		
-		return new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(), transform);
+		return new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(new IpeDrawing()), transform);
 	}
 	
 }

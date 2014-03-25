@@ -5,11 +5,18 @@ import edu.uci.ics.jung.graph.util.Pair;
 /**
  * Draws the primitives of orthogonal layouts using Ipe.
  */
-public class OrthogonalIpeDrawing extends AbstractIpeDrawing implements OrthogonalDrawing<String> {
+public class OrthogonalIpeDrawing implements OrthogonalDrawing<Appendable> {
 	
+	IpeDrawing ipeDrawing;
+	
+	public OrthogonalIpeDrawing(IpeDrawing ipeDrawing) {
+		super();
+		this.ipeDrawing = ipeDrawing;
+	}
+
 	@Override
 	public void vertex(Pair<Integer> position) {
-		draw(IpeDraw.drawIpeMark(position.getFirst(), position.getSecond()));
+		ipeDrawing.draw(IpeDraw.drawIpeMark(position.getFirst(), position.getSecond()));
 	}
 	
 	@Override
@@ -19,12 +26,12 @@ public class OrthogonalIpeDrawing extends AbstractIpeDrawing implements Orthogon
 	
 	@Override
 	public void edgeMidpoint(Pair<Integer> position, String color) {
-		draw(IpeDraw.drawIpeMark(position.getFirst(), position.getSecond(), "cross", color));
+		ipeDrawing.draw(IpeDraw.drawIpeMark(position.getFirst(), position.getSecond(), "cross", color));
 	}
 	
 	@Override
 	public void line(Pair<Integer> from, Pair<Integer> to) {
-		draw(IpeDraw.drawIpeEdge(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond()));
+		ipeDrawing.draw(IpeDraw.drawIpeEdge(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond()));
 	}
 	
 	@Override
@@ -34,21 +41,21 @@ public class OrthogonalIpeDrawing extends AbstractIpeDrawing implements Orthogon
 
 	@Override
 	public void label(Pair<Integer> position, String labelText) {
-		draw(IpeDraw.writeIpeText(labelText, position.getFirst(), position.getSecond()));
+		ipeDrawing.draw(IpeDraw.writeIpeText(labelText, position.getFirst(), position.getSecond()));
 	}
 
 	@Override
 	public void arc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to) {
-		draw(IpeDraw.drawIpeCircularArc(mid.getFirst(), mid.getSecond(), from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond()));
+		ipeDrawing.draw(IpeDraw.drawIpeCircularArc(mid.getFirst(), mid.getSecond(), from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond()));
 	}
 	@Override
 	public void arc(Pair<Integer> from, Pair<Integer> to) {
-		draw(IpeDraw.drawIpeSemiCircle(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond()));
+		ipeDrawing.draw(IpeDraw.drawIpeSemiCircle(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond()));
 	}
 
 	@Override
 	public void line(Pair<Integer> from, Pair<Integer> to, boolean collidesLine) {
-		draw(IpeDraw.drawIpeEdge(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond(), collidesLine ? "red" : "black"));
+		ipeDrawing.draw(IpeDraw.drawIpeEdge(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond(), collidesLine ? "red" : "black"));
 	}
 
 	@Override
@@ -58,18 +65,23 @@ public class OrthogonalIpeDrawing extends AbstractIpeDrawing implements Orthogon
 
 	@Override
 	public void arc(Pair<Integer> from, Pair<Integer> to, boolean collidesArc) {
-		draw(IpeDraw.drawIpeSemiCircle(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond(), collidesArc ? "red" : "black"));
+		ipeDrawing.draw(IpeDraw.drawIpeSemiCircle(from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond(), collidesArc ? "red" : "black"));
 	}
 
 	@Override
 	public void arc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to,
 			boolean collidesArc) {
-		draw(IpeDraw.drawIpeCircularArc(mid.getFirst(), mid.getSecond(), from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond(), collidesArc ? "red" : "black"));
+		ipeDrawing.draw(IpeDraw.drawIpeCircularArc(mid.getFirst(), mid.getSecond(), from.getFirst(), from.getSecond(), to.getFirst(), to.getSecond(), collidesArc ? "red" : "black"));
 	}
 
 	@Override
 	public void newPage() {
-		draw(IpeDraw.newPage());
+		ipeDrawing.draw(IpeDraw.newPage());
+	}
+
+	@Override
+	public Appendable create() {
+		return ipeDrawing.create();
 	}
 
 }
