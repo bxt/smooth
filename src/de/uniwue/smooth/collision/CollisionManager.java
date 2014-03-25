@@ -3,8 +3,8 @@ package de.uniwue.smooth.collision;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.uniwue.smooth.collision.geom.CircleArc;
 import de.uniwue.smooth.collision.geom.LineSegment;
+import de.uniwue.smooth.collision.segments.Segment;
 import edu.uci.ics.jung.graph.util.Pair;
 
 public class CollisionManager {
@@ -12,64 +12,25 @@ public class CollisionManager {
 	private List<CollisionDomain<?>> domains = new ArrayList<>();
 	
 	
-	public void addLine(Pair<Integer> from, Pair<Integer> to) {
-		if(from.equals(to)) return;
-		addDomain(new LineSegment(from, to));
-	}
-
-	public void addLine(Pair<Pair<Integer>> endpoints) {
-		addLine(endpoints.getFirst(), endpoints.getSecond());
-	}
-
-	public void addArc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to) {
-		addDomain(CircleArc.getCircleArc(from, mid, to));
-	}
-
-	public void addArc(Pair<Integer> from, Pair<Integer> to) {
-		addDomain(CircleArc.getCircleArc(from, to));
-	}
-	
-	
-	public boolean collidesLine(Pair<Integer> from, Pair<Integer> to) {
-		if(from.equals(to)) return false;
-		return collidesDomain(new LineSegment(from, to));
-	}
-
-	public boolean collidesLine(Pair<Pair<Integer>> endpoints) {
-		return collidesLine(endpoints.getFirst(), endpoints.getSecond());
-	}
-
-	public boolean collidesArc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to) {
-		return collidesDomain(CircleArc.getCircleArc(from, mid, to));
-	}
-
-	public boolean collidesArc(Pair<Integer> from, Pair<Integer> to) {
-		return collidesDomain(CircleArc.getCircleArc(from, to));
-	}
-	
-	
-	public boolean addAndCollidesLine(Pair<Integer> from, Pair<Integer> to) {
-		boolean collides = collidesLine(from, to);
-		addLine(from, to);
-		return collides;
-	}
-
-	public boolean addAndCollidesLine(Pair<Pair<Integer>> endpoints) {
-		return addAndCollidesLine(endpoints.getFirst(), endpoints.getSecond());
-	}
-
-	public boolean addAndCollidesArc(Pair<Integer> from, Pair<Integer> mid, Pair<Integer> to) {
-		boolean collides = collidesArc(from, mid, to);
-		addArc(from, mid, to);
-		return collides;
-	}
-
-	public boolean addAndCollidesArc(Pair<Integer> from, Pair<Integer> to) {
-		boolean collides = collidesArc(from, to);
-		addArc(from, to);
+	public boolean addAndCollides(Segment segment) {
+		boolean collides = collides(segment);
+		add(segment);
 		return collides;
 	}
 	
+	public void add(Segment segment) {
+		Object body = segment.getBody();
+		if ((body instanceof LineSegment)
+				&& ((LineSegment) body).getFrom().equals(((LineSegment) body).getTo())) return;
+		addDomain(body);
+	}
+	
+	public boolean collides(Segment segment) {
+		Object body = segment.getBody();
+		if ((body instanceof LineSegment)
+				&& ((LineSegment) body).getFrom().equals(((LineSegment) body).getTo())) return false;
+		return collidesDomain(body);
+	}
 	
 	private void addDomain(Object body) {
 		domains.add(new CollisionDomain<Object>(body));
