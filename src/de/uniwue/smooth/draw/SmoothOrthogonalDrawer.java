@@ -12,9 +12,8 @@ import de.uniwue.smooth.orthogonal.OrthogonalLayout;
  *  
  * @param <V> Vertex type.
  * @param <E> Edge type.
- * @param <T> Type of resulting painting.
  */
-public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V, E, T> implements OrthogonalDrawer<V, E, T> {
+public class SmoothOrthogonalDrawer<V, E> extends AbstractOrthogonalDrawer<V, E> implements OrthogonalDrawer<V, E> {
 	
 	private CollisionManager collisionManager;
 	private SmoothEdgeGenerator<V, E> edgeGenerator;

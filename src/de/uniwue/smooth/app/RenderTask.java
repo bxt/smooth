@@ -13,10 +13,10 @@ import java.util.concurrent.Executors;
 
 import de.uniwue.smooth.draw.IpeDrawing;
 import de.uniwue.smooth.draw.OrthogonalDrawer;
-import de.uniwue.smooth.draw.StraightlineOrthogonalDrawer;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
 import de.uniwue.smooth.draw.SmoothOrthogonalDrawer;
+import de.uniwue.smooth.draw.StraightlineOrthogonalDrawer;
 import de.uniwue.smooth.draw.TransformingOrthogonalDrawing;
 import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
@@ -25,7 +25,6 @@ import de.uniwue.smooth.palm.ListStOrdering;
 import de.uniwue.smooth.palm.StOrdering;
 import de.uniwue.smooth.util.NotAnExecutorService;
 import de.uniwue.smooth.util.Util;
-import de.uniwue.smooth.util.tuples.ImmutableTuple;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphIOException;
@@ -99,17 +98,17 @@ public class RenderTask implements Runnable {
 		/*Collection<OrthogonalLayout<Vertex, Edge>> layouts = new Pair<OrthogonalLayout<Vertex, Edge>>(
 				new LiuEtAlLayout<Vertex, Edge>(graph, stOrdering), new CompressingLiuEtAlLayout<Vertex, Edge>(graph, stOrdering));*/
 		Collection<OrthogonalLayout<Vertex, Edge>> layouts = Collections.<OrthogonalLayout<Vertex, Edge>>singleton(new CompressingLiuEtAlLayout<Vertex, Edge>(graph, stOrdering));
-		Pair<OrthogonalDrawer<Vertex, Edge, Appendable>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge, Appendable>>(
-				new StraightlineOrthogonalDrawer<Vertex, Edge, Appendable>(), new SmoothOrthogonalDrawer<Vertex, Edge, Appendable>());
+		Pair<OrthogonalDrawer<Vertex, Edge>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge>>(
+				new StraightlineOrthogonalDrawer<Vertex, Edge>(), new SmoothOrthogonalDrawer<Vertex, Edge>());
 		for(OrthogonalLayout<Vertex, Edge> layout : layouts) {
 			layout.initialize();
 			AffineTransform transform = new AffineTransform();
 			transform.translate(translateX, translateY);
 			transform.scale(scale, scale);
-			for(OrthogonalDrawer<Vertex, Edge, Appendable> drawer : drawers) {
+			for(OrthogonalDrawer<Vertex, Edge> drawer : drawers) {
 				if(layout.getClass() == LiuEtAlLayout.class && drawer.getClass() == SmoothOrthogonalDrawer.class) continue;
 				OrthogonalDrawing<Appendable> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(new IpeDrawing()), transform);
-				drawer.transform(new ImmutableTuple<>(layout, drawing));
+				drawer.draw(layout, drawing);
 				String ipeCode = drawing.create().toString();
 				Util.writeFile("resources/drawings/"+name+"-"+layout.getClass().getSimpleName()+"-"+drawer.getClass().getSimpleName()+".ipe", ipeCode);
 			}

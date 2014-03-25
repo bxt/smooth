@@ -20,7 +20,6 @@ import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.util.Benchmark;
 import de.uniwue.smooth.util.Util;
-import de.uniwue.smooth.util.tuples.ImmutableTuple;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphReader;
@@ -63,11 +62,11 @@ public class RomeBcRenderTask implements Runnable {
 				Graph<Vertex, Edge> graph = graphReader.readGraph();
 				
 				OrthogonalLayout<Vertex, Edge> layout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph);
-				OrthogonalDrawer<Vertex, Edge, Appendable> drawer = new SmoothOrthogonalDrawer<Vertex, Edge, Appendable>();
+				OrthogonalDrawer<Vertex, Edge> drawer = new SmoothOrthogonalDrawer<Vertex, Edge>();
 				layout.initialize();
-				drawer.transform(new ImmutableTuple<>(layout, drawing));
+				drawer.draw(layout, drawing);
 				if(interesingDrawing != null) {
-					drawer.transform(new ImmutableTuple<>(layout, interesingDrawing));
+					drawer.draw(layout, interesingDrawing);
 					Util.writeFile("resources/drawings/rome_bc/" + filename + ".ipe",interesingDrawing.create().toString());
 				}
 				

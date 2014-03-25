@@ -18,12 +18,11 @@ import de.uniwue.smooth.draw.TransformingOrthogonalDrawing;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.orthogonal.Port;
 import de.uniwue.smooth.util.Util;
-import de.uniwue.smooth.util.tuples.ImmutableTuple;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 
-public class EdgeTestDrawings<T> implements Runnable {
+public class EdgeTestDrawings implements Runnable {
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -190,23 +189,23 @@ public class EdgeTestDrawings<T> implements Runnable {
 	}
 	
 	private static void drawSmall(Port startPort, Port endPort,
-			OrthogonalDrawing<Appendable> drawing, int translateX, int translateY, int endX, int endY) {
+			OrthogonalDrawing<?> drawing, int translateX, int translateY, int endX, int endY) {
 		draw(startPort, endPort, drawing, translateX, translateY, 15, endX, endY);
 	}
 
 	private static void draw(Port startPort, Port endPort,
-			OrthogonalDrawing<Appendable> drawing, int translateX, int translateY, int endX, int endY) {
+			OrthogonalDrawing<?> drawing, int translateX, int translateY, int endX, int endY) {
 		draw(startPort, endPort, drawing, translateX, translateY, 30, endX, endY);
 	}
 
 	private static void draw(Port startPort, Port endPort,
-			OrthogonalDrawing<Appendable> drawing, int translateX, int translateY, double scale, int endX, int endY) {
-		new EdgeTestDrawings<Appendable>(startPort, endPort, drawing, translateX, translateY, scale, endX, endY).run();
+			OrthogonalDrawing<?> drawing, int translateX, int translateY, double scale, int endX, int endY) {
+		new EdgeTestDrawings(startPort, endPort, drawing, translateX, translateY, scale, endX, endY).run();
 	}
 
 	private Port startPort;
 	private Port endPort;
-	private OrthogonalDrawing<T> outputDrawing;
+	private OrthogonalDrawing<?> outputDrawing;
 	private double translateX;
 	private double translateY;
 	private double scale;
@@ -214,7 +213,7 @@ public class EdgeTestDrawings<T> implements Runnable {
 	private int endY;
 	
 	public EdgeTestDrawings(Port startPort, Port endPort,
-			OrthogonalDrawing<T> outputDrawing, double translateX,
+			OrthogonalDrawing<?> outputDrawing, double translateX,
 			double translateY, double scale, int endX, int endY) {
 		super();
 		this.startPort = startPort;
@@ -239,13 +238,13 @@ public class EdgeTestDrawings<T> implements Runnable {
 		
 		
 		OrthogonalLayout<Vertex, Edge> layout = new MyOrthogonalLayout();
-		OrthogonalDrawer<Vertex, Edge, T> drawer = new SmoothOrthogonalDrawer<Vertex, Edge, T>();
+		OrthogonalDrawer<Vertex, Edge> drawer = new SmoothOrthogonalDrawer<Vertex, Edge>();
 		layout.initialize();
 		AffineTransform transform = new AffineTransform();
 		transform.translate(translateX, translateY);
 		transform.scale(scale, scale);
-		OrthogonalDrawing<T> drawing = new TransformingOrthogonalDrawing<>(outputDrawing, transform);
-		drawer.transform(new ImmutableTuple<>(layout, drawing));
+		OrthogonalDrawing<?> drawing = new TransformingOrthogonalDrawing<>(outputDrawing, transform);
+		drawer.draw(layout, drawing);
 	}
 	
 	private class MyOrthogonalLayout implements OrthogonalLayout<Vertex, Edge> {

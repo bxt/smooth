@@ -27,7 +27,6 @@ import de.uniwue.smooth.planar.Embedding;
 import de.uniwue.smooth.planar.LayoutEmbedding;
 import de.uniwue.smooth.util.NotAnExecutorService;
 import de.uniwue.smooth.util.Util;
-import de.uniwue.smooth.util.tuples.ImmutableTuple;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 
@@ -85,19 +84,19 @@ public class ConflictingRenderTask implements Runnable {
 	@Override
 	public void run() {
 		Collection<OrthogonalLayout<Vertex, Edge>> layouts = Collections.<OrthogonalLayout<Vertex, Edge>>singleton(new CompressingLiuEtAlLayout<Vertex, Edge>(graph, embedding, stOrdering));
-		Pair<OrthogonalDrawer<Vertex, Edge, Appendable>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge, Appendable>>(
-				new StraightlineOrthogonalDrawer<Vertex, Edge, Appendable>(), new SmoothOrthogonalDrawer<Vertex, Edge, Appendable>());
+		Pair<OrthogonalDrawer<Vertex, Edge>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge>>(
+				new StraightlineOrthogonalDrawer<Vertex, Edge>(), new SmoothOrthogonalDrawer<Vertex, Edge>());
 		for(OrthogonalLayout<Vertex, Edge> layout : layouts) {
 			layout.initialize();
 			AffineTransform transform = new AffineTransform();
 			transform.translate(translateX, translateY);
 			transform.scale(scale, scale);
-			for(OrthogonalDrawer<Vertex, Edge, Appendable> drawer : drawers) {
+			for(OrthogonalDrawer<Vertex, Edge> drawer : drawers) {
 				if(layout.getClass() == LiuEtAlLayout.class && drawer.getClass() == SmoothOrthogonalDrawer.class) continue;
 				IpeDrawing ipeDrawing = new IpeDrawing();
 				OrthogonalDrawing<Appendable> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(ipeDrawing), transform);
-				Appendable ipeCode = drawer.transform(new ImmutableTuple<>(layout, drawing));
-				Util.writeFile("resources/conflicting_graphs/drawings/"+name+"-"+layout.getClass().getSimpleName()+"-"+drawer.getClass().getSimpleName()+".ipe", ipeCode.toString());
+				drawer.draw(layout, drawing);
+				Util.writeFile("resources/conflicting_graphs/drawings/"+name+"-"+layout.getClass().getSimpleName()+"-"+drawer.getClass().getSimpleName()+".ipe", drawing.create().toString());
 			}
 		}
 	}

@@ -21,7 +21,6 @@ import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.util.Benchmark;
 import de.uniwue.smooth.util.Util;
-import de.uniwue.smooth.util.tuples.ImmutableTuple;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphIOException;
@@ -73,11 +72,11 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 				
 				CompressingLiuEtAlLayout<Vertex, Edge> liuLayout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph);
 				OrthogonalLayout<Vertex, Edge> layout = new CollisionAvoidingSmoothLayout<Vertex, Edge>(liuLayout);
-				OrthogonalDrawer<Vertex, Edge, Appendable> drawer = new SmoothOrthogonalDrawer<Vertex, Edge, Appendable>();
+				OrthogonalDrawer<Vertex, Edge> drawer = new SmoothOrthogonalDrawer<Vertex, Edge>();
 				layout.initialize();
-				drawer.transform(new ImmutableTuple<>(layout, drawing));
+				drawer.draw(layout, drawing);
 				if(interesingDrawing != null) {
-					drawer.transform(new ImmutableTuple<>(layout, interesingDrawing));
+					drawer.draw(layout, interesingDrawing);
 					Util.writeFile("resources/drawings/rome_bc/" + filename + "-nocollisions.ipe", interesingDrawing.create().toString());
 				}
 				

@@ -13,9 +13,8 @@ import edu.uci.ics.jung.graph.util.Pair;
  *  
  * @param <V> Vertex type.
  * @param <E> Edge type.
- * @param <T> Type of resulting painting.
  */
-public class StraightlineOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V, E, T> implements OrthogonalDrawer<V, E, T> {
+public class StraightlineOrthogonalDrawer<V, E> extends AbstractOrthogonalDrawer<V, E> implements OrthogonalDrawer<V, E> {
 	
 	/**
 	 * Draws the edges with the following method:

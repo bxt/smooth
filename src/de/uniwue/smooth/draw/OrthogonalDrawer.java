@@ -1,9 +1,6 @@
 package de.uniwue.smooth.draw;
 
-import org.apache.commons.collections15.Transformer;
-
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
-import de.uniwue.smooth.util.tuples.Tuple;
 
 /**
  * Draws vertices and edges from a layout into a drawing.
@@ -14,8 +11,14 @@ import de.uniwue.smooth.util.tuples.Tuple;
  * 
  * @param <V> Vertex type.
  * @param <E> Edge type.
- * @param <T> Result type of the target drawing.
  */
-public interface OrthogonalDrawer<V, E, T> extends Transformer<Tuple<OrthogonalLayout<V, E>, OrthogonalDrawing<T>>, T> {
+public interface OrthogonalDrawer<V, E> {
+	
+	/**
+	 * Write the graph with the given layout into the drawing.
+	 * @param layout Layout of the graph (includes graph).
+	 * @param drawing Drawing to paint the graph onto.
+	 */
+	void draw(OrthogonalLayout<V, E> layout, OrthogonalDrawing<?> drawing);
 
 }
