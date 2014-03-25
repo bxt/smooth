@@ -63,9 +63,11 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 				GraphReader<Graph<Vertex, Edge>, Vertex, Edge> graphReader = GraphReaderFactory.create(file);
 				Graph<Vertex, Edge> graph = graphReader.readGraph();
 				
+				CompressingLiuEtAlLayout<Vertex, Edge> liuLayout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph);
+				OrthogonalLayout<Vertex, Edge> layout = new CollisionAvoidingSmoothLayout<Vertex, Edge>(liuLayout);
 				OrthogonalDrawer<Vertex, Edge> drawer = new SmoothOrthogonalDrawer<Vertex, Edge>();
-				OrthogonalLayout<Vertex, Edge> layout = draw(graph, drawing, drawer);
-				
+				layout.initialize();
+				drawer.draw(layout, drawing);
 				if(interesingDrawing != null) {
 					drawer.draw(layout, interesingDrawing);
 					Util.writeFile("resources/drawings/rome_bc/" + filename + "-nocollisions.ipe", interesingDrawing.create().toString());
@@ -84,14 +86,6 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 		System.out.println("Generated " + filesCsvList.size() +  " drawings. ");
 		Util.writeFile("resources/drawings/rome_bc/all-nocollisions.ipe", drawing.create().toString());
 		b.print();
-	}
-	
-	public OrthogonalLayout<Vertex, Edge> draw(Graph<Vertex, Edge> graph, OrthogonalDrawing<?> drawing, OrthogonalDrawer<Vertex, Edge> drawer) {
-		CompressingLiuEtAlLayout<Vertex, Edge> liuLayout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph);
-		OrthogonalLayout<Vertex, Edge> layout = new CollisionAvoidingSmoothLayout<Vertex, Edge>(liuLayout);
-		layout.initialize();
-		drawer.draw(layout, drawing);
-		return layout;
 	}
 	
 	OrthogonalDrawing<Appendable> createDrawing() {
