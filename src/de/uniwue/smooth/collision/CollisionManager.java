@@ -1,6 +1,7 @@
 package de.uniwue.smooth.collision;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import de.uniwue.smooth.collision.geom.LineSegment;
@@ -18,6 +19,12 @@ public class CollisionManager {
 		return collides;
 	}
 	
+	public void addAll(Collection<Segment> segments) {
+		for(Segment segment : segments) {
+			add(segment);
+		}
+	}
+	
 	public void add(Segment segment) {
 		Object body = segment.getBody();
 		if ((body instanceof LineSegment)
@@ -30,6 +37,14 @@ public class CollisionManager {
 		if ((body instanceof LineSegment)
 				&& ((LineSegment) body).getFrom().equals(((LineSegment) body).getTo())) return false;
 		return collidesDomain(body);
+	}
+	
+	public boolean collidesAny(Collection<Segment> segments) {
+		boolean collidesAny = false;
+		for(Segment segment : segments) {
+			collidesAny = collidesAny || collides(segment);
+		}
+		return collidesAny;
 	}
 	
 	private void addDomain(Object body) {
