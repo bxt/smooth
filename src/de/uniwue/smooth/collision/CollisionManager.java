@@ -64,13 +64,13 @@ public class CollisionManager {
 		return false;
 	}
 	
-	private List<Pair<CollisionDomain<?>>> collisions() {
+	public List<Pair<CollisionDomain<?>>> collisions() {
 		List<Pair<CollisionDomain<?>>> collisions = new ArrayList<>();
 		for (int i = 0; i < domains.size(); i++) {
-			for (int k = 0; k < domains.size(); k++) {
+			for (int k = i + 1; k < domains.size(); k++) {
 				CollisionDomain<?> a = domains.get(i), b = domains.get(k);
-				if(a.collides(b) != b.collides(a)) throw new IllegalStateException("Collision detection is asymmetric!");
-				if(a.collides(b)) {
+				//if(a.collides(b) != b.collides(a)) throw new IllegalStateException("Collision detection is asymmetric!");
+				if(a.collides(b) && b.collides(a)) {
 					collisions.add(new Pair<>(a, b));
 				}
 			}
