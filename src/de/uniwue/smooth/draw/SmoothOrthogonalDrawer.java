@@ -47,6 +47,8 @@ public class SmoothOrthogonalDrawer<V, E> extends AbstractOrthogonalDrawer<V, E>
 				throw new IllegalStateException("Unknown edge type!");
 			}
 		}
+		collisionManager = null;
+		edgeGenerator = null; 
 	}
 	
 	private void drawEdge(SmoothEdge edge) {
