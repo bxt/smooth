@@ -29,6 +29,7 @@
 \usepackage{graphicx}
 \usepackage[bookmarks,bookmarksnumbered]{hyperref}
 \usepackage[font=small,format=hang,labelfont=bf,figurename=Abb.,tablename=Tab.]{caption}
+\usepackage{subcaption}
 \usepackage{enumerate}
 
 \newtheorem{satz}{Satz}[chapter]
@@ -348,11 +349,51 @@ Java, JUNG~\cite{jung}\footnote{\url{http://jung.sourceforge.net/}} (Java Univer
 \section{Schnitte finden}
 
 \begin{figure}[h]
-  \centering
-  \includegraphics{schnitt_finden}
-  \caption{Schnitte finden.}
-  \label{fig:cutfinding}
+        \centering
+        \begin{subfigure}[b]{0.2\textwidth}
+                \includegraphics[width=0.5\textwidth]{schnitt_finden_top_none}
+                \caption{Oberhalb,\\ keine Kante}
+                \label{fig:cutfinding_top_none}
+        \end{subfigure}%
+        \quad
+        \begin{subfigure}[b]{0.2\textwidth}
+                \includegraphics[width=\textwidth]{schnitt_finden_top_upwards}
+                \caption{Oberhalb, Kante \\ nach oben}
+                \label{fig:cutfinding_top_upwards}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.2\textwidth}
+                \includegraphics[width=\textwidth]{schnitt_finden_top_downwardsL}
+                \caption{Oberhalb, L-Kante \\ nach unten}
+                \label{fig:cutfinding_top_downwardsL}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.2\textwidth}
+                \includegraphics[width=\textwidth]{schnitt_finden_top_downwardsC}
+                \caption{Oberhalb, \\ C-Kante \\ nach unten}
+                \label{fig:cutfinding_top_downwardsC}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.2\textwidth}
+                \includegraphics[width=\textwidth]{schnitt_finden_bot_aboveL}
+                \caption{Unterhalb, über eine \\ L-Kante}
+                \label{fig:cutfinding_bot_aboveL}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.2\textwidth}
+                \includegraphics[width=0.25\textwidth]{schnitt_finden_bot_vertical}
+                \caption{Unterhalb, entlang einer vertikalen Kante}
+                \label{fig:cutfinding_bot_vertical}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.2\textwidth}
+                \includegraphics[width=\textwidth]{schnitt_finden_bot_belowL}
+                \caption{Unterhalb, \\ unter eine \\ L-Kante}
+                \label{fig:cutfinding_bot_belowL}
+        \end{subfigure}
+        \caption{Die verschiedenen Fälle beim Finden eines Schnitts.}\label{fig:cutfinding}
 \end{figure}
+
 
 Das Finden eines Schnittes durch die Zeichnung des Graphen zum Zwecke des Verschiebens von Knoten in horizontale Richtung zielt darauf ab, den Graph in zwei Teile zu spalten, die nur durch horizontale Segmente verbunden sind. 
 
