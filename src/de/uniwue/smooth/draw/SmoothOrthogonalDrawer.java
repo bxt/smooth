@@ -16,14 +16,14 @@ import edu.uci.ics.jung.graph.util.Pair;
  */
 public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V, E, T> implements OrthogonalDrawer<V, E, T> {
 	
-	private CollisionManager collisionDetecor;
+	private CollisionManager collisionManager;
 	
 	/**
 	 * Draws the edges smoothly.
 	 */
 	@Override
 	protected void drawEdges() {
-		collisionDetecor = new CollisionManager();
+		collisionManager = new CollisionManager();
 		for (final E e : layout.getGraph().getEdges()) {
 			Pair<V> endpoints = layout.getGraph().getEndpoints(e);
 			Pair<Port> ports = new Pair<>(getPort(endpoints.getFirst(), e), getPort(endpoints.getSecond(), e));
@@ -46,11 +46,11 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 	 */
 	private void drawIEdges(Pair<Pair<Integer>> vertexCoordinates, Pair<Port> ports) {
 		// TODO: check for S shape?
-		drawing.line(vertexCoordinates, collisionDetecor.addAndCollidesLine(vertexCoordinates));
+		drawing.line(vertexCoordinates, collisionManager.addAndCollidesLine(vertexCoordinates));
 	}
 	
 	/**
-	 * Draw U oder C edges, i.e. 180° turns.
+	 * Draw U oder C edges, i.e. 180ï¿½ turns.
 	 * @param vertexCoordinates Start and end points of the edge.
 	 * @param ports Start and end port of the edge.
 	 */
@@ -74,17 +74,17 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 		Pair<Integer> kink = isU ?  new Pair<>(end.getFirst(), start.getSecond()) : new Pair<>(start.getFirst(), end.getSecond());
 		drawing.edgeMidpoint(kink);
 		
-		drawing.line(end, kink, collisionDetecor.addAndCollidesLine(end, kink));
+		drawing.line(end, kink, collisionManager.addAndCollidesLine(end, kink));
 		
 		if (slopePositive != isU) {
-			drawing.arc(kink, start, collisionDetecor.addAndCollidesArc(kink, start));
+			drawing.arc(kink, start, collisionManager.addAndCollidesArc(kink, start));
 		} else {
-			drawing.arc(start, kink, collisionDetecor.addAndCollidesArc(start, kink));
+			drawing.arc(start, kink, collisionManager.addAndCollidesArc(start, kink));
 		}
 	}
 	
 	/**
-	 * Draw L (90° turns) and G (270° turns) edges.
+	 * Draw L (90ï¿½ turns) and G (270ï¿½ turns) edges.
 	 * @param vertexCoordinates Start and end points of the edge.
 	 * @param ports Start and end port of the edge.
 	 */
@@ -140,12 +140,12 @@ public class SmoothOrthogonalDrawer<V, E, T> extends AbstractOrthogonalDrawer<V,
 		drawing.edgeMidpoint(kink, "red");
 		
 		Pair<Integer> lineStart = firstIsDiagonalStart ? vertexCoordinates.getSecond() : vertexCoordinates.getFirst();
-		drawing.line(lineStart, kink, collisionDetecor.addAndCollidesLine(lineStart, kink));
+		drawing.line(lineStart, kink, collisionManager.addAndCollidesLine(lineStart, kink));
 		
 		if(diagStartFirst) {
-			drawing.arc(ref, mid, kink, collisionDetecor.addAndCollidesArc(ref, mid, kink));
+			drawing.arc(ref, mid, kink, collisionManager.addAndCollidesArc(ref, mid, kink));
 		} else {
-			drawing.arc(kink, mid, ref, collisionDetecor.addAndCollidesArc(kink, mid, ref));
+			drawing.arc(kink, mid, ref, collisionManager.addAndCollidesArc(kink, mid, ref));
 		}
 	}
 	
