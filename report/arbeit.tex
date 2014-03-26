@@ -343,8 +343,19 @@ Algorithmus~\ref{alg:main}
 
 \section{Software}
 
-Java, JUNG~\cite{jung}\footnote{\url{http://jung.sourceforge.net/}} (Java Universal Network/Graph Framework), GraphML~\cite{brandes+al-14}, yWorks yEd\footnote{\url{http://www.yworks.com/de/products_yed_about.html}}, Ipe\footnote{\url{http://ipe7.sourceforge.net/}}, Rome Test Graphs\footnote{\url{http://www.graphdrawing.org/data/}}
+Für die Implementierung in der Programmiersprache \emph{Java} wurde, wo möglich, auf bestehende und bewährte Software-Grundlagen gesetzt.
 
+Das Ausgangsformat, aus dem die Graphen eingelesen wurde, ist \emph{GraphML}~\cite{brandes+al-14}. Das freie Datenformat ist das Ergebnis von Bemühungen, ein Standardisiertes Format für das Speichern von Graphen zu schaffen. Es basiert auf XML, kann alle Arten von Graphen speichern und ist zudem um eigene Attribute erweiterbar, diese Erweiterungen können beim Einlesen übersprungen werden.
+
+Die Eingabedaten für die Graphen stammen größtenteils aus den \emph{Rom-Testgraphen}\footnote{Erhältlich unter \url{http://www.graphdrawing.org/data/}}, eine Sammlung von verschiedensten Graphen mit 10 bis 100 Knoten im GraphML-Format. Für das schelle Erstellen von Testgraphen für einige Spezialfälle wurde der Grapheneditor \emph{yEd}\footnote{Erhältlich unter \url{http://www.yworks.com/de/products_yed_about.html}} von yWorks verwendet, der ebenfalls das GraphML-Format unterstützt und Graphen übersichtlich visualisieren kann.
+
+Zum Einlesen der Graphen in Java und ihre Repräsentation im Speicher wurde \emph{JUNG}~\cite{jung}\footnote{Erhältlich unter \url{http://jung.sourceforge.net/}}, das \emph{Java Universal Network/Graph Framework}, verwendet. Es beinhaltet neben effizienten Implementierungen von verschiedenen Graphen, etwa gerichtete und ungerichtete, einige Algorithmen auf Graphen und Werkzeuge zur Visualisierung. Außerdem lassen sich damit GraphML-Dateien einlesen.
+
+Die Ausgabe der fertigen Zeichnungen erfolgte im Vektorgrafik-Format des Editors \emph{Ipe}\footnote{Erhältlich unter \url{http://ipe7.sourceforge.net/}}. Das Format basiert auf XML und erhält Möglichkeiten für das Zeichnen von Punkten, Linien und Kreisbögen und vielem mehr. Der Vorteil gegenüber anderen Vektorformaten ist, dass sich \LaTeX-Beschriftungen in den Zeichnungen platzieren lassen und die Zeichnungen in PDF-Dateien konvertiert werden können. Die fertigen Zeichnungen können mit dem Ipe-Editor annotiert und weiter bearbeitet werden.
+
+Zum Erstellen der Ipe-Dateien aus Java wurde die \emph{IpeDraw-Bibliothek}\footnote{Erhältlich unter \url{http://lamut.informatik.uni-wuerzburg.de/mediawiki/ipe7/index.php/JAVAtoIPE}} von Philipp Kindermann und Martin Fink verwendet.
+
+Es wurden also Daten aus dem Rom-Testgraphen entnommen oder direkt in yEd erstellt, in Java mittels JUNG eingelesen, durch den Algorithmus visualisiert und mit der IpeDraw-Bibliothek als Vektorgrafiken ausgegeben, welche im Ipe-Editor betrachtet werden können oder in PDFs konvertiert werden.
 
 \section{Schnitte finden}
 
