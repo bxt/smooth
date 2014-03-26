@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import de.uniwue.smooth.collision.segments.Segment;
@@ -16,6 +17,7 @@ import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.orthogonal.Port;
 import de.uniwue.smooth.orthogonal.Quadrant;
+import de.uniwue.smooth.util.tuples.MutablePair;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.graph.util.Pair;
 
@@ -29,6 +31,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	private Map<E, Integer> edgeColumns = null;
 	private Map<Set<V>, Integer> setHeights = null;
 	private Map<V, Set<V>> vertexSetMap = null;
+	private int currentHeight = 0;
 	
 	public CollisionAvoidingSmoothLayout(CompressingLiuEtAlLayout<V, E> liuEtAlLayout) {
 		super(liuEtAlLayout.getGraph());
@@ -42,6 +45,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		
 		vertexColumns = new HashMap<V, Integer>();
 		edgeColumns = new HashMap<E, Integer>();
+		currentHeight = 0;
 		
 		List<Set<V>> vertexSets = liuLayout.getSets();
 		
@@ -60,6 +64,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 					return liuLayout.getVertexLocation(v1).getFirst().compareTo(liuLayout.getVertexLocation(v2).getFirst());
 				}
 			});
+			currentHeight = setHeights.get(vertexSet);
 			
 			if(first) {
 				V v1 = vertices.get(0);
@@ -75,29 +80,30 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				Map<Port, E> portAssignment = liuLayout.getPortAssignment(v1);
 				x = getEdgeLocation(portAssignment.get(Port.B)).getFirst();
 				vertexColumns.put(v1, x);
-				/*
+				addEdgeLocations(v1);
+				
 				if(portAssignment.get(Port.L) != null) {
 					E leftEdge = portAssignment.get(Port.L);
 					
-					if(getEdgeLocation(leftEdge) != null) {// not an outgoing edge
+					if(vertexColumns.get(getGraph().getOpposite(v1, leftEdge)) != null) {// not an outgoing edge
 						// Cut at v1
-						Cut<V, E> v1cut = new Cut<V, E>(liuLayout, vertexPositions.keySet(), v1, Quadrant.II);
+						Cut<V, E> v1cut = new Cut<V, E>(liuLayout, vertexColumns.keySet(), v1, Quadrant.II);
 						CollisionManager leftCollisionManager = edgesCollisionManager(v1cut.getLeftEdges());
 						CollisionManager rightCollisionManager = edgesCollisionManager(v1cut.getRightEdges());
 						
 						SmoothEdge smoothEdge = edgeGenerator.generateEdge(leftEdge);
 						
 						while(rightCollisionManager.collidesAny(smoothEdge.getSegments())) {
-							moveVertexUp(v1, 1);
+							moveSetUp(vertexSet, 1);
+							currentHeight++;
 							smoothEdge = edgeGenerator.generateEdge(leftEdge);
 						}
 					}
 							
 				}
-				*/
+				
 				// TODO: check v1/vn
 				// cut through, build inner CD, move up, build outer CD, move left
-				addEdgeLocations(v1);
 			}
 			
 			V vN = vertices.get(vertices.size()-1);
@@ -130,21 +136,45 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		}
 	}
 
-	private void moveVertexUp(V v, int offset) {
-		Set<V> set = vertexSetMap.get(v);
-		setHeights.put(set, setHeights.get(set) + offset);
-		// TODO: move other sets above!
+	private void moveSetUp(Set<V> set, int offset) {
+		int currentHeight = setHeights.get(set);
+		for(Entry<Set<V>, Integer> entry : setHeights.entrySet()) {
+			if(entry.getValue() >= currentHeight) {
+				entry.setValue(entry.getValue() + offset);
+			}
+		}
 	}
 	
 	private CollisionManager edgesCollisionManager(Collection<E> edges) {
 		CollisionManager collisionManager = new CollisionManager();
 		for(E e : edges) {
-			if (getEdgeLocation(e) != null) {
+			MutablePair<Pair<Integer>> endpoints = getEndpointLocations(e);
+			if(endpoints.getFirst() == null) throw new IllegalStateException("Nirvana-Edge in cut!?");
+			if(endpoints.getSecond() != null) {
+				if (edgeColumns.get(e) == null) throw new IllegalStateException("Gaaaah!");
 				SmoothEdge smoothEdge = edgeGenerator.generateEdge(e);
 				collisionManager.addAll(smoothEdge.getSegments());
-			}
+			} else { // open edge
+				int vertexColumn = endpoints.getFirst().getFirst();
+				int vertexHeight = endpoints.getFirst().getSecond();
+				int edgeColumn = edgeColumns.get(e);
+				collisionManager.add(new Segment.Line(new Pair<Integer>(vertexColumn, vertexHeight), new Pair<Integer>(edgeColumn, vertexHeight))); // TODO: necessary?
+				collisionManager.add(new Segment.Line(new Pair<Integer>(edgeColumn, vertexHeight), new Pair<Integer>(edgeColumn, currentHeight)));
+			}			
 		}
 		return collisionManager;
+	}
+	
+	private MutablePair<Pair<Integer>> getEndpointLocations(E e) {
+		Pair<V> endpoints = getGraph().getEndpoints(e);
+		Pair<Integer> locationA = getVertexLocation(endpoints.getFirst());
+		Pair<Integer> locationB = getVertexLocation(endpoints.getSecond());
+		if(locationA == null) {
+			Pair<Integer> tmp = locationA;
+			locationA = locationB;
+			locationB = tmp;
+		}
+		return new MutablePair<Pair<Integer>>(locationA, locationB);
 	}
 	
 	@Override
