@@ -72,6 +72,8 @@ public class Cut<V, E> {
 		leftStartVertices = new LinkedList<>();
 		rightStartVertices = new LinkedList<>();
 		restrictions = new HashSet<>();
+		leftEdges = new HashSet<>();
+		rightEdges = new HashSet<>();
 	}
 	
 	private void addFirstVertex() {
@@ -92,11 +94,11 @@ public class Cut<V, E> {
 						// stay at the same vertex
 						quadrant = quadrant.getVerticalOpposite();
 					} else {
-						if(layout.getPortAssignment(target).get(Port.T).equals(edge)) { // cut downwards L edge
+						if(isEdgeAt(target, edge, Port.T)) { // cut downwards L edge
 							cutAt(edge, target);
 							// stay at the same vertex
 							quadrant = quadrant.getVerticalOpposite();
-						} else if (layout.getPortAssignment(target).get(quadrant.getHorizontalPort()).equals(edge)) { // follow C edge
+						} else if (isEdgeAt(target, edge, quadrant.getHorizontalPort())) { // follow C edge
 							vertex = target;
 							quadrant = quadrant.getVerticalOpposite();
 						} else {
@@ -111,20 +113,23 @@ public class Cut<V, E> {
 					arrivedAtBottom(); // Only vertex "s" can have no edge on its bottom port, we're done.
 				} else { // follow an edge downwards
 					V target = layout.getGraph().getOpposite(vertex, edge);
-					if(isHigher(target)) { // TODO: might happen for the last U edge.
-						throw new IllegalStateException("Bad edge. (2)");
+					if(isHigher(target)) { // might happen for the last U edge from first vertex
+						restrictions.add(edge); // cut, but do not add any stating vertices
+						leftEdges.add(edge);
+						arrivedAtBottom();
 					} else {
-						if(layout.getPortAssignment(target).get(quadrant.getHorizontalPort().getOpposite()).equals(edge)) { // follow L edge above
+						if(isEdgeAt(target, edge, quadrant.getHorizontalPort().getOpposite())) { // follow L edge above
 							vertex = target;
 							quadrant = quadrant.getOpposite();
-						} else if(layout.getPortAssignment(target).get(quadrant.getHorizontalPort()).equals(edge)) { // follow L edge below
+						} else if(isEdgeAt(target, edge, quadrant.getHorizontalPort())) { // follow L edge below
 							vertex = target;
 							// quadrant stays the same at new edge
-						} else if(layout.getPortAssignment(target).get(Port.T).equals(edge)) { // follow straight edge
+						} else if(isEdgeAt(target, edge, Port.T)) { // follow straight edge
 							vertex = target;
 							quadrant = quadrant.getVerticalOpposite();
-						} else if(layout.getPortAssignment(target).get(Port.B).equals(edge)) { // U edge TODO possible?
-							restrictions.add(edge);
+						} else if(isEdgeAt(target, edge, Port.B)) { // U edge to first vertex
+							restrictions.add(edge); // cut, but do not add any stating vertices
+							leftEdges.add(edge);
 							arrivedAtBottom();
 						} else {
 							throw new IllegalStateException("Bad port assignment.");
@@ -136,6 +141,11 @@ public class Cut<V, E> {
 
 	}
 	
+	private boolean isEdgeAt(V v, E e, Port p) {
+		E actualE = layout.getPortAssignment(v).get(p);
+		return e.equals(actualE);
+	}
+	
 	private boolean isAtBottom() {
 		return vertex == null;
 	}
@@ -145,6 +155,7 @@ public class Cut<V, E> {
 	}
 	
 	private void cutAt(E edge, V target) {
+		if(edge == null) throw new IllegalStateException("Edge was null (A)");
 		Port targetVertexDirection = quadrant.getHorizontalPort();
 		if(targetVertexDirection == Port.L) {
 			cutAt(edge, target, vertex);
@@ -176,10 +187,12 @@ public class Cut<V, E> {
 	}
 	
 	private void depthFirstTraverse(V v, Set<V> results) {
+		if(!scope.contains(v)) return;
 		results.add(v);
 		for(V w : layout.getGraph().getNeighbors(v)) {
 			E edge = layout.getGraph().findEdge(v, w);
-			if(!results.contains(w) && !restrictions.contains(edge) && scope.contains(w)) {
+			if(edge == null) edge = layout.getGraph().findEdge(w, v); // directed graph hack
+			if(!results.contains(w) && !restrictions.contains(edge)) {
 				depthFirstTraverse(w, results);
 			}
 		}
@@ -194,12 +207,15 @@ public class Cut<V, E> {
 	}
 	
 	private void depthFirstTraverse(V v, Set<V> visited, Set<E> results) {
+		if(!scope.contains(v)) return;
 		visited.add(v);
 		for(V w : layout.getGraph().getNeighbors(v)) {
 			E edge = layout.getGraph().findEdge(v, w);
+			if(edge == null) edge = layout.getGraph().findEdge(w, v); // directed graph hack
+			if(edge == null) throw new IllegalStateException("Edge was null (B)");
 			if(!restrictions.contains(edge)) {
 				results.add(edge);
-				if(!results.contains(w) && scope.contains(w)) {
+				if(!visited.contains(w)) {
 					depthFirstTraverse(w, visited, results);
 				}
 			}
