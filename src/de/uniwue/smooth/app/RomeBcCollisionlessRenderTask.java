@@ -45,12 +45,17 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 		Set<String> interesting = new HashSet<>();
 		Collections.addAll(interesting, "bc_grafo1799.26.lgr.graphml", "bc_grafo1998.31.lgr.graphml", "bc_grafo2196.16.lgr.graphml", "bc_grafo2222.17.lgr.graphml", "bc_grafo2245.17.lgr.graphml"/*double C*/);
 		
+		Set<String> ignore = new HashSet<>();
+		Collections.addAll(ignore, "bc_grafo10187.33.lgr.graphml");
+		
 		OrthogonalDrawing<Appendable> drawing = createDrawing();
 		int collisionCounter = 0;
 		
 		for (final String[] cvsLine : filesCsvList) {
 			try {
 				String filename = cvsLine[0];
+				
+				if(ignore.contains(filename)) continue;
 				
 				OrthogonalDrawing<Appendable> interesingDrawing = null;
 				if(interesting.contains(filename)) {
