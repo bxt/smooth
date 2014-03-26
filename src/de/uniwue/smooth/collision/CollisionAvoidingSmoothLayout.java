@@ -23,6 +23,8 @@ import edu.uci.ics.jung.graph.util.Pair;
 
 public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> implements OrthogonalLayout<V, E> {
 	
+	private static int MAXIMUM_MOVING_DISTANCE = 10000;
+	
 	private SmoothEdgeGenerator<V, E> edgeGenerator = new SmoothEdgeGenerator<V, E>(this);
 	
 	private CompressingLiuEtAlLayout<V, E> liuLayout;
@@ -93,9 +95,12 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 						
 						SmoothEdge smoothEdge = edgeGenerator.generateEdge(leftEdge);
 						
+						int triesLeft = MAXIMUM_MOVING_DISTANCE;
 						while(rightCollisionManager.collidesAny(smoothEdge.getSegments())) {
+							if(triesLeft <= 0) throw new IllegalStateException("Reached maximum moving distance of " + MAXIMUM_MOVING_DISTANCE);
 							moveSetUp(vertexSet, 1);
 							currentHeight++;
+							triesLeft--;
 							smoothEdge = edgeGenerator.generateEdge(leftEdge);
 						}
 					}
