@@ -68,6 +68,26 @@ public class Cut<V, E> {
 		return rightEdges;
 	}
 
+	public Set<V> getVerticesAt(Port direction) {
+		if(direction == Port.L) {
+			return getLeftVertices();
+		} else if (direction == Port.R) {
+			return getRightVertices();
+		} else {
+			throw new IllegalArgumentException("Only left or right is allowed as direction, not: " + direction);
+		}
+	}
+
+	public Set<E> getEdgesAt(Port direction) {
+		if(direction == Port.L) {
+			return getLeftEdges();
+		} else if (direction == Port.R) {
+			return getRightEdges();
+		} else {
+			throw new IllegalArgumentException("Only left or right is allowed as direction, not: " + direction);
+		}
+	}
+
 	private void initialize() {
 		leftStartVertices = new LinkedList<>();
 		rightStartVertices = new LinkedList<>();
