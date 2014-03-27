@@ -90,19 +90,29 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 					if(vertexColumns.get(getGraph().getOpposite(v1, leftEdge)) != null) {// not an outgoing edge
 						// Cut at v1
 						Cut<V, E> v1cut = new Cut<V, E>(liuLayout, vertexColumns.keySet(), v1, Quadrant.II);
-						CollisionManager leftCollisionManager = edgesCollisionManager(v1cut.getLeftEdges());
 						CollisionManager rightCollisionManager = edgesCollisionManager(v1cut.getRightEdges());
 						
 						SmoothEdge smoothEdge = edgeGenerator.generateEdge(leftEdge);
 						
-						int triesLeft = MAXIMUM_MOVING_DISTANCE;
-						while(rightCollisionManager.collidesAny(smoothEdge.getSegments())) {
+						
+						for(int triesLeft = MAXIMUM_MOVING_DISTANCE; rightCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
 							if(triesLeft <= 0) throw new IllegalStateException("Reached maximum moving distance of " + MAXIMUM_MOVING_DISTANCE);
 							moveSetUp(vertexSet, 1);
 							currentHeight++;
-							triesLeft--;
 							smoothEdge = edgeGenerator.generateEdge(leftEdge);
 						}
+						
+						CollisionManager leftCollisionManager = edgesCollisionManager(v1cut.getLeftEdges());
+						for(int triesLeft = MAXIMUM_MOVING_DISTANCE; leftCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
+							if(triesLeft <= 0) {
+								leftCollisionManager.addAll(smoothEdge.getSegments());
+								System.out.println(leftCollisionManager.collisions());
+								throw new IllegalStateException("Reached maximum moving distance of " + MAXIMUM_MOVING_DISTANCE);
+							}
+							moveStuffRight(v1cut.getLeftVertices(), v1cut.getLeftEdges(), -1);
+							smoothEdge = edgeGenerator.generateEdge(leftEdge);
+						}
+						
 					}
 							
 				}
@@ -132,6 +142,19 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		
 	}
 	
+	private void moveStuffRight(Set<V> vertices, Set<E> edges, int offset) {
+		for(E e: edges) {
+			if(edgeColumns.get(e) != null) {
+				edgeColumns.put(e, edgeColumns.get(e) + offset);
+			}
+		}
+		for(V v : vertices) {
+			if(vertexColumns.get(v) != null) {
+				vertexColumns.put(v, vertexColumns.get(v) + offset);
+			}
+		}
+	}
+
 	private void addEdgeLocations(V v) {
 		for(E e : getGraph().getIncidentEdges(v)) {
 			if(edgeColumns.get(e) == null) {
