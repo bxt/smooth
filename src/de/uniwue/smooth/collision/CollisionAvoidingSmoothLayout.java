@@ -197,17 +197,23 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				SmoothEdge smoothEdge = edgeGenerator.generateEdge(e);
 				collisionManager.addAll(smoothEdge.getSegments());
 			} else { // open edge
-				int vertexColumn = endpoints.getFirst().getFirst();
-				int vertexHeight = endpoints.getFirst().getSecond();
-				int edgeColumn = edgeColumns.get(e);
-				collisionManager.add(new Segment.Line(new Pair<Integer>(vertexColumn, vertexHeight), new Pair<Integer>(edgeColumn, vertexHeight))); // TODO: necessary?
-				collisionManager.add(new Segment.Line(new Pair<Integer>(edgeColumn, vertexHeight), new Pair<Integer>(edgeColumn, currentHeight)));
+				collisionManager.addAll(getOpenEdgeSements(endpoints, e));
 			}			
 		}
 		return collisionManager;
 	}
 	
-	private MutablePair<Pair<Integer>> getEndpointLocations(E e) {
+	protected List<Segment> getOpenEdgeSements(MutablePair<Pair<Integer>> endpoints, E e) {
+		List<Segment> segments = new ArrayList<Segment>(2);
+		int vertexColumn = endpoints.getFirst().getFirst();
+		int vertexHeight = endpoints.getFirst().getSecond();
+		int edgeColumn = edgeColumns.get(e);
+		segments.add(new Segment.Line(new Pair<Integer>(vertexColumn, vertexHeight), new Pair<Integer>(edgeColumn, vertexHeight))); // TODO: necessary?
+		segments.add(new Segment.Line(new Pair<Integer>(edgeColumn, vertexHeight), new Pair<Integer>(edgeColumn, currentHeight)));
+		return segments;
+	}
+	
+	protected MutablePair<Pair<Integer>> getEndpointLocations(E e) {
 		Pair<V> endpoints = getOriginalGraph().getEndpoints(e);
 		Pair<Integer> locationA = getVertexLocation(endpoints.getFirst());
 		Pair<Integer> locationB = getVertexLocation(endpoints.getSecond());
@@ -219,7 +225,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		return new MutablePair<Pair<Integer>>(locationA, locationB);
 	}
 	
-	private Graph<V, E> getOriginalGraph() {
+	protected Graph<V, E> getOriginalGraph() {
 		return liuLayout.getGraph();
 	}
 	

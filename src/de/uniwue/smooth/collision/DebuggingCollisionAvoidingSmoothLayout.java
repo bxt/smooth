@@ -1,8 +1,12 @@
 package de.uniwue.smooth.collision;
 
+import java.util.List;
+
+import de.uniwue.smooth.collision.segments.Segment;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.SmoothOrthogonalDrawer;
 import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
+import de.uniwue.smooth.util.tuples.MutablePair;
 import edu.uci.ics.jung.graph.util.Pair;
 
 public class DebuggingCollisionAvoidingSmoothLayout<V, E> extends CollisionAvoidingSmoothLayout<V, E> {
@@ -24,10 +28,24 @@ public class DebuggingCollisionAvoidingSmoothLayout<V, E> extends CollisionAvoid
 		
 		SmoothOrthogonalDrawer<V, E> drawer = new SmoothOrthogonalDrawer<V, E>();
 		drawer.draw(this, drawing);
-		drawing.newPage();
 		
+		drawOpenEdges();
+		
+		drawing.newPage();
 		snapshotCounter++;
 		
+	}
+	
+	private void drawOpenEdges() {
+		for (E e : getOriginalGraph().getEdges()) {
+			MutablePair<Pair<Integer>> endpoints = getEndpointLocations(e);
+			if(endpoints.getFirst() != null && endpoints.getSecond() == null) { // yes, open edge
+				List<Segment> segments = getOpenEdgeSements(endpoints, e);
+				for(Segment segment : segments) segment.draw(drawing);
+				
+			}
+		}
+
 	}
 	
 	@Override
