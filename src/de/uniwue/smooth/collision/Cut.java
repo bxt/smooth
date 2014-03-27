@@ -138,6 +138,13 @@ public class Cut<V, E> {
 				}
 			}
 		}
+		
+		// special case: inverted U edge from bottommost vertex to topmost one.
+		E topEdgeAtBottom = layout.getPortAssignment(vertex).get(Port.T);
+		if (vertex != null && isEdgeAt(layout.getGraph().getOpposite(vertex, topEdgeAtBottom), topEdgeAtBottom,  Port.T)) {
+			restrictions.add(topEdgeAtBottom);
+			leftEdges.add(topEdgeAtBottom);
+		}
 
 	}
 	
@@ -147,7 +154,7 @@ public class Cut<V, E> {
 	}
 	
 	private boolean isAtBottom() {
-		return vertex == null;
+		return quadrant == null;
 	}
 	
 	private boolean isHigher(V target) {
@@ -175,7 +182,6 @@ public class Cut<V, E> {
 	}
 	
 	private void arrivedAtBottom() {
-		vertex = null;
 		quadrant = null;
 	}
 	
