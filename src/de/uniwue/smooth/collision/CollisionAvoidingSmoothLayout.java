@@ -75,6 +75,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				vertexColumns.put(v1, liuLayout.getVertexLocation(v1).getFirst());
 				getGraph().addVertex(v1);
 				addEdgeLocations(v1);
+				snapshot("placing first vertex");
 				first = false;
 				continue;
 			}
@@ -87,8 +88,8 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				vertexColumns.put(v1, x);
 				getGraph().addVertex(v1);
 				addEdgeLocations(v1);
-				snapshot();
-				/*
+				snapshot("placing initial vertex of tier");
+				
 				if(portAssignment.get(Port.L) != null) {
 					E leftEdge = portAssignment.get(Port.L);
 					
@@ -100,30 +101,30 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 						SmoothEdge smoothEdge = edgeGenerator.generateEdge(leftEdge);
 						
 						
-						for(int triesLeft = MAXIMUM_MOVING_DISTANCE; rightCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
-							if(triesLeft <= 0) throw new IllegalStateException("Reached maximum moving distance of " + MAXIMUM_MOVING_DISTANCE);
+						for(int triesLeft = getMaximumMovingDistance(); rightCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
+							if(triesLeft <= 0) throw new IllegalStateException("Reached maximum moving distance of " + getMaximumMovingDistance());
 							moveSetUp(vertexSet, 1);
 							currentHeight++;
 							smoothEdge = edgeGenerator.generateEdge(leftEdge);
-							snapshot();
+							snapshot("moving tier up to avoid collisions right of the leftmost edge at " + v1);
 						}
 						
 						CollisionManager leftCollisionManager = edgesCollisionManager(v1cut.getLeftEdges());
-						for(int triesLeft = MAXIMUM_MOVING_DISTANCE; leftCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
+						for(int triesLeft = getMaximumMovingDistance(); leftCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
 							if(triesLeft <= 0) {
 								leftCollisionManager.addAll(smoothEdge.getSegments());
 								System.out.println(leftCollisionManager.collisions());
-								throw new IllegalStateException("Reached maximum moving distance of " + MAXIMUM_MOVING_DISTANCE);
+								throw new IllegalStateException("Reached maximum moving distance of " + getMaximumMovingDistance());
 							}
 							moveStuffRight(v1cut.getLeftVertices(), v1cut.getLeftEdges(), -1);
 							smoothEdge = edgeGenerator.generateEdge(leftEdge);
-							snapshot();
+							snapshot("moving stuff right to avoid collision with leftmost edge at " + v1);
 						}
 						
 					}
 					
 				}
-				*/
+				
 				// TODO: check v1/vn
 				// cut through, build inner CD, move up, build outer CD, move left
 			}
@@ -136,7 +137,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				vertexColumns.put(vN, x);
 				getGraph().addVertex(vN);
 				addEdgeLocations(vN);
-				snapshot();
+				snapshot("placing last vertex of tier");
 			}
 			
 			for (int i = 1; i < vertices.size() - 1; i++) {
@@ -146,7 +147,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				vertexColumns.put(vI, x);
 				getGraph().addVertex(vI);
 				addEdgeLocations(vI);
-				snapshot();
+				snapshot("placing vertex " + i + " of tier");
 			}
 			
 		}
@@ -244,8 +245,12 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		return liuLayout.getPortAssignment(v);
 	}
 
-	protected void snapshot() {
+	protected void snapshot(String comment) {
 		// Overridden in subclass
+	}
+	
+	protected int getMaximumMovingDistance() {
+		return MAXIMUM_MOVING_DISTANCE;
 	}
 	
 }

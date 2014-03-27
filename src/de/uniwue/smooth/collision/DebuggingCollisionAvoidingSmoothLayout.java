@@ -7,6 +7,8 @@ import edu.uci.ics.jung.graph.util.Pair;
 
 public class DebuggingCollisionAvoidingSmoothLayout<V, E> extends CollisionAvoidingSmoothLayout<V, E> {
 	
+	private static int MAXIMUM_MOVING_DISTANCE = 1000;
+	
 	int snapshotCounter = 0;
 	private OrthogonalDrawing<Appendable> drawing;
 	
@@ -16,9 +18,9 @@ public class DebuggingCollisionAvoidingSmoothLayout<V, E> extends CollisionAvoid
 	}
 	
 	@Override
-	protected void snapshot() {
+	protected void snapshot(String comment) {
 		
-		drawing.label(new Pair<Integer>(-1, -1), "\\verb|snap #" + snapshotCounter + "|");
+		drawing.label(new Pair<Integer>(-1, -1), "\\verb|snap #" + snapshotCounter + " " + comment.replace('|', '\\') + "|");
 		
 		SmoothOrthogonalDrawer<V, E> drawer = new SmoothOrthogonalDrawer<V, E>();
 		drawer.draw(this, drawing);
@@ -26,6 +28,11 @@ public class DebuggingCollisionAvoidingSmoothLayout<V, E> extends CollisionAvoid
 		
 		snapshotCounter++;
 		
+	}
+	
+	@Override
+	protected int getMaximumMovingDistance() {
+		return MAXIMUM_MOVING_DISTANCE;
 	}
 	
 }
