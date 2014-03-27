@@ -45,6 +45,11 @@ public abstract class Segment {
 		public Object getBody() {
 			return new LineSegment(getEndpoints());
 		}
+
+		@Override
+		public String toString() {
+			return "Line [endpoints=" + endpoints + "]";
+		}
 	}
 
 	public static class Arc extends Segment {
@@ -86,6 +91,11 @@ public abstract class Segment {
 		public Object getBody() {
 			return CircleArc.getCircleArc(from, mid, to);
 		}
+
+		@Override
+		public String toString() {
+			return "Arc [from=" + from + ", mid=" + mid + ", to=" + to + "]";
+		}
 	
 	}
 
@@ -120,6 +130,11 @@ public abstract class Segment {
 		@Override
 		public Object getBody() {
 			return CircleArc.getCircleArc(from, to);
+		}
+
+		@Override
+		public String toString() {
+			return "SemiArc [from=" + from + ", to=" + to + "]";
 		}
 	}
 

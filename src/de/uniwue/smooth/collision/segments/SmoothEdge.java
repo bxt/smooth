@@ -35,5 +35,11 @@ public class SmoothEdge {
 				return (S) segment;
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return "SmoothEdge [segments=" + segments + ", kink=" + kink
+				+ ", edgeType=" + edgeType + "]";
+	}
 	
 }

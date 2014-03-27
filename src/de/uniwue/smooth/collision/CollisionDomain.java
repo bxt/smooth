@@ -84,4 +84,9 @@ public class CollisionDomain<T> {
 	private static Integer nullsafeNegate(Integer integer) {
 		return integer == null ? null : -integer;
 	}
+
+	@Override
+	public String toString() {
+		return "CD{" + body + "}";
+	}
 }
