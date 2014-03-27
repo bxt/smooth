@@ -5,6 +5,7 @@ package de.uniwue.smooth.orthogonal;
  * 
  * The coordinate system can be visualized like this:
  *
+ * <pre>
  *           T
  *           ^ y
  *     II    |     I
@@ -14,6 +15,7 @@ package de.uniwue.smooth.orthogonal;
  *     III   |    IV
  *           |
  *           B
+ * </pre>
  */
 public enum Quadrant {
 	

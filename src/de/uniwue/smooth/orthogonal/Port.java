@@ -7,6 +7,7 @@ import edu.uci.ics.jung.graph.util.Pair;
  * 
  * The coordinate system can be visualized like this:
  *
+ * <pre>
  *           T
  *           ^ y
  *     II    |     I
@@ -16,6 +17,7 @@ import edu.uci.ics.jung.graph.util.Pair;
  *     III   |    IV
  *           |
  *           B
+ * </pre>
  */
 public enum Port {
 	/**
