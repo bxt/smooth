@@ -82,16 +82,11 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 						
 			V v1 = vertices.get(0);
 			{
-				int x;
-				Map<Port, E> portAssignment = liuLayout.getPortAssignment(v1);
-				x = getEdgeLocation(portAssignment.get(Port.B)).getFirst();
-				vertexColumns.put(v1, x);
-				getGraph().addVertex(v1);
-				addEdgeLocations(v1);
+				placeVertex(v1);
 				snapshot("placing initial vertex of tier");
 				
-				if(portAssignment.get(Port.L) != null) {
-					E leftEdge = portAssignment.get(Port.L);
+				E leftEdge = liuLayout.getPortAssignment(v1).get(Port.L);
+				if(leftEdge != null) {
 					
 					if(vertexColumns.get(getOriginalGraph().getOpposite(v1, leftEdge)) != null) {// not an outgoing edge
 						// Cut at v1
@@ -102,7 +97,12 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 						
 						
 						for(int triesLeft = getMaximumMovingDistance(); rightCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
-							if(triesLeft <= 0) throw new IllegalStateException("Reached maximum moving distance of " + getMaximumMovingDistance());
+							if(triesLeft <= 0) {
+								System.out.println(rightCollisionManager.collisions());
+								rightCollisionManager.addAll(smoothEdge.getSegments());
+								System.out.println(rightCollisionManager.collisions());
+								throw new IllegalStateException("Reached maximum moving distance of " + getMaximumMovingDistance());
+							}
 							moveSetUp(vertexSet, 1);
 							currentHeight++;
 							smoothEdge = edgeGenerator.generateEdge(leftEdge);
@@ -133,27 +133,24 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 			
 			V vN = vertices.get(vertices.size()-1);
 			if(!vN.equals(v1)) {
-				int x;
-				Map<Port, E> portAssignment = liuLayout.getPortAssignment(vN);
-				x = getEdgeLocation(portAssignment.get(Port.B)).getFirst();
-				vertexColumns.put(vN, x);
-				getGraph().addVertex(vN);
-				addEdgeLocations(vN);
+				placeVertex(vN);
 				snapshot("placing last vertex of tier");
 			}
 			
 			for (int i = 1; i < vertices.size() - 1; i++) {
 				V vI = vertices.get(i);
-				Map<Port, E> portAssignment = liuLayout.getPortAssignment(vI);
-				int x = getEdgeLocation(portAssignment.get(Port.B)).getFirst();
-				vertexColumns.put(vI, x);
-				getGraph().addVertex(vI);
-				addEdgeLocations(vI);
+				placeVertex(vI);
 				snapshot("placing vertex " + i + " of tier");
 			}
 			
 		}
 		
+	}
+	
+	private void placeVertex(V v) {
+		vertexColumns.put(v, getEdgeLocation(liuLayout.getPortAssignment(v).get(Port.B)).getFirst());
+		getGraph().addVertex(v);
+		addEdgeLocations(v);
 	}
 	
 	private void moveStuffRight(Set<V> vertices, Set<E> edges, int offset) {
