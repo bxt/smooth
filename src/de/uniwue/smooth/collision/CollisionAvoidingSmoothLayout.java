@@ -96,7 +96,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 					if(vertexColumns.get(getOriginalGraph().getOpposite(v1, leftEdge)) != null) {// not an outgoing edge
 						// Cut at v1
 						Cut<V, E> v1cut = new Cut<V, E>(liuLayout, vertexColumns.keySet(), v1, Quadrant.II);
-						CollisionManager rightCollisionManager = edgesCollisionManager(v1cut.getRightEdges());
+						CollisionManager rightCollisionManager = edgesCollisionManager(v1cut.getRightEdges(), leftEdge);
 						
 						SmoothEdge smoothEdge = edgeGenerator.generateEdge(leftEdge);
 						
@@ -109,15 +109,17 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 							snapshot("moving tier up to avoid collisions right of the leftmost edge at " + v1);
 						}
 						
-						CollisionManager leftCollisionManager = edgesCollisionManager(v1cut.getLeftEdges());
+						CollisionManager leftCollisionManager = edgesCollisionManager(v1cut.getLeftEdges(), leftEdge);
 						for(int triesLeft = getMaximumMovingDistance(); leftCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
 							if(triesLeft <= 0) {
+								System.out.println(leftCollisionManager.collisions());
 								leftCollisionManager.addAll(smoothEdge.getSegments());
 								System.out.println(leftCollisionManager.collisions());
 								throw new IllegalStateException("Reached maximum moving distance of " + getMaximumMovingDistance());
 							}
 							moveStuffRight(v1cut.getLeftVertices(), v1cut.getLeftEdges(), -1);
 							smoothEdge = edgeGenerator.generateEdge(leftEdge);
+							leftCollisionManager = edgesCollisionManager(v1cut.getLeftEdges(), leftEdge);
 							snapshot("moving stuff right to avoid collision with leftmost edge at " + v1);
 						}
 						
@@ -187,9 +189,10 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		}
 	}
 	
-	private CollisionManager edgesCollisionManager(Collection<E> edges) {
+	private CollisionManager edgesCollisionManager(Collection<E> edges, E exception) {
 		CollisionManager collisionManager = new CollisionManager();
 		for(E e : edges) {
+			if(e.equals(exception)) continue;
 			MutablePair<Pair<Integer>> endpoints = getEndpointLocations(e);
 			if(endpoints.getFirst() == null) throw new IllegalStateException("Nirvana-Edge in cut!?");
 			if(endpoints.getSecond() != null) {
