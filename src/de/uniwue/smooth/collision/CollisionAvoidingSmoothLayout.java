@@ -19,6 +19,8 @@ import de.uniwue.smooth.orthogonal.Port;
 import de.uniwue.smooth.orthogonal.Quadrant;
 import de.uniwue.smooth.util.tuples.MutablePair;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import edu.uci.ics.jung.graph.util.Pair;
 
 public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> implements OrthogonalLayout<V, E> {
@@ -35,9 +37,9 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	private Map<V, Set<V>> vertexSetMap = null;
 	private int currentHeight = 0;
 	
-	public CollisionAvoidingSmoothLayout(CompressingLiuEtAlLayout<V, E> liuEtAlLayout) {
-		super(liuEtAlLayout.getGraph());
-		this.liuLayout = liuEtAlLayout;
+	public CollisionAvoidingSmoothLayout(CompressingLiuEtAlLayout<V, E> liuLayout) {
+		super(new UndirectedSparseGraph<V, E>());
+		this.liuLayout = liuLayout;
 	}
 	
 	@Override
@@ -71,23 +73,26 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 			if(first) {
 				V v1 = vertices.get(0);
 				vertexColumns.put(v1, liuLayout.getVertexLocation(v1).getFirst());
+				getGraph().addVertex(v1);
 				addEdgeLocations(v1);
 				first = false;
 				continue;
 			}
-			
+						
 			V v1 = vertices.get(0);
 			{
 				int x;
 				Map<Port, E> portAssignment = liuLayout.getPortAssignment(v1);
 				x = getEdgeLocation(portAssignment.get(Port.B)).getFirst();
 				vertexColumns.put(v1, x);
+				getGraph().addVertex(v1);
 				addEdgeLocations(v1);
-				
+				snapshot();
+				/*
 				if(portAssignment.get(Port.L) != null) {
 					E leftEdge = portAssignment.get(Port.L);
 					
-					if(vertexColumns.get(getGraph().getOpposite(v1, leftEdge)) != null) {// not an outgoing edge
+					if(vertexColumns.get(getOriginalGraph().getOpposite(v1, leftEdge)) != null) {// not an outgoing edge
 						// Cut at v1
 						Cut<V, E> v1cut = new Cut<V, E>(liuLayout, vertexColumns.keySet(), v1, Quadrant.II);
 						CollisionManager rightCollisionManager = edgesCollisionManager(v1cut.getRightEdges());
@@ -100,6 +105,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 							moveSetUp(vertexSet, 1);
 							currentHeight++;
 							smoothEdge = edgeGenerator.generateEdge(leftEdge);
+							snapshot();
 						}
 						
 						CollisionManager leftCollisionManager = edgesCollisionManager(v1cut.getLeftEdges());
@@ -111,23 +117,26 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 							}
 							moveStuffRight(v1cut.getLeftVertices(), v1cut.getLeftEdges(), -1);
 							smoothEdge = edgeGenerator.generateEdge(leftEdge);
+							snapshot();
 						}
 						
 					}
-							
+					
 				}
-				
+				*/
 				// TODO: check v1/vn
 				// cut through, build inner CD, move up, build outer CD, move left
 			}
 			
 			V vN = vertices.get(vertices.size()-1);
-			{
+			if(!vN.equals(v1)) {
 				int x;
 				Map<Port, E> portAssignment = liuLayout.getPortAssignment(vN);
 				x = getEdgeLocation(portAssignment.get(Port.B)).getFirst();
 				vertexColumns.put(vN, x);
+				getGraph().addVertex(vN);
 				addEdgeLocations(vN);
+				snapshot();
 			}
 			
 			for (int i = 1; i < vertices.size() - 1; i++) {
@@ -135,7 +144,9 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				Map<Port, E> portAssignment = liuLayout.getPortAssignment(vI);
 				int x = getEdgeLocation(portAssignment.get(Port.B)).getFirst();
 				vertexColumns.put(vI, x);
+				getGraph().addVertex(vI);
 				addEdgeLocations(vI);
+				snapshot();
 			}
 			
 		}
@@ -156,10 +167,12 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	}
 
 	private void addEdgeLocations(V v) {
-		for(E e : getGraph().getIncidentEdges(v)) {
+		for(E e : getOriginalGraph().getIncidentEdges(v)) {
 			if(edgeColumns.get(e) == null) {
 				int x = liuLayout.getEdgeLocation(e).getFirst() - liuLayout.getVertexLocation(v).getFirst() + getVertexLocation(v).getFirst();
 				edgeColumns.put(e, x);
+			} else {
+				getGraph().addEdge(e, v, getOriginalGraph().getOpposite(v, e));
 			}
 		}
 	}
@@ -194,7 +207,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	}
 	
 	private MutablePair<Pair<Integer>> getEndpointLocations(E e) {
-		Pair<V> endpoints = getGraph().getEndpoints(e);
+		Pair<V> endpoints = getOriginalGraph().getEndpoints(e);
 		Pair<Integer> locationA = getVertexLocation(endpoints.getFirst());
 		Pair<Integer> locationB = getVertexLocation(endpoints.getSecond());
 		if(locationA == null) {
@@ -203,6 +216,10 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 			locationB = tmp;
 		}
 		return new MutablePair<Pair<Integer>>(locationA, locationB);
+	}
+	
+	private Graph<V, E> getOriginalGraph() {
+		return liuLayout.getGraph();
 	}
 	
 	@Override
@@ -225,6 +242,10 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	@Override
 	public Map<Port, E> getPortAssignment(V v) {
 		return liuLayout.getPortAssignment(v);
+	}
+
+	protected void snapshot() {
+		// Overridden in subclass
 	}
 	
 }

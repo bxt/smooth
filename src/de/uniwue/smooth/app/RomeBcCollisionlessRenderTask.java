@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import au.com.bytecode.opencsv.CSVReader;
-import de.uniwue.smooth.collision.CollisionAvoidingSmoothLayout;
+import de.uniwue.smooth.collision.DebuggingCollisionAvoidingSmoothLayout;
 import de.uniwue.smooth.draw.IpeDrawing;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
@@ -52,11 +52,12 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 		int collisionCounter = 0;
 		
 		for (final String[] cvsLine : filesCsvList) {
+			OrthogonalDrawing<Appendable> snapsDrawing = createDrawing();
+			
+			String filename = cvsLine[0];
+			if(ignore.contains(filename)) continue;
+			
 			try {
-				String filename = cvsLine[0];
-				
-				if(ignore.contains(filename)) continue;
-				
 				OrthogonalDrawing<Appendable> interesingDrawing = null;
 				if(interesting.contains(filename)) {
 					interesingDrawing =  createDrawing();
@@ -69,7 +70,7 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 				Graph<Vertex, Edge> graph = graphReader.readGraph();
 				
 				CompressingLiuEtAlLayout<Vertex, Edge> liuLayout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph);
-				OrthogonalLayout<Vertex, Edge> layout = new CollisionAvoidingSmoothLayout<Vertex, Edge>(liuLayout);
+				OrthogonalLayout<Vertex, Edge> layout = new DebuggingCollisionAvoidingSmoothLayout<Vertex, Edge>(liuLayout, snapsDrawing);
 				SmoothOrthogonalDrawer<Vertex, Edge> drawer = new SmoothOrthogonalDrawer<Vertex, Edge>();
 				layout.initialize();
 				drawer.draw(layout, drawing);
@@ -88,6 +89,7 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 				e.printStackTrace();*/
 			} finally {
 				drawing.newPage();
+				Util.writeFile("resources/drawings/rome_bc/snaps/" + filename + "-snaps.ipe", snapsDrawing.create().toString());
 			}
 		}
 		
