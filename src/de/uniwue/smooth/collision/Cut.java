@@ -101,6 +101,12 @@ public class Cut<V, E> {
 						} else if (isEdgeAt(target, edge, quadrant.getHorizontalPort())) { // follow C edge
 							vertex = target;
 							quadrant = quadrant.getVerticalOpposite();
+						} else if (isEdgeAt(target, edge, Port.B) && quadrant == Quadrant.I) { // G edge pointing to V1
+							restrictions.add(edge); // cut, but do not add any stating vertices
+							rightEdges.add(edge);
+							arrivedAtBottom();
+							vertex = target; // got to actual V1 bot vertex
+							arrivedAtBottom();
 						} else {
 							throw new IllegalStateException("Bad edge. (1)");
 						}
@@ -115,7 +121,7 @@ public class Cut<V, E> {
 					V target = layout.getGraph().getOpposite(vertex, edge);
 					if(isHigher(target)) { // might happen for the last U edge from first vertex
 						restrictions.add(edge); // cut, but do not add any stating vertices
-						leftEdges.add(edge);
+						leftEdges.add(edge); // TODO: add to right edge?
 						arrivedAtBottom();
 					} else {
 						if(isEdgeAt(target, edge, quadrant.getHorizontalPort().getOpposite())) { // follow L edge above
