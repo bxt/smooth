@@ -51,28 +51,12 @@ public class Cut<V, E> {
 		leftEdges.addAll(depthFirstFindEdges(leftStartVertices));
 		rightEdges.addAll(depthFirstFindEdges(rightStartVertices));
 	}
-	
-	public Set<V> getLeftVertices() {
-		return leftVertices;
-	}
-
-	public Set<V> getRightVertices() {
-		return rightVertices;
-	}
-
-	public Set<E> getLeftEdges() {
-		return leftEdges;
-	}
-
-	public Set<E> getRightEdges() {
-		return rightEdges;
-	}
 
 	public Set<V> getVerticesAt(Port direction) {
 		if(direction == Port.L) {
-			return getLeftVertices();
+			return leftVertices;
 		} else if (direction == Port.R) {
-			return getRightVertices();
+			return rightVertices;
 		} else {
 			throw new IllegalArgumentException("Only left or right is allowed as direction, not: " + direction);
 		}
@@ -80,9 +64,9 @@ public class Cut<V, E> {
 
 	public Set<E> getEdgesAt(Port direction) {
 		if(direction == Port.L) {
-			return getLeftEdges();
+			return leftEdges;
 		} else if (direction == Port.R) {
-			return getRightEdges();
+			return rightEdges;
 		} else {
 			throw new IllegalArgumentException("Only left or right is allowed as direction, not: " + direction);
 		}
