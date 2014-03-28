@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -50,13 +51,14 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 				"bc_grafo2196.16.lgr.graphml"/*Collision with downward L edge*/,
 				"bc_grafo2222.17.lgr.graphml"/*pretty(?)*/,
 				"bc_grafo2245.17.lgr.graphml"/*double C*/,
-				"bc_grafo2485.13.lgr.graphml"/*G edge*/);
+				"bc_grafo2485.13.lgr.graphml"/*G edge*/,
+				"bc_grafo1175.19.lgr.graphml"/*Collision with upwards L edge*/);
 		
 		Set<String> ignore = new HashSet<>();
-		Collections.addAll(ignore, "bc_grafo10187.33.lgr.graphml", "bc_grafo2735.36.lgr.graphml", "bc_grafo5663.34.lgr.graphml", "bc_grafo5808.33.lgr.graphml", "bc_grafo5917.34.lgr.graphml", "bc_grafo920.24.lgr.graphml", "bc_grafo928.13.lgr.graphml");
+		Collections.addAll(ignore, "bc_grafo10187.33.lgr.graphml", "bc_grafo2465.22.lgr.graphml", "bc_grafo2735.36.lgr.graphml", "bc_grafo5663.34.lgr.graphml", "bc_grafo5808.33.lgr.graphml", "bc_grafo5917.34.lgr.graphml", "bc_grafo920.24.lgr.graphml", "bc_grafo928.13.lgr.graphml");
 		
 		OrthogonalDrawing<Appendable> drawing = createDrawing();
-		int collisionCounter = 0;
+		List<String> collisionGraphs = new LinkedList<String>();
 		
 		for (final String[] cvsLine : filesCsvList) {
 			OrthogonalDrawing<Appendable> snapsDrawing = createDrawing();
@@ -82,7 +84,7 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 				layout.initialize();
 				drawer.draw(layout, drawing);
 				
-				if (drawer.getCollisionCount() > 0) collisionCounter++;
+				if (drawer.getCollisionCount() > 0) collisionGraphs.add(filename);
 				
 				if(interesingDrawing != null) {
 					drawer.draw(layout, interesingDrawing);
@@ -101,7 +103,8 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 		}
 		
 		System.out.println("Generated " + filesCsvList.size() +  " drawings. ");
-		System.out.println("Had " + collisionCounter +  " drawings with collisions. ");
+		System.out.println("Had " + collisionGraphs.size() +  " drawings with collisions. ");
+		System.out.println(collisionGraphs);
 		Util.writeFile("resources/drawings/rome_bc/all-nocollisions.ipe", drawing.create().toString());
 		b.print();
 	}
