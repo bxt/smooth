@@ -40,7 +40,7 @@ public class DebuggingCollisionAvoidingSmoothLayout<V, E> extends CollisionAvoid
 		for (E e : getOriginalGraph().getEdges()) {
 			MutablePair<Pair<Integer>> endpoints = getEndpointLocations(e);
 			if(endpoints.getFirst() != null && endpoints.getSecond() == null) { // yes, open edge
-				List<Segment> segments = getOpenEdgeSements(endpoints, e);
+				List<Segment> segments = getOpenEdgeSegmentsForDisplay(endpoints, e);
 				for(Segment segment : segments) segment.draw(drawing);
 				
 			}

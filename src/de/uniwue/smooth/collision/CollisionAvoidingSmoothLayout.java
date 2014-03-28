@@ -196,18 +196,27 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				SmoothEdge smoothEdge = edgeGenerator.generateEdge(e);
 				collisionManager.addAll(smoothEdge.getSegments());
 			} else { // open edge
-				collisionManager.addAll(getOpenEdgeSements(endpoints, e));
+				collisionManager.addAll(getOpenEdgeSegmentsForCollisions(endpoints, e));
 			}			
 		}
 		return collisionManager;
 	}
 	
-	protected List<Segment> getOpenEdgeSements(MutablePair<Pair<Integer>> endpoints, E e) {
+	private List<Segment> getOpenEdgeSegmentsForCollisions(MutablePair<Pair<Integer>> endpoints, E e) {
+		return getOpenEdgeSegments(endpoints, e, false);
+	}
+	
+	protected List<Segment> getOpenEdgeSegmentsForDisplay(MutablePair<Pair<Integer>> endpoints, E e) {
+		return getOpenEdgeSegments(endpoints, e, true);
+	}
+	
+	private List<Segment> getOpenEdgeSegments(MutablePair<Pair<Integer>> endpoints, E e, boolean includeDisplayOnly) {
 		List<Segment> segments = new ArrayList<Segment>(2);
 		int vertexColumn = endpoints.getFirst().getFirst();
 		int vertexHeight = endpoints.getFirst().getSecond();
 		int edgeColumn = edgeColumns.get(e);
-		segments.add(new Segment.Line(new Pair<Integer>(vertexColumn, vertexHeight), new Pair<Integer>(edgeColumn, vertexHeight))); // TODO: necessary?
+		if (includeDisplayOnly) // don't check collisions here, bad for U edge
+			segments.add(new Segment.Line(new Pair<Integer>(vertexColumn, vertexHeight), new Pair<Integer>(edgeColumn, vertexHeight)));
 		segments.add(new Segment.Line(new Pair<Integer>(edgeColumn, vertexHeight), new Pair<Integer>(edgeColumn, currentHeight)));
 		return segments;
 	}
