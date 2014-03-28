@@ -125,7 +125,7 @@ public class Cut<V, E> {
 					V target = layout.getGraph().getOpposite(vertex, edge);
 					if(isHigher(target)) { // might happen for the last U edge from first vertex
 						restrictions.add(edge); // cut, but do not add any stating vertices
-						leftEdges.add(edge); // TODO: add to right edge?
+						rightEdges.add(edge);
 						arrivedAtBottom();
 					} else {
 						if(isEdgeAt(target, edge, quadrant.getHorizontalPort().getOpposite())) { // follow L edge above
