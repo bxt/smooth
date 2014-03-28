@@ -43,7 +43,7 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 		}
 		
 		Set<String> interesting = new HashSet<>();
-		Collections.addAll(interesting, "bc_grafo1799.26.lgr.graphml", "bc_grafo1998.31.lgr.graphml", "bc_grafo2196.16.lgr.graphml", "bc_grafo2222.17.lgr.graphml", "bc_grafo2245.17.lgr.graphml"/*double C*/, "bc_grafo2485.13.lgr.graphml");
+		Collections.addAll(interesting, "bc_grafo11310.35.lgr.graphml"/*moving an L edge up*/, "bc_grafo1799.26.lgr.graphml", "bc_grafo1998.31.lgr.graphml", "bc_grafo2196.16.lgr.graphml", "bc_grafo2222.17.lgr.graphml", "bc_grafo2245.17.lgr.graphml"/*double C*/, "bc_grafo2485.13.lgr.graphml");
 		
 		Set<String> ignore = new HashSet<>();
 		Collections.addAll(ignore, "bc_grafo10187.33.lgr.graphml", "bc_grafo2735.36.lgr.graphml", "bc_grafo5663.34.lgr.graphml", "bc_grafo5808.33.lgr.graphml", "bc_grafo5917.34.lgr.graphml", "bc_grafo920.24.lgr.graphml", "bc_grafo928.13.lgr.graphml");
