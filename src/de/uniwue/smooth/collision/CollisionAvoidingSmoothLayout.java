@@ -104,12 +104,17 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	
 	// cut through, build inner CD, move up, build outer CD, move left
 	private void adjustForSideEdge(V v, Port side, Set<V> set) {
-		E sideEdge = liuLayout.getPortAssignment(v).get(side);
+		E sideEdge = getEdgeAt(v, side);
 		if(sideEdge != null) {
 			
-			if(vertexColumns.get(getOriginalGraph().getOpposite(v, sideEdge)) != null) {// not an outgoing edge
+			V sideEdgeOpposite = getOriginalGraph().getOpposite(v, sideEdge);
+			if(vertexColumns.get(sideEdgeOpposite) != null) {// not an outgoing edge
 				
-				Cut<V, E> cut = new Cut<V, E>(liuLayout, vertexColumns.keySet(), v, Quadrant.getQuadrant(side == Port.R, true));
+				Cut<V, E> cut = new Cut<V, E>(liuLayout, vertexColumns.keySet());
+				cut.addRestriction(sideEdge);
+				cut.goTo(sideEdgeOpposite, Quadrant.getQuadrant(side == Port.R, sideEdge.equals(getEdgeAt(sideEdgeOpposite, Port.T))));
+				cut.goDownwards();
+				
 				CollisionManager innerCollisionManager = edgesCollisionManager(cut.getEdgesAt(side.getOpposite()), sideEdge);
 				
 				SmoothEdge smoothEdge = edgeGenerator.generateEdge(sideEdge);
@@ -147,9 +152,13 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	}
 	
 	private void placeVertex(V v) {
-		vertexColumns.put(v, getEdgeLocation(liuLayout.getPortAssignment(v).get(Port.B)).getFirst());
+		vertexColumns.put(v, getEdgeLocation(getEdgeAt(v, Port.B)).getFirst());
 		getGraph().addVertex(v);
 		addEdgeLocations(v);
+	}
+	
+	private E getEdgeAt(V v, Port p) {
+		return liuLayout.getPortAssignment(v).get(p);
 	}
 	
 	private void moveStuffRight(Set<V> vertices, Set<E> edges, int offset) {

@@ -27,20 +27,24 @@ public class Cut<V, E> {
 	private Set<E> leftEdges = null;
 	private Set<E> rightEdges = null;
 	
-	public Cut(OrthogonalLayout<V, E> layout, Set<V> scope, V vertex, Quadrant quadrant) {
+	public Cut(OrthogonalLayout<V, E> layout, Set<V> scope) {
 		super();
 		this.layout = layout;
 		this.scope = scope;
 		
-		this.vertex = vertex;
-		this.quadrant = quadrant;
-		
-		run();
+		initialize();
 	}
 	
-	private void run() {
-		
-		initialize();
+	public void goTo(V vertex, Quadrant quadrant) {
+		this.vertex = vertex;
+		this.quadrant = quadrant;
+	}
+	
+	public void addRestriction(E e) {
+		restrictions.add(e);
+	}
+	
+	public void goDownwards() {
 		addFirstVertex();
 		
 		findCut();
@@ -51,7 +55,7 @@ public class Cut<V, E> {
 		leftEdges.addAll(depthFirstFindEdges(leftStartVertices));
 		rightEdges.addAll(depthFirstFindEdges(rightStartVertices));
 	}
-
+	
 	public Set<V> getVerticesAt(Port direction) {
 		if(direction == Port.L) {
 			return leftVertices;
