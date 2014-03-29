@@ -152,6 +152,21 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 					snapshot("moving stuff outside to avoid collision with " + side + "most edge at " + v);
 				}
 				
+				if(sideEdge.equals(getEdgeAt(sideEdgeOpposite, Port.T))) { // gotta check slope of L edge
+					int dx = (getVertexLocation(v).getFirst() - getVertexLocation(sideEdgeOpposite).getFirst());
+					int dy = (getVertexLocation(v).getSecond() - getVertexLocation(sideEdgeOpposite).getSecond());
+					int d = side.getDirection().getFirst();
+					if( -d*dx < dy) {
+						Cut<V, E> cut2 = new Cut<V, E>(liuLayout, vertexColumns.keySet());
+						cut2.addRestriction(sideEdge);
+						cut2.goTo(sideEdgeOpposite, Quadrant.getQuadrant(side != Port.R, sideEdge.equals(getEdgeAt(sideEdgeOpposite, Port.T))));
+						cut2.goDownwards();
+						int offset = d*dy + dx;
+						moveStuffRight(cut2.getVerticesAt(side), cut2.getEdgesAt(side), offset);
+						snapshot("adjusting slope of " + side + "most edge at " + v);
+					}
+				}
+				
 			}
 			
 		}
