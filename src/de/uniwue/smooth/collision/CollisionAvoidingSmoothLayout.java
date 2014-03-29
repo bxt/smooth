@@ -121,55 +121,67 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				cut.goTo(sideEdgeOpposite, Quadrant.getQuadrant(side == Port.R, sideEdge.equals(getEdgeAt(sideEdgeOpposite, Port.T))));
 				cut.goDownwards();
 				
-				CollisionManager innerCollisionManager = edgesCollisionManager(cut.getEdgesAt(side.getOpposite()), sideEdge);
-				
 				SmoothEdge smoothEdge = edgeGenerator.generateEdge(sideEdge);
 				
-				for(int triesLeft = getMaximumMovingDistance(); innerCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
-					if(triesLeft <= 0) {
-						System.out.println(innerCollisionManager.collisions());
-						innerCollisionManager.addAll(smoothEdge.getSegments());
-						System.out.println(innerCollisionManager.collisions());
-						throw new IllegalStateException("Reached maximum moving distance of " + getMaximumMovingDistance());
-					}
-					moveSetUp(set, 1);
-					currentHeight++;
-					smoothEdge = edgeGenerator.generateEdge(sideEdge);
-					snapshot("moving tier up to avoid collisions inner of the " + side + "most edge at " + v);
-				}
+				adjustInnerCollisionsOfSideEdge(side, sideEdge, v, sideEdgeOpposite, smoothEdge, cut, set);
 				
-				CollisionManager outerCollisionManager = edgesCollisionManager(cut.getEdgesAt(side), sideEdge);
-				for(int triesLeft = getMaximumMovingDistance(); outerCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
-					if(triesLeft <= 0) {
-						System.out.println(outerCollisionManager.collisions());
-						outerCollisionManager.addAll(smoothEdge.getSegments());
-						System.out.println(outerCollisionManager.collisions());
-						throw new IllegalStateException("Reached maximum moving distance of " + getMaximumMovingDistance());
-					}
-					moveStuffRight(cut.getVerticesAt(side), cut.getEdgesAt(side), side.getDirection().getFirst());
-					smoothEdge = edgeGenerator.generateEdge(sideEdge);
-					outerCollisionManager = edgesCollisionManager(cut.getEdgesAt(side), sideEdge);
-					snapshot("moving stuff outside to avoid collision with " + side + "most edge at " + v);
-				}
+				adjustOuterCollisionsOfSideEdge(side, sideEdge, v, sideEdgeOpposite, smoothEdge, cut);
 				
-				if(sideEdge.equals(getEdgeAt(sideEdgeOpposite, Port.T))) { // gotta check slope of L edge
-					int dx = (getVertexLocation(v).getFirst() - getVertexLocation(sideEdgeOpposite).getFirst());
-					int dy = (getVertexLocation(v).getSecond() - getVertexLocation(sideEdgeOpposite).getSecond());
-					int d = side.getDirection().getFirst();
-					if( -d*dx < dy) {
-						Cut<V, E> cut2 = new Cut<V, E>(liuLayout, vertexColumns.keySet());
-						cut2.addRestriction(sideEdge);
-						cut2.goTo(sideEdgeOpposite, Quadrant.getQuadrant(side != Port.R, sideEdge.equals(getEdgeAt(sideEdgeOpposite, Port.T))));
-						cut2.goDownwards();
-						int offset = d*dy + dx;
-						moveStuffRight(cut2.getVerticesAt(side), cut2.getEdgesAt(side), offset);
-						snapshot("adjusting slope of " + side + "most edge at " + v);
-					}
-				}
+				adjustSlopeOfSideLEdge(side, sideEdge, v, sideEdgeOpposite);
 				
 			}
 			
 		}
+	}
+	
+	private void adjustInnerCollisionsOfSideEdge(Port side, E sideEdge, V v, V sideEdgeOpposite, SmoothEdge smoothEdge, Cut<V, E> cut, Set<V> set) {
+		CollisionManager innerCollisionManager = edgesCollisionManager(cut.getEdgesAt(side.getOpposite()), sideEdge);
+		for(int triesLeft = getMaximumMovingDistance(); innerCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
+			if(triesLeft <= 0) {
+				System.out.println(innerCollisionManager.collisions());
+				innerCollisionManager.addAll(smoothEdge.getSegments());
+				System.out.println(innerCollisionManager.collisions());
+				throw new IllegalStateException("Reached maximum moving distance of " + getMaximumMovingDistance());
+			}
+			moveSetUp(set, 1);
+			currentHeight++;
+			smoothEdge = edgeGenerator.generateEdge(sideEdge);
+			snapshot("moving tier up to avoid collisions inner of the " + side + "most edge at " + v);
+		}
+	}
+	
+	private void adjustOuterCollisionsOfSideEdge(Port side, E sideEdge, V v, V sideEdgeOpposite, SmoothEdge smoothEdge, Cut<V, E> cut) {
+		CollisionManager outerCollisionManager = edgesCollisionManager(cut.getEdgesAt(side), sideEdge);
+		for(int triesLeft = getMaximumMovingDistance(); outerCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
+			if(triesLeft <= 0) {
+				System.out.println(outerCollisionManager.collisions());
+				outerCollisionManager.addAll(smoothEdge.getSegments());
+				System.out.println(outerCollisionManager.collisions());
+				throw new IllegalStateException("Reached maximum moving distance of " + getMaximumMovingDistance());
+			}
+			moveStuffRight(cut.getVerticesAt(side), cut.getEdgesAt(side), side.getDirection().getFirst());
+			smoothEdge = edgeGenerator.generateEdge(sideEdge);
+			outerCollisionManager = edgesCollisionManager(cut.getEdgesAt(side), sideEdge);
+			snapshot("moving stuff outside to avoid collision with " + side + "most edge at " + v);
+		}
+	}
+	
+	private void adjustSlopeOfSideLEdge(Port side, E sideEdge, V v, V sideEdgeOpposite) {
+		if(sideEdge.equals(getEdgeAt(sideEdgeOpposite, Port.T))) { // gotta check slope of L edge
+			int dx = (getVertexLocation(v).getFirst() - getVertexLocation(sideEdgeOpposite).getFirst());
+			int dy = (getVertexLocation(v).getSecond() - getVertexLocation(sideEdgeOpposite).getSecond());
+			int d = side.getDirection().getFirst();
+			if( -d*dx < dy) {
+				Cut<V, E> cut = new Cut<V, E>(liuLayout, vertexColumns.keySet());
+				cut.addRestriction(sideEdge);
+				cut.goTo(sideEdgeOpposite, Quadrant.getQuadrant(side != Port.R, sideEdge.equals(getEdgeAt(sideEdgeOpposite, Port.T))));
+				cut.goDownwards();
+				int offset = d*dy + dx;
+				moveStuffRight(cut.getVerticesAt(side), cut.getEdgesAt(side), offset);
+				snapshot("adjusting slope of " + side + "most edge at " + v);
+			}
+		}
+		
 	}
 	
 	private void placeVertex(V v) {
