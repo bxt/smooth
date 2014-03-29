@@ -6,26 +6,44 @@ import java.util.Collection;
 import de.uniwue.smooth.collision.geom.CircleArc;
 import de.uniwue.smooth.collision.geom.LineSegment;
 
-
-public class CollisionDomain<T> {
+/**
+ * Represents a body/curve that can collide with some other body/curve.
+ *
+ * @param <T> Type of the contained body/line.
+ */
+public class CollisionBody<T> {
 	
 	private T body;
 	
-	public CollisionDomain(T body) {
+	/**
+	 * Create a collision body for the given object.
+	 * @param body The object this domain wraps.
+	 */
+	public CollisionBody(T body) {
 		this.body = body;
 	}
 
-	public boolean collides(CollisionDomain<?> domain) {
-		return collisionOffset(domain) != null;
+	/**
+	 * If or not this body collides with another one.
+	 * @param collisionBody Another collision body.
+	 * @return True, if the bodies collide.
+	 */
+	public boolean collides(CollisionBody<?> collisionBody) {
+		return collisionOffset(collisionBody) != null;
 	}
-
-	public Integer collisionOffset(CollisionDomain<?> domain) {
-		if (domain.body instanceof CircleArc) {
-			return collisionOffset((CircleArc) domain.body);
-		} else if (domain.body instanceof LineSegment) {
-			return collisionOffset((LineSegment) domain.body);
+	
+	/**
+	 * How far this body overlaps the other body.
+	 * @param collisionBody The other body.
+	 * @return How far the bodies overlap or <tt>null</tt> if they don't.
+	 */
+	public Integer collisionOffset(CollisionBody<?> collisionBody) {
+		if (collisionBody.body instanceof CircleArc) {
+			return collisionOffset((CircleArc) collisionBody.body);
+		} else if (collisionBody.body instanceof LineSegment) {
+			return collisionOffset((LineSegment) collisionBody.body);
 		} else {
-			return collisionOffsetUnknownCombination(domain.body);
+			return collisionOffsetUnknownCombination(collisionBody.body);
 		}
 	}
 	
@@ -46,11 +64,11 @@ public class CollisionDomain<T> {
 		}
 	}
 	
-	private Integer collisionOffsetUnknownCombination(Object domainBody) {
+	private Integer collisionOffsetUnknownCombination(Object body) {
 		throw new UnsupportedOperationException(String.format(
 				"Can not detect collisions between %s and %s.",
 				this.body.getClass().getCanonicalName(),
-				domainBody.getClass().getCanonicalName() ));
+				body.getClass().getCanonicalName() ));
 	}
 	
 	private static Integer collisionOffset(CircleArc cirecleArcA, CircleArc cirecleArcB) {
@@ -87,6 +105,6 @@ public class CollisionDomain<T> {
 
 	@Override
 	public String toString() {
-		return "CD{" + body + "}";
+		return "CB{" + body + "}";
 	}
 }

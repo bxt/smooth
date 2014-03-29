@@ -8,23 +8,38 @@ import de.uniwue.smooth.collision.geom.LineSegment;
 import de.uniwue.smooth.collision.segments.Segment;
 import edu.uci.ics.jung.graph.util.Pair;
 
+/**
+ * Manages a collection of curves that might collide with each other and new curves.
+ */
 public class CollisionManager {
 	
-	private List<CollisionDomain<?>> domains = new ArrayList<>();
+	private List<CollisionBody<?>> domains = new ArrayList<>();
 	
-	
+	/**
+	 * Add a segment to the collection and return if it collides with another segment.
+	 * @param segment
+	 * @return
+	 */
 	public boolean addAndCollides(Segment segment) {
 		boolean collides = collides(segment);
 		add(segment);
 		return collides;
 	}
 	
+	/**
+	 * Add some segments to the collection.
+	 * @param segments The segments to add.
+	 */
 	public void addAll(Collection<Segment> segments) {
 		for(Segment segment : segments) {
 			add(segment);
 		}
 	}
 	
+	/**
+	 * Add one segment to the collection.
+	 * @param segment
+	 */
 	public void add(Segment segment) {
 		Object body = segment.getBody();
 		if ((body instanceof LineSegment)
@@ -32,6 +47,11 @@ public class CollisionManager {
 		addDomain(body);
 	}
 	
+	/**
+	 * Check if the given segment collides with any of the segments in the collection.
+	 * @param segment Segement to check.
+	 * @return True, iff the segment collides with another one.
+	 */
 	public boolean collides(Segment segment) {
 		Object body = segment.getBody();
 		if ((body instanceof LineSegment)
@@ -39,6 +59,11 @@ public class CollisionManager {
 		return collidesDomain(body);
 	}
 	
+	/**
+	 * Check if any of the given segments collides with any of the segments in the collection.
+	 * @param segments Segments to check.
+	 * @return True, if one of the segments collides with one from this collection.
+	 */
 	public boolean collidesAny(Collection<Segment> segments) {
 		boolean collidesAny = false;
 		for(Segment segment : segments) {
@@ -48,13 +73,13 @@ public class CollisionManager {
 	}
 	
 	private void addDomain(Object body) {
-		domains.add(new CollisionDomain<Object>(body));
+		domains.add(new CollisionBody<Object>(body));
 	}
 	
 	private boolean collidesDomain(Object body) {
-		new CollisionDomain<Object>(body);
-		CollisionDomain<?> a = new CollisionDomain<Object>(body);
-		for (CollisionDomain<?> b : domains) {
+		new CollisionBody<Object>(body);
+		CollisionBody<?> a = new CollisionBody<Object>(body);
+		for (CollisionBody<?> b : domains) {
 			/*if (a.collides(b) != b.collides(a))
 				throw new IllegalStateException("Collision detection is asymmetric!");*/
 			// TODO: make sure collisions are not asymmetric?
@@ -64,11 +89,15 @@ public class CollisionManager {
 		return false;
 	}
 	
-	public List<Pair<CollisionDomain<?>>> collisions() {
-		List<Pair<CollisionDomain<?>>> collisions = new ArrayList<>();
+	/**
+	 * Check for collisions in the bodies already in the collection.
+	 * @return A list of pairs of colliding bodies. 
+	 */
+	public List<Pair<CollisionBody<?>>> collisions() {
+		List<Pair<CollisionBody<?>>> collisions = new ArrayList<>();
 		for (int i = 0; i < domains.size(); i++) {
 			for (int k = i + 1; k < domains.size(); k++) {
-				CollisionDomain<?> a = domains.get(i), b = domains.get(k);
+				CollisionBody<?> a = domains.get(i), b = domains.get(k);
 				//if(a.collides(b) != b.collides(a)) throw new IllegalStateException("Collision detection is asymmetric!");
 				if(a.collides(b) && b.collides(a)) {
 					collisions.add(new Pair<>(a, b));

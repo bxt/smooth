@@ -23,6 +23,12 @@ import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import edu.uci.ics.jung.graph.util.Pair;
 
+/**
+ * A smooth layout that adjusts the positions of the vertices, such that no edges overlap.
+ * 
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> implements OrthogonalLayout<V, E> {
 	
 	private static int MAXIMUM_MOVING_DISTANCE = 10000;

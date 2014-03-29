@@ -5,6 +5,9 @@ import de.uniwue.smooth.collision.geom.LineSegment;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import edu.uci.ics.jung.graph.util.Pair;
 
+/**
+ * A piece of a curve in an orthogonal drawing.
+ */
 public abstract class Segment {
 	
 	public abstract <T> void draw(OrthogonalDrawing<T> orthogonalDrawing);
