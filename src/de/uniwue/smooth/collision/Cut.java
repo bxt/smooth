@@ -127,9 +127,12 @@ public class Cut<V, E> {
 					arrivedAtBottom(); // Only vertex "s" can have no edge on its bottom port, we're done.
 				} else { // follow an edge downwards
 					V target = layout.getGraph().getOpposite(vertex, edge);
-					if(isHigher(target)) { // might happen for the last U edge from first vertex
-						restrictions.add(edge); // cut, but do not add any stating vertices
-						rightEdges.add(edge);
+					if(isHigher(target)) { // might happen for the last U edge at first vertex to target
+						if(quadrant.isRight()) {
+							restrictions.add(edge);
+							rightStartVertices.add(target);
+							rightEdges.add(edge);
+						}
 						arrivedAtBottom();
 					} else {
 						if(isEdgeAt(target, edge, quadrant.getHorizontalPort().getOpposite())) { // follow L edge above
@@ -142,8 +145,13 @@ public class Cut<V, E> {
 							vertex = target;
 							quadrant = quadrant.getVerticalOpposite();
 						} else if(isEdgeAt(target, edge, Port.B)) { // U edge to first vertex
-							restrictions.add(edge); // cut, but do not add any stating vertices
-							leftEdges.add(edge);
+							if(!quadrant.isRight()) {
+								restrictions.add(edge); // cut, but do not add any stating vertices
+								leftStartVertices.add(target);
+								rightEdges.add(edge);
+							} else {
+								leftEdges.add(edge);
+							}
 							arrivedAtBottom();
 						} else {
 							throw new IllegalStateException("Bad port assignment.");
