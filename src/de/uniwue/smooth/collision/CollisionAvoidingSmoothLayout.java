@@ -17,6 +17,7 @@ import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.orthogonal.Port;
 import de.uniwue.smooth.orthogonal.Quadrant;
+import de.uniwue.smooth.util.Util;
 import de.uniwue.smooth.util.tuples.MutablePair;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.graph.Graph;
@@ -104,6 +105,10 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				snapshot("placing vertex " + i + " of tier");
 			}
 			
+			for (V vI : vertices) {
+				adjustSlopeOfBottomLEdge(vI);
+			}
+			
 		}
 		
 	}
@@ -184,6 +189,28 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		
 	}
 	
+	private void adjustSlopeOfBottomLEdge(V v) {
+		
+		E botEdge = getEdgeAt(v, Port.B);
+		if(botEdge != null) { // may happen at v1
+			V botEdgeOpposite = getOriginalGraph().getOpposite(v, botEdge);
+			Port side = Util.getKeyByValue(liuLayout.getPortAssignment(botEdgeOpposite), botEdge).getOpposite();
+			if(side.isHorizontal()) { // gotta check slope of L edge
+				int dx = (getVertexLocation(v).getFirst() - getVertexLocation(botEdgeOpposite).getFirst());
+				int dy = (getVertexLocation(v).getSecond() - getVertexLocation(botEdgeOpposite).getSecond());
+				int d = side.getDirection().getFirst();
+				if( -d*dx < dy) {
+					Cut<V, E> cut = new Cut<V, E>(liuLayout, vertexColumns.keySet());
+					cut.goTo(v, Quadrant.getQuadrant(side == Port.R, true));
+					cut.goDownwards();
+					int offset = d*dy + dx;
+					moveStuffRight(cut.getVerticesAt(side), cut.getEdgesAt(side), offset);
+					snapshot("adjusting slope of bot edge at " + v);
+				}
+			}
+		}
+	}
+
 	private void placeVertex(V v) {
 		vertexColumns.put(v, getEdgeLocation(getEdgeAt(v, Port.B)).getFirst());
 		getGraph().addVertex(v);
