@@ -52,7 +52,8 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 				"bc_grafo2222.17.lgr.graphml"/*pretty(?)*/,
 				"bc_grafo2245.17.lgr.graphml"/*double C*/,
 				"bc_grafo2485.13.lgr.graphml"/*G edge*/,
-				"bc_grafo1175.19.lgr.graphml"/*Collision with upwards L edge*/);
+				"bc_grafo1175.19.lgr.graphml"/*Collision with upwards L edge*/,
+				"bc_grafo120.40.lgr.graphml"/*huuuuuuuuge!*/); // also 6491 and 2066
 		
 		Set<String> ignore = new HashSet<>();
 		Collections.addAll(ignore, "bc_grafo10187.33.lgr.graphml", "bc_grafo2465.22.lgr.graphml", "bc_grafo2735.36.lgr.graphml", "bc_grafo5663.34.lgr.graphml", "bc_grafo5808.33.lgr.graphml", "bc_grafo5917.34.lgr.graphml", "bc_grafo920.24.lgr.graphml", "bc_grafo928.13.lgr.graphml");
