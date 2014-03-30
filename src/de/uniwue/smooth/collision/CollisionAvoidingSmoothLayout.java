@@ -334,6 +334,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	
 	@Override
 	public void reset() {
+		liuLayout.reset();
 		initialize();
 	}
 
