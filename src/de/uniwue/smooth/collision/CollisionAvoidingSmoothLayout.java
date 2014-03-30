@@ -222,7 +222,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 			moveStuffRight(cut.getVerticesAt(side), cut.getEdgesAt(side), side.getDirection().getFirst());
 			smoothEdge = edgeGenerator.generateEdge(botEdge);
 			collisionManager = edgesCollisionManager(cut.getEdgesAt(side), botEdge);
-			snapshot("moving stuff outside to avoid collision with botmost edge at " + v);
+			snapshot("moving stuff outside to avoid collision with bot edge at " + v);
 		}
 	}
 
