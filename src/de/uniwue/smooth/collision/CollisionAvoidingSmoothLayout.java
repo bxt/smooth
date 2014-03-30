@@ -37,6 +37,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	private SmoothEdgeGenerator<V, E> edgeGenerator = new SmoothEdgeGenerator<V, E>(this);
 	
 	private CompressingLiuEtAlLayout<V, E> liuLayout;
+	private EscalationLevel escalationLevel;
 	
 	private Map<V, Integer> vertexColumns = null;
 	private Map<E, Integer> edgeColumns = null;
@@ -45,8 +46,13 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	private int currentHeight = 0;
 	
 	public CollisionAvoidingSmoothLayout(CompressingLiuEtAlLayout<V, E> liuLayout) {
+		this(liuLayout, EscalationLevel.getHightest());
+	}
+	
+	public CollisionAvoidingSmoothLayout(CompressingLiuEtAlLayout<V, E> liuLayout, EscalationLevel escalationLevel) {
 		super(new UndirectedSparseGraph<V, E>());
 		this.liuLayout = liuLayout;
+		this.escalationLevel = escalationLevel;
 	}
 	
 	@Override
@@ -90,14 +96,16 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 			V v1 = vertices.get(0);
 			placeVertex(v1);
 			snapshot("placing initial vertex of tier");
-			adjustForSideEdge(v1, Port.L, vertexSet);
+			if(escalatedAtLeast(EscalationLevel.CHEAP_ADJUSTMENTS))
+				adjustForSideEdge(v1, Port.L, vertexSet);
 			
 			V vN = vertices.get(vertices.size()-1);
 			if(!vN.equals(v1)) {
 				placeVertex(vN);
 				snapshot("placing last vertex of tier");
 			}
-			adjustForSideEdge(vN, Port.R, vertexSet);
+			if(escalatedAtLeast(EscalationLevel.CHEAP_ADJUSTMENTS))
+				adjustForSideEdge(vN, Port.R, vertexSet);
 			
 			for (int i = 1; i < vertices.size() - 1; i++) {
 				V vI = vertices.get(i);
@@ -106,7 +114,8 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 			}
 			
 			for (V vI : vertices) {
-				adjustForBottomLEdge(vI);
+				if(escalatedAtLeast(EscalationLevel.CHEAP_ADJUSTMENTS))
+					adjustForBottomLEdge(vI);
 			}
 			
 		}
@@ -132,7 +141,8 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				
 				adjustOuterCollisionsOfSideEdge(side, sideEdge, v, sideEdgeOpposite, smoothEdge, cut);
 				
-				adjustSlopeOfSideLEdge(side, sideEdge, v, sideEdgeOpposite);
+				if(escalatedAtLeast(EscalationLevel.ALL_ADJUSTMENTS))
+					adjustSlopeOfSideLEdge(side, sideEdge, v, sideEdgeOpposite);
 				
 			}
 			
@@ -202,7 +212,8 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				
 				adjustCollisionsOfBottomLEdge(side, botEdge, v, botEdgeOpposite, cut);
 				
-				adjustSlopeOfBottomLEdge(side, botEdge, v, botEdgeOpposite, cut);
+				if(escalatedAtLeast(EscalationLevel.ALL_ADJUSTMENTS))
+					adjustSlopeOfBottomLEdge(side, botEdge, v, botEdgeOpposite, cut);
 				
 			}
 		}
@@ -361,6 +372,27 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	
 	protected int getMaximumMovingDistance() {
 		return MAXIMUM_MOVING_DISTANCE;
+	}
+	
+	private boolean escalatedAtLeast(EscalationLevel escalationLevel) {
+		return this.escalationLevel.compareTo(escalationLevel) >= 0;
+	}
+	
+	public enum EscalationLevel {
+		NO_ADJUSTMENTS, CHEAP_ADJUSTMENTS, ALL_ADJUSTMENTS;
+		
+		public EscalationLevel furtherEscalate() {
+			if(ordinal()+1 >= values().length) throw new IllegalStateException("Can not further escalate than " + this);
+			return values()[ordinal() + 1];
+		}
+		
+		public static EscalationLevel getHightest() {
+			return values()[values().length - 1];
+		}
+		
+		public static EscalationLevel getLowest() {
+			return values()[0];
+		}
 	}
 	
 }

@@ -16,6 +16,11 @@ public class DebuggingCollisionAvoidingSmoothLayout<V, E> extends CollisionAvoid
 	int snapshotCounter = 0;
 	private OrthogonalDrawing<Appendable> drawing;
 	
+	public DebuggingCollisionAvoidingSmoothLayout(CompressingLiuEtAlLayout<V, E> liuEtAlLayout, EscalationLevel escalationLevel, OrthogonalDrawing<Appendable> drawing) {
+		super(liuEtAlLayout, escalationLevel);
+		this.drawing = drawing;
+	}
+	
 	public DebuggingCollisionAvoidingSmoothLayout(CompressingLiuEtAlLayout<V, E> liuEtAlLayout, OrthogonalDrawing<Appendable> drawing) {
 		super(liuEtAlLayout);
 		this.drawing = drawing;

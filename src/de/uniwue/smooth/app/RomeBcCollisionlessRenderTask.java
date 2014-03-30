@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import au.com.bytecode.opencsv.CSVReader;
+import de.uniwue.smooth.collision.CollisionAvoidingSmoothLayout.EscalationLevel;
 import de.uniwue.smooth.collision.DebuggingCollisionAvoidingSmoothLayout;
 import de.uniwue.smooth.draw.IpeDrawing;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
@@ -80,7 +81,7 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 				Graph<Vertex, Edge> graph = graphReader.readGraph();
 				
 				CompressingLiuEtAlLayout<Vertex, Edge> liuLayout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph);
-				OrthogonalLayout<Vertex, Edge> layout = new DebuggingCollisionAvoidingSmoothLayout<Vertex, Edge>(liuLayout, snapsDrawing);
+				OrthogonalLayout<Vertex, Edge> layout = new DebuggingCollisionAvoidingSmoothLayout<Vertex, Edge>(liuLayout, EscalationLevel.ALL_ADJUSTMENTS, snapsDrawing);
 				SmoothOrthogonalDrawer<Vertex, Edge> drawer = new SmoothOrthogonalDrawer<Vertex, Edge>();
 				layout.initialize();
 				drawer.draw(layout, drawing);
