@@ -86,8 +86,8 @@ public class RomeBcRenderTask implements Runnable {
 	
 	OrthogonalDrawing<Appendable> createDrawing(String fileName) {
 		AffineTransform transform = new AffineTransform();
-		transform.translate(400, 100);
-		transform.scale(30, 30);
+		transform.translate(384, 96);
+		transform.scale(32, 32);
 		
 		return new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(new IpeDrawing()), transform);
 	}
