@@ -106,7 +106,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 			}
 			
 			for (V vI : vertices) {
-				adjustSlopeOfBottomLEdge(vI);
+				adjustForBottomLEdge(vI);
 			}
 			
 		}
@@ -189,25 +189,51 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		
 	}
 	
-	private void adjustSlopeOfBottomLEdge(V v) {
-		
+	private void adjustForBottomLEdge(V v) {
 		E botEdge = getEdgeAt(v, Port.B);
 		if(botEdge != null) { // may happen at v1
 			V botEdgeOpposite = getOriginalGraph().getOpposite(v, botEdge);
 			Port side = Util.getKeyByValue(liuLayout.getPortAssignment(botEdgeOpposite), botEdge).getOpposite();
-			if(side.isHorizontal()) { // gotta check slope of L edge
-				int dx = (getVertexLocation(v).getFirst() - getVertexLocation(botEdgeOpposite).getFirst());
-				int dy = (getVertexLocation(v).getSecond() - getVertexLocation(botEdgeOpposite).getSecond());
-				int d = side.getDirection().getFirst();
-				if( -d*dx < dy) {
-					Cut<V, E> cut = new Cut<V, E>(liuLayout, vertexColumns.keySet());
-					cut.goTo(v, Quadrant.getQuadrant(side == Port.R, true));
-					cut.goDownwards();
-					int offset = d*dy + dx;
-					moveStuffRight(cut.getVerticesAt(side), cut.getEdgesAt(side), offset);
-					snapshot("adjusting slope of bot edge at " + v);
-				}
+			if(side.isHorizontal()) { // gotta check collisions of L edge
+				
+				Cut<V, E> cut = new Cut<V, E>(liuLayout, vertexColumns.keySet());
+				cut.goTo(v, Quadrant.getQuadrant(side == Port.R, true));
+				cut.goDownwards();
+				
+				adjustCollisionsOfBottomLEdge(side, botEdge, v, botEdgeOpposite, cut);
+				
+				adjustSlopeOfBottomLEdge(side, botEdge, v, botEdgeOpposite, cut);
+				
 			}
+		}
+	}
+	
+	private void adjustCollisionsOfBottomLEdge(Port side, E botEdge, V v, V botEdgeOpposite, Cut<V, E> cut) {
+		SmoothEdge smoothEdge = edgeGenerator.generateEdge(botEdge);
+		
+		CollisionManager collisionManager = edgesCollisionManager(cut.getEdgesAt(side), botEdge);
+		for(int triesLeft = getMaximumMovingDistance(); collisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
+			if(triesLeft <= 0) {
+				System.out.println(collisionManager.collisions());
+				collisionManager.addAll(smoothEdge.getSegments());
+				System.out.println(collisionManager.collisions());
+				throw new IllegalStateException("Reached maximum moving distance of " + getMaximumMovingDistance());
+			}
+			moveStuffRight(cut.getVerticesAt(side), cut.getEdgesAt(side), side.getDirection().getFirst());
+			smoothEdge = edgeGenerator.generateEdge(botEdge);
+			collisionManager = edgesCollisionManager(cut.getEdgesAt(side), botEdge);
+			snapshot("moving stuff outside to avoid collision with botmost edge at " + v);
+		}
+	}
+
+	private void adjustSlopeOfBottomLEdge(Port side, E botEdge, V v, V botEdgeOpposite, Cut<V, E> cut) {
+		int dx = (getVertexLocation(v).getFirst() - getVertexLocation(botEdgeOpposite).getFirst());
+		int dy = (getVertexLocation(v).getSecond() - getVertexLocation(botEdgeOpposite).getSecond());
+		int d = side.getDirection().getFirst();
+		if( -d*dx < dy) {
+			int offset = d*dy + dx;
+			moveStuffRight(cut.getVerticesAt(side), cut.getEdgesAt(side), offset);
+			snapshot("adjusting slope of bot edge at " + v);
 		}
 	}
 
