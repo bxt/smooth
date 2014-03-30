@@ -56,7 +56,7 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 				"bc_grafo120.40.lgr.graphml"/*huuuuuuuuge!*/); // also 6491 and 2066
 		
 		Set<String> ignore = new HashSet<>();
-		Collections.addAll(ignore, "bc_grafo10187.33.lgr.graphml", "bc_grafo2465.22.lgr.graphml", "bc_grafo2735.36.lgr.graphml", "bc_grafo5663.34.lgr.graphml", "bc_grafo5808.33.lgr.graphml", "bc_grafo5917.34.lgr.graphml", "bc_grafo920.24.lgr.graphml", "bc_grafo928.13.lgr.graphml");
+		Collections.addAll(ignore, "bc_grafo10187.33.lgr.graphml", "bc_grafo2456.22.lgr.graphml", "bc_grafo2735.36.lgr.graphml", "bc_grafo5663.34.lgr.graphml", "bc_grafo5759.35.lgr.graphml", "bc_grafo5808.33.lgr.graphml", "bc_grafo5917.34.lgr.graphml", "bc_grafo920.24.lgr.graphml", "bc_grafo928.13.lgr.graphml");
 		
 		OrthogonalDrawing<Appendable> drawing = createDrawing();
 		List<String> collisionGraphs = new LinkedList<String>();
