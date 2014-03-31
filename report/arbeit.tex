@@ -169,11 +169,13 @@ Einfache Graphen können im Computer als \emph{Adjazenzmatrix} $(a_{i,j})$ darge
 \begin{figure}[h]
   \centering
   \includegraphics{exampleA_straightline}
-  \caption{Eine Zeichnung des Graphen $G_\text{E}$ aus Beispiel~\ref{ex:graph}.}
+  \caption{Eine Zeichnung des Graphen $G_\text{E}$ aus Beispiel~\ref{ex:graph}. Zur besseren Übersicht sind die Knoten mit \emph{V} und ihrer Nummer beschriftet.}
   \label{fig:exampleAstraightline}
 \end{figure}
 
 Die Darstellung von einfachen Graphen für Menschen, die \emph{Zeichnung} oder \emph{Visualisierung}, besteht üblicherweise aus Punkten, also kleinen Kreisen, für jeden Knoten und Verbindungslinien für die Kanten. Die Überführung von einer Adjazenzliste in einer solche Darstellung nennt man das \emph{Zeichnen} von Graphen. Hierfür gibt es keine kanonische Vorgehensweise. Der umgekehrte Weg von der Zeichnung zur Adjazenzliste jedoch ist (bei geeigneten Zeichnungen) eindeutig und trivial zu lösen.
+
+Eine Zeichnung des Beispielgraphen $G_\text{E}$ findet sich in Abbildung~\ref{fig:exampleAstraightline}.
 
 Für \emph{Multigraphen} mit mehreren Kanten zwischen zwei Knoten kommen Variationen der Zeichnungen für einfache Graphen in Frage, die solche Kanten als Bündel oder dicker darstellen. Sie sollen daher hier nicht behandelt werden und einfache Graphen werden im Folgenden kurz als Graphen bezeichnet.
 
@@ -190,7 +192,7 @@ Für \emph{Multigraphen} mit mehreren Kanten zwischen zwei Knoten kommen Variati
 
 Die Hauptaufgabe eines Zeichenalgorithmus ist die Positionierung der Knoten auf einer Zeichenebene. Die berechnete Positionszuweisung heißt Layout. In einer \emph{geradlinigen Zeichnung} werden die Kanten als gerade Linien zwischen den Knoten gezeichnet. Hier bestimmt also die Position der Knoten vollständig das Aussehen der Kanten.
 
-Bei orthogonalen Zeichnungen bestehen die Kanten aus horizontalen und vertikalen Segmenten entlang des Koordinatengitters der Zeichenebene. Damit gibt es eine Vielzahl von Möglichkeiten für das Aussehen der Kanten.
+Bei orthogonalen Zeichnungen bestehen die Kanten aus horizontalen und vertikalen Segmenten entlang des Koordinatengitters der Zeichenebene. Eine orthogonale Zeichnung des Beispielgraphen $G_\text{E}$ findet sich in Abbildung~\ref{fig:exampleAorthogonalNocompress}.
 
 \begin{figure}[h]
   \centering
@@ -199,6 +201,8 @@ Bei orthogonalen Zeichnungen bestehen die Kanten aus horizontalen und vertikalen
   \label{fig:exampleAorthogonalNocompress}
 \end{figure}
 
+
+Bei orthogonalen Zeichnungen gibt es eine Vielzahl von Möglichkeiten für das Aussehen der Kanten: An den Gitterpunkten kann entweder zuerst horizontal oder zunächst vertikal weiter gezeichnet werden.
 
 Eine Möglichkeit, das Aussehen zu normieren, wäre es, immer zunächst den vollständigen horizontalen Weg am unteren Knoten und dann den vertikalen Weg nach oben zu zeichnen, sodass jede Kante L-förmig ist. Hierbei kommt es jedoch zu Überschneidungen, wenn beispielsweise zwei Kanten einen Knoten in die selbe Richtung verlassen. Überschneidungen sorgen für Zweideutigkeiten in der Zeichnung und sollen vermieden werden. Deshalb weißt man den Kanten an jedem Knoten einen Port aus der Menge $\{\text{L, R, T, B}\}$, also Links, Rechts, Top (oben) oder Bottom (unten) zu. Die Richtungen der Ports sind auch in Abbildung~\ref{fig:coords} zu erkennen.
 \\
@@ -277,7 +281,7 @@ Die $st$-Ordnung hat noch einige weitere Eigenschaften in planaren Graphen.
 \begin{figure}[h]
   \centering
   \includegraphics{exampleA_smooth}
-  \caption{Der Graph $G_\text{E}$ aus Beispiel~\ref{ex:graph} als glatt-orthogonale Version der Zeichnung aus Abbildung~\ref{fig:exampleAorthogonalCompress}.}
+  \caption{Der Graph $G_\text{E}$ aus Beispiel~\ref{ex:graph} als glatt-orthogonale Version der Zeichnung aus Abbildung~\ref{fig:exampleAorthogonalCompress}. Die Knickpunkte zwischen zwei Segmenten einer Kante sind als Kreuze eingezeichnet. }
   \label{fig:exampleAsmooth}
 \end{figure}
 
@@ -362,6 +366,12 @@ Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsp
 
 \section{Entfernen von Überschneidungen im $SC_2$-Layout}
 
+\begin{figure}[h]
+  \centering
+  \includegraphics{cut_L_slope_correction}
+  \caption{Finden eines Schnittes zum Trennen des Graphen in eine linke und einer rechte Seite. Die Linke Seite und der untere Knoten können frei nach links verschoben werden, um die Steigung der L-Kante zu korrigieren.}
+  \label{fig:cutLslopecorrection}
+\end{figure}
 
 
 \section{Übertragen auf allgemeine 4-planare Graphen}
