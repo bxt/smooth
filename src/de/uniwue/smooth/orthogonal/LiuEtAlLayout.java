@@ -15,11 +15,11 @@ import org.apache.commons.collections15.map.LazyMap;
 
 import de.uniwue.smooth.palm.StOrdering;
 import de.uniwue.smooth.palm.TarjanStOrdering;
-import de.uniwue.smooth.planar.BrandesEmbedding;
 import de.uniwue.smooth.planar.Embedding;
 import de.uniwue.smooth.planar.EmbeddingIterator;
 import de.uniwue.smooth.planar.EmbeddingTools;
 import de.uniwue.smooth.planar.NotPlanarException;
+import de.uniwue.smooth.planar.OldBrandesEmbedding;
 import de.uniwue.smooth.util.UndirectedTransformer;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
@@ -198,7 +198,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	private void buildEmbedding(UndirectedGraph<V, E> undirectedGraph) {
 		if (embedding == null) {
 			try {
-				embedding = new BrandesEmbedding<V, E>(undirectedGraph);
+				embedding = new OldBrandesEmbedding<V, E>(undirectedGraph);
 			} catch (NotPlanarException e) {
 				throw new IllegalArgumentException("Can only layout planar graphs.", e);
 			}
