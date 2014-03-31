@@ -5,12 +5,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import de.uniwue.smooth.collision.CollisionAvoidingSmoothLayout;
+import de.uniwue.smooth.collision.CollisionAvoidingSmoothLayout.EscalationLevel;
 import de.uniwue.smooth.draw.IpeDrawing;
 import de.uniwue.smooth.draw.OrthogonalDrawer;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
@@ -37,6 +38,7 @@ public class ConflictingRenderTask implements Runnable {
 		List<ConflictingRenderTask> tasks = Arrays.asList
 				( new ConflictingRenderTask(30, 400, 400, "gates")
 				, new ConflictingRenderTask(30, 400, 400, "three")
+				, new ConflictingRenderTask(32, 384, 384, "exampleA", new int[]{0,1,2,3,4})
 				);
 		ExecutorService executor = new NotAnExecutorService(); Executors.newFixedThreadPool(8);
 		for (Runnable task : tasks) executor.execute(task);
@@ -83,7 +85,9 @@ public class ConflictingRenderTask implements Runnable {
 
 	@Override
 	public void run() {
-		Collection<OrthogonalLayout<Vertex, Edge>> layouts = Collections.<OrthogonalLayout<Vertex, Edge>>singleton(new CompressingLiuEtAlLayout<Vertex, Edge>(graph, embedding, stOrdering));
+		CompressingLiuEtAlLayout<Vertex, Edge> liuLayout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph, embedding, stOrdering);
+		Collection<OrthogonalLayout<Vertex, Edge>> layouts = Arrays.<OrthogonalLayout<Vertex, Edge>>asList(
+		new LiuEtAlLayout<Vertex, Edge>(graph, embedding, stOrdering), liuLayout, new CollisionAvoidingSmoothLayout<Vertex, Edge>(liuLayout, EscalationLevel.CHEAP_ADJUSTMENTS), new CollisionAvoidingSmoothLayout<Vertex, Edge>(liuLayout, EscalationLevel.ALL_ADJUSTMENTS));
 		Pair<OrthogonalDrawer<Vertex, Edge>> drawers = new Pair<OrthogonalDrawer<Vertex, Edge>>(
 				new StraightlineOrthogonalDrawer<Vertex, Edge>(), new SmoothOrthogonalDrawer<Vertex, Edge>());
 		for(OrthogonalLayout<Vertex, Edge> layout : layouts) {
@@ -93,10 +97,12 @@ public class ConflictingRenderTask implements Runnable {
 			transform.scale(scale, scale);
 			for(OrthogonalDrawer<Vertex, Edge> drawer : drawers) {
 				if(layout.getClass() == LiuEtAlLayout.class && drawer.getClass() == SmoothOrthogonalDrawer.class) continue;
+				if(layout.getClass() == CollisionAvoidingSmoothLayout.class && drawer.getClass() != SmoothOrthogonalDrawer.class) continue;
 				IpeDrawing ipeDrawing = new IpeDrawing();
 				OrthogonalDrawing<Appendable> drawing = new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(ipeDrawing), transform);
 				drawer.draw(layout, drawing);
-				Util.writeFile("resources/conflicting_graphs/drawings/"+name+"-"+layout.getClass().getSimpleName()+"-"+drawer.getClass().getSimpleName()+".ipe", drawing.create().toString());
+				String addition = (layout instanceof CollisionAvoidingSmoothLayout) ? "-" + (((CollisionAvoidingSmoothLayout<?,?>) layout).getEscalationLevel()) : "";
+				Util.writeFile("resources/conflicting_graphs/drawings/"+name+"-"+layout.getClass().getSimpleName()+"-"+drawer.getClass().getSimpleName()+addition+".ipe", drawing.create().toString());
 			}
 		}
 	}
