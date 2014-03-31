@@ -164,14 +164,15 @@ public class BrandesEmbedding<V, E> extends AdjacencyListEmbedding<V, E> impleme
 			}
 			if (lowPointers.get(f) < heights.get(v)) { // f has return edge
 				if(f == adjacent.get(0)) {
-					lowPointingEdges.put(f, adjacent.get(0));
+					lowPointingEdges.put(e, adjacent.get(0)); // TODO: check this
 				} else {
 					addConstraints(f, e);
 				}
 			}
 		}
-		if(e != null) {
+		if(e != null) { // v is not the root
 			V u = directedGraph.getOpposite(v, e);
+			//if(u != directedGraph.getSource(e)) throw new IllegalStateException();
 			trimBackEdges(u); // trim back edges ending at parent u
 			// side of e is side of a highest return edge
 			if(lowPointers.get(e) < heights.get(u)) { // e has return edge
@@ -258,7 +259,7 @@ public class BrandesEmbedding<V, E> extends AdjacencyListEmbedding<V, E> impleme
 			if (isEmpty(p.getLeft())) {
 				p.getLeft().setHigh(q.getLeft().getHigh());
 			} else {
-				references.put(p.getLeft().getLow(), q.getLeft().getLow());
+				references.put(p.getLeft().getLow(), q.getLeft().getHigh());
 			}
 			p.getLeft().setLow(q.getLeft().getLow());
 		}
