@@ -378,6 +378,10 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		return this.escalationLevel.compareTo(escalationLevel) >= 0;
 	}
 	
+	public EscalationLevel getEscalationLevel() {
+		return escalationLevel;
+	}
+	
 	public enum EscalationLevel {
 		NO_ADJUSTMENTS, CHEAP_ADJUSTMENTS, ALL_ADJUSTMENTS;
 		
