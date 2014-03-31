@@ -49,7 +49,7 @@
 \newcommand{\Go}{Glatt-or\-tho\-go\-nal}
 \newcommand{\Epsilon}{\mathcal{E}}
 \newcommand{\N}{\mathbb{N}}
-
+\newtheorem{example}{Beispiel}[chapter]
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -70,6 +70,9 @@ Prof.\ Dr.\ Alexander Wolff\\
 Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers and
 \maketitle
 \tableofcontents
+
+
+
 
 
 
@@ -145,13 +148,32 @@ Zunächst sollte natürlich definiert werden, was überhaupt visualisiert werden
 
 Graphen bilden die Eingabe für die Zeichenalgorithmen. Die hier behandelten Graphen werden auch \emph{Netzwerkgraphen} genannt, sie beschreiben Verbindungen zwischen Elementen als Kanten zwischen Knoten. 
 
+\begin{example}
+  \label{ex:graph}
+
+Der Graph $G_\text{E}$, an dem fortan verschiedene Konzepte illustriert werden, ist definiert durch:
+
+\[G_\text{E} = (V_\text{E}, E_\text{E})\]
+\[V_\text{E} = \{0, 1, 2, 3, 4\}\]
+\[E_\text{E} = \{\{0, 1\}, \{0, 2\}, \{0, 4\}, \{1, 2\}, \{1, 4\}, \{2, 3\}, \{3, 4\}\}\]
+
+Hier wären 1, 2 und 3 Beispiele für Knoten und $\{0, 1\}$ wäre eine Kante.
+\end{example}
+
 Zunächst liegt der Fokus auf ungerichteten einfachen Graphen, das bedeutet, es gibt zwischen zwei Knoten jeweils nur höchstens eine Kante und eine \emph{Schleife}, also eine Kante mit $|e| = 1$ kommt nicht vor.
 
 Einfache Graphen können im Computer als \emph{Adjazenzmatrix} $(a_{i,j})$ dargestellt werden, mit $a_{i,j} = 1$ falls $\{v_i, v_j\} \in E$ und $0$ sonst. Hier wird jedoch $O(|V|^2)$ Speicherplatz verwendet. Für Graphen mit vergleichsweise wenigen Kanten eignet sich die Darstellung als \emph{Adjazenzliste} $A$ mit $A(v) = \{e \in E | v \in e\}$. Hierfür wird $O(|V| + |E|)$ Speicher benötigt. % TODO: genau Checken!!!
 
 \section{Orthogonale Visualisierungen von Graphen}
 
-Die Darstellung von einfachen Graphen für Menschen, die \emph{Zeichnung} oder \emph{Visualisierung}, besteht üblicherweise aus Punkten, also kleinen Kreisen, für jeden Knoten und Verbindungslinien für die Kanten. Die Überführung von einer Adjazenzliste in einer solche Darstellung nennt man das \emph{Zeichnen} von Graphen. Hierfür gibt es keine kanonische Vorgehensweise. Der umgekehrte Weg von der Zeichnung zur Adjazenzliste jedoch ist (bei geeigneten Zeichnungen) trivial zu lösen.
+\begin{figure}[h]
+  \centering
+  \includegraphics{exampleA_straightline}
+  \caption{Eine Zeichnung des Graphen $G_\text{E}$ aus Beispiel~\ref{ex:graph}.}
+  \label{fig:exampleAstraightline}
+\end{figure}
+
+Die Darstellung von einfachen Graphen für Menschen, die \emph{Zeichnung} oder \emph{Visualisierung}, besteht üblicherweise aus Punkten, also kleinen Kreisen, für jeden Knoten und Verbindungslinien für die Kanten. Die Überführung von einer Adjazenzliste in einer solche Darstellung nennt man das \emph{Zeichnen} von Graphen. Hierfür gibt es keine kanonische Vorgehensweise. Der umgekehrte Weg von der Zeichnung zur Adjazenzliste jedoch ist (bei geeigneten Zeichnungen) eindeutig und trivial zu lösen.
 
 Für \emph{Multigraphen} mit mehreren Kanten zwischen zwei Knoten kommen Variationen der Zeichnungen für einfache Graphen in Frage, die solche Kanten als Bündel oder dicker darstellen. Sie sollen daher hier nicht behandelt werden und einfache Graphen werden im Folgenden kurz als Graphen bezeichnet.
 
@@ -168,10 +190,20 @@ Für \emph{Multigraphen} mit mehreren Kanten zwischen zwei Knoten kommen Variati
 
 Die Hauptaufgabe eines Zeichenalgorithmus ist die Positionierung der Knoten auf einer Zeichenebene. Die berechnete Positionszuweisung heißt Layout. In einer \emph{geradlinigen Zeichnung} werden die Kanten als gerade Linien zwischen den Knoten gezeichnet. Hier bestimmt also die Position der Knoten vollständig das Aussehen der Kanten.
 
-Bei orthogonalen Zeichnungen bestehen die Kanten aus horizontalen und vertikalen Segmenten entlang des Koordinatengitters der Zeichenebene. Damit gibt es eine Vielzahl von Möglichkeiten für das Aussehen der Kanten. Eine Möglichkeit, das Aussehen zu normieren, wäre es, immer zunächst den vollständigen horizontalen Weg am unteren Knoten und dann den vertikalen Weg nach oben zu zeichnen, sodass jede Kante L-förmig ist. Hierbei kommt es jedoch zu Überschneidungen, wenn beispielsweise zwei Kanten einen Knoten in die selbe Richtung verlassen. Überschneidungen sorgen für Zweideutigkeiten in der Zeichnung und sollen vermieden werden. Deshalb weißt man den Kanten an jedem Knoten einen Port aus der Menge $\{\text{L, R, T, B}\}$, also Links, Rechts, Top (oben) Bottom (unten) zu. Die Richtungen der Ports sind auch in Abbildung~\ref{fig:coords} zu erkennen.
+Bei orthogonalen Zeichnungen bestehen die Kanten aus horizontalen und vertikalen Segmenten entlang des Koordinatengitters der Zeichenebene. Damit gibt es eine Vielzahl von Möglichkeiten für das Aussehen der Kanten.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{exampleA_orthogonalNocompress}
+  \caption{Der Graph $G_\text{E}$ aus Beispiel~\ref{ex:graph} als orthogonale Zeichnung.}
+  \label{fig:exampleAorthogonalNocompress}
+\end{figure}
+
+
+Eine Möglichkeit, das Aussehen zu normieren, wäre es, immer zunächst den vollständigen horizontalen Weg am unteren Knoten und dann den vertikalen Weg nach oben zu zeichnen, sodass jede Kante L-förmig ist. Hierbei kommt es jedoch zu Überschneidungen, wenn beispielsweise zwei Kanten einen Knoten in die selbe Richtung verlassen. Überschneidungen sorgen für Zweideutigkeiten in der Zeichnung und sollen vermieden werden. Deshalb weißt man den Kanten an jedem Knoten einen Port aus der Menge $\{\text{L, R, T, B}\}$, also Links, Rechts, Top (oben) oder Bottom (unten) zu. Die Richtungen der Ports sind auch in Abbildung~\ref{fig:coords} zu erkennen.
 \\
 
-Das Zeichnen einer Kante $e$ eines Graphen $G = (V,E)$ in einem orthogonalen Layout $(L_V,L_E,P)$ kann nun so erfolgen: Von den von $L_V$ gegebenen Positionen der beiden Endknoten $v \in e$ wird eine Gittereinheit in der Richtung des Ports gezeichnet. Von diesen Positionen aus wird eine horizontale Linie in Richtung des von $L_E$ gegebenen Kantenorts gezeichnet. Die beiden Endpositionen werden mit einer vertikalen Linie verbunden. %% TODO: Proof?
+Das Zeichnen einer Kante $e$ eines Graphen $G = (V,E)$ in einem orthogonalen Layout $(L_V,L_E,P)$ kann nun so erfolgen: Von den von $L_V$ gegebenen Positionen der beiden Endknoten $v \in e$ wird eine Gittereinheit in der Richtung des Ports gezeichnet. Von diesen Positionen aus wird eine horizontale Linie bis zur x-Koordinate des von $L_E$ gegebenen Kantenorts gezeichnet. Die beiden Endpositionen werden mit einer vertikalen Linie verbunden. %% TODO: Proof?
 \\
 
 Es können jedoch immer noch Überschneidungen von Kanten an einem Knoten $v \in V$ auftreten, wenn die Ports kollidieren, wenn es also zwei Kanten $e_1, e_2 \in E$ mit $P(v, e_1) = P(v, e_2)$ gibt. Da es nur vier Ports gibt, können somit nur maximal vier Kanten mit einem Knoten verbunden sein.
@@ -182,7 +214,11 @@ Es können jedoch immer noch Überschneidungen von Kanten an einem Knoten $v \in
 
 Ohne Kanten-Überschneidungen an den Knoten können also nur Graphen mit Maximalgrad~4 gezeichnet werden. 
 
-Es kann noch immer Überschneidungen bzw. Kreuzungen der Kanten an anderer Stelle geben.
+Es kann noch immer Überschneidungen bzw. Kreuzungen der Kanten an anderer Stelle geben. Es gibt sogar Graphen, die sich auf keine Art und Weise ohne Überschneidungen von Kanten zeichnen lassen.
+
+\section{Planare Graphen}
+
+% TODO
 
 \section{Zusammenhangs-Eigenschaften von Graphen}
 
@@ -195,7 +231,7 @@ Häufig werden nur Teile eines größeren Graphen betrachtet. % TODO: mehr?
 
 \begin{definition}
   Ein \emph{Weg} ist ein Graph $G = (V, E)$ mit $V = \{v_1, v_2, \dots, v_n\}$ und $E = \{\{v_1, v_2\}, \{v_2, v_3\}, \dots, \{v_{n-1}, v_{n}\}\}$.
-  Es gibt in einem Graphen $G = (V, E)$ einen Weg zwischen zwei Knoten $v_a, v_b \in V$, wenn es einen Teilgraphen von $G$, gibt, der ein Weg ist und $v_a$ und $v_b$ erhält.
+  Es gibt in einem Graphen $G = (V, E)$ einen Weg zwischen zwei Knoten $v_\text{a}, v_\text{a} \in V$, wenn es einen Teilgraphen von $G$, gibt, der ein Weg ist und $v_\text{a}$ und $v_\text{a}$ erhält.
   Ein Graph ist \emph{zusammenhängend}, falls es zwischen jeden zwei Knoten aus dem Graphen einen Weg gibt.
   Ist ein Graph nicht zusammenhängend, so nennt man die dispariten, maximalen zusammenhängenden Teilgraphen die \emph{Zusammenhangskomponenten}.
 \end{definition}
@@ -225,11 +261,10 @@ Ein zweifach zusammenhängender Graph ist die Grundlage für eine weiteres Eleme
   Eine \emph{$st$-Ordnung} eines zweifach zusammenhängenden Graphen $G = (V, E)$ und zweier Knoten $s, t \in V$ ist eine Anordnung aller Knoten $v_1, v_2, \dots, v_n \in V$, sodass $s = v_1$, $t = v_n$ und alle Knoten $v_i$ außer $s$ und $t$  einen Nachbarn $v_j$ mit $j < i$ und einen Nachbarn $v_k$ mit $k > i$ haben.
 \end{definition}
 
-Durch die $st$-Ordnung können die Knoten in eine Reihenfolge gebracht werden, in der sie der Algorithmus bearbeiten kann. Die $st$-Ordnung hat noch einige weitere Eigenschaften in planaren Graphen, die im nächsten Abschnitt besprochen werden.
+Durch die $st$-Ordnung können die Knoten in eine Reihenfolge gebracht werden, in der sie der Algorithmus bearbeiten kann.
 
-\section{Planare Graphen}
+Die $st$-Ordnung hat noch einige weitere Eigenschaften in planaren Graphen.
 
-%% TODO!!!
 
 
 
@@ -238,6 +273,13 @@ Durch die $st$-Ordnung können die Knoten in eine Reihenfolge gebracht werden, i
 \section{Glatt-orthogonale Zeichnungen}
 
 \cite{bekos-13}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{exampleA_smooth}
+  \caption{Der Graph $G_\text{E}$ aus Beispiel~\ref{ex:graph} als glatt-orthogonale Version der Zeichnung aus Abbildung~\ref{fig:exampleAorthogonalCompress}.}
+  \label{fig:exampleAsmooth}
+\end{figure}
 
 
 \chapter{Algorithmus}
@@ -297,6 +339,14 @@ Für die Kante des oberen Ports wird ein Kantenort in der Spalte des Knotens ver
 Ist der Algorithmus bei $v_n$ angekommen, sind alle Knoten eingebettet. Zuletzt nummerieren wir die Spalten durch und weisen den darin platzierten Knoten diese Nummer als x-Koordinate zu. 
 
 \section{Eliminierung der stufenförmigen Kanten}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{exampleA_orthogonalCompress}
+  \caption{Die orthogonale Zeichnung aus Abbildung~\ref{fig:exampleAorthogonalNocompress} ohne S-förmige Kanten.}
+  \label{fig:exampleAorthogonalCompress}
+\end{figure}
+
 
 Das im letzten Schritt erstellte $OC_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden.
 
