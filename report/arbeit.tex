@@ -31,6 +31,7 @@
 \usepackage[font=small,format=hang,labelfont=bf,figurename=Abb.,tablename=Tab.]{caption}
 \usepackage{subcaption}
 \usepackage{enumerate}
+\usepackage{textcomp}
 
 \newtheorem{satz}{Satz}[chapter]
 \newtheorem{lemma}[satz]{Lemma}
@@ -49,7 +50,7 @@
 \newcommand{\Go}{Glatt-or\-tho\-go\-nal}
 \newcommand{\Epsilon}{\mathcal{E}}
 \newcommand{\N}{\mathbb{N}}
-\newtheorem{example}{Beispiel}[chapter]
+\newtheorem{example}[satz]{Beispiel}
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -87,18 +88,18 @@ Eine Herangehensweise ist es, zunächst einfachere oder speziellere Graphen zu z
 Dazu Teilt man die Graphen in Klassen ein, die eine Aussage machen über die Schwierigkeit, den Graphen zu zeichnen. 
 In dieser Arbeit geht es um die Klasse der planaren Graphen. Sie zeichnen sich dadurch aus, dass sie sich ohne Kantenüberschneidung in einer Ebene zeichnen und sie haben nur polynomial viele Kanten. 
 
-Eine Anwendung des  automatisierte Zeichnens planarer Graphen ist die computergestützte Erstellung von Layouts für Schaltkreis-Platinen. Hierbei werden Komponenten, wie integrierte Schaltkreise (Chips), als Knoten modelliert und die verbindenden Leiter als Kanten. Da die Leiter im Herstellungsprozesses  aus technischen Überlegungen nur entweder horizontal oder vertikal auf einem Gitter verlaufen können, beschränkt man sich hier auf orthogonale Layouts. Bei solchen orthogonalen Zeichnungen planarer Graphen können nur 4~Kanten je Knoten ohne Überdeckungen verbunden werden. Man nennt diese vier möglichen Richtungen Ports. Die Graphen, die sich so zeichnen lassen gehören zu der Klasse der 4-planaren Graphen: planare Graphen, deren maximaler Kontengrad~4 ist. Abhängig von der maximalen Anzahl~$k$ der Knicke in einer Kante in einem Layout, teilen wir es in die Klasse $OC_k$ ein. % TODO: OC-x knicke oder komponenten? check liu, brandes und smooth
+Eine Anwendung des  automatisierte Zeichnens planarer Graphen ist die computergestützte Erstellung von Layouts für Schaltkreis-Platinen. Hierbei werden Komponenten, wie integrierte Schaltkreise (Chips), als Knoten modelliert und die verbindenden Leiter als Kanten. Da die Leiter im Herstellungsprozesses  aus technischen Überlegungen nur entweder horizontal oder vertikal auf einem Gitter verlaufen können, beschränkt man sich hier auf orthogonale Layouts. Bei solchen orthogonalen Zeichnungen planarer Graphen können nur 4~Kanten je Knoten ohne Überdeckungen verbunden werden. Man nennt diese vier möglichen Richtungen Ports. Die Graphen, die sich so zeichnen lassen gehören zu der Klasse der 4"~planaren Graphen: planare Graphen, deren maximaler Kontengrad~4 ist. Abhängig von der maximalen Anzahl~$k$ der Segmente in einer Kante in einem Layout, teilen wir es in die Klasse $OC_k$ ein.
 
 Orthogonale Layouts wurden in der Vergangenheit auch aufgrund ihrer Praxisrelevanz stark verbessert. Sie sind zur Visualisierung von Graphen für Menschen (etwa für abstrahierte ÖPNV-Netze, Organigramme, UML-Diagramme) jedoch nur schlecht geeignet, da sie schnell unübersichtlich wirken. % TODO: Quelle?, Roberts et al.?
 Natürlich kann Übersichtlichkeit nicht genau definiert werden; jedoch werden die harten 90\degree-Knicke in den Kanten, an denen sich horizontale und vertikale Abschnitte treffen, leicht mit Knotenpunkten verwechselt. Auch wirken sie eher technisch und deshalb für bestimmte Zielgruppen wenig ansprechend.
 
-Um dieses Problem zu lösen, glättet man die Knicke mit Kreisbögen. Man redet dann von glatt-orthogonalen Zeichnungen. Die Kreisbögen gehen tangential in die orthogonal verlaufenden geraden Abschnitte über. Die entstehenden Zeichnungen wirken übersichtlich, freundlich und ästhetisch, was für ansprechende Visualisierungen förderlich ist. Dadurch, dass die Kanten ansonsten trotzdem orthogonal verlaufen, bleibt die Komplexität der Layouts vergleichsweise gering. Man vergleiche hierzu etwa die in Handarbeit gefertigten Soziogramme des Künstlers Mark Lombardi (1951-2000), die u.a. aufgrund ihrer Runden Kanten eine gewisse Ästhetik erreichen, jedoch mangels orthogonaler Gitterstruktur wenig Systematik erkennen lassen. 
+Um dieses Problem zu lösen, glättet man die Knicke mit Kreisbögen. Man redet dann von glatt-orthogonalen Zeichnungen. Die Kreisbögen gehen tangential in die orthogonal verlaufenden geraden Abschnitte über. Die entstehenden Zeichnungen wirken übersichtlich, freundlich und ästhetisch, was für ansprechende Visualisierungen förderlich ist. Dadurch, dass die Kanten ansonsten trotzdem orthogonal verlaufen, bleibt die Komplexität der Layouts vergleichsweise gering. Man vergleiche hierzu etwa die in Handarbeit gefertigten Soziogramme des Künstlers Mark Lombardi (1951--2000), die u.a. aufgrund ihrer Runden Kanten eine gewisse Ästhetik erreichen, jedoch mangels orthogonaler Gitterstruktur wenig Systematik erkennen lassen. 
 
 Bestehende Algorithmen zur automatisierten Erstellung glatt-orthogonaler Zeichnungen bauen auf bewährten Algorithmen für orthogonale Zeichnungen auf und erweitern diese so, dass genügend Platz für die abgerundeten Kanten bleibt, ohne dabei Kantenüberschneidungen einzuführen. Als Grundlage wählt man Algorithmen, welche die Anzahl der Knicke (auch pro Kante) in der entstehenden Zeichnung klein halten. 
 
 Dabei müssen neue Herausforderungen angegangen werden. Ebenso wie Knicke in orthogonalen Zeichnungen für erhöhte Komplexität sorgen, sind in glatt-orthogonalen Zeichnungen Wechsel zwischen geraden und gekrümmten Abschnitten und zwischen Abschnitten aus Bögen mit unterschiedlichen Radien zu vermeiden. Gleichzeitig sollte die Fläche der Zeichnung nicht zu groß werden.
 
-Es wäre trivial möglich, alle Kanten abzurunden, indem man Kreisbögen mit dem Radius der Gittergröße einfügt. So würden neben den Kreisbögen gerade Stücke über bleiben. Daher versucht man die Kreisbögen größer zu machen und so geschickt anzuordnen, dass möglichst wenige Wechsel zwischen verschiedenen Segmenten benötigt werden. Wir teilen die glatt-orthogonalen Zeichnungen in Abhängigkeit der maximalen Anzahl~$k$ von Segmentwechseln in einer Kante in die Klasse $SC_k$ ein. 
+Es wäre trivial möglich, alle Kanten abzurunden, indem man Kreisbögen mit dem Radius der Gittergröße einfügt. So würden neben den Kreisbögen gerade Stücke über bleiben. Daher versucht man die Kreisbögen größer zu machen und so geschickt anzuordnen, dass möglichst wenige Wechsel zwischen verschiedenen Segmenten benötigt werden. Wir teilen die glatt-orthogonalen Zeichnungen in Abhängigkeit der maximalen Anzahl~$k$ von Segmenten in einer Kante in die Klasse $SC_k$ ein. 
 
 \section{Ziel}
 
@@ -165,13 +166,26 @@ Zunächst liegt der Fokus auf ungerichteten einfachen Graphen, das bedeutet, es 
 Einfache Graphen können im Computer als \emph{Adjazenzmatrix} $(a_{i,j})$ dargestellt werden, mit $a_{i,j} = 1$ falls $\{v_i, v_j\} \in E$ und $0$ sonst. Hier wird jedoch $O(|V|^2)$ Speicherplatz verwendet. Für Graphen mit vergleichsweise wenigen Kanten eignet sich die Darstellung als \emph{Adjazenzliste} $A$ mit $A(v) = \{e \in E | v \in e\}$. Hierfür wird $O(|V| + |E|)$ Speicher benötigt. % TODO: genau Checken!!!
 
 \section{Orthogonale Visualisierungen von Graphen}
+\label{sec:orthogonalDrawings}
 
 \begin{figure}[h]
-  \centering
-  \includegraphics{exampleA_straightline}
-  \caption{Eine Zeichnung des Graphen $G_\text{E}$ aus Beispiel~\ref{ex:graph}. Zur besseren Übersicht sind die Knoten mit \emph{V} und ihrer Nummer beschriftet.}
-  \label{fig:exampleAstraightline}
+        \centering
+        \begin{subfigure}[b]{0.4\textwidth}
+                \centering
+                \includegraphics[width=0.6\textwidth]{exampleA_straightline}
+                \caption{Ohne Überschneidungen.}
+                \label{fig:exampleAstraightline}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.4\textwidth}
+                \centering
+                \includegraphics[width=0.52\textwidth]{exampleA_straightlineNonplanar}
+                \caption{Mit Überschneidungen.}
+                \label{fig:exampleAstraightlineNonplanar}
+        \end{subfigure}
+        \caption{Zwei Zeichnungen des Graphen $G_\text{E}$ aus Beispiel~\ref{ex:graph}. Zur besseren Übersicht sind die Knoten mit \emph{V} und ihrer Nummer beschriftet.}
 \end{figure}
+
 
 Die Darstellung von einfachen Graphen für Menschen, die \emph{Zeichnung} oder \emph{Visualisierung}, besteht üblicherweise aus Punkten, also kleinen Kreisen, für jeden Knoten und Verbindungslinien für die Kanten. Die Überführung von einer Adjazenzliste in einer solche Darstellung nennt man das \emph{Zeichnen} von Graphen. Hierfür gibt es keine kanonische Vorgehensweise. Der umgekehrte Weg von der Zeichnung zur Adjazenzliste jedoch ist (bei geeigneten Zeichnungen) eindeutig und trivial zu lösen.
 
@@ -187,7 +201,7 @@ Für \emph{Multigraphen} mit mehreren Kanten zwischen zwei Knoten kommen Variati
 \end{figure}
 
 \begin{definition}
-  Ein (zweidimensionales) \emph{Layout} $L$ über einer Menge $V$ ist eine Abbildung $L_V : V \to \N \times \N $. Ein \emph{Port} p ist eine Element der Menge \{\text{L, R, T, B}\}. Eine \emph{Portzuweisung} $P$ ist eine Abbildung $P: \{(v, e) \in V \times E | v \in e\} \to \{\text{L, R, T, B}\}$. Ein \emph{orhogonales Layout} ist ein 3-Tupel $(L_V,L_E,P)$ von Layouts $L_V$ und $L_E$ und einer Portzuweisung $P$.
+  Ein (zweidimensionales) \emph{Layout} $L$ über einer Menge $V$ ist eine Abbildung $L_V : V \to \N \times \N $. Ein \emph{Port} p ist eine Element der Menge \{\text{L, R, T, B}\}. Eine \emph{Portzuweisung} $P$ ist eine Abbildung $P: \{(v, e) \in V \times E | v \in e\} \to \{\text{L, R, T, B}\}$. Ein \emph{orhogonales Layout} ist ein 3"~Tupel $(L_V,L_E,P)$ von Layouts $L_V$ und $L_E$ und einer Portzuweisung $P$.
 \end{definition}
 
 Die Hauptaufgabe eines Zeichenalgorithmus ist die Positionierung der Knoten auf einer Zeichenebene. Die berechnete Positionszuweisung heißt Layout. In einer \emph{geradlinigen Zeichnung} werden die Kanten als gerade Linien zwischen den Knoten gezeichnet. Hier bestimmt also die Position der Knoten vollständig das Aussehen der Kanten.
@@ -202,12 +216,12 @@ Bei orthogonalen Zeichnungen bestehen die Kanten aus horizontalen und vertikalen
 \end{figure}
 
 
-Bei orthogonalen Zeichnungen gibt es eine Vielzahl von Möglichkeiten für das Aussehen der Kanten: An den Gitterpunkten kann entweder zuerst horizontal oder zunächst vertikal weiter gezeichnet werden.
+Bei orthogonalen Zeichnungen gibt es eine Vielzahl von Möglichkeiten für das Aussehen der Kanten: An den Gitterpunkten kann entweder zuerst horizontal oder zunächst vertikal weiter gezeichnet werden. Wird immer abwechselnd horizontal und vertikal gezeichnet, entstehen viele Knicke in den Kanten.
 
-Eine Möglichkeit, das Aussehen zu normieren, wäre es, immer zunächst den vollständigen horizontalen Weg am unteren Knoten und dann den vertikalen Weg nach oben zu zeichnen, sodass jede Kante L-förmig ist. Hierbei kommt es jedoch zu Überschneidungen, wenn beispielsweise zwei Kanten einen Knoten in die selbe Richtung verlassen. Überschneidungen sorgen für Zweideutigkeiten in der Zeichnung und sollen vermieden werden. Deshalb weißt man den Kanten an jedem Knoten einen Port aus der Menge $\{\text{L, R, T, B}\}$, also Links, Rechts, Top (oben) oder Bottom (unten) zu. Die Richtungen der Ports sind auch in Abbildung~\ref{fig:coords} zu erkennen.
+Eine Möglichkeit, das Aussehen der zu normieren und gleichzeitig die Anzahl der Knicke zu minimieren, wäre es, immer zunächst den vollständigen horizontalen Weg am unteren Knoten und dann den vertikalen Weg nach oben zu zeichnen, sodass jede Kante L"~förmig ist. Hierbei kommt es jedoch zu Überschneidungen, wenn beispielsweise zwei Kanten einen Knoten in die selbe Richtung verlassen. Überschneidungen sorgen für Zweideutigkeiten in der Zeichnung und sollen vermieden werden. Deshalb weißt man den Kanten an jedem Knoten einen Port aus der Menge $\{\text{L, R, T, B}\}$, also Links, Rechts, Top (oben) oder Bottom (unten) zu. Die Richtungen der Ports sind auch in Abbildung~\ref{fig:coords} zu erkennen.
 \\
 
-Das Zeichnen einer Kante $e$ eines Graphen $G = (V,E)$ in einem orthogonalen Layout $(L_V,L_E,P)$ kann nun so erfolgen: Von den von $L_V$ gegebenen Positionen der beiden Endknoten $v \in e$ wird eine Gittereinheit in der Richtung des Ports gezeichnet. Von diesen Positionen aus wird eine horizontale Linie bis zur x-Koordinate des von $L_E$ gegebenen Kantenorts gezeichnet. Die beiden Endpositionen werden mit einer vertikalen Linie verbunden. %% TODO: Proof?
+Das Zeichnen einer Kante $e$ eines Graphen $G = (V,E)$ in einem orthogonalen Layout $(L_V,L_E,P)$ kann nun so erfolgen: Von den von $L_V$ gegebenen Positionen der beiden Endknoten $v \in e$ wird eine Gittereinheit in der Richtung des Ports gezeichnet. Von diesen Positionen aus wird eine horizontale Linie bis zur x"~Koordinate des von $L_E$ gegebenen Kantenorts gezeichnet. Die beiden Endpositionen werden mit einer vertikalen Linie verbunden. %% TODO: Proof?
 \\
 
 Es können jedoch immer noch Überschneidungen von Kanten an einem Knoten $v \in V$ auftreten, wenn die Ports kollidieren, wenn es also zwei Kanten $e_1, e_2 \in E$ mit $P(v, e_1) = P(v, e_2)$ gibt. Da es nur vier Ports gibt, können somit nur maximal vier Kanten mit einem Knoten verbunden sein.
@@ -220,9 +234,38 @@ Ohne Kanten-Überschneidungen an den Knoten können also nur Graphen mit Maximal
 
 Es kann noch immer Überschneidungen bzw. Kreuzungen der Kanten an anderer Stelle geben. Es gibt sogar Graphen, die sich auf keine Art und Weise ohne Überschneidungen von Kanten zeichnen lassen.
 
+
 \section{Planare Graphen}
 
-% TODO
+Da das Ziel des Algorithmus ist, Graphen ohne Überschneidungen zu zeichnen, stellt sich die Frage, ob es grundsätzlich möglich ist, alle Graphen überschneidungsfrei zu zeichnen oder welche Graphen sich nicht überschneidungsfrei zeichnen lassen.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{nonplanar}
+  \caption{Zwei Zeichnungen von Graphen, die sich nicht überschneidungsfrei zeichnen lassen.}
+  \label{fig:nonplanar}
+\end{figure}
+
+\begin{definition}
+  Ein Graph $G$ heißt \emph{planar}, wenn er in der Ebene ohne Überschneidungen gezeichnet werden kann.
+\end{definition}
+
+Das der Beispielgraph $G_\text{E}$ planar ist, haben wir bereits bewiesen, indem wir ihn ohne Überschneidungen gezeichnet haben. 
+
+Die Graphen aus Abbildung~\ref{fig:nonplanar} jedoch lassen sich nicht ohne Überschneidung zeichnen, sie sind nicht planar. Solche nicht-planaren Graphen werden wir nicht weiter behandeln. 
+
+Für planare Graphen ist es nicht offensichtlich, wie genau sie gezeichnet werden müssen, damit sich keine Überschneidungen ergeben. Der eigentlich planare Beispielgraph $G_\text{E}$ wurde in Abbildung~\ref{fig:exampleAstraightlineNonplanar} mit Überschneidungen gezeichnet. 
+
+Nach dem Satz von Fáry hat jeder planare Graphen eine Zeichnung, in der alle Kanten als gerade Linien gezeichnet sind. % TODO: ?
+Die Reihenfolge der Kanten um einen Knoten im Uhrzeigersinn in dieser Zeichnung, also eine Anordnung der Adjazenzlisten, ist auf dem Weg zur überschneidungsfreien Zeichnungen ausschlaggebend.
+
+\begin{definition}
+  Eine \emph{planare Einbettung} eines Graphen $G = (V, E)$ gibt für alle $v \in V$ eine Reihenfolge der Kanten der Adjazenzliste $A(v) = \{e_1, \dots, e_n\}$ vor.
+\end{definition}
+
+Planare Graphen haben die Eigenschaft, dass die Anzahl der Kanten die dreifache Anzahl der Knoten nicht überschreiten kann, genauer: $|E| \leq 3 |V| - 6$. Hat ein Graph mehr als $3 |V| - 6$ Kanten, können wir also ausschließen, dass er planar ist. Wenn Algorithmen auf planaren Graphen laufen, können durch $|E| = O(|V|)$ einige Operationen, die auf allgemeinen Graphen in $O(|V| + |E|)$ Zeit laufen, in linearer Zeit $O(|V|)$ laufen. Mit Hilfe dieser Eigenschaft können wir später die Laufzeit von Teilen unseres Algorithmus mit $O(|V|)$ angeben.
+
+Wie in Abschnitt~\ref{sec:orthogonalDrawings} gezeigt, können in orthogonalen Zeichnungen nur solche Graphen überschneidungsfrei gezeichnet werden, deren Grad maximal~4 ist. Zusätzlich können nur planare Graphen überschneidungsfrei gezeichnet werden. Man nennt Graphen, die diese beiden Bedingungen erfüllen, auch \emph{4"~planar}.
 
 \section{Zusammenhangs-Eigenschaften von Graphen}
 
@@ -248,6 +291,7 @@ Werden die Zusammenhangskomponenten einzeln gezeichnet, dann können sie unabhä
 
 In dieser Sicht ist die reflexiv-transitive Hülle der Benachbart-Relation eine Äquivalenzrelation und ihre Äquivalenzklassen sind die Zusammenhangskomponenten des Graphen. %% TODO: Beweis?
 
+
 \section{Zweifach-Zusammenhang und st-Ordnungen}
 
 \begin{definition}
@@ -255,7 +299,7 @@ In dieser Sicht ist die reflexiv-transitive Hülle der Benachbart-Relation eine 
   Ist ein Graph $G=(V, E)$  nicht zweifach zusammenhängend, so nennt man die maximalen zweifach zusammenhängenden Teilgraphen die \emph{Zweifach-Zusammenhangskomponenten}. Die Zeugen $v \in V$, für die der induzierte Teilgraph $G_{V \setminus v}$ nicht zusammenhängend ist, nennt man \emph{Schnittknoten}. Kanten $e \in E$, für die $G' = (V, E \setminus e)$ nicht zusammenhängend ist, nennt man \emph{Brücken}.
 \end{definition}
 
-Ein Kreis ist ein zweifach zusammenhängender Graph, da durch Hinwegnahme eines Knotens ein zusammenhängender Weg entsteht. Ein Baum ist nicht  zweifach knotenzusammenhängend, da durch Hinwegnahme der Wurzel, die Kinder nicht mehr zusammenhängend sind.
+Ein Kreis ist ein zweifach zusammenhängender Graph, da durch Hinwegnahme eines Knotens ein zusammenhängender Weg entsteht. Ein Baum ist nicht zweifach knotenzusammenhängend, da durch Hinwegnahme der Wurzel, die Kinder nicht mehr zusammenhängend sind.
 
 Die Zweifach-Zusammenhangskomponenten eines Graphen bilden einen Baum.
 
@@ -267,23 +311,23 @@ Ein zweifach zusammenhängender Graph ist die Grundlage für eine weiteres Eleme
 
 Durch die $st$-Ordnung können die Knoten in eine Reihenfolge gebracht werden, in der sie der Algorithmus bearbeiten kann.
 
-Die $st$-Ordnung hat noch einige weitere Eigenschaften in planaren Graphen.
+Die $st$-Ordnung hat in planaren Graphen noch eine weitere Eigenschaft, wenn man die planare Einbettung betrachtet. In der Adjazenzliste eines Knotens folgen sind Kanten, die zu einem Knoten mit höherer Zahl, in einem Block aufeinander, ebenso solche die zu einem Knoten mit niedriger Zahl führen. Es gibt also an jedem Knoten zwei Bündel von Kanten, die sich nicht überschneiden; eines mit Kanten zu höherwertigen Knoten und eines mit Kanten zu minderwertigen Knoten im Hinblick auf die $st$-Ordnung.
 
 
-
-
-% Gerichtete Graphen, Grahp<=>Relation...
+% Gerichtete Graphen, Graph<=>Relation...
 
 \section{Glatt-orthogonale Zeichnungen}
 
-\cite{bekos-13}
+Für das berechnen orthogonaler Zeichnungen sind viele Algorithmen bekannt. Hier geht es jedoch um eine interessante Variation von orthogonalen Zeichnungen: \emph{Glatt-orthogonale Zeichnungen} von Graphen nach Bkos~et.~al.~\cite{bekos-13}. Sie platzieren die Knoten, wie orthogonale Zeichnungen auch, auf einem Koordinatengitter und erlauben horizontale und vertikale Segmente. Zusätzlich enthalten sie jedoch Kreisbögen, die tangential in die geraden Segmente übergehen. Sie in insofern "`glatt"', als dass sie keine Ecken in den Kanten haben, da die 90\textdegree"~Knicke durch Kreissegmente abgerundet werden. 
 
 \begin{figure}[h]
   \centering
   \includegraphics{exampleA_smooth}
-  \caption{Der Graph $G_\text{E}$ aus Beispiel~\ref{ex:graph} als glatt-orthogonale Version der Zeichnung aus Abbildung~\ref{fig:exampleAorthogonalCompress}. Die Knickpunkte zwischen zwei Segmenten einer Kante sind als Kreuze eingezeichnet. }
+  \caption{Der Graph $G_\text{E}$ aus Beispiel~\ref{ex:graph} als glatt-orthogonale Version der Zeichnung aus Abbildung~\ref{fig:exampleAorthogonalCompress}. Die Knickpunkte zwischen zwei Segmenten einer Kante sind als Kreuze eingezeichnet. } % TODO: Seltsame vorwärts-Referenz auf andere Zeichnung
   \label{fig:exampleAsmooth}
 \end{figure}
+
+% TODO: mehr... Komplexität, basics etc.
 
 
 \chapter{Algorithmus}
@@ -327,20 +371,20 @@ Eine solche st-Ordnung lässt sich mit einer angepassten Tiefensuche und einer p
 
 \section{Erstellung eines $OC_3$-Layouts}
 
-Für die Erstellung des $OC_3$-Layouts erhalten wir die Knoten in der Reihenfolge der st-Ordnung $v_1, \dots, v_n$. Durch die st-Ordnung erhalten wir zudem gerichtete Kanten und die Knoten haben somit einen Eingangsgrad und einen Ausgangsgrad, die sich, wegen der 4-Planariät, zu maximal 4 addieren. Außer $v_1$ und $v_n$ liegt bei den Knoten der Eingangsgrad und der Ausgangsgrad zwischen 1 und 3, da sie mindestens eine eingehende und mindestens eine ausgehende Kante haben. Die planare Einbettung $E$ gibt uns an jedem Knoten eine Reihenfolge der Kanten zu den adjazenten Knoten an. Ein- und Ausgehende Kanten liegen hierbei in zwei Abschnitten jeweils zusammen beieinander.
+Für die Erstellung des $OC_3$-Layouts erhalten wir die Knoten in der Reihenfolge der $st$-Ordnung $v_1, \dots, v_n$. Durch die st-Ordnung erhalten wir zudem gerichtete Kanten und die Knoten haben somit einen Eingangsgrad und einen Ausgangsgrad, die sich, wegen der 4"~Planariät, zu maximal 4 addieren. Außer $v_1$ und $v_n$ liegt bei den Knoten der Eingangsgrad und der Ausgangsgrad zwischen 1 und 3, da sie mindestens eine eingehende und mindestens eine ausgehende Kante haben. Die planare Einbettung $E$ gibt uns an jedem Knoten eine Reihenfolge der Kanten zu den adjazenten Knoten an. Ein- und Ausgehende Kanten liegen hierbei in zwei Abschnitten jeweils zusammen beieinander.
 
-Am Ende bekommt jeder Knoten eine x-Koordinate (Spalte) und eine y-Koordinate (Zeile). Da wir die x-Koordinaten sonst häufig anpassen müssten, ordnen wir den Knoten zunächst nur Spalten zu. So können wir eine neue Spalte dazwischen einfügen, ohne die Koordinaten sämtlicher Knoten in den Spalten danach zu erhöhen. 
+Am Ende bekommt jeder Knoten eine x-Koordinate (Spalte) und eine y"~Koordinate (Zeile). Da wir die x"~Koordinaten sonst häufig anpassen müssten, ordnen wir den Knoten zunächst nur Spalten zu. So können wir eine neue Spalte dazwischen einfügen, ohne die Koordinaten sämtlicher Knoten in den Spalten danach zu erhöhen. 
 
 Neben den Knoten positionieren wir ebenso \emph{offene Kanten} in den Spalten: Alle Kanten, die gezeichnet werden, haben ein horizontales Segment, dessen Position in einer Spalte vorgemerkt wird. Das Ende der Kante wird hierbei noch nicht festgelegt. % TODO: Offene Kante definieren
 
-Für die Erstellung des $OC_3$-Layouts werden die Knoten in der Reihenfolge der st-Ordnung auf einem Gitter platziert. Die y-Koordinate wird später nicht mehr benötigt und kann stets als $y(v_i) = i$ angenommen werden. Der erste Knoten wird in einer neuen, noch leeren Spalte platziert. Alle weiteren Knoten werden in der zugewiesenen Spalte der Kante an ihrem unteren Port platziert. Dazu müssen zunächst die Kanten den Ports zugewiesen werden.
+Für die Erstellung des $OC_3$-Layouts werden die Knoten in der Reihenfolge der st-Ordnung auf einem Gitter platziert. Die y"~Koordinate wird später nicht mehr benötigt und kann stets als $y(v_i) = i$ angenommen werden. Der erste Knoten wird in einer neuen, noch leeren Spalte platziert. Alle weiteren Knoten werden in der zugewiesenen Spalte der Kante an ihrem unteren Port platziert. Dazu müssen zunächst die Kanten den Ports zugewiesen werden.
 
 Für die eingehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: Unten (1-4), links (2-4), rechts (3,4), oben (4). Der obere Port wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Senke $v_n$ vorkommen kann. Der untere Port wird nur bei Eingangsgrad 0 nicht verwendet, was nur bei der Quelle $v_1$ vorkommt. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge oben, links, unten, rechts zugewiesen.
 
 Für die ausgehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: oben (1-4), rechts (2-4), links (3,4), unten (4). Der untere Port wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Quelle $v_1$ vorkommen kann. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge oben, links, unten, rechts zugewiesen. 
 Für die Kante des oberen Ports wird ein Kantenort in der Spalte des Knotens vermerkt. Für die Kanten der Ports links und rechts werden jeweils Kantenorte in neuen Spalten links und rechts des Knotens vermerkt. Gibt es eine Kante im unteren Port, bekommt sie einen Knotenort in einer weiteren neuen Spalte weiter rechts. % TODO: schwammig
 
-Ist der Algorithmus bei $v_n$ angekommen, sind alle Knoten eingebettet. Zuletzt nummerieren wir die Spalten durch und weisen den darin platzierten Knoten diese Nummer als x-Koordinate zu. 
+Ist der Algorithmus bei $v_n$ angekommen, sind alle Knoten eingebettet. Zuletzt nummerieren wir die Spalten durch und weisen den darin platzierten Knoten diese Nummer als x"~Koordinate zu. 
 
 \section{Eliminierung der stufenförmigen Kanten}
 
@@ -356,7 +400,7 @@ Das im letzten Schritt erstellte $OC_3$-Layout ist nicht sehr kompakt, da jeder 
 
 Zwei Knoten $v_i, v_k$ mit $i < k$ sind mit einer stufenförmigen Kante verbunden, wenn es eine Kante gibt, die am rechten Port von $v_i$ und am linken Port von $v_k$ ist. Solche Knoten nennen wir äquivalent bezüglich der Höhe und fassen gleich hohe Knoten in Äquivalenzklassen zusammen.
 
-Diese Äquivalenzklassen verwenden wir als Knoten eines neuen gerichteten Graphen. Wir setzen eine gerichtete Kante zwischen zwei Äquivalenzklassen falls es eine gerichtete Kante zwischen zwei Knoten dieser Klasse gibt. Im so erhaltenen Graphen weisen wir der Klasse $\{v_1\}$ die Höhe $1$ zu. Dann weisen wir allen anderen Klassen jeweils die um 1 inkrementierte Höhe ihres höchsten Vorgängers zu, bis alle Klassen eine Höhe erhalten haben. Zuletzt weisen wir den Knoten die Höhe ihrer Klasse als y-Koordinate zu.
+Diese Äquivalenzklassen verwenden wir als Knoten eines neuen gerichteten Graphen. Wir setzen eine gerichtete Kante zwischen zwei Äquivalenzklassen falls es eine gerichtete Kante zwischen zwei Knoten dieser Klasse gibt. Im so erhaltenen Graphen weisen wir der Klasse $\{v_1\}$ die Höhe~$1$ zu. Dann weisen wir allen anderen Klassen jeweils die um~1 inkrementierte Höhe ihres höchsten Vorgängers zu, bis alle Klassen eine Höhe erhalten haben. Zuletzt weisen wir den Knoten die Höhe ihrer Klasse als y"~Koordinate zu.
 
 Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten in der gleichen Klasse sind.
 
@@ -369,12 +413,12 @@ Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsp
 \begin{figure}[h]
   \centering
   \includegraphics{cut_L_slope_correction}
-  \caption{Finden eines Schnittes zum Trennen des Graphen in eine linke und einer rechte Seite. Die Linke Seite und der untere Knoten können frei nach links verschoben werden, um die Steigung der L-Kante zu korrigieren.}
+  \caption{Finden eines Schnittes zum Trennen des Graphen in eine linke und einer rechte Seite. Die Linke Seite und der untere Knoten können frei nach links verschoben werden, um die Steigung der L"~Kante zu korrigieren. In Schraffur dargestellte Blöcke stehen für nicht weiter spezifizierte Teile des Graphen in der Zeichnung.}
   \label{fig:cutLslopecorrection}
 \end{figure}
 
 
-\section{Übertragen auf allgemeine 4-planare Graphen}
+\section{Übertragen auf allgemeine 4"~planare Graphen}
 
 Algorithmus~\ref{alg:main}
 % TODO: Textchen hierzu
@@ -435,19 +479,19 @@ Es wurden also Daten aus dem Rom-Testgraphen entnommen oder direkt in yEd erstel
         \quad
         \begin{subfigure}[b]{0.2\textwidth}
                 \includegraphics[width=\textwidth]{schnitt_finden_top_downwardsL}
-                \caption{Oberhalb, L-Kante \\ nach unten}
+                \caption{Oberhalb, L"~Kante \\ nach unten}
                 \label{fig:cutfinding_top_downwardsL}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.2\textwidth}
                 \includegraphics[width=\textwidth]{schnitt_finden_top_downwardsC}
-                \caption{Oberhalb, \\ C-Kante \\ nach unten}
+                \caption{Oberhalb, C"~Kante \\ nach unten}
                 \label{fig:cutfinding_top_downwardsC}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.2\textwidth}
                 \includegraphics[width=\textwidth]{schnitt_finden_bot_aboveL}
-                \caption{Unterhalb, über eine \\ L-Kante}
+                \caption{Unterhalb, über eine \\ L"~Kante}
                 \label{fig:cutfinding_bot_aboveL}
         \end{subfigure}
         \quad
@@ -476,9 +520,9 @@ Soll der Schnitt leicht oberhalb eines Knotens $v$ beginnen, so muss die Kante a
 
 Ist dort keine Kante vorhanden, kann der Schnitt direkt zur leicht unterhalb Position am gleichen Knoten $v$ fortfahren.
 
-Ist dort eine nach oben führende Kante oder eine horizontale gerade Kante, so durchquert der Schnitt die Kante. Nach den Invarianten ist immer ein horizontales Segment an dieser Stelle. Der Schnitt verbleibt am Knoten $v$ und ist nun leicht unterhalb von $v$. Führt die Kante am linken Port nach unten, so muss es entweder eine L- oder eine C-Kante sein, in beiden Fällen folgt der Schnitt der Kante zum Zielknoten $u$. Die L-Kante endet am Zielknoten $u$ am oberen Port und der Schnitt endet links oberhalb des Zielknotens. Die C-Kante endet am Zielknoten $u$ am linken Port und der Schnitt endet links unterhalb.
+Ist dort eine nach oben führende Kante oder eine horizontale gerade Kante, so durchquert der Schnitt die Kante. Nach den Invarianten ist immer ein horizontales Segment an dieser Stelle. Der Schnitt verbleibt am Knoten $v$ und ist nun leicht unterhalb von $v$. Führt die Kante am linken Port nach unten, so muss es entweder eine L- oder eine C"~Kante sein, in beiden Fällen folgt der Schnitt der Kante zum Zielknoten $u$. Die L"~Kante endet am Zielknoten $u$ am oberen Port und der Schnitt endet links oberhalb des Zielknotens. Die C"~Kante endet am Zielknoten $u$ am linken Port und der Schnitt endet links unterhalb.
 
-Soll der Schnitt leicht unterhalb eines Knotens $v$ beginnen, so muss die Kante am unteren Port betrachtet werden. Endet die Kante an $u$ an einem rechten Port, so muss sie durchquert werden, und der Schnitt endet leicht rechts unterhalb des Zielknotens $u$. Ansonsten folgt der Schnitt der Kante. Endet die Kante an einem oberen Port, ist folglich eine gerade Kante, so endet der Schnitt leicht links oberhalb des Zielknotens. Endet die Kante an einem linken Port, liegt eine L-Kante vor und der Schnitt endet leicht links unterhalb des Zielknotens.
+Soll der Schnitt leicht unterhalb eines Knotens $v$ beginnen, so muss die Kante am unteren Port betrachtet werden. Endet die Kante an $u$ an einem rechten Port, so muss sie durchquert werden, und der Schnitt endet leicht rechts unterhalb des Zielknotens $u$. Ansonsten folgt der Schnitt der Kante. Endet die Kante an einem oberen Port, ist folglich eine gerade Kante, so endet der Schnitt leicht links oberhalb des Zielknotens. Endet die Kante an einem linken Port, liegt eine L"~Kante vor und der Schnitt endet leicht links unterhalb des Zielknotens.
 
 Für den Fall, dass der Schnitt leicht rechts eines Knotens beginnt, sind jeweils rechts und links in den Schritten und Bedingungen zu tauschen.
 
@@ -494,8 +538,12 @@ Die Konstruktion des Schnittes speichert bei jedem Durchqueren einer Kante die K
 % ohne L-slope anpassung: 1/844 collisionen
 
 % --> use adjustments only when necessary
+% --> use them to reduce edge complexity?
 
 % keinmal mehr als 3 in einer Reihe
+
+Nicht planare Graphen können durch ein einfaches Verfahren in planare Graphen umgewandelt werden: In einer zufälligen Zeichnung fügt man Knoten an allen Schnittpunkten von zwei Kanten ein. Beim Zeichnen lässt man die neuen Knoten weg.
+
 
 \chapter{Schlussfolgerungen}
 
