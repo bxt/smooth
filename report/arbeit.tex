@@ -327,6 +327,14 @@ Für das berechnen orthogonaler Zeichnungen sind viele Algorithmen bekannt. Hier
   \label{fig:exampleAsmooth}
 \end{figure}
 
+\begin{figure}[h]
+  \centering
+  \includegraphics{anatomieLKante}
+  \caption{Bezeichnungen in glatt-orthogonalen Zeichnungen anhand der L"~Kante: (i) oberer Knoten, (ii) Kreissegment, (iii) Knick, (iv) Liniensegment, (v) unterer Knoten.}
+  \label{fig:cutLslopecorrection}
+\end{figure}
+
+
 % TODO: mehr... Komplexität, basics etc.
 
 
@@ -412,8 +420,8 @@ Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsp
 
 \begin{figure}[h]
   \centering
-  \includegraphics{cut_L_slope_correction}
-  \caption{Finden eines Schnittes zum Trennen des Graphen in eine linke und einer rechte Seite. Die Linke Seite und der untere Knoten können frei nach links verschoben werden, um die Steigung der L"~Kante zu korrigieren. In Schraffur dargestellte Blöcke stehen für nicht weiter spezifizierte Teile des Graphen in der Zeichnung.}
+  \includegraphics[width=\textwidth]{cut_L_slope_correction}
+  \caption{Finden eines Schnittes zum Trennen des Graphen in eine linke und einer rechte Seite. Die linke Seite und der untere Knoten können frei nach links verschoben werden, um die Steigung der L"~Kante zu korrigieren. In Schraffur dargestellte Blöcke stehen für nicht weiter spezifizierte Teile des Graphen in der Zeichnung.}
   \label{fig:cutLslopecorrection}
 \end{figure}
 
@@ -532,22 +540,28 @@ Die Konstruktion des Schnittes speichert bei jedem Durchqueren einer Kante die K
 
 \chapter{Verbesserungen}
 
+% veränderte slope korrektur
+% sets auf gleicher höhe
+
 % selten überhaupt kollisionen: 110/844
 
-% selten muss wirklich L slope angepasst werden, macht aber viel (!!!) größer
+% selten muss wirklich L slope angepasst werden, macht aber viel (!!!) größer (richtung OS_1, erklären)
 % ohne L-slope anpassung: 1/844 collisionen
 
 % --> use adjustments only when necessary
 % --> use them to reduce edge complexity?
 
 % keinmal mehr als 3 in einer Reihe
+% spezialfall mit 1 in Reihe, hin-her-Problem
+
+% Problem mit unnötiger C-Anpasung
 
 Nicht planare Graphen können durch ein einfaches Verfahren in planare Graphen umgewandelt werden: In einer zufälligen Zeichnung fügt man Knoten an allen Schnittpunkten von zwei Kanten ein. Beim Zeichnen lässt man die neuen Knoten weg.
 
 
 \chapter{Schlussfolgerungen}
 
-
+% Ausblick nicht-BC etc.
 
 
 
