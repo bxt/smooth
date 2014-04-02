@@ -262,14 +262,18 @@ Da das Ziel des Algorithmus ist, Graphen ohne Überschneidungen zu zeichnen, ste
   Ein Graph $G$ heißt \emph{planar}, wenn er in der Ebene ohne Überschneidungen gezeichnet werden kann.
 \end{definition}
 
-Das der Beispielgraph $G_\text{E}$ planar ist, haben wir bereits bewiesen, indem wir ihn ohne Überschneidungen gezeichnet haben. 
+Hierbei dürften sich die Kanten an den Knoten berühren. Das der Beispielgraph $G_\text{E}$ planar ist, haben wir bereits bewiesen, indem wir ihn ohne Überschneidungen gezeichnet haben. 
 
 Die Graphen aus Abbildung~\ref{fig:nonplanar} jedoch lassen sich nicht ohne Überschneidung zeichnen, sie sind nicht planar. Solche nicht-planaren Graphen werden wir nicht weiter behandeln. 
 
 Für planare Graphen ist es nicht offensichtlich, wie genau sie gezeichnet werden müssen, damit sich keine Überschneidungen ergeben. Der eigentlich planare Beispielgraph $G_\text{E}$ wurde in Abbildung~\ref{fig:exampleAstraightlineNonplanar} mit Überschneidungen gezeichnet. 
 
 Nach dem Satz von Fáry hat jeder planare Graphen eine Zeichnung, in der alle Kanten als gerade Linien gezeichnet sind. % TODO: ?
+
+In dieser Zeichnung unterteilen die Kanten die Zeichenebene in abgegrenzte Bereiche, die \emph{Facetten}. Jede Kante grenzt an zwei Facetten, auf jeder Seite eine. Die beiden Knoten der Kante grenzen ebenfalls an die beiden Facetten. Der Bereich außerhalb, der den Graphen umgibt, heißt \emph{Außenfacette}.
+
 Die Reihenfolge der Kanten um einen Knoten im Uhrzeigersinn in dieser Zeichnung, also eine Anordnung der Adjazenzlisten, ist auf dem Weg zur überschneidungsfreien Zeichnungen ausschlaggebend.
+
 
 \begin{definition}
   Eine \emph{planare Einbettung} eines Graphen $G = (V, E)$ gibt für alle $v \in V$ eine Reihenfolge der Kanten der Adjazenzliste $A(v) = \{e_1, \dots, e_n\}$ vor.
@@ -321,7 +325,7 @@ Ein zweifach zusammenhängender Graph ist die Grundlage für eine weiteres Eleme
   Eine \emph{$st$-Ordnung} eines zweifach zusammenhängenden Graphen $G = (V, E)$ und zweier Knoten $s, t \in V$ ist eine Anordnung aller Knoten $v_1, v_2, \dots, v_n \in V$, sodass $s = v_1$, $t = v_n$ und alle Knoten $v_i$ außer $s$ und $t$  einen Nachbarn $v_j$ mit $j < i$ und einen Nachbarn $v_k$ mit $k > i$ haben.
 \end{definition}
 
-Durch die $st$-Ordnung können die Knoten in eine Reihenfolge gebracht werden, in der sie der Algorithmus bearbeiten kann.
+des Weiteren heißt der Knoten $s$ auch \emph{Quelle} und $t$ \emph{Senke}. Durch die $st$-Ordnung können die Knoten in eine Reihenfolge gebracht werden, in der sie der Algorithmus bearbeiten kann.
 
 Die $st$-Ordnung hat in planaren Graphen noch eine weitere Eigenschaft, wenn man die planare Einbettung betrachtet. In der Adjazenzliste eines Knotens folgen sind Kanten, die zu einem Knoten mit höherer Zahl, in einem Block aufeinander, ebenso solche die zu einem Knoten mit niedriger Zahl führen. Es gibt also an jedem Knoten zwei Bündel von Kanten, die sich nicht überschneiden; eines mit Kanten zu höherwertigen Knoten und eines mit Kanten zu minderwertigen Knoten im Hinblick auf die $st$-Ordnung.
 
@@ -366,7 +370,7 @@ Konvertiert man die Kante $\{0,4\}$, wie sie in der OC$_3$-Zeichnung aus Abbildu
 
 Benutzt man jedoch das große 270\textdegree-Kreissegment, schafft man es, die Anzahl der Segmente auf zwei zu reduzieren und man erhält eine SC$_2$-Zeichnung. Wir streben nun Zeichnungen mit möglichst niedriger Komplexität an. Es gibt nicht für alle 4"~planare Graphen eine SC$_1$-Zeichnung, und solche Zeichnungen haben u.U. einen vergleichsweise Großen Platzbedarf. Eine SC$_2$-Zeichnung ist jedoch stets möglich, wie anhand des Algorithmus zu sehen ist. Auch sie haben im Allgemeinen einen größeren Platzbedarf als die SC$_5$-Zeichnung der trivialen Umwandlung, dies ist jedoch ein Kompromiss, der für die geringere Kantenkomplexität eingegangen werden muss. % TODO: Proof? Elaborate? idk
 
-
+Auch für SC$_2$ Zeichnungen ist es sinnvoll, das Aussehen der Kanten so zu normieren, dass die Angabe der Knotenpositionen und der Ports eine Zeichnung vollständig beschreibt.
 
 
 
@@ -374,11 +378,30 @@ Benutzt man jedoch das große 270\textdegree-Kreissegment, schafft man es, die A
 \chapter{Algorithmus}
 \label{chap:algo}
 
+Nachdem nun im Grundlagen-Kapitel~\ref{chap:basics} die nötigen Begriffe definiert wurden, und darauf hingeführt wurde, welche Probleme der Algorithmus lösen muss und welche nicht, wird nun in diesem Kapitel der Algorithmus Schritt für Schritt erklärt.
+
 \section{Übersicht}
 
-Grundlagen-Kapitel~\ref{chap:basics}
+Der Algorithmus erhält als Eingabe einen 4"~planaren, zweifach knotenzusammenhängenden Graphen. Die Ausgabe ist eine glatt-orthogonale SC$_2$ Zeichnung des Graphen.
 
-Zunächst werden nur zweifach knotenzusammenhängende Graphen gezeichnet, mittels Algorithmus~\ref{alg:biconnected}: Für den Graphen wird eine planare Einbettung und eine st-Ordnung bestimmt. Im nächsten Schritt wird ein orthogonales Layout berechnet, welches die Einbettung beibehält und die Knoten in der von der st-Ordnung vorgegebenen Reihenfolge platziert. Dieses orthogonale Layout wird dann verkleinert, wobei stufenförmige Kanten entfernt werden. Das fertige $OC_3$-Layout wird im letzten Schritt in ein $SC_2$-Layout umgesetzt.
+Der Algorithmus berechnet zunächst eine planare Einbettung und eine $st$-Ordnung für den Graphen.
+
+Damit eine Einbettung berechnet werden kann, muss der Graph planar sein. Die fertige Zeichnung wird die hier berechnete Einbettung widerspiegeln. Die planare Einbettung muss lediglich konsistente Sortierungen für die Adjazenzlisten liefern, ansonsten kann sie frei bestimmt werden. Aus der planaren Einbettung wird später die Reihenfolge der Kanten bei der Portzuweisung festgelegt.
+
+Damit eine $st$-Ordnung berechnet werden kann, muss der Graph zweifach zusammenhängend sein. Der Unteralgorithmus zur Berechnung der $st$-Ordnung muss als Eingabe zwei Knoten $s$ und $t$ akzeptieren, die als Quelle und Senke verwendet werden. Die beiden Knoten müssen an die selbe Facette grenzen, diese wird in der Zeichnung die Außenfacette werden. Soll also eine bestimmte Facette die äußere werden, können die beiden Knoten entsprechend gewählt werden. Die resultierende $st$-Ordnung gibt die Reihenfolge an, in der die Knoten im nächsten Schritt platziert werden.
+
+Auf Grundlage der $st$-Ordnung und der planaren Einbettung wird nun in drei Iterationen ein Layout als Vorgabe für die Zeichnung berechnet. 
+
+Die erste Iteration erstellt ein orthogonales Layout für eine OC$_3$-Zeichnung. Es behält die planare Einbettung bei und platziert die Knoten in der von der st-Ordnung vorgegebenen Reihenfolge. Die hier festgelegten Portzuweisungen werden nun nicht mehr verändert, lediglich die Positionen der Knoten werden in den nächsten beiden Iterationen angepasst.
+
+In der zweiten Iteration wird dieses Layout so verkleinert, dass stufenförmige Kanten zu horizontalen Linien konvertiert werden. während vorher alle Knoten eine unterschiedliche Höhen, also y"~Koordinaten, hatten, werden nun mehrere Knoten platzsparend auf einer Höhe untergebracht.
+
+In der dritten Iteration wird das Layout für die OC$_3$-Zeichnung so angepasst, dass es auch als Layout für eine planare SC$_2$-Zeichnung dienen kann. Würde man direkt die glatt-orthogonalen Kanten einzeichnen, wäre die entstandene Zeichnung in vielen Fällen nicht planar. Darum müssen die Knoten so auseinandergezogen werden, dass genug Platz für die Kanten ist und sie überschneidungsfrei verlaufen, aber nicht gleichzeitig andere Kanten so verändert werden, dass sie wiederum neue Überschneidungen bilden.
+
+Wenn das Layout für die SC$_2$-Zeichnung fertig ist, bleibt nur noch als letzter Schritt aus dem Layout eine Zeichnung herzustellen. Dazu muss aus den Portzuweisungen und den Positionen der Knoten relativ zueinander auf die Formen der Kanten geschlossen werden.
+
+Nach Abschluss des letzten Schrittes erhält man eine glatt-orthogonale SC$_2$-Zeichnung des 4"~planaren, zweifach knotenzusammenhängenden Graphen. Die Schritte sind in Algorithmus~\ref{alg:biconnected} zusammengefasst.
+
 
 \begin{algorithm}[ht]
   \SetKw{True}{true}
@@ -388,11 +411,13 @@ Zunächst werden nur zweifach knotenzusammenhängende Graphen gezeichnet, mittel
   \Ein{4-planarer, zweifach knotenzusammenhängender Graph $G = (V,E)$}
   \Aus{$SC_2$-Layout von $G$}
   
-  $\Epsilon \leftarrow$ PlanarEmbedding$(G)$ \;
-  $St \leftarrow$ StOrdering$(G, \Epsilon)$ \;
-  $O \leftarrow$ OrthogonalDrawing$(G,St,\Epsilon)$ \;
+  $\Epsilon \leftarrow$ CalculatePlanarEmbedding$(G)$ \;
+  Wähle zwei Knoten $s, t \in V$ die in $\Epsilon$ an einer Facette liegen.\;
+  $St \leftarrow$ CalculateStOrdering$(G, s, t)$ \;
+  $O \leftarrow$ GenerateOrthogonalLayout$(G,St,\Epsilon)$ \;
   $O' \leftarrow$ EliminateS-Shapes$(O)$ \;
-  $\Gamma \leftarrow$ DrawSmoothEdges$(O')$ \;
+  $O'' \leftarrow$ EliminateCrossings$(O')$ \;
+  $\Gamma \leftarrow$ DrawSmoothEdges$(O'')$ \;
   
   \Return $\Gamma$
 \end{algorithm}
@@ -405,13 +430,13 @@ Zunächst werden nur zweifach knotenzusammenhängende Graphen gezeichnet, mittel
 \cite{hopcroft+tarjan-74} \cite{patrignani-07} \cite{brandes-09}
 
 
-\section{Ermitteln einer st-Ordnung}
+\section{Ermitteln einer $st$-Ordnung}
 
-Im nächsten Schritt wird eine \emph{st-Ordnung} berechnet, eine Reihenfolge der Knoten $v_1, \dots, v_n$, mit $s=v_1$ und $t=v_n$. Jeder Knoten (außer $s$ und $t$) soll mindestens einen Nachbarn mit einem höheren Index und mindestens einen mit einem niedrigeren Index haben. Da die Indizes paarweise verschieden sind, erhalten wir zudem einen gerichteten Graphen, wenn wir die ungerichteten Kanten so ausrichten, dass sie vom niedrigeren Index zum höheren verlaufen.\footnote {Umgekehrt könnten wir aus dem ungerichteten Graphen durch topologisches Sortieren eine st-Ordnung erhalten.}
+Im nächsten Schritt wird eine $st$-Ordnung berechnet, eine Reihenfolge der Knoten $v_1, \dots, v_n$, mit $s=v_1$ und $t=v_n$. Jeder Knoten (außer $s$ und $t$) soll mindestens einen Nachbarn mit einem höheren Index und mindestens einen mit einem niedrigeren Index haben. Da die Indizes paarweise verschieden sind, erhalten wir zudem einen gerichteten Graphen, wenn wir die ungerichteten Kanten so ausrichten, dass sie vom niedrigeren Index zum höheren verlaufen. %\footnote {Umgekehrt könnten wir aus dem ungerichteten Graphen durch topologisches Sortieren eine st-Ordnung erhalten.}
 
-Die st-Ordnung soll mir der planaren Einbettung kompatibel sein, d.h. wir wählen zwei Knoten $s$ und $t$ auf der Außenfacette. Damit haben wir günstige Reihenfolge für die Platzierung der Knoten bei der Berechnung des Layouts. 
+Die $st$-Ordnung soll mir der planaren Einbettung kompatibel sein, d.h. wir wählen zwei Knoten $s$ und $t$ auf der Außenfacette. Damit haben wir eine günstige Reihenfolge für die Platzierung der Knoten bei der Berechnung des Layouts. 
 
-Eine solche st-Ordnung lässt sich mit einer angepassten Tiefensuche und einer passenden Nachbearbeitung für jeden zweifach zusammenhängenden Graphen ermitteln. Ein Beweis in Form eines Linearzeit-Algortihmus findet sich bei Even und Tarjan~\cite{even+tarjan-75}, basierend auf vorherigen Resultaten (\cite{hopcroft+tarjan-74},~\cite{tarjan-72}).
+Eine solche $st$-Ordnung lässt sich mit einer angepassten Tiefensuche und einer passenden Nachbearbeitung für jeden zweifach zusammenhängenden Graphen ermitteln. Ein Beweis in Form eines Linearzeit-Algortihmus findet sich bei Even und Tarjan~\cite{even+tarjan-75}, basierend auf vorherigen Resultaten (\cite{hopcroft+tarjan-74},~\cite{tarjan-72}).
 
 \section{Erstellung eines $OC_3$-Layouts}
 
@@ -448,35 +473,14 @@ Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsp
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{cut_L_slope_correction}
+  \includegraphics[width=0.7\textwidth]{cut_L_slope_correction}
   \caption{Finden eines Schnittes zum Trennen des Graphen in eine linke und einer rechte Seite. Die linke Seite und der untere Knoten können frei nach links verschoben werden, um die Steigung der L"~Kante zu korrigieren. In Schraffur dargestellte Blöcke stehen für nicht weiter spezifizierte Teile des Graphen in der Zeichnung.}
   \label{fig:cutLslopecorrection}
 \end{figure}
 
 
-\section{Übertragen auf allgemeine 4"~planare Graphen}
 
-Algorithmus~\ref{alg:main}
-% TODO: Textchen hierzu
-% TODO: Ans Ende der Sektion schieben
 
-\begin{algorithm}[ht]
-  \SetKw{True}{true}
-  \SetKw{False}{false}
-  \caption{SmoothOrthogonalDraw(Graph $G = (V,E)$}
-  \label{alg:main}
-  \Ein{4-planarer Graph $G = (V,E)$}
-  \Aus{$SC_2$-Layout von $G$}
-  
-  $G_1, \dots, G_n =$ BiconnectedComponents$(G)$ \;
-  
-  \For{$i\leftarrow 1$ \KwTo $n$}{
-    $\Gamma_i \leftarrow$ SmoothOrthogonalDrawBiconnected$(G_i)$ \;
-    MakeRightAngles$(\Gamma_i)$ \;
-  }
-  $\Gamma \leftarrow$ ConnectComponents$(\Gamma_1, \dots, \Gamma_n)$ \;
-  \Return $\Gamma$
-\end{algorithm}
 
 
 \chapter{Implementierung}
