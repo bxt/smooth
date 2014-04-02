@@ -45,7 +45,6 @@
 \graphicspath{{abbildungen/}}
 
 % Eigene Commands:
-\newcommand{\degree}{\ensuremath{^\circ}}
 \newcommand{\go}{glatt-or\-tho\-go\-nal}
 \newcommand{\Go}{Glatt-or\-tho\-go\-nal}
 \newcommand{\Epsilon}{\mathcal{E}}
@@ -81,7 +80,7 @@ Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers and
 % TODO: Was ist das: ? Datenstrukturen, Testdaten, Probleme
 
 \chapter{Einleitung}
-
+\label{chap:intro}
 
 Das automatisierte Zeichnen von Graphen stellt eine Vielzahl von Herausforderungen. 
 Eine Herangehensweise ist es, zunächst einfachere oder speziellere Graphen zu zeichnen. 
@@ -91,7 +90,7 @@ In dieser Arbeit geht es um die Klasse der planaren Graphen. Sie zeichnen sich d
 Eine Anwendung des  automatisierte Zeichnens planarer Graphen ist die computergestützte Erstellung von Layouts für Schaltkreis-Platinen. Hierbei werden Komponenten, wie integrierte Schaltkreise (Chips), als Knoten modelliert und die verbindenden Leiter als Kanten. Da die Leiter im Herstellungsprozesses  aus technischen Überlegungen nur entweder horizontal oder vertikal auf einem Gitter verlaufen können, beschränkt man sich hier auf orthogonale Layouts. Bei solchen orthogonalen Zeichnungen planarer Graphen können nur 4~Kanten je Knoten ohne Überdeckungen verbunden werden. Man nennt diese vier möglichen Richtungen Ports. Die Graphen, die sich so zeichnen lassen gehören zu der Klasse der 4"~planaren Graphen: planare Graphen, deren maximaler Kontengrad~4 ist. Abhängig von der maximalen Anzahl~$k$ der Segmente in einer Kante in einem Layout, teilen wir es in die Klasse $OC_k$ ein.
 
 Orthogonale Layouts wurden in der Vergangenheit auch aufgrund ihrer Praxisrelevanz stark verbessert. Sie sind zur Visualisierung von Graphen für Menschen (etwa für abstrahierte ÖPNV-Netze, Organigramme, UML-Diagramme) jedoch nur schlecht geeignet, da sie schnell unübersichtlich wirken. % TODO: Quelle?, Roberts et al.?
-Natürlich kann Übersichtlichkeit nicht genau definiert werden; jedoch werden die harten 90\degree-Knicke in den Kanten, an denen sich horizontale und vertikale Abschnitte treffen, leicht mit Knotenpunkten verwechselt. Auch wirken sie eher technisch und deshalb für bestimmte Zielgruppen wenig ansprechend.
+Natürlich kann Übersichtlichkeit nicht genau definiert werden; jedoch werden die harten 90\textdegree-Knicke in den Kanten, an denen sich horizontale und vertikale Abschnitte treffen, leicht mit Knotenpunkten verwechselt. Auch wirken sie eher technisch und deshalb für bestimmte Zielgruppen wenig ansprechend.
 
 Um dieses Problem zu lösen, glättet man die Knicke mit Kreisbögen. Man redet dann von glatt-orthogonalen Zeichnungen. Die Kreisbögen gehen tangential in die orthogonal verlaufenden geraden Abschnitte über. Die entstehenden Zeichnungen wirken übersichtlich, freundlich und ästhetisch, was für ansprechende Visualisierungen förderlich ist. Dadurch, dass die Kanten ansonsten trotzdem orthogonal verlaufen, bleibt die Komplexität der Layouts vergleichsweise gering. Man vergleiche hierzu etwa die in Handarbeit gefertigten Soziogramme des Künstlers Mark Lombardi (1951--2000), die u.a. aufgrund ihrer Runden Kanten eine gewisse Ästhetik erreichen, jedoch mangels orthogonaler Gitterstruktur wenig Systematik erkennen lassen. 
 
@@ -135,6 +134,7 @@ optimiert werden kann, im Hinblick auf Komplexität und Platzbedarf.
 
 
 \chapter{Übersicht und Grundlagen}
+\label{chap:basics}
 
 In diesem Abschnitt sollen einige Grundlagen definiert werden. Zu jedem Begriff gibt es eine knappe Definition und einige Anmerkungen zur Relevanz für den Algorithmus. So wird die Problemstellung im Verlauf dieses Abschnittes immer klarer und im nächsten Abschnitt kann der Algorithmus mit den definierten Grundlagen präzise beschrieben werden.
 
@@ -206,17 +206,29 @@ Für \emph{Multigraphen} mit mehreren Kanten zwischen zwei Knoten kommen Variati
 
 Die Hauptaufgabe eines Zeichenalgorithmus ist die Positionierung der Knoten auf einer Zeichenebene. Die berechnete Positionszuweisung heißt Layout. In einer \emph{geradlinigen Zeichnung} werden die Kanten als gerade Linien zwischen den Knoten gezeichnet. Hier bestimmt also die Position der Knoten vollständig das Aussehen der Kanten.
 
-Bei orthogonalen Zeichnungen bestehen die Kanten aus horizontalen und vertikalen Segmenten entlang des Koordinatengitters der Zeichenebene. Eine orthogonale Zeichnung des Beispielgraphen $G_\text{E}$ findet sich in Abbildung~\ref{fig:exampleAorthogonalNocompress}.
+Bei orthogonalen Zeichnungen bestehen die Kanten aus horizontalen und vertikalen Segmenten entlang des Koordinatengitters der Zeichenebene. Zwei verschiedene orthogonale Zeichnungen des Beispielgraphen $G_\text{E}$ finden sich in Abbildung~\ref{fig:exampleAorthogonal}.
 
 \begin{figure}[h]
   \centering
+\begin{subfigure}[b]{0.4\textwidth}
+  \centering
   \includegraphics{exampleA_orthogonalNocompress}
-  \caption{Der Graph $G_\text{E}$ aus Beispiel~\ref{ex:graph} als orthogonale Zeichnung.}
+  \caption{Mit stufenförmiger Kante $\{0,4\}$.}
   \label{fig:exampleAorthogonalNocompress}
+\end{subfigure}
+  \quad
+\begin{subfigure}[b]{0.4\textwidth}
+  \centering
+  \includegraphics{exampleA_orthogonalCompress}
+  \caption{Ohne stufenförmige Kanten.}
+  \label{fig:exampleAorthogonalCompress}
+\end{subfigure}
+
+  \caption{Der Graph $G_\text{E}$ aus Beispiel~\ref{ex:graph} in orthogonalen Zeichnungen.}
+  \label{fig:exampleAorthogonal}
 \end{figure}
 
-
-Bei orthogonalen Zeichnungen gibt es eine Vielzahl von Möglichkeiten für das Aussehen der Kanten: An den Gitterpunkten kann entweder zuerst horizontal oder zunächst vertikal weiter gezeichnet werden. Wird immer abwechselnd horizontal und vertikal gezeichnet, entstehen viele Knicke in den Kanten.
+Bei orthogonalen Zeichnungen gibt es eine Vielzahl von Möglichkeiten für das Aussehen der Kanten: An den Gitterpunkten kann entweder zuerst horizontal oder zunächst vertikal weiter gezeichnet werden. Wird immer abwechselnd horizontal und vertikal gezeichnet, entstehen viele Knicke in den Kanten. Man gibt die \emph{Komplexität} einer orthogonalen Zeichnung in Abhängigkeit der größten Anzahl von Segmenten $k$ in einer Kante dieser Zeichnung an, und nennt sie dann eine \emph{$\text{OC}_k$-Zeichnung}. Die Abbildung~\ref{fig:exampleAorthogonal} enthält somit zwei OC$_3$-Zeichnungen, da die Kante $\{0,4\}$ jeweils aus drei Segmenten besteht.
 
 Eine Möglichkeit, das Aussehen der zu normieren und gleichzeitig die Anzahl der Knicke zu minimieren, wäre es, immer zunächst den vollständigen horizontalen Weg am unteren Knoten und dann den vertikalen Weg nach oben zu zeichnen, sodass jede Kante L"~förmig ist. Hierbei kommt es jedoch zu Überschneidungen, wenn beispielsweise zwei Kanten einen Knoten in die selbe Richtung verlassen. Überschneidungen sorgen für Zweideutigkeiten in der Zeichnung und sollen vermieden werden. Deshalb weißt man den Kanten an jedem Knoten einen Port aus der Menge $\{\text{L, R, T, B}\}$, also Links, Rechts, Top (oben) oder Bottom (unten) zu. Die Richtungen der Ports sind auch in Abbildung~\ref{fig:coords} zu erkennen.
 \\
@@ -318,29 +330,53 @@ Die $st$-Ordnung hat in planaren Graphen noch eine weitere Eigenschaft, wenn man
 
 \section{Glatt-orthogonale Zeichnungen}
 
-Für das berechnen orthogonaler Zeichnungen sind viele Algorithmen bekannt. Hier geht es jedoch um eine interessante Variation von orthogonalen Zeichnungen: \emph{Glatt-orthogonale Zeichnungen} von Graphen nach Bkos~et.~al.~\cite{bekos-13}. Sie platzieren die Knoten, wie orthogonale Zeichnungen auch, auf einem Koordinatengitter und erlauben horizontale und vertikale Segmente. Zusätzlich enthalten sie jedoch Kreisbögen, die tangential in die geraden Segmente übergehen. Sie in insofern "`glatt"', als dass sie keine Ecken in den Kanten haben, da die 90\textdegree"~Knicke durch Kreissegmente abgerundet werden. 
-
-\begin{figure}[h]
-  \centering
-  \includegraphics{exampleA_smooth}
-  \caption{Der Graph $G_\text{E}$ aus Beispiel~\ref{ex:graph} als glatt-orthogonale Version der Zeichnung aus Abbildung~\ref{fig:exampleAorthogonalCompress}. Die Knickpunkte zwischen zwei Segmenten einer Kante sind als Kreuze eingezeichnet. } % TODO: Seltsame vorwärts-Referenz auf andere Zeichnung
-  \label{fig:exampleAsmooth}
-\end{figure}
+Für das berechnen orthogonaler Zeichnungen sind viele Algorithmen bekannt. Hier geht es jedoch um eine interessante Variation von orthogonalen Zeichnungen: \emph{Glatt-orthogonale Zeichnungen} von Graphen nach Bkos~et.~al.~\cite{bekos-13}. Sie platzieren die Knoten, wie orthogonale Zeichnungen auch, auf einem Koordinatengitter und erlauben horizontale und vertikale Segmente. Zusätzlich enthalten sie jedoch Kreisbögen, die tangential in die geraden Segmente übergehen, wie in Abbildung~\label{ref:cutLslopecorrection}. Sie in insofern "`glatt"', als dass sie keine Ecken in den Kanten haben, da die 90\textdegree"~Knicke durch Kreissegmente abgerundet sind.
 
 \begin{figure}[h]
   \centering
   \includegraphics{anatomieLKante}
-  \caption{Bezeichnungen in glatt-orthogonalen Zeichnungen anhand der L"~Kante: (i) oberer Knoten, (ii) Kreissegment, (iii) Knick, (iv) Liniensegment, (v) unterer Knoten.}
+  \caption{Bezeichnungen in glatt-orthogonalen Zeichnungen anhand der L"~Kante: (i) oberer Knoten, (ii) 90\textdegree-Kreissegment, (iii) Knick, (iv) horizontales Liniensegment, (v) unterer Knoten.}
   \label{fig:cutLslopecorrection}
 \end{figure}
 
+Zwei Beispiele für glatt-orthogonale Zeichnungen finden sich in Abbildung~\ref{fig:exampleAsmooth}. In der Zeichnung~\ref{fig:exampleAsmoothSimple} fällt die lange Kante $\{0,4\}$ mit einem 270\textdegree-Kreissegment auf.
 
-% TODO: mehr... Komplexität, basics etc.
+\begin{figure}[h]
+  \centering
+\begin{subfigure}[b]{0.3\textwidth}
+  \centering
+  \includegraphics{exampleA_smoothComplex}
+  \caption{Mit Kante $\{0,4\}$ aus drei Segmenten.}
+  \label{fig:exampleAsmoothComplex}
+\end{subfigure}
+  \quad
+\begin{subfigure}[b]{0.6\textwidth}
+  \centering
+  \includegraphics{exampleA_smooth}
+  \caption{Mit Kante $\{0,4\}$ aus zwei Segmenten.}
+  \label{fig:exampleAsmoothSimple}
+\end{subfigure}
+  \caption{Der Graph $G_\text{E}$ aus Beispiel~\ref{ex:graph} in zwei glatt-orthogonalen Versionen der Zeichnung aus Abbildung~\ref{fig:exampleAorthogonalCompress}. Die Knickpunkte zwischen zwei Segmenten einer Kante sind als Kreuze eingezeichnet.}
+  \label{fig:exampleAsmooth}
+\end{figure}
+
+Ebenso, wie bei orthogonalen Zeichnungen, gibt man die \emph{Komplexität} einer glatt-orthogonalen Zeichnung in Abhängigkeit der größten Anzahl von Segmenten $k$ in einer Kante dieser Zeichnung an, und nennt sie dann eine \emph{$\text{SC}_k$-Zeichnung}. Ein triviale Umwandlung einer orthogonalen Zeichnung in eine glatt-orthogonale Zeichnung wäre es, alle 90\textdegree-Knicke durch 90\textdegree-Kreissegmente mit dem Radius einer Gittereinheit zu ersetzen.
+
+Konvertiert man die Kante $\{0,4\}$, wie sie in der OC$_3$-Zeichnung aus Abbildung~\ref{fig:exampleAorthogonalNocompress} zu sehen ist, auf diese Methode, erhielte man drei Segmente, zu sehen in der Zeichnung~\ref{fig:exampleAsmoothComplex}. Wäre das obere horizontale Segment etwas länger, erhielte man gar fünf Segmente, und somit wäre die resultierende Zeichnung von der Komplexität SC$_5$.
+
+Benutzt man jedoch das große 270\textdegree-Kreissegment, schafft man es, die Anzahl der Segmente auf zwei zu reduzieren und man erhält eine SC$_2$-Zeichnung. Wir streben nun Zeichnungen mit möglichst niedriger Komplexität an. Es gibt nicht für alle 4"~planare Graphen eine SC$_1$-Zeichnung, und solche Zeichnungen haben u.U. einen vergleichsweise Großen Platzbedarf. Eine SC$_2$-Zeichnung ist jedoch stets möglich, wie anhand des Algorithmus zu sehen ist. Auch sie haben im Allgemeinen einen größeren Platzbedarf als die SC$_5$-Zeichnung der trivialen Umwandlung, dies ist jedoch ein Kompromiss, der für die geringere Kantenkomplexität eingegangen werden muss. % TODO: Proof? Elaborate? idk
+
+
+
+
 
 
 \chapter{Algorithmus}
+\label{chap:algo}
 
 \section{Übersicht}
+
+Grundlagen-Kapitel~\ref{chap:basics}
 
 Zunächst werden nur zweifach knotenzusammenhängende Graphen gezeichnet, mittels Algorithmus~\ref{alg:biconnected}: Für den Graphen wird eine planare Einbettung und eine st-Ordnung bestimmt. Im nächsten Schritt wird ein orthogonales Layout berechnet, welches die Einbettung beibehält und die Knoten in der von der st-Ordnung vorgegebenen Reihenfolge platziert. Dieses orthogonale Layout wird dann verkleinert, wobei stufenförmige Kanten entfernt werden. Das fertige $OC_3$-Layout wird im letzten Schritt in ein $SC_2$-Layout umgesetzt.
 
@@ -395,14 +431,6 @@ Für die Kante des oberen Ports wird ein Kantenort in der Spalte des Knotens ver
 Ist der Algorithmus bei $v_n$ angekommen, sind alle Knoten eingebettet. Zuletzt nummerieren wir die Spalten durch und weisen den darin platzierten Knoten diese Nummer als x"~Koordinate zu. 
 
 \section{Eliminierung der stufenförmigen Kanten}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics{exampleA_orthogonalCompress}
-  \caption{Die orthogonale Zeichnung aus Abbildung~\ref{fig:exampleAorthogonalNocompress} ohne S-förmige Kanten.}
-  \label{fig:exampleAorthogonalCompress}
-\end{figure}
-
 
 Das im letzten Schritt erstellte $OC_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden.
 
