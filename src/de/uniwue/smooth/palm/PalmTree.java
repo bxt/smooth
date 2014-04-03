@@ -247,7 +247,7 @@ public class PalmTree<V,E> {
 			lowerVertices.put(v, w);
 			backwards.put(v, new ImmutableTuple<V, E>(w, e));
 		} else {
-			// v is a separation point for the biconnected block
+			// v is probably a separation point for the biconnected block
 		}
 	}
 
