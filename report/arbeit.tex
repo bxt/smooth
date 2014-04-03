@@ -172,14 +172,14 @@ Einfache Graphen können im Computer als \emph{Adjazenzmatrix} $(a_{i,j})$ darge
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=0.6\textwidth]{exampleA_straightline}
+                \includegraphics[width=0.6\textwidth]{exampleA/straightline}
                 \caption{Ohne Überschneidungen.}
                 \label{fig:exampleAstraightline}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=0.52\textwidth]{exampleA_straightlineNonplanar}
+                \includegraphics[width=0.52\textwidth]{exampleA/straightlineNonplanar}
                 \caption{Mit Überschneidungen.}
                 \label{fig:exampleAstraightlineNonplanar}
         \end{subfigure}
@@ -212,14 +212,14 @@ Bei orthogonalen Zeichnungen bestehen die Kanten aus horizontalen und vertikalen
   \centering
 \begin{subfigure}[b]{0.4\textwidth}
   \centering
-  \includegraphics{exampleA_orthogonalNocompress}
+  \includegraphics{exampleA/orthogonalNocompress}
   \caption{Mit stufenförmiger Kante $\{0,4\}$.}
   \label{fig:exampleAorthogonalNocompress}
 \end{subfigure}
   \quad
 \begin{subfigure}[b]{0.4\textwidth}
   \centering
-  \includegraphics{exampleA_orthogonalCompress}
+  \includegraphics{exampleA/orthogonalCompress}
   \caption{Ohne stufenförmige Kanten.}
   \label{fig:exampleAorthogonalCompress}
 \end{subfigure}
@@ -339,13 +339,13 @@ Die $st$-Ordnung hat in planaren Graphen noch eine weitere Eigenschaft, wenn man
 
 \section{Glatt-orthogonale Zeichnungen}
 
-Für das berechnen orthogonaler Zeichnungen sind viele Algorithmen bekannt. Hier geht es jedoch um eine interessante Variation von orthogonalen Zeichnungen: \emph{Glatt-orthogonale Zeichnungen} von Graphen nach Bekos~et.~al.~\cite{bekos-13}. Sie platzieren die Knoten, wie orthogonale Zeichnungen auch, auf einem Koordinatengitter und erlauben horizontale und vertikale Segmente. Zusätzlich enthalten sie jedoch Kreisbögen, die tangential in die geraden Segmente übergehen, wie in Abbildung~\label{ref:cutLslopecorrection}. Sie in insofern "`glatt"', als dass sie keine Ecken in den Kanten haben, da die 90\textdegree"~Knicke durch Kreissegmente abgerundet sind.
+Für das berechnen orthogonaler Zeichnungen sind viele Algorithmen bekannt. Hier geht es jedoch um eine interessante Variation von orthogonalen Zeichnungen: \emph{Glatt-orthogonale Zeichnungen} von Graphen nach Bekos~et.~al.~\cite{bekos-13}. Sie platzieren die Knoten, wie orthogonale Zeichnungen auch, auf einem Koordinatengitter und erlauben horizontale und vertikale Segmente. Zusätzlich enthalten sie jedoch Kreisbögen, die tangential in die geraden Segmente übergehen, wie in Abbildung~\ref{fig:anatomieLKante}. Sie in insofern "`glatt"', als dass sie keine Ecken in den Kanten haben, da die 90\textdegree"~Knicke durch Kreissegmente abgerundet sind.
 
 \begin{figure}[h]
   \centering
   \includegraphics{anatomieLKante}
   \caption{Bezeichnungen in glatt-orthogonalen Zeichnungen anhand der L"~Kante: (i) oberer Knoten, (ii) 90\textdegree-Kreissegment, (iii) Knick, (iv) horizontales Liniensegment, (v) unterer Knoten.}
-  \label{fig:cutLslopecorrection}
+  \label{fig:anatomieLKante}
 \end{figure}
 
 Zwei Beispiele für glatt-orthogonale Zeichnungen finden sich in Abbildung~\ref{fig:exampleAsmooth}. In der Zeichnung~\ref{fig:exampleAsmoothSimple} fällt die lange Kante $\{0,4\}$ mit einem 270\textdegree-Kreissegment auf.
@@ -354,14 +354,14 @@ Zwei Beispiele für glatt-orthogonale Zeichnungen finden sich in Abbildung~\ref{
   \centering
 \begin{subfigure}[b]{0.3\textwidth}
   \centering
-  \includegraphics{exampleA_smoothComplex}
+  \includegraphics{exampleA/smoothComplex}
   \caption{Mit Kante $\{0,4\}$ aus drei Segmenten.}
   \label{fig:exampleAsmoothComplex}
 \end{subfigure}
   \quad
 \begin{subfigure}[b]{0.6\textwidth}
   \centering
-  \includegraphics{exampleA_smooth}
+  \includegraphics{exampleA/smooth}
   \caption{Mit Kante $\{0,4\}$ aus zwei Segmenten.}
   \label{fig:exampleAsmoothSimple}
 \end{subfigure}
@@ -534,16 +534,16 @@ Für die Erstellung des $OC_3$-Layouts werden die Knoten in der Reihenfolge der 
 \begin{figure}[h]
         \centering
         \subcaptionbox{1\label{fig:embedindeg1}}
-            {\includegraphics[scale=.8]{oc2_embed_incoming_indeg1}}
+            {\includegraphics[scale=.8]{oc2_embed/incoming/indeg1}}
         \quad
         \subcaptionbox{2\label{fig:embedindeg2}}
-            {\includegraphics[scale=.8]{oc2_embed_incoming_indeg2}}
+            {\includegraphics[scale=.8]{oc2_embed/incoming/indeg2}}
         \quad
         \subcaptionbox{3\label{fig:embedindeg3}}
-            {\includegraphics[scale=.8]{oc2_embed_incoming_indeg3}}
+            {\includegraphics[scale=.8]{oc2_embed/incoming/indeg3}}
         \quad
         \subcaptionbox{4\label{fig:embedindeg4}}
-            {\includegraphics[scale=.8]{oc2_embed_incoming_indeg4}}
+            {\includegraphics[scale=.8]{oc2_embed/incoming/indeg4}}
 
         \caption{Die Portzuweisung der bisher offenen Kanten je nach Eingangsgrad. Dick gezeichnet sind die eingehenden Kanten, gestrichelte Kanten sind mögliche Positionen von Ausgehenden Kanten.}
         \label{fig:embedin}
@@ -554,19 +554,19 @@ Für die eingehenden Kanten werden, wie in Abbildung~\ref{fig:embedin} gezeigt, 
 \begin{figure}[h]
         \centering
         \subcaptionbox{0\label{fig:embedoutdeg0}}
-            {\includegraphics[scale=.8]{oc2_embed_outgoing_outdeg0}}
+            {\includegraphics[scale=.8]{oc2_embed/outgoing/outdeg0}}
         \quad
         \subcaptionbox{1\label{fig:embedoutdeg1}}
-            {\includegraphics[scale=.8]{oc2_embed_outgoing_outdeg1}}
+            {\includegraphics[scale=.8]{oc2_embed/outgoing/outdeg1}}
         \quad
         \subcaptionbox{2\label{fig:embedoutdeg2}}
-            {\includegraphics[scale=.8]{oc2_embed_outgoing_outdeg2}}
+            {\includegraphics[scale=.8]{oc2_embed/outgoing/outdeg2}}
         \quad
         \subcaptionbox{3\label{fig:embedoutdeg3}}
-            {\includegraphics[scale=.8]{oc2_embed_outgoing_outdeg3}}
+            {\includegraphics[scale=.8]{oc2_embed/outgoing/outdeg3}}
         \quad
         \subcaptionbox{4\label{fig:embedoutdeg4}}
-            {\includegraphics[scale=.8]{oc2_embed_outgoing_outdeg4}}
+            {\includegraphics[scale=.8]{oc2_embed/outgoing/outdeg4}}
 
         \caption{Die Portzuweisung der neuen offenen Kanten und die neuen Spalten je nach Ausgangsgrad. Dick gezeichnet sind die ausgehenden Kanten, schraffierte Abschnitte stellen bisher gezeichnete Teile des Graphen dar.}
         \label{fig:embedout}
@@ -628,43 +628,43 @@ Es wurden also Daten aus dem Rom-Testgraphen entnommen oder direkt in yEd erstel
 \begin{figure}[h]
         \centering
         \begin{subfigure}[b]{0.2\textwidth}
-                \includegraphics[width=0.5\textwidth]{schnitt_finden_top_none}
+                \includegraphics[width=0.5\textwidth]{schnitt_finden/top_none}
                 \caption{Oberhalb,\\ keine Kante}
                 \label{fig:cutfinding_top_none}
         \end{subfigure}%
         \quad
         \begin{subfigure}[b]{0.2\textwidth}
-                \includegraphics[width=\textwidth]{schnitt_finden_top_upwards}
+                \includegraphics[width=\textwidth]{schnitt_finden/top_upwards}
                 \caption{Oberhalb, Kante \\ nach oben}
                 \label{fig:cutfinding_top_upwards}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.2\textwidth}
-                \includegraphics[width=\textwidth]{schnitt_finden_top_downwardsL}
+                \includegraphics[width=\textwidth]{schnitt_finden/top_downwardsL}
                 \caption{Oberhalb, L"~Kante \\ nach unten}
                 \label{fig:cutfinding_top_downwardsL}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.2\textwidth}
-                \includegraphics[width=\textwidth]{schnitt_finden_top_downwardsC}
+                \includegraphics[width=\textwidth]{schnitt_finden/top_downwardsC}
                 \caption{Oberhalb, C"~Kante \\ nach unten}
                 \label{fig:cutfinding_top_downwardsC}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.2\textwidth}
-                \includegraphics[width=\textwidth]{schnitt_finden_bot_aboveL}
+                \includegraphics[width=\textwidth]{schnitt_finden/bot_aboveL}
                 \caption{Unterhalb, über eine \\ L"~Kante}
                 \label{fig:cutfinding_bot_aboveL}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.2\textwidth}
-                \includegraphics[width=0.25\textwidth]{schnitt_finden_bot_vertical}
+                \includegraphics[width=0.25\textwidth]{schnitt_finden/bot_vertical}
                 \caption{Unterhalb, entlang einer vertikalen Kante}
                 \label{fig:cutfinding_bot_vertical}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.2\textwidth}
-                \includegraphics[width=\textwidth]{schnitt_finden_bot_belowL}
+                \includegraphics[width=\textwidth]{schnitt_finden/bot_belowL}
                 \caption{Unterhalb, \\ unter eine \\ L-Kante}
                 \label{fig:cutfinding_bot_belowL}
         \end{subfigure}
