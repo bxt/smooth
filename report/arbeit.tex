@@ -147,7 +147,7 @@ Zunächst sollte natürlich definiert werden, was überhaupt visualisiert werden
   Die $v \in V$ heißen \emph{Knoten}, die $e \in E$ \emph{Kanten}.
 \end{definition}
 
-Graphen bilden die Eingabe für die Zeichenalgorithmen. Die hier behandelten Graphen werden auch \emph{Netzwerkgraphen} genannt, sie beschreiben Verbindungen zwischen Elementen als Kanten zwischen Knoten. 
+Graphen bilden die Eingabe für die Zeichenalgorithmen. Die hier behandelten Graphen beschreiben Verbindungen zwischen Elementen als Kanten zwischen Knoten. 
 
 \begin{example}
   \label{ex:graph}
@@ -329,12 +329,74 @@ des Weiteren heißt der Knoten $s$ auch \emph{Quelle} und $t$ \emph{Senke}. Durc
 
 Die $st$-Ordnung hat in planaren Graphen noch eine weitere Eigenschaft, wenn man die planare Einbettung betrachtet. In der Adjazenzliste eines Knotens folgen sind Kanten, die zu einem Knoten mit höherer Zahl, in einem Block aufeinander, ebenso solche die zu einem Knoten mit niedriger Zahl führen. Es gibt also an jedem Knoten zwei Bündel von Kanten, die sich nicht überschneiden; eines mit Kanten zu höherwertigen Knoten und eines mit Kanten zu minderwertigen Knoten im Hinblick auf die $st$-Ordnung.
 
+\section{Orientierte Graphen und Tiefensuche}
 
-% Gerichtete Graphen, Graph<=>Relation...
+Nachdem nun einige Definitionen besprochen wurden, gibt es noch eine algorithmische Grundlage, die im Verlauf des Algorithmus mehrmals verwendet wird, die Tiefensuche. Sie wurde von Tarjan~\cite{tarjan-72} formalisiert. Konträr zum Namen werden jedoch oft keine Knoten gesucht, sondern vielmehr ein Tiefensuchenbaum konstruiert.
+
+Bei der Tiefensuche wird der Graph orientiert. Ein \emph{orientierter Graph} eines Graphen $G = (V, E)$ weißt den Knoten jeder Kante eine Reihenfolge zu. Jede Kante $e \in E$ ist also ein geordnetes Paar $e = (v_\text{A}, v_\text{B})$ und die Kanten bekommen damit eine Richtung, sie zeigen von $v_\text{A}$ nach $v_\text{B}$. Man nennt $v_\text{A}$ \emph{Vorgänger} von $v_\text{B}$ und $v_\text{B}$ heißt Nachfolger von $v_\text{A}$. 
+
+Schon aus einer $st$-Ordnung könnte ein orientierter Graph gewonnen werden, indem die Kanten von einem Knoten mit höherer Zahl zu einem mit niedrigerer Orientiert werden. Die Tiefensuche liefert eine andere Orientierung.
+
+Im Verlauf der Tiefensuche nach Algorithmus~\ref{alg:dfs} wird nicht nur ein orientierter Graph berechnet, jedem Knoten wird eine \emph{Auffindungszeit} zugeweisen, und eine Partition der Kanten $E = E_\text{T} \cup E_\text{R}$ wird erstellt. Man nennt die Kanten $e_\text{T} \in E_\text{T}$ \emph{Baumkanten} und die übrigen Kanten $e_\text{R} \in E_\text{R} =  E \setminus E_\text{T}$ \emph{Rückwärtskanten}. Die Baumkanten zeigen jeweils von einem Knoten mit niedrigerer Auffindungszeit zu einem mit höherer. Die Startknoten, die \emph{Wurzeln}, haben keine eingehende Baumkante, jeder andere Knoten hat genau eine. Die Rückwärtskanten zeigen jeweils von einem Knoten mit höherer Auffindungszeit zu einem mit niedrigerer. Das Tupel der beiden Mengen von gerichteten Kanten $(E_T, E_R)$ nennen wir \emph{Tiefensuchenbaum} (englisch \emph{palm tree}).
+
+Im Algorithmus~\ref{alg:dfs} sind die Knoten, die in Zeile~\ref{alg:dfs:nl:connectedStart} behandelt werden Wurzeln, in Zeile~\ref{alg:dfs:nl:treeEdge} wird eine Kante orientiert und als Baumkante kategorisiert, in Zeile~\ref{alg:dfs:nl:backEdge} als Rückwärtskante.
+
+\begin{algorithm}[ht]
+  \SetKw{True}{true}
+  \SetKw{False}{false}
+  \SetKwBlock{Visit}{Visit(v)}{end}
+  \caption{BuildPalmTree(Graph $G = (V,E)$)}
+  \label{alg:dfs}
+  \Ein{ungerichteter Graph $G = (V,E)$}
+  \Aus{Tiefensuchenbaum $(E_T, E_R)$ von $G$}
+\BlankLine
+  $E_T \leftarrow \emptyset$, $E_R \leftarrow \emptyset$ \;
+  \For{$v \in V$}{
+    $v$.discoveryTime $\leftarrow \perp$ \;
+  }
+  $i := 0$ \;
+\BlankLine
+  \For{$v \in V$}{
+    \If{$v$.discoveryTime == $\perp$}{
+      Visit$(v)$ \; \nllabel{alg:dfs:nl:connectedStart}
+    }
+  }
+\BlankLine
+  \Visit{
+    $v$.discoveryTime $\leftarrow i$ \;
+    $i \leftarrow i+1$ \;
+    \For{$w \in A(v)$}{
+      \If{$w$.discoveryTime == $\perp$}{ \nllabel{alg:dfs:nl:decide}
+        $E_T \leftarrow E_T \cup \{(v, w)\}$ \; \nllabel{alg:dfs:nl:treeEdge}
+        Visit(w) \; \nllabel{alg:dfs:nl:recur}
+      }
+      \Else{
+        \If{$w$.discoveryTime < $v$.discoveryTime {\bf and}  $(v, w) \notin E_T$}{
+          $E_R \leftarrow E_R \cup \{(v, w)\}$\; \nllabel{alg:dfs:nl:backEdge}
+        }
+      }
+    }
+  }
+\BlankLine
+    \Return\{$(E_T, E_R)$\}
+\end{algorithm}
+
+Der Algorithmus ist so Grundlegend für viele der kommenden Algorithmen, da er zu mehr als der Berechnung eines Tiefensuchenbaums verwendet werden kann, indem man entsprechende Zeilen einfügt. 
+
+Beispielsweise die Zusammenhangskomponenten eines Graphen können bestimmt werden, da jedes mal, wenn Zeile \ref{alg:dfs:nl:connectedStart} erreicht wird, alle folgenden Knoten zu einer neuen Zusammenhangskomponente gehören. Ist ein Graph zusammenhängend, gibt es somit nur eine Wurzel.
+
+Die Höhe eines Knotens im Tiefensuchenbaum ist die Länge des Weges von Baumkanten von der Wurzel zum Knoten. Sie kann im Verlauf der Tiefensuche mit abgespeichert werden, indem man vor Zeile~\ref{alg:dfs:nl:connectedStart} die Anweisung $v.$height $\leftarrow 0$ einfügt, und vor Zeile~\ref{alg:dfs:nl:recur} die Anweisung $w.$height $\leftarrow v.$height$ + 1$.
+
+
+Für die Bestimmung von 2"~Zusammenhangskomponenten benötigt man das Konzept des \emph{Rückwegs}: Von einem Knoten $v$ kann man den Baumkanten zu Knoten mit höherer Auffindungszeit folgen. Von diesen Knoten können Rückwärtskanten ausgehen, die mitunter zu Knoten mit einer kleineren Auffindungszeit als der von $v$ führen. Den Knoten mit der niedrigsten Auffindungszeit, den wir auf diese Weise vom Knoten $v$ erreichen können, nennen wir \emph{Rückpunkt}. Hat ein Knoten sich selbst als Rückpunkt, kann also kein niedrigerer Knoten erreicht werden, so ist er Trenner von 2"~Zusammenhangskomponenten.
+
+Beim berechnen der planaren Einbettung wird dieses Konzept Anwendung finden.
+
+% Graph<=>Relation...
 
 \section{Glatt-orthogonale Zeichnungen}
 
-Für das berechnen orthogonaler Zeichnungen sind viele Algorithmen bekannt. Hier geht es jedoch um eine interessante Variation von orthogonalen Zeichnungen: \emph{Glatt-orthogonale Zeichnungen} von Graphen nach Bkos~et.~al.~\cite{bekos-13}. Sie platzieren die Knoten, wie orthogonale Zeichnungen auch, auf einem Koordinatengitter und erlauben horizontale und vertikale Segmente. Zusätzlich enthalten sie jedoch Kreisbögen, die tangential in die geraden Segmente übergehen, wie in Abbildung~\label{ref:cutLslopecorrection}. Sie in insofern "`glatt"', als dass sie keine Ecken in den Kanten haben, da die 90\textdegree"~Knicke durch Kreissegmente abgerundet sind.
+Für das berechnen orthogonaler Zeichnungen sind viele Algorithmen bekannt. Hier geht es jedoch um eine interessante Variation von orthogonalen Zeichnungen: \emph{Glatt-orthogonale Zeichnungen} von Graphen nach Bekos~et.~al.~\cite{bekos-13}. Sie platzieren die Knoten, wie orthogonale Zeichnungen auch, auf einem Koordinatengitter und erlauben horizontale und vertikale Segmente. Zusätzlich enthalten sie jedoch Kreisbögen, die tangential in die geraden Segmente übergehen, wie in Abbildung~\label{ref:cutLslopecorrection}. Sie in insofern "`glatt"', als dass sie keine Ecken in den Kanten haben, da die 90\textdegree"~Knicke durch Kreissegmente abgerundet sind.
 
 \begin{figure}[h]
   \centering
@@ -425,9 +487,10 @@ Nach Abschluss des letzten Schrittes erhält man eine glatt-orthogonale SC$_2$-Z
 
 \section{Bestimmung einer planaren Einbettung}
 
-% TODO
+Da am Ende eine planare Zeichnung entstehen soll, wird zuerst eine planare Einbettung berechnet. Hierbei wird auch geprüft, ob der Graph überhaupt planar ist, d.h. ob es möglich ist eine planare Einbettung zu erstellen. 
 
-\cite{hopcroft+tarjan-74} \cite{patrignani-07} \cite{brandes-09}
+Zum Prüfen auf Planaritätseigenschaft gibt es diverse Algorithmen, die bei Patrignani~\cite{patrignani-07} vorgestellt und verglichen werden. Der erste effiziente Linearzeit-Algoritmus wurde von Hopcroft und Tarjan~\cite{hopcroft+tarjan-74} veröffentlicht, jedoch ist er sehr schwer zu implementieren , somit wurde für die Implementierung nach einer Alternative gesucht. Dass dann der Links-Rechts-Planaritätstest wie von Brandes~\cite{brandes-09} beschrieben ausgewählt wurde, begründet sich mit zweierlei Abwägungen. Zum einen ist es wichtig, dass nicht nur die Planarität getestet wird, sondern auch eine planare Einbettung angegeben werden kann, damit diese für das Zeichnen zur Verfügung steht. Dies wurde bei Brandes mittels vergleichsweise geringem Aufwand realisiert. Zum anderen liefert Brandes eine Beschreibung, die eine Implementierung begünstigt, da zu den Schritten sehr detaillierter Pseudocode angegeben wird.
+
 
 
 \section{Ermitteln einer $st$-Ordnung}
@@ -439,6 +502,8 @@ Die $st$-Ordnung soll mir der planaren Einbettung kompatibel sein, d.h. wir wäh
 Eine solche $st$-Ordnung lässt sich mit einer angepassten Tiefensuche und einer passenden Nachbearbeitung für jeden zweifach zusammenhängenden Graphen ermitteln. Ein Beweis in Form eines Linearzeit-Algortihmus findet sich bei Even und Tarjan~\cite{even+tarjan-75}, basierend auf vorherigen Resultaten (\cite{hopcroft+tarjan-74},~\cite{tarjan-72}).
 
 \section{Erstellung eines $OC_3$-Layouts}
+
+\cite{liu+etal-98} \cite{biedl+kant-98}
 
 Für die Erstellung des $OC_3$-Layouts erhalten wir die Knoten in der Reihenfolge der $st$-Ordnung $v_1, \dots, v_n$. Durch die st-Ordnung erhalten wir zudem gerichtete Kanten und die Knoten haben somit einen Eingangsgrad und einen Ausgangsgrad, die sich, wegen der 4"~Planariät, zu maximal 4 addieren. Außer $v_1$ und $v_n$ liegt bei den Knoten der Eingangsgrad und der Ausgangsgrad zwischen 1 und 3, da sie mindestens eine eingehende und mindestens eine ausgehende Kante haben. Die planare Einbettung $E$ gibt uns an jedem Knoten eine Reihenfolge der Kanten zu den adjazenten Knoten an. Ein- und Ausgehende Kanten liegen hierbei in zwei Abschnitten jeweils zusammen beieinander.
 
