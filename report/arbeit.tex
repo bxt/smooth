@@ -317,7 +317,7 @@ In dieser Sicht ist die reflexiv-transitive Hülle der Benachbart-Relation eine 
 
 Ein Kreis ist ein zweifach zusammenhängender Graph, da durch Hinwegnahme eines Knotens ein zusammenhängender Weg entsteht. Ein Baum ist nicht zweifach knotenzusammenhängend, da durch Hinwegnahme der Wurzel, die Kinder nicht mehr zusammenhängend sind.
 
-Die Zweifach-Zusammenhangskomponenten eines Graphen bilden einen Baum.
+Die Zweifach-Zusammenhangskomponenten eines Graphen bilden einen Baum. Jede Kante liegt in genau einer Zweifach-Zusammenhangskomponente.
 
 Ein zweifach zusammenhängender Graph ist die Grundlage für eine weiteres Element das Zeichenalgorithmus:
 
@@ -424,7 +424,7 @@ Nach Abschluss des letzten Schrittes erhält man eine glatt-orthogonale SC$_2$-Z
 
 Eine algorithmische Grundlage, die im Verlauf des Algorithmus mehrmals verwendet wird, die Tiefensuche. Sie wurde von Tarjan~\cite{tarjan-72} formalisiert. Konträr zum Namen werden jedoch oft keine Knoten gesucht, sondern vielmehr ein Tiefensuchenbaum konstruiert.
 
-Bei der Tiefensuche wird der Graph orientiert. Ein \emph{orientierter Graph} eines Graphen $G = (V, E)$ weißt den Knoten jeder Kante eine Reihenfolge zu. Jede Kante $e \in E$ ist also ein geordnetes Paar $e = (v_\text{A}, v_\text{B})$ und die Kanten bekommen damit eine Richtung, sie zeigen von $v_\text{A}$ nach $v_\text{B}$. Man nennt $v_\text{A}$ \emph{Vorgänger} von $v_\text{B}$ und $v_\text{B}$ heißt Nachfolger von $v_\text{A}$. 
+Bei der Tiefensuche wird der Graph orientiert. Ein \emph{orientierter Graph} eines Graphen $G = (V, E)$ weißt den Knoten jeder Kante eine Reihenfolge zu. Jede Kante $e \in E$ ist also ein geordnetes Paar $e = (v_\text{A}, v_\text{B})$ und die Kanten bekommen damit eine Richtung, sie zeigen von $v_\text{A}$ nach $v_\text{B}$. Man nennt $v_\text{A}$ \emph{Vorgänger} von $v_\text{B}$ und $v_\text{B}$ heißt Nachfolger von $v_\text{A}$. Die Kante ist eine \emph{ausgehende Kante} von $v_\text{A}$ und eine \emph{eingehende Kante} von $v_\text{B}$. Die Anzahl der ausgehenden Kanten eines Knotens heißt sein Ausgangsgrad, analog gibt es den Eingangsgrad.
 
 Schon aus einer $st$-Ordnung könnte ein orientierter Graph gewonnen werden, indem die Kanten von einem Knoten mit höherer Zahl zu einem mit niedrigerer Orientiert werden. Die Tiefensuche liefert eine andere Orientierung.
 
@@ -454,7 +454,7 @@ Im Algorithmus~\ref{alg:dfs} sind die Knoten, die in Zeile~\ref{alg:dfs:nl:conne
   }
 \BlankLine
   \Visit{
-    $v$.discoveryTime $\leftarrow i$ \;
+    $v$.discoveryTime $\leftarrow i$ \; \nllabel{alg:dfs:nl:visitStart}
     $i \leftarrow i+1$ \;
     \For{$w \in A(v)$}{
       \If{$w$.discoveryTime == $\perp$}{ \nllabel{alg:dfs:nl:decide}
@@ -472,32 +472,46 @@ Im Algorithmus~\ref{alg:dfs} sind die Knoten, die in Zeile~\ref{alg:dfs:nl:conne
     \Return\{$(E_T, E_R)$\}
 \end{algorithm}
 
-Der Algorithmus ist so Grundlegend für viele der kommenden Algorithmen, da er zu mehr als der Berechnung eines Tiefensuchenbaums verwendet werden kann, indem man entsprechende Zeilen einfügt. 
+Die Tiefensuche ist so Grundlegend für viele der kommenden Algorithmen, da sie zu mehr als der Berechnung eines Tiefensuchenbaums verwendet werden kann, indem man entsprechende Zeilen einfügt. 
 
 Beispielsweise die Zusammenhangskomponenten eines Graphen können bestimmt werden, da jedes mal, wenn Zeile \ref{alg:dfs:nl:connectedStart} erreicht wird, alle folgenden Knoten zu einer neuen Zusammenhangskomponente gehören. Ist ein Graph zusammenhängend, gibt es somit nur eine Wurzel.
 
 Die Höhe eines Knotens im Tiefensuchenbaum ist die Länge des Weges von Baumkanten von der Wurzel zum Knoten. Sie kann im Verlauf der Tiefensuche mit abgespeichert werden, indem man vor Zeile~\ref{alg:dfs:nl:connectedStart} die Anweisung $v.$height $\leftarrow 0$ einfügt, und vor Zeile~\ref{alg:dfs:nl:recur} die Anweisung $w.$height $\leftarrow v.$height$ + 1$.
 
 
-Für die Bestimmung von 2"~Zusammenhangskomponenten benötigt man das Konzept des \emph{Rückwegs}: Von einem Knoten $v$ kann man den Baumkanten zu Knoten mit höherer Auffindungszeit folgen. Von diesen Knoten können Rückwärtskanten ausgehen, die mitunter zu Knoten mit einer kleineren Auffindungszeit als der von $v$ führen. Den Knoten mit der niedrigsten Auffindungszeit, den wir auf diese Weise vom Knoten $v$ erreichen können, nennen wir \emph{Rückpunkt}. Hat ein Knoten sich selbst als Rückpunkt, kann also kein niedrigerer Knoten erreicht werden, so ist er Trenner von 2"~Zusammenhangskomponenten.
+Für die Bestimmung von Zweifach-Zusammenhangskomponenten benötigt man das Konzept des \emph{Rückwegs}: Von einem Knoten $v$ kann man den Baumkanten zu Knoten mit höherer Auffindungszeit folgen. Von diesen Knoten können Rückwärtskanten ausgehen, die mitunter zu Knoten mit einer kleineren Auffindungszeit als der von $v$ führen. Den Knoten mit der niedrigsten Auffindungszeit, den wir auf diese Weise vom Knoten $v$ erreichen können, nennen wir \emph{Rückpunkt}. Hat ein Knoten sich selbst als Rückpunkt, kann also kein niedrigerer Knoten erreicht werden, so ist er Trenner von Zweifach-Zusammenhangskomponenten.
 
-Beim berechnen der planaren Einbettung wird dieses Konzept Anwendung finden.
+Die Rückpunkte können während der Tiefensuche bestimmt werden. Wenn ein Knoten $v$ besucht wird, also in Zeile~\ref{alg:dfs:nl:visitStart}, speichern wir zunächst den Knoten $v$ selbst als Rückpunkt. Wird in Zeile~\ref{alg:dfs:nl:backEdge} eine Rückwärtskante von $v$ nach $w$ gefunden, so wird geprüft ob $w$ niedriger ist als der bisherige Rückpunkt von $v$ und, wenn ja, wird der Rückpunkt von $v$ auf $w$ gesetzt. Nach der Rückkehr vom rekursiven Aufruf in Zeile~\ref{alg:dfs:nl:recur} wird geprüft, ob der Knoten $w$ nun einen echt niedrigen Rückpunkt als $v$ hat, wenn ja, wird der Rückpunkt von $v$ auf den Rückpunkt von $w$ gesetzt.
+
+Beim Berechnen der planaren Einbettung und der st-Ordnung werden Rückpunkte und Rückwege verwendet.
 
 \section{Bestimmung einer planaren Einbettung}
 
 Da am Ende eine planare Zeichnung entstehen soll, wird zuerst eine planare Einbettung berechnet. Hierbei wird auch geprüft, ob der Graph überhaupt planar ist, d.h. ob es möglich ist eine planare Einbettung zu erstellen. 
 
-Zum Prüfen auf Planaritätseigenschaft gibt es diverse Algorithmen, die bei Patrignani~\cite{patrignani-07} vorgestellt und verglichen werden. Der erste effiziente Linearzeit-Algoritmus wurde von Hopcroft und Tarjan~\cite{hopcroft+tarjan-74} veröffentlicht, jedoch ist er sehr schwer zu implementieren , somit wurde für die Implementierung nach einer Alternative gesucht. Dass dann der Links-Rechts-Planaritätstest wie von Brandes~\cite{brandes-09} beschrieben ausgewählt wurde, begründet sich mit zweierlei Abwägungen. Zum einen ist es wichtig, dass nicht nur die Planarität getestet wird, sondern auch eine planare Einbettung angegeben werden kann, damit diese für das Zeichnen zur Verfügung steht. Dies wurde bei Brandes mittels vergleichsweise geringem Aufwand realisiert. Zum anderen liefert Brandes eine Beschreibung, die eine Implementierung begünstigt, da zu den Schritten sehr detaillierter Pseudocode angegeben wird.
+Zum Prüfen auf Planaritätseigenschaft gibt es diverse Algorithmen, die bei Patrignani~\cite{patrignani-07} vorgestellt und verglichen werden. Der erste effiziente Linearzeit-Algoritmus wurde von Hopcroft und Tarjan~\cite{hopcroft+tarjan-74} veröffentlicht, jedoch ist er sehr schwer zu implementieren, somit wurde für die Implementierung nach einer Alternative gesucht. Dass dann der Links-Rechts-Planaritätstest wie von Brandes~\cite{brandes-09} beschrieben ausgewählt wurde, begründet sich mit zweierlei Abwägungen. Zum einen ist es wichtig, dass nicht nur die Planarität getestet wird, sondern auch eine planare Einbettung angegeben werden kann, damit diese für das Zeichnen zur Verfügung steht. Dies wurde bei \cite{brandes-09} mittels vergleichsweise geringem Aufwand realisiert. Zum anderen liefert \cite{brandes-09} eine Beschreibung, die eine Implementierung begünstigt, da zu den Schritten sehr detaillierter Pseudocode angegeben wird. % TODO: citations like this?
 
+Für den Planaritätstest wird zunächst ein Tiefensuchenbaum $(E_T, E_R)$ des Eingabegraphen erstellt. Die Grundidee ist es, die Rückwärtskanten aus $E_\text{R}$ in zwei disjunkte Teilmengen $L$ und $R$, für Links und Rechts, einzuteilen. Betrachten wir nun einen Knoten $v \in V$ und zwei Baumkanten $(v, v_1), (v, v_2) \in E_T$. Nun sollen alle Kanten, die am Ende eines Rückwegs von $v_1$ aus liegen und echt höher enden als der Rückpunkt von $v_2$ zu einer Teilmenge gehören. Gleichzeitig sollen alle Kanten, die am Ende eines Rückwegs von $v_2$ aus liegen und echt höher enden als der Rückpunkt von $v_1$ zur jeweils anderen Teilmenge gehören. Der Graph ist genau dann planar, wenn eine solche Partition möglich ist. Die planare Einbettung erhält man, wenn man die Baumkanten hinzu nimmt und geeignet mit den Rückwärtskanten in eine Reihenfolge der Adjazenzliste bringt.
 
+Die so bestimmten geordneten Adjazenzlisten werden dann beim erstellen des Layouts für die OC$_3$-Zeichnung verwendet.
 
 \section{Ermitteln einer $st$-Ordnung}
 
-Im nächsten Schritt wird eine $st$-Ordnung berechnet, eine Reihenfolge der Knoten $v_1, \dots, v_n$, mit $s=v_1$ und $t=v_n$. Jeder Knoten (außer $s$ und $t$) soll mindestens einen Nachbarn mit einem höheren Index und mindestens einen mit einem niedrigeren Index haben. Da die Indizes paarweise verschieden sind, erhalten wir zudem einen gerichteten Graphen, wenn wir die ungerichteten Kanten so ausrichten, dass sie vom niedrigeren Index zum höheren verlaufen. %\footnote {Umgekehrt könnten wir aus dem ungerichteten Graphen durch topologisches Sortieren eine st-Ordnung erhalten.}
+Neben dem Graphen selbst und der planaren Einbettung benötigt der Schritt, in dem das OC$_3$-Layout erstellt wird eine st-Ordnung, eine Reihenfolge der Knoten $v_1, \dots, v_n$, mit $s=v_1$ und $t=v_n$, in der die Knoten dann platziert werden. 
+
+Jeder Knoten, außer $s$ und $t$, soll mindestens einen Nachbarn mit einem höheren Index und mindestens einen mit einem niedrigeren Index haben. Da die Indizes paarweise verschieden sind, erhalten wir zudem einen orientierten Graphen, wenn wir die ungerichteten Kanten so ausrichten, dass sie vom niedrigeren Index zum höheren verlaufen.
 
 Die $st$-Ordnung soll mir der planaren Einbettung kompatibel sein, d.h. wir wählen zwei Knoten $s$ und $t$ auf der Außenfacette. Damit haben wir eine günstige Reihenfolge für die Platzierung der Knoten bei der Berechnung des Layouts. 
 
 Eine solche $st$-Ordnung lässt sich mit einer angepassten Tiefensuche und einer passenden Nachbearbeitung für jeden zweifach zusammenhängenden Graphen ermitteln. Ein Beweis in Form eines Linearzeit-Algortihmus findet sich bei Even und Tarjan~\cite{even+tarjan-75}, basierend auf vorherigen Resultaten (\cite{hopcroft+tarjan-74},~\cite{tarjan-72}).
+
+Die Tiefensuche wird so angepasst, dass jedes Mal, wenn wir den Rückpunkt eines Knotens $v$ aktualisieren, die aktuelle Kante als zugehörig zum Rückweg des Knotens $v$ speichern.
+
+Der Nachbearbeitungsschritt speichert zu jeder Kanten und jedem Knoten, ob sie/er schon abgearbeitet wurde. Er fügt die Knoten in der Reihenfolge der $st$-Ordnung zu einer Ergebnisliste hinzu. Er legt dazu $t$ unter $s$ auf einen Stack. Solange der Stack nicht leer ist, wird wiederholt ein Knoten $v$ herunter genommen. Es wird nun ein Pfad vom Knoten $v$ aus gesucht, der noch nicht abgearbeitete Kanten benutzt, um zu einem bereits abgearbeiteten Knoten zu gelangen. Wird so ein Pfad gefunden, so werden die Knoten entlang des Pfades auf den Stack gelegt, ganz unten der vorletzte Knoten des Pfades bis zuletzt ganz oben $v$ abgelegt wird. Wird kein solcher Pfad gefunden, so wird $v$ an die Ergebnisliste angehängt und ist nun nicht mehr auf dem Stack.
+
+Für das finden eines Pfades gibt es drei Möglichkeiten, die der Reihe nach ausprobiert werden. Gibt es eine nicht abgearbeitete, ausgehende Rückwärtsecke, so ist diese der Pfad. Gibt es ansonsten eine nicht abgearbeitete Baumkante, so wird dieser gefolgt und dann dem Rückweg des Zielknotens, bis er auf einen abgearbeiteten Knoten trifft. Gibt es nur noch eine nicht abgearbeitete eingehende Rückwärtskante, so  wird dieser gefolgt und dann den Baumkanten zurück bis zu einem abgearbeiteten Knoten. Die Knoten und Kanten des Pfades werden als abgearbeitet markiert. Gibt es nur noch abgearbeitete Kanten, wird kein Weg gefunden.
+
+Zuletzt stehen in der Ergebnisliste die Knoten in der Reihenfolge einer $st$-Ordnung.
 
 \section{Erstellung eines $OC_3$-Layouts}
 
