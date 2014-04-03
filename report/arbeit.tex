@@ -163,7 +163,7 @@ Hier wären 1, 2 und 3 Beispiele für Knoten und $\{0, 1\}$ wäre eine Kante.
 
 Zunächst liegt der Fokus auf ungerichteten einfachen Graphen, das bedeutet, es gibt zwischen zwei Knoten jeweils nur höchstens eine Kante und eine \emph{Schleife}, also eine Kante mit $|e| = 1$ kommt nicht vor.
 
-Einfache Graphen können im Computer als \emph{Adjazenzmatrix} $(a_{i,j})$ dargestellt werden, mit $a_{i,j} = 1$ falls $\{v_i, v_j\} \in E$ und $0$ sonst. Hier wird jedoch $O(|V|^2)$ Speicherplatz verwendet. Für Graphen mit vergleichsweise wenigen Kanten eignet sich die Darstellung als \emph{Adjazenzliste} $A$ mit $A(v) = \{e \in E | v \in e\}$. Hierfür wird $O(|V| + |E|)$ Speicher benötigt. % TODO: genau Checken!!!
+Einfache Graphen können im Computer als \emph{Adjazenzmatrix} $(a_{i,j})$ dargestellt werden, mit $a_{i,j} = 1$ falls $\{v_i, v_j\} \in E$ und $0$ sonst. Hier wird jedoch $O(|V|^2)$ Speicherplatz verwendet. Für Graphen mit vergleichsweise wenigen Kanten eignet sich die Darstellung als \emph{Adjazenzliste} $A$ mit $A(v) = \{e \in E | v \in e\}$. Hierfür wird $O(|V| + |E|)$ Speicher benötigt. Im Graphen $G_\text{E}$ wäre z.B. $A(3) = \{2,4\}$. % TODO: Speicher genau Checken!!!
 
 \section{Orthogonale Visualisierungen von Graphen}
 \label{sec:orthogonalDrawings}
@@ -242,6 +242,10 @@ Es können jedoch immer noch Überschneidungen von Kanten an einem Knoten $v \in
   Die Anzahl $deg(v) = |\{e \in E | v \in e\}|$ ist der \emph{Grad} eines Knotens. Der Wert $deg(G) = \max_{v \in V}{deg(v)}$ eines Graphen $G = (V, E)$ ist der Grad des Graphen.
 \end{definition}
 
+Im Beispielgraphen $G_\text{E}$ wäre $deg(G) = 4$ und $deg(0) = 3$, $deg(1) = 3$, $deg(2) = 4$, $deg(3) = 2$, sowie $deg(4) = 4$.
+
+Zum Beispiel w %%%%%%%%%%%%%%%%%%%%%%%
+
 Ohne Kanten-Überschneidungen an den Knoten können also nur Graphen mit Maximalgrad~4 gezeichnet werden. 
 
 Es kann noch immer Überschneidungen bzw. Kreuzungen der Kanten an anderer Stelle geben. Es gibt sogar Graphen, die sich auf keine Art und Weise ohne Überschneidungen von Kanten zeichnen lassen.
@@ -278,6 +282,8 @@ Die Reihenfolge der Kanten um einen Knoten im Uhrzeigersinn in dieser Zeichnung,
 \begin{definition}
   Eine \emph{planare Einbettung} eines Graphen $G = (V, E)$ gibt für alle $v \in V$ eine Reihenfolge der Kanten der Adjazenzliste $A(v) = \{e_1, \dots, e_n\}$ vor.
 \end{definition}
+
+In der planaren Zeichnung des Graphen $G_\text{E}$ in Abbildung~ \ref{fig:exampleAstraightline} wären z.B. folgende Adjazentlisten-Reihenfolgen: $A(0) = \{4,1,2\}, A(1) = \{0,4,2\}, A(2) = \{0,1,4,3\}, A(3) = \{2,4\}, A(4) = \{3,2,1,0\}, $. Zyklische Verschiebungen dieser Listen sind äquivalent.
 
 Planare Graphen haben die Eigenschaft, dass die Anzahl der Kanten die dreifache Anzahl der Knoten nicht überschreiten kann, genauer: $|E| \leq 3 |V| - 6$. Hat ein Graph mehr als $3 |V| - 6$ Kanten, können wir also ausschließen, dass er planar ist. Wenn Algorithmen auf planaren Graphen laufen, können durch $|E| = O(|V|)$ einige Operationen, die auf allgemeinen Graphen in $O(|V| + |E|)$ Zeit laufen, in linearer Zeit $O(|V|)$ laufen. Mit Hilfe dieser Eigenschaft können wir später die Laufzeit von Teilen unseres Algorithmus mit $O(|V|)$ angeben.
 
@@ -422,9 +428,9 @@ Nach Abschluss des letzten Schrittes erhält man eine glatt-orthogonale SC$_2$-Z
 
 \section{Orientierte Graphen und Tiefensuche}
 
-Eine algorithmische Grundlage, die im Verlauf des Algorithmus mehrmals verwendet wird, die Tiefensuche. Sie wurde von Tarjan~\cite{tarjan-72} formalisiert. Konträr zum Namen werden jedoch oft keine Knoten gesucht, sondern vielmehr ein Tiefensuchenbaum konstruiert.
+Eine algorithmische Grundlage, die im Verlauf des Algorithmus mehrmals verwendet wird, die \emph{Tiefensuche}. Sie wurde von Tarjan~\cite{tarjan-72} formalisiert. Konträr zum Namen werden jedoch oft keine Knoten gesucht, sondern vielmehr ein Tiefensuchenbaum konstruiert.
 
-Bei der Tiefensuche wird der Graph orientiert. Ein \emph{orientierter Graph} eines Graphen $G = (V, E)$ weißt den Knoten jeder Kante eine Reihenfolge zu. Jede Kante $e \in E$ ist also ein geordnetes Paar $e = (v_\text{A}, v_\text{B})$ und die Kanten bekommen damit eine Richtung, sie zeigen von $v_\text{A}$ nach $v_\text{B}$. Man nennt $v_\text{A}$ \emph{Vorgänger} von $v_\text{B}$ und $v_\text{B}$ heißt Nachfolger von $v_\text{A}$. Die Kante ist eine \emph{ausgehende Kante} von $v_\text{A}$ und eine \emph{eingehende Kante} von $v_\text{B}$. Die Anzahl der ausgehenden Kanten eines Knotens heißt sein Ausgangsgrad, analog gibt es den Eingangsgrad.
+Bei der Tiefensuche wird der Graph orientiert. Ein \emph{orientierter Graph} eines Graphen $G = (V, E)$ weißt den Knoten jeder Kante eine Reihenfolge zu. Jede Kante $e \in E$ ist also ein geordnetes Paar $e = (v_\text{A}, v_\text{B})$ und die Kanten bekommen damit eine Richtung, sie zeigen von $v_\text{A}$ nach $v_\text{B}$. Man nennt $v_\text{A}$ \emph{Vorgänger} von $v_\text{B}$ und $v_\text{B}$ heißt Nachfolger von $v_\text{A}$. Die Kante ist eine \emph{ausgehende Kante} von $v_\text{A}$ und eine \emph{eingehende Kante} von $v_\text{B}$. Die Anzahl der ausgehenden Kanten eines Knotens heißt sein \emph{Ausgangsgrad}, analog gibt es den \emph{Eingangsgrad}.
 
 Schon aus einer $st$-Ordnung könnte ein orientierter Graph gewonnen werden, indem die Kanten von einem Knoten mit höherer Zahl zu einem mit niedrigerer Orientiert werden. Die Tiefensuche liefert eine andere Orientierung.
 
@@ -525,9 +531,48 @@ Neben den Knoten positionieren wir ebenso \emph{offene Kanten} in den Spalten: A
 
 Für die Erstellung des $OC_3$-Layouts werden die Knoten in der Reihenfolge der st-Ordnung auf einem Gitter platziert. Die y"~Koordinate wird später nicht mehr benötigt und kann stets als $y(v_i) = i$ angenommen werden. Der erste Knoten wird in einer neuen, noch leeren Spalte platziert. Alle weiteren Knoten werden in der zugewiesenen Spalte der Kante an ihrem unteren Port platziert. Dazu müssen zunächst die Kanten den Ports zugewiesen werden.
 
-Für die eingehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: Unten (1-4), links (2-4), rechts (3,4), oben (4). Der obere Port wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Senke $v_n$ vorkommen kann. Der untere Port wird nur bei Eingangsgrad 0 nicht verwendet, was nur bei der Quelle $v_1$ vorkommt. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge oben, links, unten, rechts zugewiesen.
+\begin{figure}[h]
+        \centering
+        \subcaptionbox{1\label{fig:embedindeg1}}
+            {\includegraphics[scale=.8]{oc2_embed_incoming_indeg1}}
+        \quad
+        \subcaptionbox{2\label{fig:embedindeg2}}
+            {\includegraphics[scale=.8]{oc2_embed_incoming_indeg2}}
+        \quad
+        \subcaptionbox{3\label{fig:embedindeg3}}
+            {\includegraphics[scale=.8]{oc2_embed_incoming_indeg3}}
+        \quad
+        \subcaptionbox{4\label{fig:embedindeg4}}
+            {\includegraphics[scale=.8]{oc2_embed_incoming_indeg4}}
 
-Für die ausgehenden Kanten werden je nach Eingangsgrad des Knotens folgende Ports verwendet: oben (1-4), rechts (2-4), links (3,4), unten (4). Der untere Port wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Quelle $v_1$ vorkommen kann. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge oben, links, unten, rechts zugewiesen. 
+        \caption{Die Portzuweisung der bisher offenen Kanten je nach Eingangsgrad. Dick gezeichnet sind die eingehenden Kanten, gestrichelte Kanten sind mögliche Positionen von Ausgehenden Kanten.}
+        \label{fig:embedin}
+\end{figure}
+
+Für die eingehenden Kanten werden, wie in Abbildung~\ref{fig:embedin} gezeigt, je nach Eingangsgrad des Knotens folgende Ports verwendet: Unten (1-4), links (2-4), rechts (3,4), oben (4). Der obere Port wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Senke $v_n$ vorkommen kann. Der untere Port wird nur bei Eingangsgrad 0 nicht verwendet, was nur bei der Quelle $v_1$ vorkommt. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge oben, links, unten, rechts zugewiesen.
+
+\begin{figure}[h]
+        \centering
+        \subcaptionbox{0\label{fig:embedoutdeg0}}
+            {\includegraphics[scale=.8]{oc2_embed_outgoing_outdeg0}}
+        \quad
+        \subcaptionbox{1\label{fig:embedoutdeg1}}
+            {\includegraphics[scale=.8]{oc2_embed_outgoing_outdeg1}}
+        \quad
+        \subcaptionbox{2\label{fig:embedoutdeg2}}
+            {\includegraphics[scale=.8]{oc2_embed_outgoing_outdeg2}}
+        \quad
+        \subcaptionbox{3\label{fig:embedoutdeg3}}
+            {\includegraphics[scale=.8]{oc2_embed_outgoing_outdeg3}}
+        \quad
+        \subcaptionbox{4\label{fig:embedoutdeg4}}
+            {\includegraphics[scale=.8]{oc2_embed_outgoing_outdeg4}}
+
+        \caption{Die Portzuweisung der neuen offenen Kanten und die neuen Spalten je nach Ausgangsgrad. Dick gezeichnet sind die ausgehenden Kanten, schraffierte Abschnitte stellen bisher gezeichnete Teile des Graphen dar.}
+        \label{fig:embedout}
+\end{figure}
+
+Für die ausgehenden Kanten werden, wie in Abbildung~\ref{fig:embedout} gezeigt, je nach Eingangsgrad des Knotens folgende Ports verwendet: oben (1-4), rechts (2-4), links (3,4), unten (4). Der untere Port wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Quelle $v_1$ vorkommen kann. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge oben, links, unten, rechts zugewiesen. 
 Für die Kante des oberen Ports wird ein Kantenort in der Spalte des Knotens vermerkt. Für die Kanten der Ports links und rechts werden jeweils Kantenorte in neuen Spalten links und rechts des Knotens vermerkt. Gibt es eine Kante im unteren Port, bekommt sie einen Knotenort in einer weiteren neuen Spalte weiter rechts. % TODO: schwammig
 
 Ist der Algorithmus bei $v_n$ angekommen, sind alle Knoten eingebettet. Zuletzt nummerieren wir die Spalten durch und weisen den darin platzierten Knoten diese Nummer als x"~Koordinate zu. 
@@ -540,7 +585,7 @@ Zwei Knoten $v_i, v_k$ mit $i < k$ sind mit einer stufenförmigen Kante verbunde
 
 Diese Äquivalenzklassen verwenden wir als Knoten eines neuen gerichteten Graphen. Wir setzen eine gerichtete Kante zwischen zwei Äquivalenzklassen falls es eine gerichtete Kante zwischen zwei Knoten dieser Klasse gibt. Im so erhaltenen Graphen weisen wir der Klasse $\{v_1\}$ die Höhe~$1$ zu. Dann weisen wir allen anderen Klassen jeweils die um~1 inkrementierte Höhe ihres höchsten Vorgängers zu, bis alle Klassen eine Höhe erhalten haben. Zuletzt weisen wir den Knoten die Höhe ihrer Klasse als y"~Koordinate zu.
 
-Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten in der gleichen Klasse sind.
+Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten in der gleichen Klasse sind. Die Transformation wurde in Abbildung~\ref{fig:exampleAorthogonalCompress} durchgeführt.
 
 \section{Konvertierung in ein $SC_2$-Layout}
 
