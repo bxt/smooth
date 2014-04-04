@@ -38,6 +38,3 @@ Desktop.ini
 *.brf
 *.nav
 *.snm
-
-# Do not ignore our graphics:
-!abbildungen/*.pdf
