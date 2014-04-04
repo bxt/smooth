@@ -100,7 +100,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	}
 	
 	/**
-	 * Embed the whole graph into an orthogonal drawing.
+	 * Embed the whole graph into an orthogonal drawing of complexity 3.
 	 */
 	@Override
 	public void initialize() {
@@ -148,7 +148,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	 * An optional post-processing which further reduces the size of the layout.
 	 */
 	protected void compression() {
-		// We don't do any compression. Overridden in subclasses.
+		// Don't do any compression here, overridden in subclass.
 	}
 	
 	/**
@@ -174,7 +174,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	}
 	
 	/**
-	 * Initialize the st ordering, also chose s and t and calculate the leftmost edges.
+	 * Initialize the st-ordering, also chose s and t and calculate the leftmost edges.
 	 * @param undirectedGraph Undirected version of the input graph.
 	 */
 	private void buildStOrdering(UndirectedGraph<V, E> undirectedGraph) {
@@ -206,7 +206,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	}
 	
 	/**
-	 * Assign ports for the incoming edges depending on indegree and order in the adjacency list embedding.
+	 * Assign ports for the incoming edges depending on in-degree and order in the adjacency list embedding.
 	 * @param in Adjacency list of incoming edges.
 	 * @param portAssignment Map to store the assignment into.
 	 */
@@ -233,7 +233,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	}
 	
 	/**
-	 * Assign ports for the outgoing edges depending on outdegree and order in the adjacency list embedding.
+	 * Assign ports for the outgoing edges depending on out-degree and order in the adjacency list embedding.
 	 * @param out Adjacency list of outgoing edges.
 	 * @param portAssignment Map to store the assignment into.
 	 */
@@ -260,7 +260,7 @@ public class LiuEtAlLayout<V, E> extends AbstractLayout<V, E> implements Orthogo
 	}
 	
 	/**
-	 * Assign columns for the new open edges.
+	 * Assign columns for the new open (outgoing) edges.
 	 * @param out List of outgoing edges.
 	 * @param tier Column of source vertex.
 	 */
