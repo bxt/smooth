@@ -156,7 +156,7 @@ Der Graph $G_\text{E}$, an dem fortan verschiedene Konzepte illustriert werden, 
 
 \[G_\text{E} = (V_\text{E}, E_\text{E})\]
 \[V_\text{E} = \{0, 1, 2, 3, 4\}\]
-\[E_\text{E} = \{\{0, 1\}, \{0, 2\}, \{0, 4\}, \{1, 2\}, \{1, 4\}, \{2, 3\}, \{3, 4\}\}\]
+\[E_\text{E} = \{\{0, 1\}, \{0, 2\}, \{0, 4\}, \{1, 2\}, \{1, 4\}, \{2, 3\}, \{2, 4\}, \{3, 4\}\}\]
 
 Hier wären 1, 2 und 3 Beispiele für Knoten und $\{0, 1\}$ wäre eine Kante.
 \end{example}
@@ -524,7 +524,7 @@ Zuletzt stehen in der Ergebnisliste die Knoten in der Reihenfolge einer $st$-Ord
 
 In den vorausgegangenen Schritten wurden zum einen die Knoten in die Reihenfolge einer $st$-Ordnung $v_1, \dots, v_n$ gebracht, wobei $s = v_1$ und $t = v_n$, und zum anderen die Adjazenzlisten im Sinne einer planaren Einbettung sortiert. Außerdem wurde die Facette, auf der die Knoten $s$ und $t$ liegen als Außenfacette eingeplant. Mit diesen Informationen wird nun ein geeignetes OC$_3$-Layout für den zweifach zusammenhängenden 4"~planaren Graphen erstellt. 
 
-Da am Ende die Komplexität der glatt-orthogonalen Kanten gering sein soll, bietet es sich an, bereits ein orthogonales Layout mit niedriger Komplexität zu erstellen. Dazu wird der Algorithmus verwendet, der sich bei Liu~et.~al.~\cite{liu+etal-98} und bei Biedl \& Kant \cite{biedl+kant-98} findet. Die grundlegenden Ideen sind weitestgehend gleich, die beiden Beschreibungen wurden jedoch unabhängig voneinander entwickelt und unterscheiden sich teils deutlich. Daher soll hier noch einmal der Algorithmus beschrieben werden, wie er für die Zwecke dieser Arbeit implementiert wurde. Es wird damit gezeigt, dass für jeden zweifach zusammenhängenden 4"~planaren Graph ein OC$_3$-Layout erstellt werden kann.
+Da am Ende die Komplexität der glatt-orthogonalen Kanten gering sein soll, bietet es sich an, bereits ein orthogonales Layout mit niedriger Komplexität zu erstellen. Dazu wird der Algorithmus verwendet, der sich bei Liu et al.~\cite{liu+etal-98} und bei Biedl \& Kant \cite{biedl+kant-98} findet. Die grundlegenden Ideen sind weitestgehend gleich, die beiden Beschreibungen wurden jedoch unabhängig voneinander entwickelt und unterscheiden sich teils deutlich. Daher soll hier noch einmal der Algorithmus beschrieben werden, wie er für die Zwecke dieser Arbeit implementiert wurde. Es wird damit gezeigt, dass für jeden zweifach zusammenhängenden 4"~planaren Graph ein OC$_3$-Layout erstellt werden kann.
 
 Das Resultat besteht nach Definition~\ref{def:layouts} aus der Portzuweisung $P: \{(v, e) \in V \times E | v \in e\} \to \{\text{L, R, T, B}\}$ und den Layouts für die Kanten~$L_E$ und die Knoten~$L_V$.
 
@@ -541,6 +541,8 @@ Die Bearbeitung des Knotens~$v_i$ sorgt nun dafür, dass die Invariante für $v_
 Am Ende der Schleife, wenn die Invariante für $t = v_n$ erfüllt ist, sind alle Kanten und Knoten platziert und die Portzuweisung ist vollständig berechnet. Zudem hat die resultierende Zeichnung die gegebene planare Einbettung.
 
 Um die Beschreibung zu vervollständigen, muss noch ausgeführt werden, wie die Ports an einem Knoten zugewiesen werden und wie die offenen Kanten platziert werden. Insbesondere muss jeder Knoten, außer $s$, eine Kante am unteren Port erhalten, damit er in eine Spalte platziert werden kann.
+
+\label{sec:portdistribution}
 
 Für die Portzuweisung wird zunächst die Ajdazenzliste partitioniert. Da der Graph maximal Grad~4 hat, ist die Größe der Adjazenzliste maximal~4. Durch die $st$-Ordnung erhalten wir eine Orientierung des Graphen, und somit eingehende und ausgehende Kanten am Knoten. Die planare Einbettung hat die Adjazenzliste vorsortiert. Wir können daher die Adjazentliste in eine Liste von eingehenden und eine Liste von ausgehenden Kanten teilen. Die ein- und ausgehenden Kanten werden dann getrennt den Ports zugewiesen. Hier ergibt sich ein Speziallfall: Da es an $v_1$ nur ausgehende Kanten, und an $v_n$ nur eingehende Kanten gibt, könnte jede Kante die erste Kante in der Liste der aus- bzw. eingehenden Kanten sein. Hier wird die Liste so rotiert, dass die erste und die letzte Kante die beiden Kanten der Außenfacette sind.
 
@@ -604,13 +606,24 @@ Damit ist das OC$_3$-Layout fertig und kann zur nächsten Iteration weitergegebe
 
 \section{Eliminierung der stufenförmigen Kanten}
 
-Das im letzten Schritt erstellte OC$_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden.
+Das im letzten Schritt erstellte OC$_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden: Sie stellen ein Problem bei der Konvertierung in ein SC$_2$-Layout dar. Günstigerweise beschreiben Liu et al.~\cite{liu+etal-98} einen Erweiterung, die genau diese Probleme löst. Man vergleiche hierzu die beiden Zeichnungen in Abbildung~\ref{fig:exampleAorthogonal}.
 
-Zwei Knoten $v_i, v_k$ mit $i < k$ sind mit einer stufenförmigen Kante verbunden, wenn es eine Kante gibt, die am rechten Port von $v_i$ und am linken Port von $v_k$ ist. Solche Knoten nennen wir äquivalent bezüglich der Höhe und fassen gleich hohe Knoten in Äquivalenzklassen zusammen.
+\emph{Stufenförmige Kanten} (englisch \emph{zig-zags}) bestehen aus zwei horizontalen Liniensegmenten, die mit einem vertikalen Liniensegment verbunden sind. Eine Kante $(v_i, v_k)$, mit $i < k$ gemäß der $st$-Ordnung, ist stufenförmig, wenn die Kante gibt, am rechten Port von $v_i$ und am linken Port von $v_k$ ist. In Abbildung~\ref{fig:exampleAorthogonalNocompress} ist die Kante $(1,2)$ eine solche stufenförmige Kante. Zwei so verbundene Knoten werden in einer Menge von Knoten, einem \emph{Plateau} zusammengefasst. Sind mit diesen Knoten weitere Knoten durch stufenförmige Kanten verbunden, werden diese ebenfalls im selben Plateau zusammengefasst. Somit sind zuletzt alle Knoten in einer "`Treppe"' in einem Plateau.
 
-Diese Äquivalenzklassen verwenden wir als Knoten eines neuen gerichteten Graphen. Wir setzen eine gerichtete Kante zwischen zwei Äquivalenzklassen falls es eine gerichtete Kante zwischen zwei Knoten dieser Klasse gibt. Im so erhaltenen Graphen weisen wir der Klasse $\{v_1\}$ die Höhe~$1$ zu. Dann weisen wir allen anderen Klassen jeweils die um~1 inkrementierte Höhe ihres höchsten Vorgängers zu, bis alle Klassen eine Höhe erhalten haben. Zuletzt weisen wir den Knoten die Höhe ihrer Klasse als y"~Koordinate zu.
+Diese Plateaus werden nun als Knoten eines neuen orientierten Graphen verwendet. Zwischen zwei verschiedenen Plateaus $P_1, P_2$ fügen wir eine Kante ein, falls es im Originalgraphen eine Kante $(v_i, v_k)$ mit $v_i \in P_1$ und $v_k \in V_2$ gibt.
 
-Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten in der gleichen Klasse sind. Die Transformation wurde in Abbildung~\ref{fig:exampleAorthogonalCompress} durchgeführt.
+Bei Liu et al.~\cite{liu+etal-98} findet sich ein Beweis, dass auf diese Weise die Kanten zwischen zwei Plateaus eindeutig orientiert sind und jeder Knoten zu genau einem Plateau gehört. 
+
+Im Beispielgraphen $G_\text{E}$ und der Zeichnung aus Abbildung~\ref{fig:exampleAorthogonalNocompress} sähen die Plateaus $V_\text{P}$ und ihr Graph $G_\text{P}$ so aus:
+
+\[G_\text{P} = (V_\text{P}, E_\text{P})\]
+\[V_\text{P} = \{\{0\}, \{1, 2\}, \{3\}, \{4\}\}\]
+\[E_\text{P} = \{(\{0\}, \{1, 2\}), (\{0\}, \{4\}), (\{1, 2\}, \{3\}), (\{1, 2\}, \{4\}), (\{3\}, \{4\})\}\]
+
+
+Im so entstandenen Graphen erhält das Plateau mit $v_1$ die Höhe~$1$. Dann erhält jedes andere Plateau jeweils die um~1 inkrementierte Höhe seines höchsten Vorgängers, bis alle Plateaus eine Höhe erhalten haben. Zuletzt weisen wir den Knoten die Höhe ihres Plateaus als neue y"~Koordinate zu.
+
+Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten im gleichen Plateau sind und somit die gleiche y"~Koordinate haben. Die vormals stufenförmigen Kanten bestehen nun aus einem horizontalen Liniensegment.
 
 \section{Konvertierung in ein SC$_2$-Layout}
 
