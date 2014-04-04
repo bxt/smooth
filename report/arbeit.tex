@@ -201,6 +201,7 @@ Für \emph{Multigraphen} mit mehreren Kanten zwischen zwei Knoten kommen Variati
 \end{figure}
 
 \begin{definition}
+  \label{def:layouts}
   Ein (zweidimensionales) \emph{Layout} $L$ über einer Menge $V$ ist eine Abbildung $L_V : V \to \N \times \N $. Ein \emph{Port} p ist eine Element der Menge \{\text{L, R, T, B}\}. Eine \emph{Portzuweisung} $P$ ist eine Abbildung $P: \{(v, e) \in V \times E | v \in e\} \to \{\text{L, R, T, B}\}$. Ein \emph{orhogonales Layout} ist ein 3"~Tupel $(L_V,L_E,P)$ von Layouts $L_V$ und $L_E$ und einer Portzuweisung $P$.
 \end{definition}
 
@@ -413,7 +414,7 @@ Nach Abschluss des letzten Schrittes erhält man eine glatt-orthogonale SC$_2$-Z
   \caption{SmoothOrthogonalDrawBiconnected(Graph $G = (V,E)$)}
   \label{alg:biconnected}
   \Ein{4-planarer, zweifach knotenzusammenhängender Graph $G = (V,E)$}
-  \Aus{$SC_2$-Layout von $G$}
+  \Aus{SC$_2$-Layout von $G$}
   
   $\Epsilon \leftarrow$ CalculatePlanarEmbedding$(G)$ \;
   Wähle zwei Knoten $s, t \in V$ die in $\Epsilon$ an einer Facette liegen.\;
@@ -519,20 +520,35 @@ Für das finden eines Pfades gibt es drei Möglichkeiten, die der Reihe nach aus
 
 Zuletzt stehen in der Ergebnisliste die Knoten in der Reihenfolge einer $st$-Ordnung.
 
-\section{Erstellung eines $OC_3$-Layouts}
+\section{Erstellung eines OC$_3$-Layouts}
 
-\cite{liu+etal-98} \cite{biedl+kant-98}
+In den vorausgegangenen Schritten wurden zum einen die Knoten in die Reihenfolge einer $st$-Ordnung $v_1, \dots, v_n$ gebracht, wobei $s = v_1$ und $t = v_n$, und zum anderen die Adjazenzlisten im Sinne einer planaren Einbettung sortiert. Außerdem wurde die Facette, auf der die Knoten $s$ und $t$ liegen als Außenfacette eingeplant. Mit diesen Informationen wird nun ein geeignetes OC$_3$-Layout für den zweifach zusammenhängenden 4"~planaren Graphen erstellt. 
 
-Für die Erstellung des $OC_3$-Layouts erhalten wir die Knoten in der Reihenfolge der $st$-Ordnung $v_1, \dots, v_n$. Durch die st-Ordnung erhalten wir zudem gerichtete Kanten und die Knoten haben somit einen Eingangsgrad und einen Ausgangsgrad, die sich, wegen der 4"~Planariät, zu maximal 4 addieren. Außer $v_1$ und $v_n$ liegt bei den Knoten der Eingangsgrad und der Ausgangsgrad zwischen 1 und 3, da sie mindestens eine eingehende und mindestens eine ausgehende Kante haben. Die planare Einbettung $E$ gibt uns an jedem Knoten eine Reihenfolge der Kanten zu den adjazenten Knoten an. Ein- und Ausgehende Kanten liegen hierbei in zwei Abschnitten jeweils zusammen beieinander.
+Da am Ende die Komplexität der glatt-orthogonalen Kanten gering sein soll, bietet es sich an, bereits ein orthogonales Layout mit niedriger Komplexität zu erstellen. Dazu wird der Algorithmus verwendet, der sich bei Liu~et.~al.~\cite{liu+etal-98} und bei Biedl \& Kant \cite{biedl+kant-98} findet. Die grundlegenden Ideen sind weitestgehend gleich, die beiden Beschreibungen wurden jedoch unabhängig voneinander entwickelt und unterscheiden sich teils deutlich. Daher soll hier noch einmal der Algorithmus beschrieben werden, wie er für die Zwecke dieser Arbeit implementiert wurde. Es wird damit gezeigt, dass für jeden zweifach zusammenhängenden 4"~planaren Graph ein OC$_3$-Layout erstellt werden kann.
 
-Am Ende bekommt jeder Knoten eine x-Koordinate (Spalte) und eine y"~Koordinate (Zeile). Da wir die x"~Koordinaten sonst häufig anpassen müssten, ordnen wir den Knoten zunächst nur Spalten zu. So können wir eine neue Spalte dazwischen einfügen, ohne die Koordinaten sämtlicher Knoten in den Spalten danach zu erhöhen. 
+Das Resultat besteht nach Definition~\ref{def:layouts} aus der Portzuweisung $P: \{(v, e) \in V \times E | v \in e\} \to \{\text{L, R, T, B}\}$ und den Layouts für die Kanten~$L_E$ und die Knoten~$L_V$.
 
-Neben den Knoten positionieren wir ebenso \emph{offene Kanten} in den Spalten: Alle Kanten, die gezeichnet werden, haben ein horizontales Segment, dessen Position in einer Spalte vorgemerkt wird. Das Ende der Kante wird hierbei noch nicht festgelegt. % TODO: Offene Kante definieren
+Während die Portzuweisung und die x"~Koordinaten im Verlauf des Algorithmus bestimmt werden, werden die y"~Koordinaten direkt festgelegt: Die y"~Koordinate jedes Knotens~$v_i$ ist seine Nummer~$i$ in der $st$-Ordnung, die y"~Koordinate jeder Kante $e = (v_i, v_k)$, geordnet durch die Orientierung der $st$-Ordnung, ist die kleinere der beiden y"~Koordinaten~$i$ ihrer beiden Knoten.
 
-Für die Erstellung des $OC_3$-Layouts werden die Knoten in der Reihenfolge der st-Ordnung auf einem Gitter platziert. Die y"~Koordinate wird später nicht mehr benötigt und kann stets als $y(v_i) = i$ angenommen werden. Der erste Knoten wird in einer neuen, noch leeren Spalte platziert. Alle weiteren Knoten werden in der zugewiesenen Spalte der Kante an ihrem unteren Port platziert. Dazu müssen zunächst die Kanten den Ports zugewiesen werden.
+Da wir die x"~Koordinaten sonst häufig anpassen müssten, ordnen wir den Knoten und Kanten zunächst nur Spalten zu. So können wir eine neue Spalte zwischen zwei bestehenden Spalten einfügen, ohne die Koordinaten sämtlicher Knoten in den Spalten zu verändern. Am Anfang wird eine Referenzspalte erstellt. Erst nach Ablauf des Algorithmus werden die x"~Koordinaten auf Basis der Spalten festgelegt. Die Spalte einer Kanten steht für die Position ihres horizontalen Segments.
+
+Der Algorithmus bearbeitet nun in einer Schleife die Knoten in der Reihenfolge der $st$-Ordnung.
+
+Es wird die Schleifeninvariante eingehalten, dass, bevor Knoten~$v_i$ bearbeitet wird, die Knoten $v_1, \dots, v_{i-1}$ bereits in einer Spalte platziert sind und ihre Portzuweisungen vollständig berechnet wurden. Ebenso sind die Kanten zwischen diesen Knoten bereits in einer Spalte platziert. Die Kanten, die von einem der Knoten $v_1, \dots, v_{i-1}$ ausgehen, aber bei einem noch nicht platzierten Knoten $v_i, \dots, v_n$ enden, nennen wir \emph{offene Kanten}. Auch sie sind bereits in einer Spalte platziert.
+
+Die Bearbeitung des Knotens~$v_i$ sorgt nun dafür, dass die Invariante für $v_{i+1}$ erfüllt ist. Dazu werden zuerst die Kanten an $v_i$ nach einem festgelegten Verfahren in Übereinstimmung mit der planaren Einbettung auf die Ports verteilt. Hat der Knoten nun eine Kante am unteren Port, so wird er in die Spalte der Kante an diesem unteren Port platziert. Hat er keine Kante am unteren Port, so ist es der Knoten~$s = v_1$, und er wird in die Referenzspalte platziert. Danach wird noch den, nach der Orientierung der $st$-Ordnung, ausgehenden Kanten des Knotens eine Spalte zugewiesen. Somit ist die Invariante für $v_{i+1}$ erfüllt und am Ende der Schleife, wenn die Invariante für $t = v_n$ erfüllt ist, sind alle Kanten und Knoten platziert und die Portzuweisung ist vollständig berechnet. Zudem hat die resultierende Zeichnung die gegebene planare Einbettung.
+
+Um die Beschreibung zu vervollständigen, muss noch ausgeführt werden, wie die Ports an einem Knoten zugewiesen werden und wie die offenen Kanten platziert werden. Insbesondere muss jeder Knoten, außer $s$, eine Kante am unteren Port erhalten.
+
+Für die Portzuweisung wird zunächst die Ajdazenzliste partitioniert. Da der Graph maximal Grad~4 hat, ist die Größe der Adjazenzliste maximal~4. Durch die $st$-Ordnung erhalten wir eine Orientierung des Graphen, und somit eingehende und ausgehende Kanten am Knoten. Die planare Einbettung hat die Adjazenzliste vorsortiert. Wir können daher die Adjazentliste in eine Liste von eingehenden und eine Liste von ausgehenden Kanten teilen. Die ein- und ausgehenden Kanten werden dann getrennt den Ports zugewiesen.
+
+Für die eingehenden Kanten werden, wie in Abbildung~\ref{fig:embedin} gezeigt, je nach Eingangsgrad des Knotens folgende Ports zur Verwendung ausgewählt: Unten (Eingangsgrad~1 bis~4), links (2--4), rechts (3,4), oben (4). Der obere Port wird also nur bei Eingangsgrad~4 verwendet, was nur bei der Senke~$v_n$ vorkommen kann. Bei Eingangsgrad~0 müssen keine eingehenden Kanten behandelt werden, was nur bei der Quelle $v_1$ vorkommt. In allen anderen Fällen wird der untere Port einer Kante zugeordnet. Somit hat jeder Knoten außer $v_1$ eine Kante an seinem unteren Port. Den zur Verwendung ausgewählten Ports werden dann die eingehenden Kanten nach der Reihenfolge der planaren Einbettung im Uhrzeigersinn, beginnend bei rechts, dann unten und links, zuletzt oben, zugewiesen.
 
 \begin{figure}[h]
         \centering
+        \subcaptionbox{0\label{fig:embedindeg0}}
+            {\includegraphics[scale=.8]{oc2_embed/incoming/indeg0}}
+        \quad
         \subcaptionbox{1\label{fig:embedindeg1}}
             {\includegraphics[scale=.8]{oc2_embed/incoming/indeg1}}
         \quad
@@ -545,11 +561,11 @@ Für die Erstellung des $OC_3$-Layouts werden die Knoten in der Reihenfolge der 
         \subcaptionbox{4\label{fig:embedindeg4}}
             {\includegraphics[scale=.8]{oc2_embed/incoming/indeg4}}
 
-        \caption{Die Portzuweisung der bisher offenen Kanten je nach Eingangsgrad. Dick gezeichnet sind die eingehenden Kanten, gestrichelte Kanten sind mögliche Positionen von Ausgehenden Kanten.}
+        \caption{Die Portzuweisung der bisher offenen, eingehenden Kanten je nach Eingangsgrad. Dick gezeichnet sind die eingehenden Kanten, gestrichelte Kanten sind mögliche Positionen von ausgehenden Kanten.}
         \label{fig:embedin}
 \end{figure}
 
-Für die eingehenden Kanten werden, wie in Abbildung~\ref{fig:embedin} gezeigt, je nach Eingangsgrad des Knotens folgende Ports verwendet: Unten (1-4), links (2-4), rechts (3,4), oben (4). Der obere Port wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Senke $v_n$ vorkommen kann. Der untere Port wird nur bei Eingangsgrad 0 nicht verwendet, was nur bei der Quelle $v_1$ vorkommt. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge oben, links, unten, rechts zugewiesen.
+Für die ausgehenden Kanten werden, wie in Abbildung~\ref{fig:embedout} gezeigt, je nach Ausgangsgrad des Knotens folgende Ports zur Verwendung ausgewählt: oben (Ausgangsgrad~1 bis~4), rechts (2--4), links (3, 4), unten (4). Der untere Port wird also nur bei Ausgangsgrad~4 verwendet, was nur bei der Quelle $v_1$ vorkommen kann. Somit befindet sich, außer bei $v_0$, stets eine eingehende Kante am unteren Port. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung im Uhrzeigersinn, beginnend bei links, dann oben und rechts, zuletzt unten, zugewiesen.
 
 \begin{figure}[h]
         \centering
@@ -568,18 +584,25 @@ Für die eingehenden Kanten werden, wie in Abbildung~\ref{fig:embedin} gezeigt, 
         \subcaptionbox{4\label{fig:embedoutdeg4}}
             {\includegraphics[scale=.8]{oc2_embed/outgoing/outdeg4}}
 
-        \caption{Die Portzuweisung der neuen offenen Kanten und die neuen Spalten je nach Ausgangsgrad. Dick gezeichnet sind die ausgehenden Kanten, schraffierte Abschnitte stellen bisher gezeichnete Teile des Graphen dar.}
+        \caption{Die Portzuweisung der ausgehenden, neuen offenen Kanten und die neuen Spalten je nach Ausgangsgrad. Dick gezeichnet sind die ausgehenden Kanten, schraffierte Abschnitte stellen bisher gezeichnete Teile des Graphen dar.}
         \label{fig:embedout}
 \end{figure}
 
-Für die ausgehenden Kanten werden, wie in Abbildung~\ref{fig:embedout} gezeigt, je nach Eingangsgrad des Knotens folgende Ports verwendet: oben (1-4), rechts (2-4), links (3,4), unten (4). Der untere Port wird also nur bei Eingangsgrad 4 verwendet, was nur bei der Quelle $v_1$ vorkommen kann. Den Ports werden dann die Kanten nach der Reihenfolge der planaren Einbettung in der Abfolge oben, links, unten, rechts zugewiesen. 
-Für die Kante des oberen Ports wird ein Kantenort in der Spalte des Knotens vermerkt. Für die Kanten der Ports links und rechts werden jeweils Kantenorte in neuen Spalten links und rechts des Knotens vermerkt. Gibt es eine Kante im unteren Port, bekommt sie einen Knotenort in einer weiteren neuen Spalte weiter rechts. % TODO: schwammig
+Nach diesem Schritt sind die Kanten so den Ports zugewiesen, dass die mit der planaren Einbettung übereinstimmen.
 
-Ist der Algorithmus bei $v_n$ angekommen, sind alle Knoten eingebettet. Zuletzt nummerieren wir die Spalten durch und weisen den darin platzierten Knoten diese Nummer als x"~Koordinate zu. 
+Wenn die Ports den Kanten an einem Knoten zugewiesen wurden und der Knoten in einer Spalte platziert wurde, müssen noch die offenen, ausgehenden Kanten in eine Spalte platziert werden. Die Kante des oberen Ports wird in die Spalte des Knotens platziert. Gibt es eine ausgehende Kante am rechten Port, wie in der Zeichnungen aus Abbildung~\ref{fig:embedoutdeg2}, so wird eine neue Spalte rechts des Knotens eingefügt und die Kante in diese Spalte platziert. Wie in der Abbildung zu erkennen, wird dabei der bereits platzierte Teil des Graphen auseinandergezogen. Analog wird eine ausgehende Kante am linken Port in eine neue Spalte links des Knotens platziert, zu sehen in den Abbildungen~\ref{fig:embedoutdeg2} und~\ref{fig:embedoutdeg3}. 
+
+Gibt es eine ausgehende Spalte am unteren Port, wie in Abbildung~\ref{fig:embedoutdeg4}, so gibt es auch eine Kante am rechten Port, die bereits in einer neuen Spalte rechts des Knotens ist. Es wird also noch eine Spalte rechts dieser Spalte hinzugefügt, in die die Kante am unteren Port platziert wird.
+
+Nach diesem Schritt sind die neuen offenen Kanten in Spalten platziert.
+
+Für jeden Knoten werden also die Schritte Porzuweisung, Platzierung des Knotens und Platzierung der ausgehenden Kanten durchgeführt, bis alle Knoten platziert sind. Zuletzt werden die Spalten durchnummeriert und den darin platzierten Knoten und Kanten wird diese Nummer als x"~Koordinate zugewiesen.
+
+Damit ist das OC$_3$-Layout fertig und kann zur nächsten Iteration weitergegeben werden, wo die stufenförmigen Kanten entfernt werden.
 
 \section{Eliminierung der stufenförmigen Kanten}
 
-Das im letzten Schritt erstellte $OC_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden.
+Das im letzten Schritt erstellte OC$_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden.
 
 Zwei Knoten $v_i, v_k$ mit $i < k$ sind mit einer stufenförmigen Kante verbunden, wenn es eine Kante gibt, die am rechten Port von $v_i$ und am linken Port von $v_k$ ist. Solche Knoten nennen wir äquivalent bezüglich der Höhe und fassen gleich hohe Knoten in Äquivalenzklassen zusammen.
 
@@ -587,11 +610,11 @@ Diese Äquivalenzklassen verwenden wir als Knoten eines neuen gerichteten Graphe
 
 Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten in der gleichen Klasse sind. Die Transformation wurde in Abbildung~\ref{fig:exampleAorthogonalCompress} durchgeführt.
 
-\section{Konvertierung in ein $SC_2$-Layout}
+\section{Konvertierung in ein SC$_2$-Layout}
 
 
 
-\section{Entfernen von Überschneidungen im $SC_2$-Layout}
+\section{Entfernen von Überschneidungen im SC$_2$-Layout}
 
 \begin{figure}[h]
   \centering
