@@ -13,7 +13,7 @@ import edu.uci.ics.jung.graph.util.Pair;
 /**
  * Represents a finite part of a 2D line.
  */
-public class LineSegment {
+public class LineSegment implements Bounded {
 	
 	private Point2D from;
 	private Point2D to;
@@ -73,6 +73,7 @@ public class LineSegment {
 	 * 
 	 * @return Boundaries of this line segment.
 	 */
+	@Override
 	public Box getBoundingBox() {
 		return new Box(getFrom(), getTo());
 	}

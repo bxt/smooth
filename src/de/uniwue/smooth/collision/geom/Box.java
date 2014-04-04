@@ -1,6 +1,7 @@
 package de.uniwue.smooth.collision.geom;
 
 import java.awt.geom.Point2D;
+import java.util.Collection;
 import java.util.Comparator;
 
 import org.apache.commons.collections15.ComparatorUtils;
@@ -12,7 +13,24 @@ import edu.uci.ics.jung.graph.util.Pair;
 /**
  * Represents a filled 2D rectangle, aka bounding box.
  */
-public class Box {
+public class Box implements Bounded {
+	
+	public static Box merge(Collection<? extends Box> boxes) {
+		return Box.merge(boxes.toArray(new Box[]{}));
+	}
+	
+	public static Box merge(Box... boxes) {
+		if(boxes.length < 1) throw new IllegalArgumentException("Must at least merge one box!");
+		Box mergedBox = null;
+		for(Box box : boxes) {
+			if(mergedBox == null) {
+				mergedBox = box;
+			} else {
+				mergedBox = mergedBox.merge(box);
+			}
+		}
+		return mergedBox;
+	}
 	
 	/**
 	 * The spanning point with the the lower x coordinate.
@@ -36,6 +54,14 @@ public class Box {
 	public Box(Pair<Pair<Integer>> endpoints) {
 		this(Point2DOperations.fromIntegerPair(endpoints.getFirst() ),
 			 Point2DOperations.fromIntegerPair(endpoints.getSecond()));
+	}
+	
+	/**
+	 * Creates a box that only includes a single point.
+	 * @param point2d The point the box should contain.
+	 */
+	public Box(Point2D point2d) {
+		this(point2d, point2d);
 	}
 
 	/**
@@ -114,6 +140,17 @@ public class Box {
 	}
 	
 	/**
+	 * Calculate the union with another box, i.e. the minimal box that contains both boxes.
+	 * @param box Other box to include.
+	 * @return The smallest box that includes this box and the given one.
+	 */
+	public Box merge(Box box) {
+		Interval xUnion = getXInterval().merge(box.getXInterval());
+		Interval yUnion = getYInterval().merge(box.getYInterval());
+		return new Box(xUnion, yUnion);
+	}
+	
+	/**
 	 * Check if a points lies in this box, or on its boundaries.
 	 * @param point The point to check.
 	 * @return If or not the point is in the box.
@@ -125,5 +162,10 @@ public class Box {
 	@Override
 	public String toString() {
 		return "Box [from=" + from + ", to=" + to + "]";
+	}
+
+	@Override
+	public Box getBoundingBox() {
+		return this;
 	}
 }

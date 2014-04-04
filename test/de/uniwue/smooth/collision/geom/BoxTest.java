@@ -77,4 +77,21 @@ public class BoxTest {
 		
 	}
 
+	@Test
+	public void testMerge() {
+		Box boxA = new Box(p(xFactor * 1, yFactor * 1), p(xFactor * 5, yFactor * 3));
+		Box boxB = new Box(p(xFactor * 2, yFactor * 0), p(xFactor * 4, yFactor * 2));
+		
+		Box boxUnion = boxA.merge(boxB);
+		assertTrue(boxUnion.contains(p(xFactor * 2, yFactor * 1)));
+		assertTrue(boxUnion.contains(p(xFactor * 4, yFactor * 2)));
+		assertTrue(boxUnion.contains(p(xFactor * 1, yFactor * 1)));
+		assertTrue(boxUnion.contains(p(xFactor * 1, yFactor * 0)));
+		assertTrue(boxUnion.contains(p(xFactor * 5, yFactor * 0)));
+		assertFalse(boxUnion.contains(p(xFactor * 6, yFactor * 2)));
+		assertFalse(boxUnion.contains(p(xFactor * 3, yFactor * 4)));
+	
+	}
+
+
 }
