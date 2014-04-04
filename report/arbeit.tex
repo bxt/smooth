@@ -604,7 +604,7 @@ Für jeden Knoten werden also die Schritte Porzuweisung, Platzierung des Knotens
 
 Damit ist das OC$_3$-Layout fertig und kann zur nächsten Iteration weitergegeben werden, wo die stufenförmigen Kanten entfernt werden.
 
-\section{Eliminierung der stufenförmigen Kanten}
+\section{Eliminierung stufenförmiger Kanten}
 
 Das im letzten Schritt erstellte OC$_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden: Sie stellen ein Problem bei der Konvertierung in ein SC$_2$-Layout dar. Günstigerweise beschreiben Liu et al.~\cite{liu+etal-98} einen Erweiterung, die genau diese Probleme löst. Man vergleiche hierzu die beiden Zeichnungen in Abbildung~\ref{fig:exampleAorthogonal}.
 
@@ -626,6 +626,30 @@ Im so entstandenen Graphen erhält das Plateau mit $v_1$ die Höhe~$1$. Dann erh
 Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten im gleichen Plateau sind und somit die gleiche y"~Koordinate haben. Die vormals stufenförmigen Kanten bestehen nun aus einem horizontalen Liniensegment.
 
 \section{Konvertierung in ein SC$_2$-Layout}
+
+
+
+\begin{figure}[h]
+        \centering
+        \subcaptionbox{I"~Kante\label{fig:sc2conversionIEdge}}
+            {\includegraphics[scale=.8]{sc2_conversion/IEdge}}
+        \quad
+        \subcaptionbox{L"~Kante\label{fig:sc2conversionLEdge}}
+            {\includegraphics[scale=.8]{sc2_conversion/LEdge}}
+        \quad
+        \subcaptionbox{G"~Kante\label{fig:sc2conversionGEdge}}
+            {\includegraphics[scale=.8]{sc2_conversion/GEdge}}
+        \quad
+        \subcaptionbox{U/C"~Kante\label{fig:sc2conversionUCEdge}}
+            {\includegraphics[scale=.8]{sc2_conversion/UCEdge}}
+        \quad
+        \subcaptionbox{S"~Kante\label{fig:sc2conversionSEdge}}
+            {\includegraphics[scale=.8]{sc2_conversion/SEdge}}
+
+        \caption{Konvertierung von orthogonalen Kanten mit maximaler Komplexität~3 in glatt-orthogonale Kanten mit maximaler Komplexität~2. Nicht gezeigt sind Drehungen und Spiegelungen dieser Beispiele.}
+        \label{fig:sc2conversion}
+\end{figure}
+
 
 
 
