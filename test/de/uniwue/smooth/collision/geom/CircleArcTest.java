@@ -200,4 +200,46 @@ public class CircleArcTest {
 		assertEquals(circleArcA.intersections(circleArcB), circleArcB.intersections(circleArcA));
 	}
 	
+	@Test
+	public void testGetFrom() {
+		CircleArc circleArc = CircleArc.getCircleArc(p(6, 2), p(1, 2), p(1, 7));
+		
+		Point2D from = circleArc.getFrom();
+		
+		assertEquals(6,	from.getX(), DELTA);
+		assertEquals(2,	from.getY(), DELTA);
+	}
+	
+	@Test
+	public void testGetTo() {
+		CircleArc circleArc = CircleArc.getCircleArc(p(6, 2), p(1, 2), p(1, 7));
+		
+		Point2D to = circleArc.getTo();
+		
+		assertEquals(1,	to.getX(), DELTA);
+		assertEquals(7,	to.getY(), DELTA);
+	}
+	
+	@Test
+	public void testGetBoundingBoxQuarter() {
+		CircleArc circleArc = CircleArc.getCircleArc(p(6, 2), p(1, 2), p(1, 7));
+		
+		Box box = circleArc.getBoundingBox();
+		assertEquals( 1, box.getFrom().getX(), DELTA);
+		assertEquals( 2, box.getFrom().getY(), DELTA);
+		assertEquals( 6, box.getTo().getX(), DELTA);
+		assertEquals( 7, box.getTo().getY(), DELTA);
+	}
+	
+	@Test
+	public void testGetBoundingBoxHalf() {
+		CircleArc circleArc = CircleArc.getCircleArc(p(1, 2), p(1, 7));
+		
+		Box box = circleArc.getBoundingBox();
+		assertEquals( 1.0, box.getFrom().getX(), DELTA);
+		assertEquals( 2.0, box.getFrom().getY(), DELTA);
+		assertEquals( 3.5, box.getTo().getX(), DELTA);
+		assertEquals( 7.0, box.getTo().getY(), DELTA);
+	}
+	
 }

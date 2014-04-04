@@ -3,6 +3,7 @@ package de.uniwue.smooth.collision.geom;
 import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
@@ -10,7 +11,7 @@ import org.apache.commons.collections15.Predicate;
 import de.uniwue.smooth.util.point2d.Point2DOperations;
 import edu.uci.ics.jung.graph.util.Pair;
 
-public class CircleArc {
+public class CircleArc implements Bounded {
 
 	private Circle circle; 
 	private Sector sector;
@@ -32,8 +33,12 @@ public class CircleArc {
 	public static CircleArc getCircleArc(Pair<Integer> from, Pair<Integer> to) {
 		Point2D fromPoint = Point2DOperations.fromIntegerPair(from);
 		Point2D toPoint = Point2DOperations.fromIntegerPair(to);
-		Point2D midPoint = Point2DOperations.scale(Point2DOperations.add(fromPoint, toPoint), 0.5);
-		return getCircleArc(fromPoint, midPoint, toPoint);
+		return getCircleArc(fromPoint, toPoint);
+	}
+	
+	public static CircleArc getCircleArc(Point2D from, Point2D to) {
+		Point2D midPoint = Point2DOperations.scale(Point2DOperations.add(from, to), 0.5);
+		return getCircleArc(from, midPoint, to);
 	}
 	
 	public static CircleArc getCircleArc(Point2D from, Point2D mid, Point2D to) {
@@ -55,7 +60,15 @@ public class CircleArc {
 	public Sector getSector() {
 		return sector;
 	}
-
+	
+	public Point2D getFrom() {
+		return getCircle().getPointAtAngle(getSector().getFrom());
+	}
+	
+	public Point2D getTo() {
+		return getCircle().getPointAtAngle(getSector().getTo());
+	}
+	
 	/**
 	 * Calculates the intersection points between this circle arc and another one.
 	 * 
@@ -113,5 +126,21 @@ public class CircleArc {
 	@Override
 	public String toString() {
 		return "CircleArc [circle=" + circle + ", sector=" + sector + "]";
+	}
+
+	@Override
+	public Box getBoundingBox() {
+		Collection<Box> samples = new LinkedList<Box>();
+		samples.add(new Box(getFrom()));
+		samples.add(new Box(getTo()));
+		for (double steps: new double[]{0.0, 0.5, 1.0, 1.5}) {
+			maybeAdd(steps * Math.PI, samples);
+		}
+		return Box.merge(samples);
+	}
+	
+	private void maybeAdd(double radians, Collection<Box> samples) {
+		Point2D point = getCircle().getPointAtAngle(radians);
+		if(contains(point)) samples.add(new Box(point));
 	}
 }
