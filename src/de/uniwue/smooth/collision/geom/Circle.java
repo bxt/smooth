@@ -14,7 +14,7 @@ import edu.uci.ics.jung.graph.util.Pair;
 /**
  * Represents a 2D circle.
  */
-public class Circle {
+public class Circle implements Bounded {
 	
 	private static final double EPSILON = 1E-11;
 	
@@ -38,6 +38,17 @@ public class Circle {
 
 	public double getRadius() {
 		return radius;
+	}
+	
+	/**
+	 * Get a point on this circle at a certain angle.
+	 * @param radians The angle around the x axis in radians.
+	 * @return The point at this angle around the circle.
+	 */
+	public Point2D getPointAtAngle(double radians) {
+		double x = Math.cos(radians) * getRadius() + getCenter().getX();
+		double y = Math.sin(radians) * getRadius() + getCenter().getY();
+		return new Point2D.Double(x, y);
 	}
 	
 	/**
@@ -151,4 +162,9 @@ public class Circle {
 	    if (a==b) return true;
 	    return Math.abs(a - b) < EPSILON * Math.max(Math.abs(a), Math.abs(b));
 	 }
+
+	@Override
+	public Box getBoundingBox() {
+		return new Box(Interval.getIntervalCentered(center.getX(), radius), Interval.getIntervalCentered(center.getY(), radius));
+	}
 }

@@ -181,4 +181,36 @@ public class CircleTest {
 		assertFalse(circle.contains(p(42e12, 1337e11)));
 	}
 	
+	@Test
+	public void testGetPointAtAngle() {
+		Circle circle = new Circle(p(-2, 2), 5);
+		
+		Point2D p4end = circle.getPointAtAngle(0.6435011087933);
+		assertEquals( 2,	p4end.getX(), DELTA);
+		assertEquals( 5,	p4end.getY(), DELTA);
+		
+		Point2D p3end = circle.getPointAtAngle(0.9272952180016);
+		assertEquals( 1,	p3end.getX(), DELTA);
+		assertEquals( 6,	p3end.getY(), DELTA);
+		
+		Point2D p4opp = circle.getPointAtAngle(0.6435011087933 -  + Math.PI);
+		assertEquals(-6,	p4opp.getX(), DELTA);
+		assertEquals(-1,	p4opp.getY(), DELTA);
+		
+		Point2D p3opp = circle.getPointAtAngle(0.9272952180016 + Math.PI);
+		assertEquals(-5,	p3opp.getX(), DELTA);
+		assertEquals(-2,	p3opp.getY(), DELTA);
+	}
+	
+	@Test
+	public void testGetBoundingBox() {
+		Circle circle = new Circle(p(-2, 2), 5);
+		
+		Box box = circle.getBoundingBox();
+		assertEquals(-7, box.getFrom().getX(), DELTA);
+		assertEquals(-3, box.getFrom().getY(), DELTA);
+		assertEquals( 3, box.getTo().getX(), DELTA);
+		assertEquals( 7, box.getTo().getY(), DELTA);
+	}
+	
 }
