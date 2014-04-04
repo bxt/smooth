@@ -43,6 +43,9 @@ public class RomeBcRenderTask implements Runnable {
 		
 		Set<String> interesting = new HashSet<>();
 		Collections.addAll(interesting, "bc_grafo10182.33.lgr.graphml", "bc_grafo10187.33.lgr.graphml");
+		Collections.addAll(interesting, "bc_grafo10187.33.lgr.graphml", "bc_grafo2456.22.lgr.graphml", "bc_grafo2735.36.lgr.graphml", "bc_grafo5663.34.lgr.graphml", "bc_grafo5759.35.lgr.graphml", "bc_grafo5808.33.lgr.graphml", "bc_grafo5917.34.lgr.graphml", "bc_grafo920.24.lgr.graphml", "bc_grafo928.13.lgr.graphml");
+		
+		interesting.add("bc_grafo10065.32.lgr.graphml");
 		
 		OrthogonalDrawing<Appendable> drawing = createDrawing("resources/drawings/rome_bc/all.ipe");
 		
