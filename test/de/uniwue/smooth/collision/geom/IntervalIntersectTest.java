@@ -1,8 +1,5 @@
 package de.uniwue.smooth.collision.geom;
 
-import static de.uniwue.smooth.collision.geom.TestUtils.*;
-import static org.junit.Assert.*;
-
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -42,22 +39,13 @@ public class IntervalIntersectTest {
 	@Test
 	public void testIntersect() {
 		Interval actualIntersectionInterval = intervalA.intersect(intervalB);
-		assertIntervalEquals(expectedIntersectionInterval, actualIntersectionInterval);
+		IntervalTest.assertIntervalEquals(expectedIntersectionInterval, actualIntersectionInterval);
 	}
 	
 	@Test
 	public void testIntersectReversed() {
 		Interval actualIntersectionInterval = intervalB.intersect(intervalA);
-		assertIntervalEquals(expectedIntersectionInterval, actualIntersectionInterval);
-	}
-
-	private static void assertIntervalEquals(Interval expected, Interval actual) {
-		assertTrue((actual == null) == (expected == null));
-		if(expected != null) {
-			assertEquals(expected.toString(), actual.toString());
-			assertEquals(expected.getFrom(), actual.getFrom(), DELTA);
-			assertEquals(expected.getTo(), actual.getTo(), DELTA);
-		}
+		IntervalTest.assertIntervalEquals(expectedIntersectionInterval, actualIntersectionInterval);
 	}
 
 }

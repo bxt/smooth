@@ -1,5 +1,6 @@
 package de.uniwue.smooth.collision.geom;
 
+import static de.uniwue.smooth.collision.geom.TestUtils.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -78,4 +79,24 @@ public class IntervalTest {
 		assertFalse(interval.contains(3));
 		assertFalse(interval.contains(-3));
 	}
+	
+	@Test
+	public void testMerge() {
+		Interval intervalA = Interval.getIntervalFrom(2, -5);
+		Interval intervalB = Interval.getIntervalFrom(3, 6);
+		
+		assertIntervalEquals(Interval.getIntervalBetween(-3, 9), intervalA.merge(intervalB));
+		assertIntervalEquals(Interval.getIntervalBetween(-3, 9), intervalB.merge(intervalA));
+		
+	}
+	
+	public static void assertIntervalEquals(Interval expected, Interval actual) {
+		assertTrue((actual == null) == (expected == null));
+		if(expected != null) {
+			assertEquals(expected.toString(), actual.toString());
+			assertEquals(expected.getFrom(), actual.getFrom(), DELTA);
+			assertEquals(expected.getTo(), actual.getTo(), DELTA);
+		}
+	}
+
 }
