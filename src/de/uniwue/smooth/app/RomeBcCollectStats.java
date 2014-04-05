@@ -20,6 +20,7 @@ import de.uniwue.smooth.collision.CollisionManager;
 import de.uniwue.smooth.collision.segments.EdgeGenerator;
 import de.uniwue.smooth.collision.segments.SegmentedEdge;
 import de.uniwue.smooth.collision.segments.SmoothEdgeGenerator;
+import de.uniwue.smooth.collision.segments.StraightlineEdgeGenerator;
 import de.uniwue.smooth.draw.IpeDrawing;
 import de.uniwue.smooth.draw.OrthogonalDrawing;
 import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
@@ -60,6 +61,8 @@ public class RomeBcCollectStats implements Runnable {
 		
 		List<Double> avgAll = new ArrayList<Double>(filesCsvList.size());
 		List<Double> avgBst = new ArrayList<Double>(filesCsvList.size());
+		List<Double> avgNoC = new ArrayList<Double>(filesCsvList.size());
+		List<Double> avgCom = new ArrayList<Double>(filesCsvList.size());
 		int nodesTotal = 0;
 		
 		for (final String[] cvsLine : filesCsvList) {
@@ -94,6 +97,9 @@ public class RomeBcCollectStats implements Runnable {
 				layoutSomeadjust.initialize();
 				layoutAlladjust.initialize();
 				
+				analyseStraightlineLayout(nocompressLiuLayout, sb, null, avgNoC);
+				analyseStraightlineLayout(compressliuLayout, sb, null, avgCom);
+				
 				boolean x = analyseSmoothLayout(layoutNoadjust, sb, null, avgBst);
 				boolean y = analyseSmoothLayout(layoutSomeadjust, sb, null, x ? avgBst : null);
 				boolean z = analyseSmoothLayout(layoutAlladjust, sb, avgAll, y ? avgBst : null);
@@ -115,6 +121,12 @@ public class RomeBcCollectStats implements Runnable {
 		sb.append(SPACE);
 		sb.append("Anzahl der Knoten: " + nodesTotal);
 		sb.append(SPACE);
+		if(avgBst.size() != totalCount) throw new IllegalStateException("Had " + avgNoC.size() + " numbers instead of " + totalCount);
+		sb.append("Durchschnittliche Fläche pro Knoten orthogonal:" + avg(avgNoC));
+		sb.append(SPACE);
+		if(avgBst.size() != totalCount) throw new IllegalStateException("Had " + avgCom.size() + " numbers instead of " + totalCount);
+		sb.append("Durchschnittliche Fläche pro Knoten orthogonal, with compression:" + avg(avgCom));
+		sb.append(SPACE);
 		if(avgBst.size() != totalCount) throw new IllegalStateException("Had " + avgBst.size() + " numbers instead of " + totalCount);
 		sb.append("Durchschnittliche Fläche pro Knoten smooth:" + avg(avgBst));
 		sb.append(SPACE);
@@ -135,12 +147,17 @@ public class RomeBcCollectStats implements Runnable {
 		return sum/doubles.size();
 	}
 	
-	private boolean analyseSmoothLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes) {
-		SmoothEdgeGenerator<Vertex, Edge> edgeGenerator = new SmoothEdgeGenerator<Vertex, Edge>(layout);
-		return analyseLayout(edgeGenerator, layout, sb, avgAlways, avgSometimes);
+	private boolean analyseStraightlineLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes) {
+		EdgeGenerator<Vertex, Edge, ?> edgeGenerator = new StraightlineEdgeGenerator<Vertex, Edge>(layout);
+		return analyseLayout(edgeGenerator, layout, sb, avgAlways, avgSometimes, false);
 	}
 	
-	private boolean analyseLayout(SmoothEdgeGenerator<Vertex, Edge> edgeGenerator, OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes) {
+	private boolean analyseSmoothLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes) {
+		EdgeGenerator<Vertex, Edge, ?> edgeGenerator = new SmoothEdgeGenerator<Vertex, Edge>(layout);
+		return analyseLayout(edgeGenerator, layout, sb, avgAlways, avgSometimes, true);
+	}
+	
+	private boolean analyseLayout(EdgeGenerator<Vertex, Edge, ?> edgeGenerator, OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes, boolean analysePlanarity) {
 		CollisionManager collisionManager = new CollisionManager();
 		BoundariesManager boundariesManager = new BoundariesManager();
 		for (final Edge e : layout.getGraph().getEdges()) {
@@ -149,7 +166,7 @@ public class RomeBcCollectStats implements Runnable {
 			boundariesManager.addAll(edge.getSegments());
 		}
 		boolean collides = ! collisionManager.collisions().isEmpty();
-		if(collides) {
+		if(analysePlanarity && collides) {
 			sb.append("n.p.");
 		} else {
 			int width = (int) Math.ceil(boundariesManager.getWidth());
