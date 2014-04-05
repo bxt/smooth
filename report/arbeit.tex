@@ -67,7 +67,7 @@ Lehrstuhl für Informatik I\\
 Effiziente Algorithmen und wissensbasierte Systeme}
 \publishers{Betreuer:\\
 Prof.\ Dr.\ Alexander Wolff\\
-Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers and
+Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers an
 \maketitle
 \tableofcontents
 
@@ -78,6 +78,8 @@ Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers and
 
 
 % TODO: Was ist das: ? Datenstrukturen, Testdaten, Probleme
+
+% http://www.ooevv.at/upload/content/blaetterkatalog/Liniennetzplan/EF-GR-WE/assets/common/downloads/Liniennetzplan-GR-EF.pdf
 
 \chapter{Einleitung}
 \label{chap:intro}
@@ -195,7 +197,7 @@ Für \emph{Multigraphen} mit mehreren Kanten zwischen zwei Knoten kommen Variati
 
 \begin{figure}[h]
   \centering
-  \includegraphics{koordinatengitter}
+  \includegraphics[scale=.6]{koordinatengitter}
   \caption{Gezeichnet wird in eine Koordinatenebene. Hier wird die Anordnung der beiden Koordinaten-Achsen gezeigt, die Richtungen der Ports $\{\text{L, R, T, B}\}$, der Drehsinn der Anordnung im Uhrzeigersinn der Adjazenzlisten und die Quadranten $\{\text{I, II, III, IV}\}$.}
   \label{fig:coords}
 \end{figure}
@@ -339,6 +341,7 @@ Die $st$-Ordnung hat in planaren Graphen noch eine weitere Eigenschaft, wenn man
 % Graph<=>Relation...?
 
 \section{Glatt-orthogonale Zeichnungen}
+\label{sec:smooth_definition}
 
 Für das berechnen orthogonaler Zeichnungen sind viele Algorithmen bekannt. Hier geht es jedoch um eine interessante Variation von orthogonalen Zeichnungen: \emph{Glatt-orthogonale Zeichnungen} von Graphen nach Bekos~et.~al.~\cite{bekos-13}. Sie platzieren die Knoten, wie orthogonale Zeichnungen auch, auf einem Koordinatengitter und erlauben horizontale und vertikale Segmente. Zusätzlich enthalten sie jedoch Kreisbögen, die tangential in die geraden Segmente übergehen, wie in Abbildung~\ref{fig:anatomieLKante}. Sie in insofern "`glatt"', als dass sie keine Ecken in den Kanten haben, da die 90\textdegree"~Knicke durch Kreissegmente abgerundet sind.
 
@@ -376,7 +379,7 @@ Konvertiert man die Kante $\{0,4\}$, wie sie in der OC$_3$-Zeichnung aus Abbildu
 
 Benutzt man jedoch das große 270\textdegree-Kreissegment, schafft man es, die Anzahl der Segmente auf zwei zu reduzieren und man erhält eine SC$_2$-Zeichnung. Wir streben nun Zeichnungen mit möglichst niedriger Komplexität an. Es gibt nicht für alle 4"~planare Graphen eine SC$_1$-Zeichnung, und solche Zeichnungen haben u.U. einen vergleichsweise Großen Platzbedarf. Eine SC$_2$-Zeichnung ist jedoch stets möglich, wie anhand des Algorithmus zu sehen ist. Auch sie haben im Allgemeinen einen größeren Platzbedarf als die SC$_5$-Zeichnung der trivialen Umwandlung, dies ist jedoch ein Kompromiss, der für die geringere Kantenkomplexität eingegangen werden muss. % TODO: Proof? Elaborate? idk
 
-Auch für SC$_2$ Zeichnungen ist es sinnvoll, das Aussehen der Kanten so zu normieren, dass die Angabe der Knotenpositionen und der Ports eine Zeichnung vollständig beschreibt.
+Auch für SC$_2$ Zeichnungen ist es sinnvoll, das Aussehen der Kanten so zu normieren, dass die Angabe der Knotenpositionen und der Ports eine Zeichnung vollständig beschreibt. Dies wird in Abschnit~\ref{sec:sc2conversion} weiter ausgeführt.
 
 
 
@@ -422,7 +425,7 @@ Nach Abschluss des letzten Schrittes erhält man eine glatt-orthogonale SC$_2$-Z
   $O \leftarrow$ GenerateOrthogonalLayout$(G,St,\Epsilon)$ \;
   $O' \leftarrow$ EliminateS-Shapes$(O)$ \;
   $O'' \leftarrow$ EliminateCrossings$(O')$ \;
-  $\Gamma \leftarrow$ DrawSmoothEdges$(O'')$ \;
+  $\Gamma \leftarrow$ DrawSmoothOrthogonalLayout$(O'')$ \;
   
   \Return $\Gamma$
 \end{algorithm}
@@ -532,6 +535,8 @@ Während die Portzuweisung und die x"~Koordinaten im Verlauf des Algorithmus bes
 
 Da sich x"~Koordinaten sonst häufig ändern würden, wird den Knoten und Kanten zunächst nur eine Spalte zugeordnet. So kann eine neue Spalte zwischen zwei bestehenden Spalten eingefügt werden, ohne die Koordinaten sämtlicher Knoten in den Spalten zu verändern. Am Anfang wird eine Referenzspalte erstellt. Erst nach Ablauf des Algorithmus werden die x"~Koordinaten auf Basis der Spalten festgelegt. Die Spalte einer Kante steht für die Position ihres horizontalen Segments.
 
+\subsection{Schleife}
+
 Der Algorithmus bearbeitet nun in einer Schleife die Knoten in der Reihenfolge der $st$-Ordnung.
 
 Es wird die Schleifeninvariante eingehalten, dass, bevor Knoten~$v_i$ bearbeitet wird, die Knoten $v_1, \dots, v_{i-1}$ bereits in einer Spalte platziert sind und ihre Portzuweisungen vollständig berechnet wurden. Ebenso sind die Kanten zwischen diesen Knoten bereits in einer Spalte platziert. Die Kanten, die von einem der Knoten $v_1, \dots, v_{i-1}$ ausgehen, aber bei einem noch nicht platzierten Knoten $v_i, \dots, v_n$ enden, nennen wir \emph{offene Kanten}. Auch sie sind bereits in einer Spalte platziert.
@@ -542,6 +547,7 @@ Am Ende der Schleife, wenn die Invariante für $t = v_n$ erfüllt ist, sind alle
 
 Um die Beschreibung zu vervollständigen, muss noch ausgeführt werden, wie die Ports an einem Knoten zugewiesen werden und wie die offenen Kanten platziert werden. Insbesondere muss jeder Knoten, außer $s$, eine Kante am unteren Port erhalten, damit er in eine Spalte platziert werden kann.
 
+\subsection{Portzuweisung}
 \label{sec:portdistribution}
 
 Für die Portzuweisung wird zunächst die Ajdazenzliste partitioniert. Da der Graph maximal Grad~4 hat, ist die Größe der Adjazenzliste maximal~4. Durch die $st$-Ordnung erhalten wir eine Orientierung des Graphen, und somit eingehende und ausgehende Kanten am Knoten. Die planare Einbettung hat die Adjazenzliste vorsortiert. Wir können daher die Adjazentliste in eine Liste von eingehenden und eine Liste von ausgehenden Kanten teilen. Die ein- und ausgehenden Kanten werden dann getrennt den Ports zugewiesen. Hier ergibt sich ein Speziallfall: Da es an $v_1$ nur ausgehende Kanten, und an $v_n$ nur eingehende Kanten gibt, könnte jede Kante die erste Kante in der Liste der aus- bzw. eingehenden Kanten sein. Hier wird die Liste so rotiert, dass die erste und die letzte Kante die beiden Kanten der Außenfacette sind.
@@ -594,6 +600,8 @@ Für die ausgehenden Kanten werden, wie in Abbildung~\ref{fig:embedout} gezeigt,
 
 Nach diesem Schritt sind die Kanten so den Ports zugewiesen, dass die mit der planaren Einbettung übereinstimmen.
 
+\subsection{Platzierung der offenen Kanten}
+
 Wenn die Ports den Kanten an einem Knoten zugewiesen wurden und der Knoten in einer Spalte platziert wurde, müssen noch die offenen, ausgehenden Kanten in eine Spalte platziert werden. Die Kante am oberen Port wird in die Spalte des Knotens platziert. Gibt es eine ausgehende Kante am rechten Port, wie in der Zeichnungen aus Abbildung~\ref{fig:embedoutdeg2}, so wird eine neue Spalte rechts des Knotens eingefügt und die Kante in diese Spalte platziert. Wie in der Abbildung zu erkennen, wird dabei der bereits platzierte Teil des Graphen auseinandergezogen. Analog wird eine ausgehende Kante am linken Port in eine neue Spalte links des Knotens platziert, zu sehen in den Abbildung~\ref{fig:embedoutdeg3}. 
 
 Gibt es eine ausgehende Spalte am unteren Port, wie in Abbildung~\ref{fig:embedoutdeg4}, so gibt es auch eine Kante am rechten Port, die bereits in einer neuen Spalte rechts des Knotens platziert wurde. Es wird also noch eine Spalte rechts dieser Spalte hinzugefügt, in die die Kante am unteren Port platziert wird.
@@ -602,7 +610,12 @@ Nach diesem Schritt sind die neuen offenen Kanten in Spalten platziert.
 
 Für jeden Knoten werden also die Schritte Porzuweisung, Platzierung des Knotens und Platzierung der ausgehenden Kanten durchgeführt, bis alle Knoten platziert sind. Zuletzt werden die Spalten von links nach rechts durchnummeriert und den darin platzierten Knoten und Kanten wird diese Nummer als x"~Koordinate zugewiesen.
 
+Die Bedingungen für die maximale Kantenkomplexität werden auch, bis auf zwei Ausnahmen, eingehalten.
+
+Wie an den verschiedenen Fällen für das Zeichnen der Kanten zu erkennen ist, wird jeweils nur höchstens ein Knick pro Knoten hinzugefügt, außer es handelt sich um die offene Kante am unteren Port bei Ausgangsgrad~4 oder die eingehende Kante am oberen Port bei Eingangsgrad~4. Diese Fälle können aber jeweils nur einmal in der Zeichnung auftreten, nämlich an $v_1$ und $v_n$. Außerdem können nicht beide Fälle gleichzeitig auftreten, da die halben Kanten auf gegenüberliegenden Seiten. Diese beiden halben Kanten mit zwei Knicken werden im schlechtesten Fall also jeweils mit einer halben Kante mit einem Knick verbunden und bilden dann eine Kante mit drei Knicken. Somit kann die Zeichnung zwei Kanten mit drei Knicken haben. In allen anderen Fällen hat die offenen Kante bereits maximal einen Knick und wird dann mit maximal einem weiteren Knick mit dem Zielknoten verbunden, und es ergibt sich eine maximale Komplexität von 2. Obwohl Kanten mit 3 Knicken und damit Komplexität~4 auftreten können, nennen wir das Layout OC$_3$, da dies unabhängig von der Kontenzahl jeweils nur konstant viele (zwei) Kanten sind.
+
 Damit ist das OC$_3$-Layout fertig und kann zur nächsten Iteration weitergegeben werden, wo die stufenförmigen Kanten entfernt werden.
+
 
 \section{Eliminierung stufenförmiger Kanten}
 
@@ -626,8 +639,7 @@ Im so entstandenen Graphen erhält das Plateau mit $v_1$ die Höhe~$1$. Dann erh
 Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten im gleichen Plateau sind und somit die gleiche y"~Koordinate haben. Die vormals stufenförmigen Kanten bestehen nun aus einem horizontalen Liniensegment.
 
 \section{Konvertierung in ein SC$_2$-Layout}
-
-
+\label{sec:sc2conversion}
 
 \begin{figure}[h]
         \centering
@@ -636,38 +648,71 @@ Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsp
         \quad
         \subcaptionbox{L"~Kante\label{fig:sc2conversionLEdge}}
             {\includegraphics[scale=.8]{sc2_conversion/LEdge}}
-        \quad
-        \subcaptionbox{G"~Kante\label{fig:sc2conversionGEdge}}
-            {\includegraphics[scale=.8]{sc2_conversion/GEdge}}
-        \quad
         \subcaptionbox{U/C"~Kante\label{fig:sc2conversionUCEdge}}
             {\includegraphics[scale=.8]{sc2_conversion/UCEdge}}
         \quad
         \subcaptionbox{S"~Kante\label{fig:sc2conversionSEdge}}
             {\includegraphics[scale=.8]{sc2_conversion/SEdge}}
+        \quad
+        \subcaptionbox{G"~Kante\label{fig:sc2conversionGEdge}}
+            {\includegraphics[scale=.8]{sc2_conversion/GEdge}}
+        \quad
 
-        \caption{Konvertierung von orthogonalen Kanten mit maximaler Komplexität~3 in glatt-orthogonale Kanten mit maximaler Komplexität~2. Nicht gezeigt sind Drehungen und Spiegelungen dieser Beispiele.}
+        \caption{Konvertierung von orthogonalen Kanten (oben) mit maximaler Komplexität~3 und einer Kante mit Komplexität~4 bei \ref{fig:sc2conversionGEdge} in glatt-orthogonale Kanten (unten) mit maximaler Komplexität~2. Nicht gezeigt sind Drehungen und Spiegelungen dieser Beispiele.}
         \label{fig:sc2conversion}
 \end{figure}
 
+Im letzten Schritt wurde ein OC$_3$-Layout erstellt, das im nächsten Schritt für ein planares SC$_2$-Layout angepasst werden soll. Für den Test der Planarität werden die glatt-orthogonalen Kanten gezeichnet und auf Überschneidungen geprüft. Dafür ist es nötig, das Aussehen der Kanten zu kennen. In Abschnitt~\ref{sec:smooth_definition} wurde bereits erwähnt, dass eine Kante zwischen zwei Knoten anhand der Positionen der Knoten und der Portzuweisung der Kante an den beiden Knoten bereits eindeutig gezeichnet werden kann. Dabei sollen nur orthogonale Kanten mit maximaler Komplexität~3 betrachtet werden. Als Ergebnis soll stets eine glatt-orthogonale Kante mit maximaler Komplexität~2 stehen. Wie dies zu bewerkstelligen ist, wird im folgenden erklärt. Die \emph{Steigung} einer Kante sei der kleinere der beiden Winkel zwischen der Gerade durch die beiden Endpunkte der Kante und der x"~Achse.
 
+Es sollen alle Fälle für das Aussehen einer orthognalen Kante behandelt werden. Da es in einem OC$_3$-Layout nur maximal drei Segmente geben kann, und zwei horizontale/vertikale Segmente hintereinander ein horizontales/vertikales Segment bilden würden, gibt es nicht sehr viele Möglichkeiten für die Anordnung der Segmente, insbesondere da gedrehte und gespiegelte Anordnungen zusammenzufassen sind.
 
+Kanten mit einem Segment sind entweder horizontal oder vertikal. Diese können unverändert als Liniensegment in eine glatt-orthogonale Zeichnung übernommen werden und sie werden nach ihrem Aussehen I"~Kanten genannt.
+
+Kanten mit zwei Segmenten bestehen aus einem horizontalen und einem vertikalen Segment. In der glatt-orthogonalen Zeichnung werden diese mit einem Viertelkreis und, falls nötig, einem Liniensegment gezeichnet. Sie werden nach ihrem Aussehen L"~Kanten genannt. Ist ihre Steigung größer als 45\textdegree, so hat die L"~Kante ein vertikales Liniensegment, ansonsten ein horizontales.
+
+Kanten mit drei Segmenten bestehen aus einem horizontalem Segment zwischen zwei vertikalen Segmenten oder umgekehrt. Hier gibt es zwei verschiedene Fälle: Die äußeren Segmente können in die selbe Richtung zeigen. Dann werden sie mit einem Halbkreis und, falls nötig, einem Liniensegment gezeichnet. Diese Kanten werden U- oder C"~Kante genannt.
+
+Zeigen die äußeren Segmente in verschiedene Richtungen, ergibt sich eine S"~Kante aus zwei Kreissegmenten. Nur wenn die Steigung 45\textdegree\ beträgt, ist die Tangente am Segmentwechsel parallel zu einer der Koordinatenachsen. S"~Kanten kommen bei der ersten Umsetzung ins SC$_2$-Layout nicht vor.
+
+Eine andere Kantenart kommt aber vor: An $v_1$ und $v_n$ kann es eine Kante mit drei Knicken geben. Diese werden durch ein 270\textdegree-Kreissegment und, falls nötig, ein Liniensegment gezeichnet und G"~Kante genannt.
+
+Eine Übersicht des Verfahrens zeigt Abbildung~\ref{fig:sc2conversion}. Durch diese Zeichenvorschriften ist das Aussehen der Kanten festgelegt und in der Zeichnung können Überschneidungen dieser Kanten erkannt werden, um eine planare Zeichnung zu erhalten.
 
 \section{Entfernen von Überschneidungen im SC$_2$-Layout}
+
+In der letzten Iteration wurde ein OC$_3$-Layout ohne stufenförmige Kanten erstellt. Dieses soll nun in ein SC$_2$-Layout konvertiert werden. Dabei wird die Portzuweisung nicht geändert, sodass sich auch die planare Einbettung nicht ändert. Problematisch sind jedoch die glatt-orthogonalen Kanten, die anders geformten sind und sich überschneiden können, wenn die Knoten-Positionen aus dem OC$_3$-Layout benutzt werden. Darum sollen jetzt die Knotenpositionen so angepasst werden, dass es nicht mehr zu Überschneidungen kommt.
+
+Während nun schrittweise das SC$_2$-Layout von unten nach oben aufgebaut wird, sollen stets alle L"~Kanten ein horizontales Liniensegment haben, niemals aber ein vertikales Liniensegment. Das horizontale Liniensegment kann die Länge~0 haben. 
+
+% Alle C"~Kanten sollen immer ein horizontales Liniensegment am unteren Knoten und niemals am oberen Knoten. Die horizontalen Liniensegmente können jeweils die Länge~0 haben. 
+
+Bei der Entfernung der stufenförmigen Kanten wurden die Knoten in Plateaus gruppiert. Die Plateaus werden nun von unten nach oben durchlaufen und nacheinander in einem neuen Layout platziert.
+
+Dazu wird zunächst der Konten ganz links im Plateau platziert, und zwar wieder in der Spalte der Kante an seinem unteren Port, sowie auf der Höhe seines Plateaus. Danach werden seine ausgehenden Kanten platziert: Die kanten bekommen relativ zum Knoten die selbe x"~Koordinate, wie im OC$_3$-Layout. Die y"~Koordinate aller offenen Kanten sei stets die y"~Koordinate des aktuellen Plateaus. 
+
+Nun werden Überschneidungen mit der Kante am linken Port des erstens Knotens aufgelöst. Zuerst werden Überschneidungen mit Kanten rechts der Kante behoben: Das gesamte Plateau und alle Plateaus darüber werden so lange nach oben verschoben, bis es keine Kollision mehr gibt. Dann werden Überschneidungen mit Kanten links des Kante behoben: Von leicht links des unteren Knoten der Kante aus wird der Graph geteilt, und zwar so, dass der Schnitt nur durch horizontale Liniensegmente führt. Die linke, abgeschnittene Seite des Graphen wird dann nach links verschoben, bis es keine Kollision mehr gibt. Die horizontalen Segmente werden dadurch länger. Wenn die Kante am linken Port eine L"~Kante ist, muss noch die Steigung angepasst werden, falls sie ein vertikales Liniensegment hat. Dazu wird leicht rechts des unteren Knotens ein Schnitt nach unten begonnen und dann alles links des Schnitts so weit nach links verschoben, dass die Kante kein vertikales Liniensegment mehr hat. Dies wird in Abbildung~\ref{fig:cutLslopecorrection} gezeigt.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{cut_L_slope_correction}
-  \caption{Finden eines Schnittes zum Trennen des Graphen in eine linke und einer rechte Seite. Die linke Seite und der untere Knoten können frei nach links verschoben werden, um die Steigung der L"~Kante zu korrigieren. In Schraffur dargestellte Blöcke stehen für nicht weiter spezifizierte Teile des Graphen in der Zeichnung.}
+  \caption{Finden eines Schnittes zum Trennen des Graphen in eine linke und einer rechte Seite. Die linke Seite und der untere Knoten können frei nach links verschoben werden, um die Steigung der L"~Kante zu korrigieren. Mit Schraffur gefüllte Blöcke stehen für Teile des Graphen in der Zeichnung, deren genaues Aussehen nicht relevant ist.}
   \label{fig:cutLslopecorrection}
 \end{figure}
 
+Dann wird der Konten ganz links im Plateau platziert, und die Überschneidungen der Kante am rechten Port analog, also horizontal gespiegelt, aufgelöst.
 
+Jetzt werden die übrigen Knoten mit ihren offenen Kanten platziert. Daraufhin müssen noch die Kanten an den unteren Ports auf Kollisionen überprüft werden. Hier kann es zu Überschneidungen kommen, wenn es L"~Ecken sind. Hierbei beginnt der Schnitt leicht unterhalb des Knotens auf der Seite, in die die L"~Ecke zeigt. Dann wird die L"~Ecke durchschnitten und der restliche Graph nach unten, wobei wiederum nur horizontale Liniensegmente durchquert werden. Dann wird der Teil der Zeichnung des Graphen auf der Seite, in die die L"~Ecke zeigt noch weiter in die Richtung der L"~Ecke verschoben, bis es keine Überschneidungen mehr gibt und die L"~Ecke eine Steigung kleiner als 45\textdegree\ hat.
 
+% TODO: C-Ecken-Ausnahmen? Nötig?
+% TODO: Offene Kanten bei Kollisionserkennung
 
+Wenn alle Plateaus vollständig platziert sind, ist das neue Layout eine glatt-orthogonale und planare Version des OC$_3$-Layouts, mit den selben Portzuweisungen und der selben planaren Einbettung.
 
+Damit verbleibt nur noch das Layout in eine Zeichnung zu überführen. 
 
 \chapter{Implementierung}
+
+Im Kapitel~\ref{chap:algo} wurde das Grundgerüst des Algorithmus beschrieben. Einige Teile des Algorithmus wurden nur sehr grobkörnig beschrieben, gerade so, dass es für das Verständnis reicht, aber nicht genau genug für eine Implementierung. Diese Teile sollen nun hier im Detail erklärt werden. Zudem werden einige Implementierungsdetails aufgeführt, die sich für ähnliche Implementierungs-Projekte nützlich erweisen sollten.
 
 \section{Software}
 
@@ -684,6 +729,8 @@ Die Ausgabe der fertigen Zeichnungen erfolgte im Vektorgrafik-Format des Editors
 Zum Erstellen der Ipe-Dateien aus Java wurde die \emph{IpeDraw-Bibliothek}\footnote{Erhältlich unter \url{http://lamut.informatik.uni-wuerzburg.de/mediawiki/ipe7/index.php/JAVAtoIPE}} von Philipp Kindermann und Martin Fink verwendet.
 
 Es wurden also Daten aus dem Rom-Testgraphen entnommen oder direkt in yEd erstellt, in Java mittels JUNG eingelesen, durch den Algorithmus visualisiert und mit der IpeDraw-Bibliothek als Vektorgrafiken ausgegeben, welche im Ipe-Editor betrachtet werden können oder in PDFs konvertiert werden.
+
+\section{Zeichnen der glatt-orthogonalen Kanten}
 
 \section{Schnitte finden}
 
@@ -754,6 +801,9 @@ Nach wiederholter Anwendung dieser Regeln, wobei jeweils der Zielknoten zum neue
 
 Die Konstruktion des Schnittes speichert bei jedem Durchqueren einer Kante die Kante selbst, und den Knoten links und rechts der Kante jeweils in einer Liste von linken und rechten Knoten. Zum finden der gesamten linken Knoten wird an jedem der Knoten in der Liste der linken Knoten eine Tiefensuche begonnen, die jedoch nicht den durchschnittenen Kanten folgt. Ebenso findet man die rechten Knoten, indem man bei allen rechten Knoten startet und wiederum durchschnittene Kanten ignoriert.
 
+\section{Erkennung von Überschneidungen bei glatt-orthogonalen Kanten}
+
+
 \chapter{Verbesserungen}
 
 % veränderte slope korrektur
@@ -775,9 +825,10 @@ Die Konstruktion des Schnittes speichert bei jedem Durchqueren einer Kante die K
 Nicht planare Graphen können durch ein einfaches Verfahren in planare Graphen umgewandelt werden: In einer zufälligen Zeichnung fügt man Knoten an allen Schnittpunkten von zwei Kanten ein. Beim Zeichnen lässt man die neuen Knoten weg.
 
 
-\chapter{Schlussfolgerungen}
+\chapter{Zusammenfassung und Schlussfolgerungen}
 
-% Ausblick nicht-BC etc.
+% Zusammenfassung
+% Ausblick nicht-BC etc., bessere Implementierung, weitere Anpassungen
 
 
 
