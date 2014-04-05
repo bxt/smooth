@@ -16,7 +16,7 @@ import edu.uci.ics.jung.graph.util.Pair;
  * @param <V> Vertex type.
  * @param <E> Edge type.
  */
-public class SmoothEdgeGenerator<V, E> {
+public class SmoothEdgeGenerator<V, E> implements EdgeGenerator<V, E, SmoothEdge> {
 	
 	OrthogonalLayout<V, E> layout;
 	
@@ -24,6 +24,7 @@ public class SmoothEdgeGenerator<V, E> {
 		this.layout = layout;
 	}
 
+	@Override
 	public SmoothEdge generateEdge(E e) {
 		Pair<V> endpoints = layout.getGraph().getEndpoints(e);
 		Pair<Port> ports = new Pair<>(getPort(endpoints.getFirst(), e), getPort(endpoints.getSecond(), e));

@@ -10,8 +10,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import de.uniwue.smooth.collision.segments.EdgeGenerator;
 import de.uniwue.smooth.collision.segments.Segment;
-import de.uniwue.smooth.collision.segments.SmoothEdge;
+import de.uniwue.smooth.collision.segments.SegmentedEdge;
 import de.uniwue.smooth.collision.segments.SmoothEdgeGenerator;
 import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
@@ -34,7 +35,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	
 	private static int MAXIMUM_MOVING_DISTANCE = 10000;
 	
-	private SmoothEdgeGenerator<V, E> edgeGenerator = new SmoothEdgeGenerator<V, E>(this);
+	private EdgeGenerator<V, E, ?> edgeGenerator = new SmoothEdgeGenerator<V, E>(this);
 	
 	private CompressingLiuEtAlLayout<V, E> liuLayout;
 	private EscalationLevel escalationLevel;
@@ -135,7 +136,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				cut.goTo(sideEdgeOpposite, Quadrant.getQuadrant(side == Port.R, sideEdge.equals(getEdgeAt(sideEdgeOpposite, Port.T))));
 				cut.goDownwards();
 				
-				SmoothEdge smoothEdge = edgeGenerator.generateEdge(sideEdge);
+				SegmentedEdge smoothEdge = edgeGenerator.generateEdge(sideEdge);
 				
 				adjustInnerCollisionsOfSideEdge(side, sideEdge, v, sideEdgeOpposite, smoothEdge, cut, set);
 				
@@ -149,7 +150,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		}
 	}
 	
-	private void adjustInnerCollisionsOfSideEdge(Port side, E sideEdge, V v, V sideEdgeOpposite, SmoothEdge smoothEdge, Cut<V, E> cut, Set<V> set) {
+	private void adjustInnerCollisionsOfSideEdge(Port side, E sideEdge, V v, V sideEdgeOpposite, SegmentedEdge smoothEdge, Cut<V, E> cut, Set<V> set) {
 		CollisionManager innerCollisionManager = edgesCollisionManager(cut.getEdgesAt(side.getOpposite()), sideEdge);
 		for(int triesLeft = getMaximumMovingDistance(); innerCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
 			if(triesLeft <= 0) {
@@ -165,7 +166,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		}
 	}
 	
-	private void adjustOuterCollisionsOfSideEdge(Port side, E sideEdge, V v, V sideEdgeOpposite, SmoothEdge smoothEdge, Cut<V, E> cut) {
+	private void adjustOuterCollisionsOfSideEdge(Port side, E sideEdge, V v, V sideEdgeOpposite, SegmentedEdge smoothEdge, Cut<V, E> cut) {
 		CollisionManager outerCollisionManager = edgesCollisionManager(cut.getEdgesAt(side), sideEdge);
 		for(int triesLeft = getMaximumMovingDistance(); outerCollisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
 			if(triesLeft <= 0) {
@@ -220,7 +221,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 	}
 	
 	private void adjustCollisionsOfBottomLEdge(Port side, E botEdge, V v, V botEdgeOpposite, Cut<V, E> cut) {
-		SmoothEdge smoothEdge = edgeGenerator.generateEdge(botEdge);
+		SegmentedEdge smoothEdge = edgeGenerator.generateEdge(botEdge);
 		
 		CollisionManager collisionManager = edgesCollisionManager(cut.getEdgesAt(side), botEdge);
 		for(int triesLeft = getMaximumMovingDistance(); collisionManager.collidesAny(smoothEdge.getSegments()); triesLeft--) {
@@ -299,7 +300,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 			if(endpoints.getFirst() == null) throw new IllegalStateException("Nirvana-Edge in cut!?");
 			if(endpoints.getSecond() != null) {
 				if (edgeColumns.get(e) == null) throw new IllegalStateException("Gaaaah!");
-				SmoothEdge smoothEdge = edgeGenerator.generateEdge(e);
+				SegmentedEdge smoothEdge = edgeGenerator.generateEdge(e);
 				collisionManager.addAll(smoothEdge.getSegments());
 			} else { // open edge
 				collisionManager.addAll(getOpenEdgeSegmentsForCollisions(endpoints, e));

@@ -1,8 +1,10 @@
 package de.uniwue.smooth.draw;
 
 import de.uniwue.smooth.collision.CollisionManager;
+import de.uniwue.smooth.collision.segments.EdgeGenerator;
 import de.uniwue.smooth.collision.segments.Segment;
 import de.uniwue.smooth.collision.segments.Segment.Arc;
+import de.uniwue.smooth.collision.segments.SegmentedEdge;
 import de.uniwue.smooth.collision.segments.SmoothEdge;
 import de.uniwue.smooth.collision.segments.SmoothEdgeGenerator;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
@@ -16,7 +18,7 @@ import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 public class SmoothOrthogonalDrawer<V, E> extends AbstractOrthogonalDrawer<V, E> implements OrthogonalDrawer<V, E> {
 	
 	private CollisionManager collisionManager;
-	private SmoothEdgeGenerator<V, E> edgeGenerator;
+	private EdgeGenerator<V, E, SmoothEdge> edgeGenerator;
 	private int collisionCount;
 	
 	public CollisionManager getCollisionManager() {
@@ -73,7 +75,7 @@ public class SmoothOrthogonalDrawer<V, E> extends AbstractOrthogonalDrawer<V, E>
 		drawSegments(edge);
 	}
 	
-	private void drawSegments(SmoothEdge edge) {
+	private void drawSegments(SegmentedEdge edge) {
 		for (Segment segment : edge.getSegments()) {
 			segment.draw(drawing, collisionManager.addAndCollides(segment));
 		}
