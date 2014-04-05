@@ -105,7 +105,7 @@ public class RomeBcCollisionlessRenderTask implements Runnable {
 			}
 		}
 		
-		System.out.println("Generated " + filesCsvList.size() +  " drawings. ");
+		System.out.println("Generated " + (filesCsvList.size()-ignore.size()) +  " drawings. ");
 		System.out.println("Had " + collisionGraphs.size() +  " drawings with collisions. ");
 		System.out.println(collisionGraphs);
 		Util.writeFile("resources/drawings/rome_bc/all-nocollisions.ipe", drawing.create().toString());
