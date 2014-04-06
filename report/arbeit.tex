@@ -50,6 +50,7 @@
 \newcommand{\Epsilon}{\mathcal{E}}
 \newcommand{\N}{\mathbb{N}}
 \newtheorem{example}[satz]{Beispiel}
+\setcounter{tocdepth}{1} % hide subsection from TOC
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -267,11 +268,11 @@ Da das Ziel des Algorithmus ist, Graphen ohne Überschneidungen zu zeichnen, ste
   Ein Graph $G$ heißt \emph{planar}, wenn er in der Ebene ohne Überschneidungen gezeichnet werden kann.
 \end{definition}
 
-Hierbei dürften sich die Kanten an den Knoten berühren. Das der Beispielgraph $G_\text{E}$ planar ist, haben wir bereits bewiesen, indem wir ihn ohne Überschneidungen gezeichnet haben. 
+Hierbei dürfen sich die Kanten an den Knoten berühren. Keine zwei Knoten dürfen an der Selben stelle gezeichnet werden, für eine Zeichnung bedeutet das, dass ihr Layout $L_V$ injektiv sein muss. Das der Beispielgraph $G_\text{E}$ planar ist, haben wir bereits bewiesen, indem wir ihn ohne Überschneidungen gezeichnet haben. 
 
-Die Graphen aus Abbildung~\ref{fig:nonplanar} jedoch lassen sich nicht ohne Überschneidung zeichnen, sie sind nicht planar. Solche nicht-planaren Graphen werden wir nicht weiter behandeln. 
+Die Graphen aus Abbildung~\ref{fig:nonplanar} jedoch lassen sich nicht ohne Überschneidung zeichnen, sie sind nicht planar. Solche nicht-planaren Graphen werden mit dem Algorithmus nicht gezeichnet. 
 
-Für planare Graphen ist es nicht offensichtlich, wie genau sie gezeichnet werden müssen, damit sich keine Überschneidungen ergeben. Der eigentlich planare Beispielgraph $G_\text{E}$ wurde in Abbildung~\ref{fig:exampleAstraightlineNonplanar} mit Überschneidungen gezeichnet. 
+Für planare Graphen ist es nicht offensichtlich, wie genau sie gezeichnet werden müssen, damit sich keine Überschneidungen ergeben. Der eigentlich planare Beispielgraph $G_\text{E}$ wurde in Abbildung~\ref{fig:exampleAstraightlineNonplanar} mit Überschneidungen gezeichnet.
 
 Nach dem Satz von Fáry hat jeder planare Graphen eine Zeichnung, in der alle Kanten als gerade Linien gezeichnet sind. % TODO: ?
 
@@ -660,7 +661,9 @@ Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsp
         \label{fig:sc2conversion}
 \end{figure}
 
-Im letzten Schritt wurde ein OC$_3$-Layout erstellt, das im nächsten Schritt für ein planares SC$_2$-Layout angepasst werden soll. Für den Test der Planarität werden die glatt-orthogonalen Kanten gezeichnet und auf Überschneidungen geprüft. Dafür ist es nötig, das Aussehen der Kanten zu kennen. In Abschnitt~\ref{sec:smooth_definition} wurde bereits erwähnt, dass eine Kante zwischen zwei Knoten anhand der Positionen der Knoten und der Portzuweisung der Kante an den beiden Knoten bereits eindeutig gezeichnet werden kann. Dabei sollen nur orthogonale Kanten mit maximaler Komplexität~3 betrachtet werden. Als Ergebnis soll stets eine glatt-orthogonale Kante mit maximaler Komplexität~2 stehen. Wie dies zu bewerkstelligen ist, wird im folgenden erklärt. Die \emph{Steigung} einer Kante sei der kleinere der beiden Winkel zwischen der Gerade durch die beiden Endpunkte der Kante und der x"~Achse.
+Im letzten Schritt wurde ein OC$_3$-Layout erstellt, das im nächsten Schritt für ein planares SC$_2$-Layout angepasst werden soll. Für den Test der Planarität werden die glatt-orthogonalen Kanten gezeichnet und auf Überschneidungen geprüft. Dafür ist es nötig, das Aussehen der Kanten zu kennen. In Abschnitt~\ref{sec:smooth_definition} wurde bereits erwähnt, dass eine Kante zwischen zwei Knoten anhand der Positionen der Knoten und der Portzuweisung der Kante an den beiden Knoten bereits eindeutig gezeichnet werden kann. Dabei sollen nur orthogonale Kanten mit maximaler Komplexität~3 betrachtet werden.
+
+Als Ergebnis soll stets eine glatt-orthogonale Kante mit maximaler Komplexität~2 stehen. Wie dies zu bewerkstelligen ist, wird im folgenden erklärt. Die \emph{Steigung} einer Kante sei der kleinere der beiden Winkel zwischen der Gerade durch die beiden Endpunkte der Kante und der x"~Achse.
 
 Es sollen alle Fälle für das Aussehen einer orthognalen Kante behandelt werden. Da es in einem OC$_3$-Layout nur maximal drei Segmente geben kann, und zwei horizontale/vertikale Segmente hintereinander ein horizontales/vertikales Segment bilden würden, gibt es nicht sehr viele Möglichkeiten für die Anordnung der Segmente, insbesondere da gedrehte und gespiegelte Anordnungen zusammenzufassen sind.
 
@@ -708,9 +711,13 @@ Wenn alle Plateaus vollständig platziert sind, ist das neue Layout eine glatt-o
 
 Damit verbleibt nur noch das Layout in eine Zeichnung zu überführen. 
 
+%\section{Zusammenfassung}
+% TODO: explain whats missing
+
+
 \chapter{Implementierung}
 
-Im Kapitel~\ref{chap:algo} wurde das Grundgerüst des Algorithmus beschrieben. Einige Teile des Algorithmus wurden nur sehr grobkörnig beschrieben, gerade so, dass es für das Verständnis reicht, aber nicht genau genug für eine Implementierung. Diese Teile sollen nun hier im Detail erklärt werden. Zudem werden einige Implementierungsdetails aufgeführt, die sich für ähnliche Implementierungs-Projekte nützlich erweisen sollten.
+Im Kapitel~\ref{chap:algo} wurde das Grundgerüst des Algorithmus beschrieben. Einige Teile des Algorithmus wurden nur sehr grobkörnig beschrieben, gerade so, dass es für das Verständnis und die Nachvollziehbarkeit reicht, aber nicht genau genug für eine Implementierung. Diese Teile sollen nun hier im Detail erklärt werden. Zudem werden einige Implementierungsdetails aufgeführt, die sich für ähnliche Implementierungs-Projekte nützlich erweisen sollten.
 
 \section{Software}
 
@@ -802,32 +809,104 @@ Die Konstruktion des Schnittes speichert bei jedem Durchqueren einer Kante die K
 \section{Erkennung von Überschneidungen bei glatt-orthogonalen Kanten}
 
 
-\chapter{Verbesserungen}
+\chapter{Verbesserungen und empirische Untersuchung}
 
-% veränderte slope korrektur
-% sets auf gleicher höhe
+In den vorausgegangenen Kapiteln wurde beschrieben, wie der Algorithmus funktioniert und wie er Implementiert wurde. Damit wurde gezeigt, dass der Algorithmus implementiert werden kann, und es wurden einige Erkenntnisse aus dem Prozess der Implementierung vorgestellt. Dieses Kapitel soll nun Erkenntnisse vorstellen, die auf Grundlage der Implementierung über den Algorithmus gewonnen wurden: Die Implementierung erlaubt es, den Algorithmus automatisiert auf eine Vielzahl von Graphen anzuwenden. Die gewonnenen Zeichnungen können mit bestimmten Metriken in ihrer Qualität beurteilt werden.
 
-% selten überhaupt kollisionen: 110/844
+\section{Bewertungs-Kriterien für glatt-orthogonale Zeichnungen}
 
-% selten muss wirklich L slope angepasst werden, macht aber viel (!!!) größer (richtung OS_1, erklären)
-% ohne L-slope anpassung: 1/844 collisionen
+Die Zeichnungen wurden nach verschiedenen Kriterien bewertet. Für jedes dieser Kriterien wird nun erklärt, was es bedeutet, wie es erhoben wurde, und warum genau dieses Kriterium ausgewählt wurde.
 
-% --> use adjustments only when necessary
+Ein Kriterium ist die verbrauchte \emph{Fläche}: Visualisierungen von Graphen können in ihrer Qualität eingestuft werden, je nachdem, wie viel Platz sie verbrauchen. Nun sind die Zeichnungen natürlich skalierbar, informell ausgedrückt: Ein Bild kann größer oder kleiner ausgedruckt werden. Deshalb misst man die Größe bei einer konstanten Auflösung. Für allgemeine Zeichnungen kann der kleinste Abstand zwischen zwei Knoten als Referenz gewählt werden: Werden alle Zeichnungen auf die selbe Ausgabefläche skaliert, so schneitet eine Zeichnung, die im Vergleich zu diesem Mindestabstand viel Platz verbraucht, schlecht ab, da die beiden nahen Knoten kaum noch unterscheidbar sind. Benötigt eine Zeichnung jedoch wenig Fläche, so können die Knoten klar voneinander unterschieden werden.
+
+Für orthogonale und glatt-orthogonale Zeichnungen ist die kürzeste mögliche Entfernung zwischen zwei Knoten der Abstand zweier Gitterlinien. Somit wird die Fläche in Gitterabständen gemessen. Da orthogonale und glatt-orthogonale Zeichnungen üblicherweise auf einer rechteckigen Fläche gezeichnet werden, wird die die Fläche einer Zeichnung als das Produkt der Seitenlängen eines minimalen umgebenden Rechtecks (englisch \emph{bounding box}) aller Knoten und Kanten festgelegt.
+
+Ein weiteres Kriterium ist die \emph{Fläche pro Knoten}: Auf einer 1~Gitterquadrat großen Fläche lassen sich maximal vier Knoten platzieren. Somit sagt der Quotient von Fläche und Knotenanzahl auch etwas über die Effektivität der Darstellung aus.
+
+Da Liu et al.~\cite{liu+etal-98} die obere Grenze für die Fläche der OC$_3$-Zeichnungen mit $(|V|+1)^2$ angeben, soll auch untersucht werden, ob im Durchschnittsfall mit einer quadratischen Flächenzunahme zu rechnen ist.
+
+Das dritte Kriterium ist die \emph{Segmentzahl}: Es können zwar bei SC$_2$-Zeichnungen nur maximal zwei Segmente pro Kante vorliegen, doch oftmals ist es möglich, das Layout so anzupassen, dass eine Kante mit nur einem Segment gezeichnet wird.  Jedoch wird in \cite{bekos-13} gezeigt, dass der Flächenzuwachs bei einer Konversion in ein SC$_1$-Layout exponentiell sein kann. Zeichnungen mit exponentieller Fläche sind nicht praxistauglich, und somit ist eine niedrigere Segmentzahl nicht wünschenswert, wenn sie gleichzeitig mit hohem Flächenzuwachs verbunden ist.
+
+\section{Erhobene Messwerte}
+
+Als Vergleichsgraphen für das Erstellen von Zeichnungen wurden die Rom-Testgraphen verwendet. Nachdem einige Graphen entfernt wurden, z.B.\ weil sie nicht zweifach zusammenhängend sind blieb eine Menge von 844 Graphen, die jeweils mit den verschiedenen Methoden gezeichnet wurden.% TODO: \cite rome graphs?
+
+Für die OC$_3$-Zeichnungen lag die durchschnittliche Fläche pro Knoten durchschnittlich bei 4,768 Gitterquadraten. In Abbildung~\ref{fig:ortho-noCompress} wird die Verteilung von Knotenanzahlen und Fläche gezeigt.
+
+Nach der Komprimierung und der Entfernung der stufenförmigen Kanten konnte diese Zahl auf 3,526 gesenkt werden. In Abbildung~\ref{fig:ortho-compress} wird die Verteilung von Knotenanzahlen und Fläche gezeigt, wenn die Nachbearbeitung verwendet wird.
+
+Für die glatt-orthogonalen Zeichnungen ergab sich durchschnittlich eine Fläche von 16.92 Gitterquadraten pro Knoten. Abbildung~\ref{fig:smooth-noOpti} zeigt auch hier die Verteilung.
+
+% TODO: Durchschnittliche Anzahl Segmente!
+
+% Verbesserung an planarer Einbettung und st-Ordnung, kleiner Grad für v_1, v_n
+
+\section{Korrektur der Steigung aussetzen}
+
+Eine implementierte Verbesserung setzt bei der Konversion vom OC$_3$- in das SC$_2$-Layout an. Während der Implementierung viel auf, dass von den 844 OC$_3$-Layouts der Graphen 743 ohne jegliche Anpassung der Knotenpositionen ein planares SC$_2$-Layout darstellen. Hier muss also überhaupt keine Anpassung vorgenommen werden.
+
+Bei den übrigen 110 Graphen wurden dann zunächst alle Anpassungen vorgenommen, bis auf solche, die nur zur Korrektur der Steigung der L"~Kanten verwendet werden. Wird also ein Knoten platziert, dann erfolgen die Anpassungen, die nötig sind, dass seine eingehenden Kanten planar gezeichnet werden.
+
+Ist also beispielsweise eine eingehende L"~Kante an seinem linken Port und Teile der Zeichnung ragen von rechts in die Kante hinein, so wird der untere Knoten der Kante wie gehabt nach links verschoben, bis sie ohne Überschneidungen gezeichnet werden kann. Normalerweise würde der Algorithmus daraufhin die Steigung der Kante prüfen und wenn die Kante steiler als 45\textdegree\ absteht, den unteren Knoten noch weiter nach links verschieben, wie bereits in Abbildung~\ref{fig:cutLslopecorrection} gesehen. Auf diese Anpassung wird nun zunächst verzichtet. 
+
+Man erinnere sich, dass die Anpassung der Steigung zu dem Zwecke erfolgte, dass die L"~Kante ein horizontales Segment besitzt. Nun besitzt sie mitunter kein horizontales Segment, dafür jedoch ein vertikales.
+
+Damit keine Einschränkung in der Fähigkeit Schnitte zu finden entsteht, erlauben wir einen Schnitt durch die L"~Kante, ganz so, also ob dort ein horizontales Segment bestünde. Wenn nun ein solcher Schnitt erfolgt und die Kante in der folge breiter gezogen wird, kann nicht einfach nur ihr horizontales Segment verlängert werden. Stattdessen wird ihr Kreissegment größer und das vertikale Liniensegment verkürzt. Erst wenn die Kante so weit auseinandergezogen wurde, dass die Steigung kleiner als 45\textdegree ist, verschwindet das vertikale Liniensegment und es wird bei weiterem Strecken das nun entstandene horizontale Liniensegment verlängert.
+
+Obwohl es so wirkt, als ob durch dieses rücksichtslose Vorgehen oftmals neue Überschneidungen entstehen, hat sich dies durch die Praxis widerlegt. Von den 110 so angepassten Layouts hatte nur eines danach noch eine Überschneidung. Wenn, wie in diesem einem Fall, Überschneidungen detektiert werden, muss auf den ursprünglichen Algorithmus zurückgegriffen werden.
+
+Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte der Durchschnitt der Fläche pro Konten auf durchschnittlich 7,522 Gitterquadrate gesenkt werden. Abbildung~\ref{fig:smooth-opti} zeigt die Verteilung des Flächenbedarfs je nach Knotenanzahl nach dieser Anpassung.
+
 % --> use them to reduce edge complexity?
 
+
+%%%%%%%
+%Verbesserung B
+% sets auf gleicher höhe
 % keinmal mehr als 3 in einer Reihe
-% spezialfall mit 1 in Reihe, hin-her-Problem
+% spezialfall mit 1 in Reihe,
+
+
+
+%%%%%
 
 % Problem mit unnötiger C-Anpasung
+%  hin-her-Problem
 
-Nicht planare Graphen können durch ein einfaches Verfahren in planare Graphen umgewandelt werden: In einer zufälligen Zeichnung fügt man Knoten an allen Schnittpunkten von zwei Kanten ein. Beim Zeichnen lässt man die neuen Knoten weg.
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{plots/ortho-noCompress}
+  \caption{Streudiagramm der Fläche der Zeichnungen je nach Kontenanzahl für OC$_3$-Zeichnungen. Die gepunktete Linien zeigt das theoretische Flächen-Maximum von $(|V|+1)^2$ an.}
+  \label{fig:ortho-noCompress}
+\end{figure}
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{plots/ortho-compress}
+  \caption{Streudiagramm der Fläche der Zeichnungen je nach Kontenanzahl für OC$_3$-Zeichnungen nach dem Kompressionsschritt ohne stufenförmige Kanten.}
+  \label{fig:ortho-compress}
+\end{figure}
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{plots/smooth-noOpti}
+  \caption{Streudiagramm der Fläche der Zeichnungen je nach Kontenanzahl für SC$_2$-Zeichnungen, wenn die Steigung aller L"~Kanten berichtigt wurde.}
+  \label{fig:smooth-noOpti}
+\end{figure}
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{plots/smooth-opti}
+  \caption{Streudiagramm der Fläche der Zeichnungen je nach Kontenanzahl für SC$_2$-Zeichnungen, wenn die Steigung der L"~Kanten nur bei Bedarf berichtigt wurde.}
+  \label{fig:smooth-opti}
+\end{figure}
+
+
 
 
 \chapter{Zusammenfassung und Schlussfolgerungen}
 
 % Zusammenfassung
-% Ausblick nicht-BC etc., bessere Implementierung, weitere Anpassungen
+% Ausblick nicht-BC etc., bessere Implementierung O(n), weitere Anpassungen
 
+% Nicht planare Graphen können durch ein einfaches Verfahren in planare Graphen umgewandelt werden: In einer zufälligen Zeichnung fügt man Knoten an allen Schnittpunkten von zwei Kanten ein. Beim Zeichnen lässt man die neuen Knoten weg.
 
 
 
