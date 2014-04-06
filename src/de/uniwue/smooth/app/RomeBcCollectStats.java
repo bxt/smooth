@@ -31,6 +31,7 @@ import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.util.Benchmark;
 import de.uniwue.smooth.util.Util;
 import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphIOException;
 import edu.uci.ics.jung.io.GraphReader;
 
@@ -65,6 +66,11 @@ public class RomeBcCollectStats implements Runnable {
 		List<Double> avgCom = new ArrayList<Double>(filesCsvList.size());
 		int nodesTotal = 0;
 		
+		OrthogonalDrawing<Appendable> drawingNoC = createPreparedDrawing();
+		OrthogonalDrawing<Appendable> drawingCom = createPreparedDrawing();
+		OrthogonalDrawing<Appendable> drawingBst = createPreparedDrawing();
+		OrthogonalDrawing<Appendable> drawingAll = createPreparedDrawing();
+		
 		for (final String[] cvsLine : filesCsvList) {
 			
 			String filename = cvsLine[0];
@@ -97,12 +103,12 @@ public class RomeBcCollectStats implements Runnable {
 				layoutSomeadjust.initialize();
 				layoutAlladjust.initialize();
 				
-				analyseStraightlineLayout(nocompressLiuLayout, sb, null, avgNoC);
-				analyseStraightlineLayout(compressliuLayout, sb, null, avgCom);
+				analyseStraightlineLayout(nocompressLiuLayout, sb, null, avgNoC, null, drawingNoC, "black");
+				analyseStraightlineLayout(compressliuLayout, sb, null, avgCom, null, drawingCom, "black");
 				
-				boolean x = analyseSmoothLayout(layoutNoadjust, sb, null, avgBst);
-				boolean y = analyseSmoothLayout(layoutSomeadjust, sb, null, x ? avgBst : null);
-				boolean z = analyseSmoothLayout(layoutAlladjust, sb, avgAll, y ? avgBst : null);
+				boolean x = analyseSmoothLayout(layoutNoadjust, sb, null, avgBst, null, drawingBst, "green");
+				boolean y = analyseSmoothLayout(layoutSomeadjust, sb, null, x ? avgBst : null, null, x ? drawingBst : null, "blue");
+				boolean z = analyseSmoothLayout(layoutAlladjust, sb, avgAll, y ? avgBst : null, drawingAll, y ? drawingBst : null, "red");
 				if(z) throw new RuntimeException("Uh oh, collisions left!");
 								
 				sb.append("\r\n");
@@ -114,6 +120,12 @@ public class RomeBcCollectStats implements Runnable {
 			} finally {
 			}
 		}
+		
+		Util.writeFile("resources/drawingNoC.ipe", drawingNoC.create().toString());
+		Util.writeFile("resources/drawingCom.ipe", drawingCom.create().toString());
+		Util.writeFile("resources/drawingBst.ipe", drawingBst.create().toString());
+		Util.writeFile("resources/drawingAll.ipe", drawingAll.create().toString());
+
 		
 		int totalCount = filesCsvList.size() - ignored;
 		
@@ -147,17 +159,17 @@ public class RomeBcCollectStats implements Runnable {
 		return sum/doubles.size();
 	}
 	
-	private boolean analyseStraightlineLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes) {
+	private boolean analyseStraightlineLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color) {
 		EdgeGenerator<Vertex, Edge, ?> edgeGenerator = new StraightlineEdgeGenerator<Vertex, Edge>(layout);
-		return analyseLayout(edgeGenerator, layout, sb, avgAlways, avgSometimes, false);
+		return analyseLayout(edgeGenerator, layout, sb, avgAlways, avgSometimes, false, drawingA, drawingB, color);
 	}
 	
-	private boolean analyseSmoothLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes) {
+	private boolean analyseSmoothLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color) {
 		EdgeGenerator<Vertex, Edge, ?> edgeGenerator = new SmoothEdgeGenerator<Vertex, Edge>(layout);
-		return analyseLayout(edgeGenerator, layout, sb, avgAlways, avgSometimes, true);
+		return analyseLayout(edgeGenerator, layout, sb, avgAlways, avgSometimes, true, drawingA, drawingB, color);
 	}
 	
-	private boolean analyseLayout(EdgeGenerator<Vertex, Edge, ?> edgeGenerator, OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes, boolean analysePlanarity) {
+	private boolean analyseLayout(EdgeGenerator<Vertex, Edge, ?> edgeGenerator, OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes, boolean analysePlanarity, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color) {
 		CollisionManager collisionManager = new CollisionManager();
 		BoundariesManager boundariesManager = new BoundariesManager();
 		for (final Edge e : layout.getGraph().getEdges()) {
@@ -172,20 +184,44 @@ public class RomeBcCollectStats implements Runnable {
 			int width = (int) Math.ceil(boundariesManager.getWidth());
 			int height = (int) Math.ceil(boundariesManager.getHeight());
 			sb.append(width + " x " + height);
+			int sqrtArea = (int) (1000*Math.sqrt(height*width));
 			double areaPerNode = width*height/(double)layout.getGraph().getVertexCount();
 			if(avgAlways != null) avgAlways.add(areaPerNode);
 			if(avgSometimes != null) avgSometimes.add(areaPerNode);
+			if(drawingA != null) {
+				drawingA.edgeMidpoint(new Pair<Integer>(layout.getGraph().getVertexCount(), sqrtArea), color);
+			}
+			if(drawingB != null) {
+				drawingB.edgeMidpoint(new Pair<Integer>(layout.getGraph().getVertexCount(), sqrtArea), color);
+			}
 		}
 		sb.append(SPACE);
 		return collides;
 	}
 	
-	OrthogonalDrawing<Appendable> createDrawing() {
+	private OrthogonalDrawing<Appendable> createPreparedDrawing() {
+		OrthogonalDrawing<Appendable> drawing = createDrawing();
+		drawing.label(new Pair<Integer>(61,1000), "Anzahl der Knoten");
+		drawing.line(new Pair<Integer>(0,0), new Pair<Integer>(60,0));
+		for (int i = 0; i <= 6; i++) {
+			drawing.line(new Pair<Integer>(i*10,1000), new Pair<Integer>(i*10,-1000));
+			drawing.label(new Pair<Integer>(i*10,-2000), ""+i*10);
+		}
+		
+		drawing.label(new Pair<Integer>(2,61000), "Fl\\\"ache der Zeichnung");
+		drawing.line(new Pair<Integer>(0,0), new Pair<Integer>(0,60000));
+		for (int i = 0; i <= 6; i++) {
+			drawing.line(new Pair<Integer>(1,i*10000), new Pair<Integer>(-1,i*10000));
+			drawing.label(new Pair<Integer>(1,i*10000), (i*10) + " x " + (i*10));
+		}
+		
+		return drawing;
+	}
+	private OrthogonalDrawing<Appendable> createDrawing() {
 		AffineTransform transform = new AffineTransform();
-		transform.translate(384, 96);
-		transform.scale(32, 32);
+		transform.translate(60, 60);
+		transform.scale(10, 0.01);
 		
 		return new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(new IpeDrawing()), transform);
 	}
-	
 }

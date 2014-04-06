@@ -1,0 +1,1146 @@
+<?xml version="1.0"?>
+    <!DOCTYPE ipe SYSTEM "ipe.dtd">
+    <ipe version="70005" creator="Ipe 7.1.4">
+    <info created="D:20131106154934" modified="D:20131106160041"/>
+    <preamble>\usepackage[english]{babel}</preamble>
+    <ipestyle name="basic">
+    <symbol name="arrow/arc(spx)">
+    <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -1 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="arrow/farc(spx)">
+    <path stroke="sym-stroke" fill="white" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -1 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="mark/circle(sx)" transformations="translations">
+    <path fill="sym-stroke">
+    0.6 0 0 0.6 0 0 e
+    0.4 0 0 0.4 0 0 e
+    </path>
+    </symbol>
+    <symbol name="mark/disk(sx)" transformations="translations">
+    <path fill="sym-stroke">
+    0.6 0 0 0.6 0 0 e
+    </path>
+    </symbol>
+    <symbol name="mark/fdisk(sfx)" transformations="translations">
+    <group>
+    <path fill="sym-fill">
+    0.5 0 0 0.5 0 0 e
+    </path>
+    <path fill="sym-stroke" fillrule="eofill">
+    0.6 0 0 0.6 0 0 e
+    0.4 0 0 0.4 0 0 e
+    </path>
+    </group>
+    </symbol>
+    <symbol name="mark/box(sx)" transformations="translations">
+    <path fill="sym-stroke" fillrule="eofill">
+    -0.6 -0.6 m
+    0.6 -0.6 l
+    0.6 0.6 l
+    -0.6 0.6 l
+    h
+    -0.4 -0.4 m
+    0.4 -0.4 l
+    0.4 0.4 l
+    -0.4 0.4 l
+    h
+    </path>
+    </symbol>
+    <symbol name="mark/square(sx)" transformations="translations">
+    <path fill="sym-stroke">
+    -0.6 -0.6 m
+    0.6 -0.6 l
+    0.6 0.6 l
+    -0.6 0.6 l
+    h
+    </path>
+    </symbol>
+    <symbol name="mark/fsquare(sfx)" transformations="translations">
+    <group>
+    <path fill="sym-fill">
+    -0.5 -0.5 m
+    0.5 -0.5 l
+    0.5 0.5 l
+    -0.5 0.5 l
+    h
+    </path>
+    <path fill="sym-stroke" fillrule="eofill">
+    -0.6 -0.6 m
+    0.6 -0.6 l
+    0.6 0.6 l
+    -0.6 0.6 l
+    h
+    -0.4 -0.4 m
+    0.4 -0.4 l
+    0.4 0.4 l
+    -0.4 0.4 l
+    h
+    </path>
+    </group>
+    </symbol>
+    <symbol name="mark/cross(sx)" transformations="translations">
+    <group>
+    <path fill="sym-stroke">
+    -0.43 -0.57 m
+    0.57 0.43 l
+    0.43 0.57 l
+    -0.57 -0.43 l
+    h
+    </path>
+    <path fill="sym-stroke">
+    -0.43 0.57 m
+    0.57 -0.43 l
+    0.43 -0.57 l
+    -0.57 0.43 l
+    h
+    </path>
+    </group>
+    </symbol>
+    <symbol name="arrow/fnormal(spx)">
+    <path stroke="sym-stroke" fill="white" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -1 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="arrow/pointed(spx)">
+    <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -0.8 0 l
+    -1 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="arrow/fpointed(spx)">
+    <path stroke="sym-stroke" fill="white" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -0.8 0 l
+    -1 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="arrow/linear(spx)">
+    <path stroke="sym-stroke" pen="sym-pen">
+    -1 0.333 m
+    0 0 l
+    -1 -0.333 l
+    </path>
+    </symbol>
+    <symbol name="arrow/fdouble(spx)">
+    <path stroke="sym-stroke" fill="white" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -1 -0.333 l
+    h
+    -1 0 m
+    -2 0.333 l
+    -2 -0.333 l
+    h
+    </path>
+    </symbol>
+    <symbol name="arrow/double(spx)">
+    <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+    0 0 m
+    -1 0.333 l
+    -1 -0.333 l
+    h
+    -1 0 m
+    -2 0.333 l
+    -2 -0.333 l
+    h
+    </path>
+    </symbol>
+    <pen name="heavier" value="0.8"/>
+    <pen name="fat" value="1.2"/>
+    <pen name="ultrafat" value="2"/>
+    <symbolsize name="large" value="5"/>
+    <symbolsize name="small" value="2"/>
+    <symbolsize name="tiny" value="1.1"/>
+    <arrowsize name="large" value="10"/>
+    <arrowsize name="small" value="5"/>
+    <arrowsize name="tiny" value="3"/>
+    <color name="red" value="1 0 0"/>
+    <color name="green" value="0 1 0"/>
+    <color name="blue" value="0 0 1"/>
+    <color name="yellow" value="1 1 0"/>
+    <color name="orange" value="1 0.647 0"/>
+    <color name="gold" value="1 0.843 0"/>
+    <color name="purple" value="0.627 0.125 0.941"/>
+    <color name="gray" value="0.745"/>
+    <color name="brown" value="0.647 0.165 0.165"/>
+    <color name="navy" value="0 0 0.502"/>
+    <color name="pink" value="1 0.753 0.796"/>
+    <color name="seagreen" value="0.18 0.545 0.341"/>
+    <color name="turquoise" value="0.251 0.878 0.816"/>
+    <color name="violet" value="0.933 0.51 0.933"/>
+    <color name="darkblue" value="0 0 0.545"/>
+    <color name="darkcyan" value="0 0.545 0.545"/>
+    <color name="darkgray" value="0.663"/>
+    <color name="darkgreen" value="0 0.392 0"/>
+    <color name="darkmagenta" value="0.545 0 0.545"/>
+    <color name="darkorange" value="1 0.549 0"/>
+    <color name="darkred" value="0.545 0 0"/>
+    <color name="lightblue" value="0.678 0.847 0.902"/>
+    <color name="lightcyan" value="0.878 1 1"/>
+    <color name="lightgray" value="0.827"/>
+    <color name="lightgreen" value="0.565 0.933 0.565"/>
+    <color name="lightyellow" value="1 1 0.878"/>
+    <dashstyle name="dashed" value="[4] 0"/>
+    <dashstyle name="dotted" value="[1 3] 0"/>
+    <dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
+    <dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
+    <textsize name="large" value="\large"/>
+    <textsize name="Large" value="\Large"/>
+    <textsize name="LARGE" value="\LARGE"/>
+    <textsize name="huge" value="\huge"/>
+    <textsize name="Huge" value="\Huge"/>
+    <textsize name="small" value="\small"/>
+    <textsize name="footnote" value="\footnotesize"/>
+    <textsize name="tiny" value="\tiny"/>
+    <textstyle name="center" begin="\begin{center}" end="\end{center}"/>
+    <textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
+    <textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
+    <gridsize name="4 pts" value="4"/>
+    <gridsize name="8 pts (~3 mm)" value="8"/>
+    <gridsize name="16 pts (~6 mm)" value="16"/>
+    <gridsize name="32 pts (~12 mm)" value="32"/>
+    <gridsize name="10 pts (~3.5 mm)" value="10"/>
+    <gridsize name="20 pts (~7 mm)" value="20"/>
+    <gridsize name="14 pts (~5 mm)" value="14"/>
+    <gridsize name="28 pts (~10 mm)" value="28"/>
+    <gridsize name="56 pts (~20 mm)" value="56"/>
+    <anglesize name="90 deg" value="90"/>
+    <anglesize name="60 deg" value="60"/>
+    <anglesize name="45 deg" value="45"/>
+    <anglesize name="30 deg" value="30"/>
+    <anglesize name="22.5 deg" value="22.5"/>
+    <tiling name="falling" angle="-60" step="4" width="1"/>
+    <tiling name="rising" angle="30" step="4" width="1"/>
+    <layout paper="1000 1000" origin="0 0" frame="1000 1000" skip="32" crop="yes"/>
+    </ipestyle>
+    <page>
+    <layer name="alpha"/>
+    <view layers="alpha" active="alpha"/>
+<text transformations="translations" pos="670 70" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">Anzahl der Knoten</text><path stroke="black" pen="normal" dash="normal">
+ 60 60 m
+ 660 60 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 60 70 m
+ 60 50 l
+ </path>
+<text transformations="translations" pos="60 40" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">0</text><path stroke="black" pen="normal" dash="normal">
+ 160 70 m
+ 160 50 l
+ </path>
+<text transformations="translations" pos="160 40" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">10</text><path stroke="black" pen="normal" dash="normal">
+ 260 70 m
+ 260 50 l
+ </path>
+<text transformations="translations" pos="260 40" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">20</text><path stroke="black" pen="normal" dash="normal">
+ 360 70 m
+ 360 50 l
+ </path>
+<text transformations="translations" pos="360 40" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">30</text><path stroke="black" pen="normal" dash="normal">
+ 460 70 m
+ 460 50 l
+ </path>
+<text transformations="translations" pos="460 40" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">40</text><path stroke="black" pen="normal" dash="normal">
+ 560 70 m
+ 560 50 l
+ </path>
+<text transformations="translations" pos="560 40" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">50</text><path stroke="black" pen="normal" dash="normal">
+ 660 70 m
+ 660 50 l
+ </path>
+<text transformations="translations" pos="660 40" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">60</text><text transformations="translations" pos="80 670" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">Fl\"ache der Zeichnung</text><path stroke="black" pen="normal" dash="normal">
+ 60 60 m
+ 60 660 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 70 60 m
+ 50 60 l
+ </path>
+<text transformations="translations" pos="70 60" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">0 x 0</text><path stroke="black" pen="normal" dash="normal">
+ 70 160 m
+ 50 160 l
+ </path>
+<text transformations="translations" pos="70 160" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">10 x 10</text><path stroke="black" pen="normal" dash="normal">
+ 70 260 m
+ 50 260 l
+ </path>
+<text transformations="translations" pos="70 260" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">20 x 20</text><path stroke="black" pen="normal" dash="normal">
+ 70 360 m
+ 50 360 l
+ </path>
+<text transformations="translations" pos="70 360" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">30 x 30</text><path stroke="black" pen="normal" dash="normal">
+ 70 460 m
+ 50 460 l
+ </path>
+<text transformations="translations" pos="70 460" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">40 x 40</text><path stroke="black" pen="normal" dash="normal">
+ 70 560 m
+ 50 560 l
+ </path>
+<text transformations="translations" pos="70 560" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">50 x 50</text><path stroke="black" pen="normal" dash="normal">
+ 70 660 m
+ 50 660 l
+ </path>
+<text transformations="translations" pos="70 660" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">60 x 60</text><use name="mark/cross(sx)" pos="370 162" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 187" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 97" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 170" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 186" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 210" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 187" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 190" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 187" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 161" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 193" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 178" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 102" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 159" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="290 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="290 160" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 175" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 149" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 105" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 172" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 182" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 102" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 190" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 92" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="290 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 106" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 180" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 194" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 195" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 164" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 181" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 173" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 175" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 175" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="410 199" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 145" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 201" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 201" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 161" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="360 180" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 173" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 181" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 200" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 185" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 222" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 199" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 210" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 204" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="360 195" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 149" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 167" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 178" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="310 152" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="350 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="460 227" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="310 161" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="290 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 142" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 162" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 177" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 169" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="320 170" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 140" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 142" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="350 177" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="290 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 187" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 140" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="320 167" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 164" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 181" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 204" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 145" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 145" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="320 162" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 152" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="320 181" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 149" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 190" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 152" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 152" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="360 182" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 186" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 106" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="410 176" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 142" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 175" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="360 172" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="320 177" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 185" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 175" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 172" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 184" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 184" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="350 187" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="310 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 187" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="310 184" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 187" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 152" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 183" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="320 172" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 159" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 215" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 145" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="310 175" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 190" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 105" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 140" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="290 157" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 162" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 100" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 145" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 125" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 113" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 175" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 167" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 152" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 145" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 162" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 169" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 145" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 152" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 97" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 166" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 100" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 142" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 152" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 100" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 97" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 192" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 161" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 166" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 133" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 173" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 125" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 195" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 175" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 145" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 102" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 167" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 172" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 105" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 152" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 106" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="310 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 140" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 172" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="310 170" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 164" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="560 230" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 152" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 102" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 149" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 142" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="290 181" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 149" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="320 196" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 177" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="320 159" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 106" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 159" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="420 207" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="480 256" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="290 158" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="490 227" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="290 157" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 152" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 105" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="450 201" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="530 233" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="440 222" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 102" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="410 181" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 105" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="430 187" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="430 181" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 106" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 111" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 149" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 113" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="450 212" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 162" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 100" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 102" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 100" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 133" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 191" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 192" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="450 216" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="440 213" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 195" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="420 208" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="430 197" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="430 232" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="420 204" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="440 194" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 125" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="410 190" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 106" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="410 180" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="420 193" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="410 204" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 184" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 212" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="420 192" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="410 201" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="410 198" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 190" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="460 232" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="420 197" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="430 225" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 144" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="420 221" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 178" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 230" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 205" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 190" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="410 184" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="420 201" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="420 224" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 183" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 212" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 204" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 161" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="320 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 100" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 194" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 172" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 191" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="420 215" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="410 207" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="430 210" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 196" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="570 294" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 105" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 142" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="440 207" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 102" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 100" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="450 219" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="540 259" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="480 222" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 100" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 148" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 125" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="510 256" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="500 254" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="320 158" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 149" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 145" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 131" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 147" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="270 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 127" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 158" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 140" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 123" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="280 167" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="330 155" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 113" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 100" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 102" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 141" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 126" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 90" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="320 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 106" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="230 158" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="300 158" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 100" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 105" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 161" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="160 109" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 107" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 93" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="180 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="200 122" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="250 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="260 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 132" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="210 134" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 115" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 180" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 129" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 187" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="400 196" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 137" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="380 200" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="240 135" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="390 181" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="170 112" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="220 117" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="190 120" size="normal" stroke="black"/>
+<use name="mark/cross(sx)" pos="370 195" size="normal" stroke="black"/>
+</page>
+</ipe>
