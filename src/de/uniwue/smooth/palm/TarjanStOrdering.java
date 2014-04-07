@@ -12,7 +12,7 @@ import java.util.Set;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 
 /**
- * Builds the st-Odering for a graph based on Tarjan's algorithm.
+ * Builds the st-Ordering for a graph based on Tarjan's algorithm.
  * [S. Even, R. E. Tarjan: "Computing an st-numbering"; Theoretical Computer Science, 2(3):339–344, 1976.]
  * 
  * @param <V> Vertex type.
@@ -50,7 +50,7 @@ public class TarjanStOrdering<V, E> extends AbstractStOrdering<V, E> implements 
 		this.palmTree = new PalmTree<V, E>(graph, s, t);
 		this.s = s;
 		this.t = t;
-		initialize(); // Do the actual calulation
+		initialize(); // Do the actual calculation
 	}
 	
 	/**
