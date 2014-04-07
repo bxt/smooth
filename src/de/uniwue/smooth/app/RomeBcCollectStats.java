@@ -67,6 +67,7 @@ public class RomeBcCollectStats implements Runnable {
 		List<Double> avgNoC = new ArrayList<Double>(filesCsvList.size());
 		List<Double> avgCom = new ArrayList<Double>(filesCsvList.size());
 		int nodesTotal = 0;
+		int edgesTotal = 0;
 		
 		int escLvlA = 0, escLvlB = 0, escLvlC = 0;
 		
@@ -94,6 +95,10 @@ public class RomeBcCollectStats implements Runnable {
 				nodesTotal += graph.getVertexCount();
 				sb.append(graph.getVertexCount());
 				sb.append(SPACE);
+				
+				edgesTotal += graph.getEdgeCount();
+				//sb.append(graph.getEdgeCount());
+				//sb.append(SPACE);
 				
 				LiuEtAlLayout<Vertex, Edge> nocompressLiuLayout = new LiuEtAlLayout<Vertex, Edge>(graph);
 				CompressingLiuEtAlLayout<Vertex, Edge> compressliuLayout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph);
@@ -139,6 +144,8 @@ public class RomeBcCollectStats implements Runnable {
 		sb.append(SPACE);
 		sb.append("Anzahl der Knoten: " + nodesTotal);
 		sb.append(SPACE);
+		sb.append("Anzahl der Kanten: " + edgesTotal);
+		sb.append(SPACE);
 		if(avgBst.size() != totalCount) throw new IllegalStateException("Had " + avgNoC.size() + " numbers instead of " + totalCount);
 		sb.append("Durchschnittliche Fläche pro Knoten orthogonal:" + avg(avgNoC));
 		sb.append(SPACE);
@@ -148,13 +155,13 @@ public class RomeBcCollectStats implements Runnable {
 		if(avgBst.size() != totalCount) throw new IllegalStateException("Had " + avgBst.size() + " numbers instead of " + totalCount);
 		sb.append("Durchschnittliche Fläche pro Knoten smooth:" + avg(avgBst));
 		sb.append(SPACE);
-		if(avgSegBst.size() != totalCount) throw new IllegalStateException("Had " + avgSegBst.size() + " numbers instead of " + totalCount);
+		if(avgSegBst.size() != edgesTotal) throw new IllegalStateException("Had " + avgSegBst.size() + " numbers instead of " + edgesTotal);
 		sb.append("Durchschnittliche Segmente pro Kante smooth:" + avg(avgSegBst));
 		sb.append(SPACE);
 		if(avgAll.size() != totalCount) throw new IllegalStateException("Had " + avgAll.size() + " numbers instead of " + totalCount);
 		sb.append("Durchschnittliche Fläche pro Knoten smooth, ohne Optimierung:" + avg(avgAll));
 		sb.append(SPACE);
-		if(avgSegAll.size() != totalCount) throw new IllegalStateException("Had " + avgSegAll.size() + " numbers instead of " + totalCount);
+		if(avgSegAll.size() != edgesTotal) throw new IllegalStateException("Had " + avgSegAll.size() + " numbers instead of " + edgesTotal);
 		sb.append("Durchschnittliche Segmente pro Kante smooth, ohne Optimierung:" + avg(avgSegAll));
 		sb.append(SPACE);
 		if(escLvlA + escLvlB + escLvlC != totalCount) throw new IllegalStateException("Had wrong escalation levels!");
@@ -192,11 +199,13 @@ public class RomeBcCollectStats implements Runnable {
 		CollisionManager collisionManager = new CollisionManager();
 		BoundariesManager boundariesManager = new BoundariesManager();
 		int segmentsTotal = 0;
+		List<Double> segmentSizes = new ArrayList<Double>(layout.getGraph().getEdgeCount());
 		for (final Edge e : layout.getGraph().getEdges()) {
 			SegmentedEdge edge = edgeGenerator.generateEdge(e);
 			collisionManager.addAll(edge.getSegments());
 			boundariesManager.addAll(edge.getSegments());
 			segmentsTotal += edge.getSegments().size();
+			segmentSizes.add((double)edge.getSegments().size());
 		}
 		boolean collides = ! collisionManager.collisions().isEmpty();
 		if(analysePlanarity && collides) {
@@ -221,12 +230,18 @@ public class RomeBcCollectStats implements Runnable {
 			}
 			sb.append(segmentsTotal);
 			sb.append(SPACE);
-			double segmentsPerEdge = segmentsTotal/(double)layout.getGraph().getEdgeCount();
+			/*double segmentsPerEdge = segmentsTotal/(double)layout.getGraph().getEdgeCount();
 			if(avgSegsAlways != null) {
 				avgSegsAlways.add(segmentsPerEdge);
 			}
 			if(avgSegsSometimes != null) {
 				avgSegsSometimes.add(segmentsPerEdge);
+			}*/
+			if(avgSegsAlways != null) {
+				avgSegsAlways.addAll(segmentSizes);
+			}
+			if(avgSegsSometimes != null) {
+				avgSegsSometimes.addAll(segmentSizes);
 			}
 		}
 		return collides;
