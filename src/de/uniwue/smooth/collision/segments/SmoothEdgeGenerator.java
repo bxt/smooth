@@ -75,7 +75,8 @@ public class SmoothEdgeGenerator<V, E> implements EdgeGenerator<V, E, SmoothEdge
 		}
 		Pair<Integer> kink = isU ?  new Pair<>(end.getFirst(), start.getSecond()) : new Pair<>(start.getFirst(), end.getSecond());
 		
-		segments.add(new Segment.Line(end, kink));
+		if(!end.equals(kink))
+			segments.add(new Segment.Line(end, kink));
 		
 		if (slopePositive != isU) {
 			segments.add(new Segment.SemiArc(kink, start));
@@ -142,7 +143,8 @@ public class SmoothEdgeGenerator<V, E> implements EdgeGenerator<V, E, SmoothEdge
 		}
 		
 		Pair<Integer> lineStart = firstIsDiagonalStart ? vertexCoordinates.getSecond() : vertexCoordinates.getFirst();
-		segments.add(new Segment.Line(lineStart, kink));
+		if(!lineStart.equals(kink))
+			segments.add(new Segment.Line(lineStart, kink));
 		
 		if(diagStartFirst) {
 			segments.add(new Segment.Arc(ref, mid, kink));
