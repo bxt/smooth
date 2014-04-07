@@ -97,8 +97,8 @@ public class RomeBcCollectStats implements Runnable {
 				sb.append(SPACE);
 				
 				edgesTotal += graph.getEdgeCount();
-				//sb.append(graph.getEdgeCount());
-				//sb.append(SPACE);
+				sb.append(graph.getEdgeCount());
+				sb.append(SPACE);
 				
 				LiuEtAlLayout<Vertex, Edge> nocompressLiuLayout = new LiuEtAlLayout<Vertex, Edge>(graph);
 				CompressingLiuEtAlLayout<Vertex, Edge> compressliuLayout = new CompressingLiuEtAlLayout<Vertex, Edge>(graph);
