@@ -68,6 +68,8 @@ public class RomeBcCollectStats implements Runnable {
 		List<Double> avgCom = new ArrayList<Double>(filesCsvList.size());
 		int nodesTotal = 0;
 		
+		int escLvlA = 0, escLvlB = 0, escLvlC = 0;
+		
 		OrthogonalDrawing<Appendable> drawingNoC = createPreparedDrawing();
 		OrthogonalDrawing<Appendable> drawingCom = createPreparedDrawing();
 		OrthogonalDrawing<Appendable> drawingBst = createPreparedDrawing();
@@ -112,7 +114,9 @@ public class RomeBcCollectStats implements Runnable {
 				boolean y = analyseSmoothLayout(layoutSomeadjust, sb, null, x ? avgBst : null, null, x ? drawingBst : null, "blue", x ? avgSegBst : null, null);
 				boolean z = analyseSmoothLayout(layoutAlladjust, sb, avgAll, y ? avgBst : null, drawingAll, y ? drawingBst : null, "red", y ? avgSegBst : null, avgSegAll);
 				if(z) throw new RuntimeException("Uh oh, collisions left!");
-								
+				
+				if (x) { if(y) escLvlC++; else escLvlB++; } else { escLvlA++; }
+				
 				sb.append("\r\n");
 				graphReader.close();
 			} catch (GraphIOException e) {
@@ -152,6 +156,13 @@ public class RomeBcCollectStats implements Runnable {
 		sb.append(SPACE);
 		if(avgSegAll.size() != totalCount) throw new IllegalStateException("Had " + avgSegAll.size() + " numbers instead of " + totalCount);
 		sb.append("Durchschnittliche Segmente pro Kante smooth, ohne Optimierung:" + avg(avgSegAll));
+		sb.append(SPACE);
+		if(escLvlA + escLvlB + escLvlC != totalCount) throw new IllegalStateException("Had wrong escalation levels!");
+		sb.append("Escalation A: " + escLvlA);
+		sb.append(SPACE);
+		sb.append("Escalation B: " + escLvlB);
+		sb.append(SPACE);
+		sb.append("Escalation C: " + escLvlC);
 		sb.append(SPACE);
 		
 		System.out.println("Analyzed " + totalCount +  " graphs. ");
