@@ -61,7 +61,7 @@ public class PalmTree<V,E> {
 	 */
 	V preselectedV = null;
 	/**
-	 * Optionally a fixed end vertex.
+	 * Optionally a fixed second vertex.
 	 */
 	V preselectedW = null;
 	
@@ -71,7 +71,7 @@ public class PalmTree<V,E> {
 	 * 
 	 * @param graph Graph to work on.
 	 * @param s Custom start node.
-	 * @param t Custom end node.
+	 * @param t Custom second node.
 	 */
 	public PalmTree(UndirectedGraph<V, E> graph, V s, V t) {
 		preselectedV = s;
