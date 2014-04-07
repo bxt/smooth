@@ -19,7 +19,9 @@ import edu.uci.ics.jung.graph.UndirectedGraph;
 
 /**
  * Embed a graph as a planar drawing. [U. Brandes 2009, unpublished]
- *
+ * 
+ * This is the same as {@link BrandesEmbedding}, but with some changes to the source that make it magically more stable.
+ * 
  * @param <V> Vertex type.
  * @param <E> Edge type.
  */
