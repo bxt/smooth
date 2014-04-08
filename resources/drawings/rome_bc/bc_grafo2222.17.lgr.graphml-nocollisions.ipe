@@ -254,10 +254,6 @@
 <text transformations="translations" pos="384 160" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V16</text><use name="mark/cross(sx)" pos="416 192" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="384 192" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 384 192 m
- 384 192 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
  416 224 m
  32,000 0 0 32,000 416 192 384 192 a
 </path>
@@ -267,10 +263,6 @@
  </path>
 <use name="mark/cross(sx)" pos="512 96" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="96 96" size="normal" stroke="red"/>
-<path stroke="black" pen="normal" dash="normal">
- 96 96 m
- 96 96 l
- </path>
 <path stroke="black" pen="normal" dash="normal">
  512 512 m
  416,000 0 0 416,000 512 96 96 96 a
@@ -289,10 +281,6 @@
  </path>
 <use name="mark/cross(sx)" pos="448 448" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="512 448" size="normal" stroke="red"/>
-<path stroke="black" pen="normal" dash="normal">
- 512 448 m
- 512 448 l
- </path>
 <path stroke="black" pen="normal" dash="normal">
  448 384 m
  64,000 0 0 64,000 448 448 512 448 a
@@ -315,10 +303,6 @@
  </path>
 <use name="mark/cross(sx)" pos="416 160" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="448 160" size="normal" stroke="red"/>
-<path stroke="black" pen="normal" dash="normal">
- 448 160 m
- 448 160 l
- </path>
 <path stroke="black" pen="normal" dash="normal">
  416 128 m
  32,000 0 0 32,000 416 160 448 160 a
@@ -344,10 +328,6 @@
 <use name="mark/cross(sx)" pos="448 288" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="416 288" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 416 288 m
- 416 288 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
  448 320 m
  32,000 0 0 32,000 448 288 416 288 a
 </path>
@@ -357,10 +337,6 @@
  </path>
 <use name="mark/cross(sx)" pos="416 160" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="384 160" size="normal" stroke="red"/>
-<path stroke="black" pen="normal" dash="normal">
- 384 160 m
- 384 160 l
- </path>
 <path stroke="black" pen="normal" dash="normal">
  384 160 m
  32,000 0 0 32,000 416 160 416 128 a

@@ -288,19 +288,11 @@
 <use name="mark/cross(sx)" pos="128 288" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="64 288" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 64 288 m
- 64 288 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
  128 352 m
  64,000 0 0 64,000 128 288 64 288 a
 </path>
 <use name="mark/cross(sx)" pos="-95 128" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="-63 128" size="normal" stroke="red"/>
-<path stroke="black" pen="normal" dash="normal">
- -63 128 m
- -63 128 l
- </path>
 <path stroke="black" pen="normal" dash="normal">
  -95 96 m
  32,000 0 0 32,000 -95 128 -63 128 a

@@ -279,10 +279,6 @@
 <use name="mark/cross(sx)" pos="160 288" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="256 288" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 256 288 m
- 256 288 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
  160 192 m
  96,000 0 0 96,000 160 288 256 288 a
 </path>
@@ -299,10 +295,6 @@
 <use name="mark/cross(sx)" pos="160 608" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="608 608" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 608 608 m
- 608 608 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
  160 160 m
  448,000 0 0 448,000 160 608 608 608 a
 </path>
@@ -316,10 +308,6 @@
  </path>
 <use name="mark/cross(sx)" pos="320 352" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="256 352" size="normal" stroke="red"/>
-<path stroke="black" pen="normal" dash="normal">
- 256 352 m
- 256 352 l
- </path>
 <path stroke="black" pen="normal" dash="normal">
  320 416 m
  64,000 0 0 64,000 320 352 256 352 a
@@ -441,10 +429,6 @@
  32,000 0 0 32,000 -159 128 -127 128 a
 </path>
 <use name="mark/cross(sx)" pos="-127 128" size="normal" stroke="gray"/>
-<path stroke="black" pen="normal" dash="normal">
- -127 128 m
- -127 128 l
- </path>
 <path stroke="black" pen="normal" dash="normal">
  -127 736 m
  304,000 0 0 304,000 -127 432 -127 128 a
