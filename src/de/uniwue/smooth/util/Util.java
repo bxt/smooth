@@ -87,13 +87,24 @@ public abstract class Util {
 	}
 	
 	/**
-	 * Add two pairs compenent wise.
+	 * Add two pairs component wise.
 	 * @param a A pair.
 	 * @param b Another pair.
 	 * @return Sum of the pairs.
 	 */
 	public static Pair<Integer> add(Pair<Integer> a, Pair<Integer> b) {
 		return new Pair<Integer>(a.getFirst() + b.getFirst(), a.getSecond() + b.getSecond());
+		
+	}
+	
+	/**
+	 * Subtract two pairs component wise.
+	 * @param a The minuend pair.
+	 * @param b The subtrahend pair.
+	 * @return Difference of the two pairs.
+	 */
+	public static Pair<Integer> subtract(Pair<Integer> a, Pair<Integer> b) {
+		return new Pair<Integer>(a.getFirst() - b.getFirst(), a.getSecond() - b.getSecond());
 		
 	}
 	

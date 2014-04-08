@@ -1,5 +1,8 @@
 package de.uniwue.smooth.orthogonal;
 
+import de.uniwue.smooth.util.Util;
+import edu.uci.ics.jung.graph.util.Pair;
+
 /**
  * Quadrants of our coordinate system.
  * 
@@ -36,6 +39,25 @@ public enum Quadrant {
 	 */
 	IV,
 	;
+	
+	/**
+	 * Get the Quadrant by a position position relative to another position.
+	 * @param origin The origin point is subtracted from the target point.
+	 * @param target The point whose quadrant is returned after subtracting the origin point.
+	 * @return The unique Quadrant matching the criteria.
+	 */
+	public static Quadrant getQuadrant(Pair<Integer> origin, Pair<Integer> target) {
+		return getQuadrant(Util.subtract(target, origin));
+	}
+	
+	/**
+	 * Get the Quadrant of a point by its x and y values.
+	 * @param point The pair of coordinates of the point.
+	 * @return The Quadrant this point is part of.
+	 */
+	public static Quadrant getQuadrant(Pair<Integer> point) {
+		return getQuadrant(point.getFirst(), point.getSecond());
+	}
 	
 	/**
 	 * Get the Quadrant of a point by its x and y values.
