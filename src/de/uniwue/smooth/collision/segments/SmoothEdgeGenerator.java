@@ -58,11 +58,10 @@ public class SmoothEdgeGenerator<V, E> implements EdgeGenerator<V, E, SmoothEdge
 		Collection<Segment> segments = new ArrayList<Segment>(2);
 		
 		boolean isU = ports.getFirst().isVertical();
-		boolean firstIsRighter = vertexCoordinates.getFirst().getFirst() > vertexCoordinates.getSecond().getFirst();
-		boolean firstIsHigher = vertexCoordinates.getFirst().getSecond() > vertexCoordinates.getSecond().getSecond();
-		boolean slopePositive = firstIsRighter == firstIsHigher;
+		Quadrant quadrant = Quadrant.getQuadrant(vertexCoordinates.getSecond(), vertexCoordinates.getFirst());
+		boolean slopePositive = quadrant.isDiagonal();
 		boolean isNegative = ports.getFirst() == Port.B || ports.getFirst() == Port.L;
-		boolean firstIsGreater = isU ? firstIsHigher : firstIsRighter;
+		boolean firstIsGreater = isU ? quadrant.isUpper() : quadrant.isRight();
 		
 		Pair<Integer> end;
 		Pair<Integer> start;
@@ -97,27 +96,16 @@ public class SmoothEdgeGenerator<V, E> implements EdgeGenerator<V, E, SmoothEdge
 		
 		// Depending on the ports we have some switches to flip:
 		
-		Quadrant lQuadrant = null; // Quadrant in which the edges are L shaped
-		
-		boolean flipDiagonalStart = false; // Is the circle start above or below the diagonal
-		if(ports.getFirst() == Port.R && ports.getSecond() == Port.T) { lQuadrant = Quadrant.IV ; flipDiagonalStart =  true; }
-		if(ports.getFirst() == Port.B && ports.getSecond() == Port.L) { lQuadrant = Quadrant.IV ; flipDiagonalStart = false; }
-		if(ports.getFirst() == Port.T && ports.getSecond() == Port.L) { lQuadrant = Quadrant.I  ; flipDiagonalStart =  true; }
-		if(ports.getFirst() == Port.R && ports.getSecond() == Port.B) { lQuadrant = Quadrant.I  ; flipDiagonalStart = false; }
-		if(ports.getFirst() == Port.L && ports.getSecond() == Port.B) { lQuadrant = Quadrant.II ; flipDiagonalStart = false; }
-		if(ports.getFirst() == Port.T && ports.getSecond() == Port.R) { lQuadrant = Quadrant.II ; flipDiagonalStart =  true; }
-		if(ports.getFirst() == Port.B && ports.getSecond() == Port.R) { lQuadrant = Quadrant.III; flipDiagonalStart = false; }
-		if(ports.getFirst() == Port.L && ports.getSecond() == Port.T) { lQuadrant = Quadrant.III; flipDiagonalStart =  true; }
-		if(lQuadrant == null) throw new IllegalStateException();
+		Quadrant lQuadrant = Quadrant.getQuadrant(Util.subtract(ports.getFirst().getDirection(), ports.getSecond().getDirection())); // Quadrant in which the edges are L shaped
+		boolean flipDiagonalStart = ports.getFirst() == Port.T || ports.getSecond() == Port.T; // Is the circle start above or below the diagonal
 		boolean antidiagonal = ! lQuadrant.isDiagonal(); // Which diagonal is significant for determining the start point of the circle arc
 		boolean clockwise = ports.getFirst().getNext() == ports.getSecond(); // Draw the arc in clockwise or counter-clockwise direction
 		
 		// Depending on the coordinates we have some more switches to flip:
 		
-		int dx =  vertexCoordinates.getSecond().getFirst() - vertexCoordinates.getFirst().getFirst();
-		int dy =  vertexCoordinates.getSecond().getSecond() - vertexCoordinates.getFirst().getSecond();
-		boolean lTyped = Quadrant.getQuadrant(dx, dy) == lQuadrant; // L shaped?
-		boolean upper = (antidiagonal ? -1 : 1) * dx < dy; // Above or below diagonal?
+		Pair<Integer> diff = Util.subtract(vertexCoordinates.getSecond(), vertexCoordinates.getFirst());
+		boolean lTyped = Quadrant.getQuadrant(diff) == lQuadrant; // L shaped?
+		boolean upper = (antidiagonal ? -1 : 1) * diff.getFirst() < diff.getSecond(); // Above or below diagonal?
 		
 		// Now with these switches we can gather the parameters for our algorithm:
 		
@@ -135,11 +123,11 @@ public class SmoothEdgeGenerator<V, E> implements EdgeGenerator<V, E, SmoothEdge
 		int mid_factor = (mid_subtract ? -1 : 1); // fix sign of delta value for midpoint
 		int kink_factor = (kink_subtract ? -1 : 1); // fix sign of delta value for kink point
 		if(mid_changeXandAddDy) {
-			mid = new Pair<>(ref.getFirst() + dy * mid_factor,ref.getSecond());
-			kink = Util.add(mid, new Pair<>(0, dy * kink_factor));
+			mid = new Pair<>(ref.getFirst() + diff.getSecond() * mid_factor,ref.getSecond());
+			kink = Util.add(mid, new Pair<>(0, diff.getSecond() * kink_factor));
 		} else {
-			mid = new Pair<>(ref.getFirst(),ref.getSecond() + dx * mid_factor);
-			kink = Util.add(mid, new Pair<>(dx * kink_factor, 0));
+			mid = new Pair<>(ref.getFirst(),ref.getSecond() + diff.getFirst() * mid_factor);
+			kink = Util.add(mid, new Pair<>(diff.getFirst() * kink_factor, 0));
 		}
 		
 		Pair<Integer> lineStart = firstIsDiagonalStart ? vertexCoordinates.getSecond() : vertexCoordinates.getFirst();
