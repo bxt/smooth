@@ -39,6 +39,7 @@ myplot <- function(offest, color, stuff){
 lines(stuff, col = color, type="o", pch="+")
 }
 
+par(fig=c(0,1,0,0.8),new=TRUE)
 plot(aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, data, mean), type="n", xlab="Knotenanzahl", ylab="Durchschnittliche Fläche")
 myplot(5, "red", aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, data, mean))
 myplot(0.3, "green", aggregate((width * height) ~ vertexCount, bst, mean))
@@ -47,7 +48,8 @@ myplot(-0.3, "brown", aggregate((orthogonalCompressedWidth* orthogonalCompressed
 
 legend(10,5500, c("glatt-orthogonal, nötige Anpassungen","glatt-orthogonal, alle Anpassungen", "orthogonal", "orthogonal, ohne S-Kanten"),lty=1,lwd=2.5,col=c("green","red", "blue", "brown"), box.col = "white")
 
-
+par(fig=c(0,1,0.6,1),new=TRUE)
+plot(table(data$vertexCount), xaxt='n', ylab="Anzahl Graphen")
 
 
 addalhpa <- function(c, alpha) {
