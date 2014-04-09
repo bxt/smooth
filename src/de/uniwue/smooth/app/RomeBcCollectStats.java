@@ -35,7 +35,6 @@ import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphIOException;
 import edu.uci.ics.jung.io.GraphReader;
 
-@SuppressWarnings("unused") // TODO remove after cleanup
 public class RomeBcCollectStats implements Runnable {
 	
 	private static String SPACE = "\t";
@@ -68,17 +67,6 @@ public class RomeBcCollectStats implements Runnable {
 		sb.append(SPACE + "smoothAllAdjWidth" + SPACE + "smoothAllAdjHeight" + SPACE + "smoothAllAdjComplexity");
 		sb.append("\r\n");
 		
-		List<Double> avgAll = new ArrayList<Double>(filesCsvList.size());
-		List<Double> avgBst = new ArrayList<Double>(filesCsvList.size());
-		List<Double> avgSegAll = new ArrayList<Double>(filesCsvList.size());
-		List<Double> avgSegBst = new ArrayList<Double>(filesCsvList.size());
-		List<Double> avgNoC = new ArrayList<Double>(filesCsvList.size());
-		List<Double> avgCom = new ArrayList<Double>(filesCsvList.size());
-		int nodesTotal = 0;
-		int edgesTotal = 0;
-		
-		int escLvlA = 0, escLvlB = 0, escLvlC = 0;
-		
 		OrthogonalDrawing<Appendable> drawingNoC = createPreparedDrawing();
 		OrthogonalDrawing<Appendable> drawingCom = createPreparedDrawing();
 		OrthogonalDrawing<Appendable> drawingBst = createPreparedDrawing();
@@ -100,11 +88,9 @@ public class RomeBcCollectStats implements Runnable {
 				GraphReader<Graph<Vertex, Edge>, Vertex, Edge> graphReader = GraphReaderFactory.create(file);
 				Graph<Vertex, Edge> graph = graphReader.readGraph();
 				
-				nodesTotal += graph.getVertexCount();
 				sb.append(graph.getVertexCount());
 				sb.append(SPACE);
 				
-				edgesTotal += graph.getEdgeCount();
 				sb.append(graph.getEdgeCount());
 				sb.append(SPACE);
 				
@@ -120,15 +106,13 @@ public class RomeBcCollectStats implements Runnable {
 				layoutSomeadjust.initialize();
 				layoutAlladjust.initialize();
 				
-				analyseStraightlineLayout(nocompressLiuLayout, sb, null, avgNoC, null, drawingNoC, "black", null, null);
-				analyseStraightlineLayout(compressliuLayout, sb, null, avgCom, null, drawingCom, "black", null, null);
+				analyseStraightlineLayout(nocompressLiuLayout, sb, null, drawingNoC, "black");
+				analyseStraightlineLayout(compressliuLayout, sb, null, drawingCom, "black");
 				
-				boolean x = analyseSmoothLayout(layoutNoadjust, sb, null, avgBst, null, drawingBst, "green", avgSegBst, null);
-				boolean y = analyseSmoothLayout(layoutSomeadjust, sb, null, x ? avgBst : null, null, x ? drawingBst : null, "blue", x ? avgSegBst : null, null);
-				boolean z = analyseSmoothLayout(layoutAlladjust, sb, avgAll, y ? avgBst : null, drawingAll, y ? drawingBst : null, "red", y ? avgSegBst : null, avgSegAll);
+				boolean x = analyseSmoothLayout(layoutNoadjust, sb, null, drawingBst, "green");
+				boolean y = analyseSmoothLayout(layoutSomeadjust, sb, null, x ? drawingBst : null, "blue");
+				boolean z = analyseSmoothLayout(layoutAlladjust, sb, drawingAll, y ? drawingBst : null, "red");
 				if(z) throw new RuntimeException("Uh oh, collisions left!");
-				
-				if (x) { if(y) escLvlC++; else escLvlB++; } else { escLvlA++; }
 				
 				sb.append("\r\n");
 				graphReader.close();
@@ -147,63 +131,23 @@ public class RomeBcCollectStats implements Runnable {
 
 		
 		int totalCount = filesCsvList.size() - ignored;
-		/*
-		sb.append("Anzahl der Graphen: " + totalCount);
-		sb.append(SPACE);
-		sb.append("Anzahl der Knoten: " + nodesTotal);
-		sb.append(SPACE);
-		sb.append("Anzahl der Kanten: " + edgesTotal);
-		sb.append(SPACE);
-		if(avgBst.size() != totalCount) throw new IllegalStateException("Had " + avgNoC.size() + " numbers instead of " + totalCount);
-		sb.append("Durchschnittliche Fläche pro Knoten orthogonal:" + avg(avgNoC));
-		sb.append(SPACE);
-		if(avgBst.size() != totalCount) throw new IllegalStateException("Had " + avgCom.size() + " numbers instead of " + totalCount);
-		sb.append("Durchschnittliche Fläche pro Knoten orthogonal, with compression:" + avg(avgCom));
-		sb.append(SPACE);
-		if(avgBst.size() != totalCount) throw new IllegalStateException("Had " + avgBst.size() + " numbers instead of " + totalCount);
-		sb.append("Durchschnittliche Fläche pro Knoten smooth:" + avg(avgBst));
-		sb.append(SPACE);
-		if(avgSegBst.size() != edgesTotal) throw new IllegalStateException("Had " + avgSegBst.size() + " numbers instead of " + edgesTotal);
-		sb.append("Durchschnittliche Segmente pro Kante smooth:" + avg(avgSegBst));
-		sb.append(SPACE);
-		if(avgAll.size() != totalCount) throw new IllegalStateException("Had " + avgAll.size() + " numbers instead of " + totalCount);
-		sb.append("Durchschnittliche Fläche pro Knoten smooth, ohne Optimierung:" + avg(avgAll));
-		sb.append(SPACE);
-		if(avgSegAll.size() != edgesTotal) throw new IllegalStateException("Had " + avgSegAll.size() + " numbers instead of " + edgesTotal);
-		sb.append("Durchschnittliche Segmente pro Kante smooth, ohne Optimierung:" + avg(avgSegAll));
-		sb.append(SPACE);
-		if(escLvlA + escLvlB + escLvlC != totalCount) throw new IllegalStateException("Had wrong escalation levels!");
-		sb.append("Escalation A: " + escLvlA);
-		sb.append(SPACE);
-		sb.append("Escalation B: " + escLvlB);
-		sb.append(SPACE);
-		sb.append("Escalation C: " + escLvlC);
-		sb.append(SPACE);
-		*/
+		
 		System.out.println("Analyzed " + totalCount +  " graphs. ");
 		Util.writeFile("resources/analysis.txt", sb.toString());
 		b.print();
 	}
 	
-	private static double avg(List<Double> doubles) {
-		double sum = 0;
-		for(double d : doubles) {
-			sum += d;
-		}
-		return sum/doubles.size();
-	}
-	
-	private boolean analyseStraightlineLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color, List<Double> avgSegsSometimes, List<Double> avgSegsAlways) {
+	private boolean analyseStraightlineLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color) {
 		EdgeGenerator<Vertex, Edge, ?> edgeGenerator = new StraightlineEdgeGenerator<Vertex, Edge>(layout);
-		return analyseLayout(edgeGenerator, layout, sb, avgAlways, avgSometimes, false, drawingA, drawingB, color, avgSegsSometimes, avgSegsAlways);
+		return analyseLayout(edgeGenerator, layout, sb, false, drawingA, drawingB, color);
 	}
 	
-	private boolean analyseSmoothLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color, List<Double> avgSegsSometimes, List<Double> avgSegsAlways) {
+	private boolean analyseSmoothLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color) {
 		EdgeGenerator<Vertex, Edge, ?> edgeGenerator = new SmoothEdgeGenerator<Vertex, Edge>(layout);
-		return analyseLayout(edgeGenerator, layout, sb, avgAlways, avgSometimes, true, drawingA, drawingB, color, avgSegsSometimes, avgSegsAlways);
+		return analyseLayout(edgeGenerator, layout, sb, true, drawingA, drawingB, color);
 	}
 	
-	private boolean analyseLayout(EdgeGenerator<Vertex, Edge, ?> edgeGenerator, OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, List<Double> avgAlways, List<Double> avgSometimes, boolean analysePlanarity, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color, List<Double> avgSegsSometimes, List<Double> avgSegsAlways) {
+	private boolean analyseLayout(EdgeGenerator<Vertex, Edge, ?> edgeGenerator, OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, boolean analysePlanarity, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color) {
 		CollisionManager collisionManager = new CollisionManager();
 		BoundariesManager boundariesManager = new BoundariesManager();
 		int segmentsTotal = 0;
@@ -231,9 +175,6 @@ public class RomeBcCollectStats implements Runnable {
 			sb.append(height);
 			sb.append(SPACE);
 			int sqrtArea = (int) (1000*Math.sqrt(height*width));
-			double areaPerNode = width*height/(double)layout.getGraph().getVertexCount();
-			if(avgAlways != null) avgAlways.add(areaPerNode);
-			if(avgSometimes != null) avgSometimes.add(areaPerNode);
 			if(drawingA != null) {
 				drawingA.edgeMidpoint(new Pair<Integer>(layout.getGraph().getVertexCount(), sqrtArea), color);
 			}
@@ -242,19 +183,6 @@ public class RomeBcCollectStats implements Runnable {
 			}
 			sb.append(segmentsTotal);
 			sb.append(SPACE);
-			/*double segmentsPerEdge = segmentsTotal/(double)layout.getGraph().getEdgeCount();
-			if(avgSegsAlways != null) {
-				avgSegsAlways.add(segmentsPerEdge);
-			}
-			if(avgSegsSometimes != null) {
-				avgSegsSometimes.add(segmentsPerEdge);
-			}*/
-			if(avgSegsAlways != null) {
-				avgSegsAlways.addAll(segmentSizes);
-			}
-			if(avgSegsSometimes != null) {
-				avgSegsSometimes.addAll(segmentSizes);
-			}
 		}
 		return collides;
 	}
