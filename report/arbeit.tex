@@ -32,6 +32,7 @@
 \usepackage{subcaption}
 \usepackage{enumerate}
 \usepackage{textcomp}
+\usepackage{epstopdf}
 
 \newtheorem{satz}{Satz}[chapter]
 \newtheorem{lemma}[satz]{Lemma}
@@ -753,6 +754,8 @@ Liegt eine U"~Kante (C"~Kante) vor, so muss zunächst bestimmt werden, an welche
 
 Liegt keine I-, S-, U- oder C"~Kante vor, so muss eine L- oder G"~Kante vorliegen. Eine L"~Kante liegt je nach Ports und der Lage der Kantenendpunkte zueinander vor: Die Vorzeichen der Differenz der Richtungsvektoren der Ports an den Knoten müssen die selben sein, wie die der Differenz der beiden Knotenpositionen. Bei L"~Kanten muss dann der Kreis im Uhrzeigersinn gezeichnet werden, wo er bei G"~Kanten gegen den Uhrzeigersinn gezeichnet wird und umgekehrt. Es gibt verschiedene Fälle, welche Koordinaten addiert oder subtrahiert werden, je nach den acht Port-Kombinationen, in denen  L- oder G"~Kanten vorliegen und je nach dem Quadranten der Koordinatenebene und der Lage relativ zur entsprechenden Diagonale des Differenzvektors der beiden Knoten-Endpositionen liegt. Darum sei hier nur ein Beispielfall für eine Kante $\{v_1, v_2\}$ ausgeführt: Sei $v_2$ im ersten Quadranten und $v_1$ am Ursprung positioniert. Die ausschlaggebende Diagonale ist hier die Hauptdiagonale. Liegt nun $v_2$ oberhalb der Hauptdiagonale, so beginnt das Kreissegment bei $v_1$. Ansonsten beginnt es bei $v_2$. Sei nun also $v_2$ unterhalb der Hauptdiagonale. Dann muss die Differenz der y"~Koordinaten von der x"~Koordinate von $v_2$ abgezogen werden, um den Mittelpunkt des Kreises zu erhalten. Die Differenz muss von beiden Koordinaten von $v_2$ abgezogen werden, um die Position des Segmentwechsels zu erhalten. Die Kante besteht nun aus einer geraden Linie von $v_1$ zur Segmentwechselposition und einem Kreisbogen im Uhrzeigersinn von $v_2$ zur Segmentwechselposition. Die übrigen 63 Fälle überlegt man sich analog.
 
+%TODO: outro.
+
 \section{Schnitte finden}
 
 Das Finden eines Schnittes durch die Zeichnung des Graphen zum Zwecke des Verschiebens von Knoten in horizontale Richtung zielt darauf ab, den Graph in zwei Teile zu spalten, die nur durch horizontale Segmente verbunden sind. 
@@ -887,6 +890,12 @@ Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte der Durchs
 % Problem mit unnötiger C-Anpasung
 %  hin-her-Problem
 
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{area_comparison}
+  \caption{Vergleich des durchschnittlichen Flächenbedarfs der verschiedenen Algorithmen nach Knotenzahl}
+  \label{fig:areaComparison}
+\end{figure}
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{plots/ortho-noCompress}
