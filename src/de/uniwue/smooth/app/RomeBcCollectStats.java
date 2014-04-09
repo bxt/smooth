@@ -35,6 +35,7 @@ import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphIOException;
 import edu.uci.ics.jung.io.GraphReader;
 
+@SuppressWarnings("unused") // TODO remove after cleanup
 public class RomeBcCollectStats implements Runnable {
 	
 	private static String SPACE = "\t";
@@ -59,6 +60,13 @@ public class RomeBcCollectStats implements Runnable {
 		Collections.addAll(ignore, "bc_grafo10187.33.lgr.graphml", "bc_grafo2456.22.lgr.graphml", "bc_grafo2735.36.lgr.graphml", "bc_grafo5663.34.lgr.graphml", "bc_grafo5759.35.lgr.graphml", "bc_grafo5808.33.lgr.graphml", "bc_grafo5917.34.lgr.graphml", "bc_grafo920.24.lgr.graphml", "bc_grafo928.13.lgr.graphml");
 		
 		StringBuilder sb = new StringBuilder();
+		sb.append("filemname" + SPACE + "vertexCount" + SPACE + "edgeCount");
+		sb.append(SPACE + "orthogonalWidth" + SPACE + "orthogonalHeight" + SPACE + "orthogonalComplexity");
+		sb.append(SPACE + "orthogonalCompressedWidth" + SPACE + "orthogonalCompressedHeight" + SPACE + "orthogonalCompressedComplexity");
+		sb.append(SPACE + "smoothWidth" + SPACE + "smoothHeight" + SPACE + "smoothComplexity");
+		sb.append(SPACE + "smoothCheapAdjWidth" + SPACE + "smoothCheapAdjHeight" + SPACE + "smoothCheapAdjComplexity");
+		sb.append(SPACE + "smoothAllAdjWidth" + SPACE + "smoothAllAdjHeight" + SPACE + "smoothAllAdjComplexity");
+		sb.append("\r\n");
 		
 		List<Double> avgAll = new ArrayList<Double>(filesCsvList.size());
 		List<Double> avgBst = new ArrayList<Double>(filesCsvList.size());
@@ -139,7 +147,7 @@ public class RomeBcCollectStats implements Runnable {
 
 		
 		int totalCount = filesCsvList.size() - ignored;
-		
+		/*
 		sb.append("Anzahl der Graphen: " + totalCount);
 		sb.append(SPACE);
 		sb.append("Anzahl der Knoten: " + nodesTotal);
@@ -171,7 +179,7 @@ public class RomeBcCollectStats implements Runnable {
 		sb.append(SPACE);
 		sb.append("Escalation C: " + escLvlC);
 		sb.append(SPACE);
-		
+		*/
 		System.out.println("Analyzed " + totalCount +  " graphs. ");
 		Util.writeFile("resources/analysis.txt", sb.toString());
 		b.print();
@@ -209,14 +217,18 @@ public class RomeBcCollectStats implements Runnable {
 		}
 		boolean collides = ! collisionManager.collisions().isEmpty();
 		if(analysePlanarity && collides) {
-			sb.append("n.p.");
+			sb.append("-1");
 			sb.append(SPACE);
-			sb.append("n.p.");
+			sb.append("-1");
+			sb.append(SPACE);
+			sb.append("-1");
 			sb.append(SPACE);
 		} else {
 			int width = (int) Math.ceil(boundariesManager.getWidth());
 			int height = (int) Math.ceil(boundariesManager.getHeight());
-			sb.append(width + " x " + height);
+			sb.append(width);
+			sb.append(SPACE);
+			sb.append(height);
 			sb.append(SPACE);
 			int sqrtArea = (int) (1000*Math.sqrt(height*width));
 			double areaPerNode = width*height/(double)layout.getGraph().getVertexCount();
