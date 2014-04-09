@@ -32,4 +32,28 @@ mean((bst$width * bst$height) / bst$vertexCount)
 sum(bst$complexity) / sum(data$edgeCount)
 
 
-plot(aggregate((width * height) ~ vertexCount, bst, mean))
+counts <- rle(sort(data$vertexCount))$values
+
+
+myplot <- function(offest, color, stuff){
+lines(stuff, col = color, type="o", pch="+")
+}
+
+plot(aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, data, mean), type="n", xlab="Knotenanzahl", ylab="Durchschnittliche Fläche")
+myplot(5, "red", aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, data, mean))
+myplot(0.3, "green", aggregate((width * height) ~ vertexCount, bst, mean))
+myplot(0, "blue", aggregate((orthogonalWidth* orthogonalHeight) ~ vertexCount, data, mean))
+myplot(-0.3, "brown", aggregate((orthogonalCompressedWidth* orthogonalCompressedHeight) ~ vertexCount, data, mean))
+
+legend(10,5500, c("glatt-orthogonal, nötige Anpassungen","glatt-orthogonal, alle Anpassungen", "orthogonal", "orthogonal, ohne S-Kanten"),lty=1,lwd=2.5,col=c("green","red", "blue", "brown"), box.col = "white")
+
+
+
+
+addalhpa <- function(c, alpha) {
+x <- col2rgb(c)/255
+rgb(x[1], x[2], x[3], alpha=alpha)
+}
+
+
+
