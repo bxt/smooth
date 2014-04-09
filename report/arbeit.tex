@@ -848,7 +848,7 @@ Das dritte Kriterium ist die \emph{Segmentzahl}: Es können zwar bei SC$_2$-Zeic
 
 \section{Erhobene Messwerte}
 
-Als Vergleichsgraphen für das Erstellen von Zeichnungen wurden die Rom-Testgraphen verwendet. Nachdem einige Graphen entfernt wurden, z.B.\ weil sie nicht zweifach zusammenhängend sind blieb eine Menge von 844 Graphen, die jeweils mit den verschiedenen Methoden gezeichnet wurden.% TODO: \cite rome graphs?
+Als Vergleichsgraphen für das Erstellen von Zeichnungen wurden die Rom-Testgraphen verwendet. Nachdem einige Graphen entfernt wurden, z.B.\ weil sie nicht zweifach zusammenhängend sind blieb eine Menge von 844 Graphen, die jeweils mit den verschiedenen Methoden gezeichnet wurden. Die Graphen enthalten zwischen 10 und 51 Knoten, in Abbildung~\ref{fig:graphSizes} erkennt man, wie viele Graphen mit welchen Knotenanzahlen verarbeitet wurden. % TODO: \cite rome graphs?
 
 Für die OC$_3$-Zeichnungen lag die durchschnittliche Fläche pro Knoten durchschnittlich bei 4,768 Gitterquadraten. In Abbildung~\ref{fig:ortho-noCompress} wird die Verteilung von Knotenanzahlen und Fläche gezeigt.
 
@@ -874,6 +874,8 @@ Obwohl es so wirkt, als ob durch dieses rücksichtslose Vorgehen oftmals neue Ü
 
 Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte der Durchschnitt der Fläche pro Konten auf durchschnittlich 7,522 Gitterquadrate gesenkt werden. Abbildung~\ref{fig:smooth-opti} zeigt die Verteilung des Flächenbedarfs je nach Knotenanzahl nach dieser Anpassung. Die durchschnittliche Segmentanzahl pro Kante stieg leicht auf 1,2189.
 
+Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des Flächenbedarfs der verschiedenen Zeichenmethoden.
+
 % --> use them to reduce edge complexity?
 
 
@@ -892,9 +894,9 @@ Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte der Durchs
 
 \begin{figure}[p]
   \centering
-  \includegraphics[width=\textwidth]{area_comparison}
-  \caption{Vergleich des durchschnittlichen Flächenbedarfs der verschiedenen Algorithmen nach Knotenzahl}
-  \label{fig:areaComparison}
+  {\includegraphics[width=\textwidth]{area_comparison} \phantomsubcaption\label{fig:graphSizes} \phantomsubcaption\label{fig:areaComparison}}
+  \caption{Vergleich des durchschnittlichen Flächenbedarfs der verschiedenen Algorithmen nach Anzahl Knoten im Graphen (\subref{fig:areaComparison}) sowie  Verteilung der Anzahl Konten in den Graphen (\subref{fig:graphSizes}).}
+  \label{fig:areaComparisonAndGraphSizes}
 \end{figure}
 \begin{figure}[p]
   \centering
