@@ -59,7 +59,7 @@ public class RomeBcCollectStats implements Runnable {
 		Collections.addAll(ignore, "bc_grafo10187.33.lgr.graphml", "bc_grafo2456.22.lgr.graphml", "bc_grafo2735.36.lgr.graphml", "bc_grafo5663.34.lgr.graphml", "bc_grafo5759.35.lgr.graphml", "bc_grafo5808.33.lgr.graphml", "bc_grafo5917.34.lgr.graphml", "bc_grafo920.24.lgr.graphml", "bc_grafo928.13.lgr.graphml");
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("filemname" + SPACE + "vertexCount" + SPACE + "edgeCount");
+		sb.append("filename" + SPACE + "vertexCount" + SPACE + "edgeCount");
 		sb.append(SPACE + "orthogonalWidth" + SPACE + "orthogonalHeight" + SPACE + "orthogonalComplexity");
 		sb.append(SPACE + "orthogonalCompressedWidth" + SPACE + "orthogonalCompressedHeight" + SPACE + "orthogonalCompressedComplexity");
 		sb.append(SPACE + "smoothWidth" + SPACE + "smoothHeight" + SPACE + "smoothComplexity");

@@ -70,3 +70,5 @@ tail(data[with(data,order((smoothAllAdjWidth*smoothAllAdjHeight)/vertexCount)),]
 # Show ten best liu-compressed drawings:
 head(data[with(data,order( orthogonalCompressedHeight/orthogonalHeight )),], n=10)
 
+# Show info about one special graph:
+data[data$filename == "grafo7046",]
