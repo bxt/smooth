@@ -440,7 +440,7 @@
 <use name="mark/cross(sx)" pos="240 235" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="320 190" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="200 170" size="normal" stroke="red"/>
-<use name="mark/cross(sx)" pos="250 279" size="normal" stroke="red"/>
+<use name="mark/cross(sx)" pos="250 290" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="230 185" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="280 288" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="220 204" size="normal" stroke="red"/>
@@ -530,7 +530,7 @@
 <use name="mark/cross(sx)" pos="260 310" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="320 292" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="220 194" size="normal" stroke="red"/>
-<use name="mark/cross(sx)" pos="240 354" size="normal" stroke="red"/>
+<use name="mark/cross(sx)" pos="240 392" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="370 300" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="280 280" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="310 246" size="normal" stroke="red"/>
@@ -918,7 +918,7 @@
 <use name="mark/cross(sx)" pos="170 150" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="410 364" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="190 174" size="normal" stroke="red"/>
-<use name="mark/cross(sx)" pos="410 367" size="normal" stroke="red"/>
+<use name="mark/cross(sx)" pos="410 378" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="390 537" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="460 419" size="normal" stroke="red"/>
 <use name="mark/cross(sx)" pos="230 180" size="normal" stroke="red"/>

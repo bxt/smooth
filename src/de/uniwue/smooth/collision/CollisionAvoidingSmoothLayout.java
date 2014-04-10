@@ -98,7 +98,7 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 			placeVertex(v1);
 			snapshot("placing initial vertex of tier");
 			if(escalatedAtLeast(EscalationLevel.CHEAP_ADJUSTMENTS))
-				adjustForSideEdge(v1, Port.L, vertexSet);
+				adjustHeightForSideEdge(v1, Port.L, vertexSet);
 			
 			V vN = vertices.get(vertices.size()-1);
 			if(!vN.equals(v1)) {
@@ -107,6 +107,10 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 			}
 			if(escalatedAtLeast(EscalationLevel.CHEAP_ADJUSTMENTS))
 				adjustForSideEdge(vN, Port.R, vertexSet);
+			
+			if(escalatedAtLeast(EscalationLevel.CHEAP_ADJUSTMENTS))
+				adjustSlopeForSideEdge(v1, Port.L, vertexSet);
+			
 			
 			for (int i = 1; i < vertices.size() - 1; i++) {
 				V vI = vertices.get(i);
@@ -123,8 +127,20 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 		
 	}
 	
-	// cut through, build inner CD, move up, build outer CD, move left
+	private void adjustHeightForSideEdge(V v, Port side, Set<V> set) {
+		adjustForSideEdge(v, side, set, true, false);
+	}
+	
+	private void adjustSlopeForSideEdge(V v, Port side, Set<V> set) {
+		adjustForSideEdge(v, side, set, false, true);
+	}
+	
 	private void adjustForSideEdge(V v, Port side, Set<V> set) {
+		adjustForSideEdge(v, side, set, true, true);
+	}
+	
+	// cut through, build inner CD, move up, build outer CD, move left
+	private void adjustForSideEdge(V v, Port side, Set<V> set, boolean moveUp, boolean moveSide) {
 		E sideEdge = getEdgeAt(v, side);
 		if(sideEdge != null) {
 			
@@ -138,13 +154,14 @@ public class CollisionAvoidingSmoothLayout<V, E> extends AbstractLayout<V, E> im
 				
 				SegmentedEdge smoothEdge = edgeGenerator.generateEdge(sideEdge);
 				
-				adjustInnerCollisionsOfSideEdge(side, sideEdge, v, sideEdgeOpposite, smoothEdge, cut, set);
+				if (moveUp)
+					adjustInnerCollisionsOfSideEdge(side, sideEdge, v, sideEdgeOpposite, smoothEdge, cut, set);
 				
-				adjustOuterCollisionsOfSideEdge(side, sideEdge, v, sideEdgeOpposite, smoothEdge, cut);
-				
-				if(escalatedAtLeast(EscalationLevel.ALL_ADJUSTMENTS))
-					adjustSlopeOfSideLEdge(side, sideEdge, v, sideEdgeOpposite);
-				
+				if(moveSide) {
+					adjustOuterCollisionsOfSideEdge(side, sideEdge, v, sideEdgeOpposite, smoothEdge, cut);
+					if(escalatedAtLeast(EscalationLevel.ALL_ADJUSTMENTS))
+						adjustSlopeOfSideLEdge(side, sideEdge, v, sideEdgeOpposite);
+				}
 			}
 			
 		}

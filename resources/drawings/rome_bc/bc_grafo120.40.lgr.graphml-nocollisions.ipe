@@ -236,57 +236,57 @@
     <view layers="alpha" active="alpha"/>
 <use name="mark/disk(sx)" pos="-2015 96" size="normal" stroke="black"/>
 <text transformations="translations" pos="-2015 96" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V0</text><use name="mark/disk(sx)" pos="608 2560" size="normal" stroke="black"/>
-<text transformations="translations" pos="608 2560" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/disk(sx)" pos="-1599 384" size="normal" stroke="black"/>
-<text transformations="translations" pos="-1599 384" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V2</text><use name="mark/disk(sx)" pos="608 2624" size="normal" stroke="black"/>
+<text transformations="translations" pos="608 2560" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V1</text><use name="mark/disk(sx)" pos="-1695 384" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1695 384" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V2</text><use name="mark/disk(sx)" pos="608 2624" size="normal" stroke="black"/>
 <text transformations="translations" pos="608 2624" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V3</text><use name="mark/disk(sx)" pos="608 2688" size="normal" stroke="black"/>
-<text transformations="translations" pos="608 2688" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V4</text><use name="mark/disk(sx)" pos="384 544" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 544" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V5</text><use name="mark/disk(sx)" pos="-1599 288" size="normal" stroke="black"/>
-<text transformations="translations" pos="-1599 288" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V6</text><use name="mark/disk(sx)" pos="-31 224" size="normal" stroke="black"/>
-<text transformations="translations" pos="-31 224" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V7</text><use name="mark/disk(sx)" pos="384 320" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 320" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V8</text><use name="mark/disk(sx)" pos="384 448" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 448" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V9</text><use name="mark/disk(sx)" pos="384 288" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 288" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V10</text><use name="mark/disk(sx)" pos="512 800" size="normal" stroke="black"/>
-<text transformations="translations" pos="512 800" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V11</text><use name="mark/disk(sx)" pos="384 640" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 640" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V12</text><use name="mark/disk(sx)" pos="-31 128" size="normal" stroke="black"/>
-<text transformations="translations" pos="-31 128" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V13</text><use name="mark/disk(sx)" pos="608 2656" size="normal" stroke="black"/>
-<text transformations="translations" pos="608 2656" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V14</text><use name="mark/disk(sx)" pos="256 256" size="normal" stroke="black"/>
-<text transformations="translations" pos="256 256" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V15</text><use name="mark/disk(sx)" pos="608 2720" size="normal" stroke="black"/>
+<text transformations="translations" pos="608 2688" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V4</text><use name="mark/disk(sx)" pos="-1247 544" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 544" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V5</text><use name="mark/disk(sx)" pos="-1695 288" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1695 288" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V6</text><use name="mark/disk(sx)" pos="-1663 224" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1663 224" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V7</text><use name="mark/disk(sx)" pos="-1247 320" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 320" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V8</text><use name="mark/disk(sx)" pos="-1247 448" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 448" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V9</text><use name="mark/disk(sx)" pos="-1247 288" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 288" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V10</text><use name="mark/disk(sx)" pos="-1119 800" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1119 800" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V11</text><use name="mark/disk(sx)" pos="-1247 640" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 640" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V12</text><use name="mark/disk(sx)" pos="-1663 128" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1663 128" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V13</text><use name="mark/disk(sx)" pos="608 2656" size="normal" stroke="black"/>
+<text transformations="translations" pos="608 2656" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V14</text><use name="mark/disk(sx)" pos="-1375 256" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1375 256" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V15</text><use name="mark/disk(sx)" pos="608 2720" size="normal" stroke="black"/>
 <text transformations="translations" pos="608 2720" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V17</text><use name="mark/disk(sx)" pos="608 832" size="normal" stroke="black"/>
-<text transformations="translations" pos="608 832" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V16</text><use name="mark/disk(sx)" pos="-1599 256" size="normal" stroke="black"/>
-<text transformations="translations" pos="-1599 256" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V19</text><use name="mark/disk(sx)" pos="608 2592" size="normal" stroke="black"/>
-<text transformations="translations" pos="608 2592" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V18</text><use name="mark/disk(sx)" pos="-31 192" size="normal" stroke="black"/>
-<text transformations="translations" pos="-31 192" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V21</text><use name="mark/disk(sx)" pos="-1599 320" size="normal" stroke="black"/>
-<text transformations="translations" pos="-1599 320" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V20</text><use name="mark/disk(sx)" pos="512 768" size="normal" stroke="black"/>
-<text transformations="translations" pos="512 768" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V23</text><use name="mark/disk(sx)" pos="512 736" size="normal" stroke="black"/>
-<text transformations="translations" pos="512 736" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V22</text><use name="mark/disk(sx)" pos="384 576" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 576" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V25</text><use name="mark/disk(sx)" pos="512 672" size="normal" stroke="black"/>
-<text transformations="translations" pos="512 672" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V24</text><use name="mark/disk(sx)" pos="512 704" size="normal" stroke="black"/>
-<text transformations="translations" pos="512 704" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V27</text><use name="mark/disk(sx)" pos="384 512" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 512" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V26</text><use name="mark/disk(sx)" pos="-1599 352" size="normal" stroke="black"/>
-<text transformations="translations" pos="-1599 352" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V29</text><use name="mark/disk(sx)" pos="512 832" size="normal" stroke="black"/>
-<text transformations="translations" pos="512 832" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V28</text><use name="mark/disk(sx)" pos="-31 160" size="normal" stroke="black"/>
-<text transformations="translations" pos="-31 160" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V31</text><use name="mark/disk(sx)" pos="384 384" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 384" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V30</text><use name="mark/disk(sx)" pos="608 896" size="normal" stroke="black"/>
+<text transformations="translations" pos="608 832" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V16</text><use name="mark/disk(sx)" pos="-1695 256" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1695 256" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V19</text><use name="mark/disk(sx)" pos="608 2592" size="normal" stroke="black"/>
+<text transformations="translations" pos="608 2592" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V18</text><use name="mark/disk(sx)" pos="-1663 192" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1663 192" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V21</text><use name="mark/disk(sx)" pos="-1695 320" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1695 320" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V20</text><use name="mark/disk(sx)" pos="-1119 768" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1119 768" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V23</text><use name="mark/disk(sx)" pos="-1119 736" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1119 736" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V22</text><use name="mark/disk(sx)" pos="-1247 576" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 576" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V25</text><use name="mark/disk(sx)" pos="-1119 672" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1119 672" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V24</text><use name="mark/disk(sx)" pos="-1119 704" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1119 704" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V27</text><use name="mark/disk(sx)" pos="-1247 512" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 512" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V26</text><use name="mark/disk(sx)" pos="-1695 352" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1695 352" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V29</text><use name="mark/disk(sx)" pos="-1119 832" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1119 832" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V28</text><use name="mark/disk(sx)" pos="-1663 160" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1663 160" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V31</text><use name="mark/disk(sx)" pos="-1247 384" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 384" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V30</text><use name="mark/disk(sx)" pos="608 896" size="normal" stroke="black"/>
 <text transformations="translations" pos="608 896" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V34</text><use name="mark/disk(sx)" pos="608 800" size="normal" stroke="black"/>
-<text transformations="translations" pos="608 800" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V35</text><use name="mark/disk(sx)" pos="384 480" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 480" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V32</text><use name="mark/disk(sx)" pos="608 864" size="normal" stroke="black"/>
-<text transformations="translations" pos="608 864" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V33</text><use name="mark/disk(sx)" pos="384 352" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 352" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V38</text><use name="mark/disk(sx)" pos="384 416" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 416" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V39</text><use name="mark/disk(sx)" pos="1024 224" size="normal" stroke="black"/>
-<text transformations="translations" pos="1024 224" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V36</text><use name="mark/disk(sx)" pos="384 608" size="normal" stroke="black"/>
-<text transformations="translations" pos="384 608" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V37</text><use name="mark/cross(sx)" pos="-63 128" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="-63 96" size="normal" stroke="red"/>
+<text transformations="translations" pos="608 800" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V35</text><use name="mark/disk(sx)" pos="-1247 480" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 480" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V32</text><use name="mark/disk(sx)" pos="608 864" size="normal" stroke="black"/>
+<text transformations="translations" pos="608 864" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V33</text><use name="mark/disk(sx)" pos="-1247 352" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 352" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V38</text><use name="mark/disk(sx)" pos="-1247 416" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 416" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V39</text><use name="mark/disk(sx)" pos="1024 224" size="normal" stroke="black"/>
+<text transformations="translations" pos="1024 224" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V36</text><use name="mark/disk(sx)" pos="-1247 608" size="normal" stroke="black"/>
+<text transformations="translations" pos="-1247 608" stroke="black" type="label" width="190" height="10" depth="0" valign="baseline" size="normal">V37</text><use name="mark/cross(sx)" pos="-1695 128" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="-1695 96" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  -2015 96 m
- -63 96 l
+ -1695 96 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- -63 96 m
- 32,000 0 0 32,000 -63 128 -31 128 a
+ -1695 96 m
+ 32,000 0 0 32,000 -1695 128 -1663 128 a
 </path>
 <use name="mark/cross(sx)" pos="608 128" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
- -31 128 m
+ -1663 128 m
  608 128 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
@@ -303,11 +303,15 @@
  608 2592 m
  608 2560 l
  </path>
-<use name="mark/cross(sx)" pos="608 384" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="-1599 384" size="normal" stroke="red"/>
+<use name="mark/cross(sx)" pos="512 384" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="512 2592" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  608 2592 m
- 2208,000 0 0 2208,000 608 384 -1599 384 a
+ 512 2592 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ 512 2592 m
+ 2208,000 0 0 2208,000 512 384 -1695 384 a
 </path>
 <path stroke="black" pen="normal" dash="normal">
  608 2656 m
@@ -317,138 +321,130 @@
  608 2688 m
  608 2656 l
  </path>
-<use name="mark/cross(sx)" pos="384 672" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="512 672" size="normal" stroke="red"/>
+<use name="mark/cross(sx)" pos="-1247 672" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="-1119 672" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 384 544 m
- 128,000 0 0 128,000 384 672 512 672 a
+ -1247 544 m
+ 128,000 0 0 128,000 -1247 672 -1119 672 a
 </path>
-<use name="mark/cross(sx)" pos="416 640" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="416 672" size="normal" stroke="red"/>
+<use name="mark/cross(sx)" pos="-1215 640" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="-1215 672" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 512 672 m
- 416 672 l
+ -1119 672 m
+ -1215 672 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 416 672 m
- 32,000 0 0 32,000 416 640 384 640 a
-</path>
-<path stroke="black" pen="normal" dash="normal">
- -1599 288 m
- -1599 256 l
- </path>
-<use name="mark/cross(sx)" pos="-1567 256" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="-1567 224" size="normal" stroke="red"/>
-<path stroke="black" pen="normal" dash="normal">
- -31 224 m
- -1567 224 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
- -1599 256 m
- 32,000 0 0 32,000 -1567 256 -1567 224 a
-</path>
-<use name="mark/cross(sx)" pos="224 256" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="224 224" size="normal" stroke="red"/>
-<path stroke="black" pen="normal" dash="normal">
- -31 224 m
- 224 224 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
- 224 224 m
- 32,000 0 0 32,000 224 256 256 256 a
-</path>
-<use name="mark/cross(sx)" pos="352 288" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="352 256" size="normal" stroke="red"/>
-<path stroke="black" pen="normal" dash="normal">
- 256 256 m
- 352 256 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
- 352 256 m
- 32,000 0 0 32,000 352 288 384 288 a
+ -1215 672 m
+ 32,000 0 0 32,000 -1215 640 -1247 640 a
 </path>
 <path stroke="black" pen="normal" dash="normal">
- -31 224 m
- -31 192 l
+ -1695 288 m
+ -1695 256 l
+ </path>
+<use name="mark/cross(sx)" pos="-1663 256" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="-1695 256" size="normal" stroke="red"/>
+<path stroke="black" pen="normal" dash="normal">
+ -1695 256 m
+ 32,000 0 0 32,000 -1663 256 -1663 224 a
+</path>
+<use name="mark/cross(sx)" pos="-1407 256" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="-1407 224" size="normal" stroke="red"/>
+<path stroke="black" pen="normal" dash="normal">
+ -1663 224 m
+ -1407 224 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- -1599 320 m
- -1599 288 l
- </path>
-<use name="mark/cross(sx)" pos="512 224" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="-31 224" size="normal" stroke="red"/>
+ -1407 224 m
+ 32,000 0 0 32,000 -1407 256 -1375 256 a
+</path>
+<use name="mark/cross(sx)" pos="-1279 288" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="-1279 256" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 512 768 m
- 544,000 0 0 544,000 512 224 -31 224 a
+ -1375 256 m
+ -1279 256 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ -1279 256 m
+ 32,000 0 0 32,000 -1279 288 -1247 288 a
 </path>
 <path stroke="black" pen="normal" dash="normal">
- 384 576 m
- 384 544 l
+ -1663 224 m
+ -1663 192 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 512 800 m
- 512 768 l
+ -1695 320 m
+ -1695 288 l
  </path>
+<use name="mark/cross(sx)" pos="-1119 224" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="-1663 224" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 512 736 m
- 512 704 l
- </path>
-<use name="mark/cross(sx)" pos="256 512" size="normal" stroke="gray"/>
-<path stroke="black" pen="normal" dash="normal">
- 384 512 m
- 256 512 l
- </path>
-<path stroke="black" pen="normal" dash="normal">
- 256 512 m
- 128,000 0 0 128,000 256 384 256 256 a
+ -1119 768 m
+ 544,000 0 0 544,000 -1119 224 -1663 224 a
 </path>
 <path stroke="black" pen="normal" dash="normal">
- 512 768 m
- 512 736 l
+ -1247 576 m
+ -1247 544 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 512 704 m
- 512 672 l
+ -1119 800 m
+ -1119 768 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- -31 192 m
- -31 160 l
+ -1119 736 m
+ -1119 704 l
  </path>
-<use name="mark/cross(sx)" pos="384 256" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="256 256" size="normal" stroke="red"/>
+<use name="mark/cross(sx)" pos="-1375 512" size="normal" stroke="gray"/>
 <path stroke="black" pen="normal" dash="normal">
- 384 384 m
- 128,000 0 0 128,000 384 256 256 256 a
+ -1247 512 m
+ -1375 512 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ -1375 512 m
+ 128,000 0 0 128,000 -1375 384 -1375 256 a
 </path>
-<use name="mark/cross(sx)" pos="608 2464" size="normal" stroke="blue"/>
-<use name="mark/cross(sx)" pos="512 2464" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 512 832 m
- 512 2464 l
+ -1119 768 m
+ -1119 736 l
  </path>
+<path stroke="black" pen="normal" dash="normal">
+ -1119 704 m
+ -1119 672 l
+ </path>
+<path stroke="black" pen="normal" dash="normal">
+ -1663 192 m
+ -1663 160 l
+ </path>
+<use name="mark/cross(sx)" pos="-1247 256" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="-1375 256" size="normal" stroke="red"/>
+<path stroke="black" pen="normal" dash="normal">
+ -1247 384 m
+ 128,000 0 0 128,000 -1247 256 -1375 256 a
+</path>
+<use name="mark/cross(sx)" pos="608 832" size="normal" stroke="blue"/>
+<use name="mark/cross(sx)" pos="-1119 832" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
  608 2560 m
- 96,000 0 0 96,000 608 2464 512 2464 a
+ 1728,000 0 0 1728,000 608 832 -1119 832 a
 </path>
 <path stroke="black" pen="normal" dash="normal">
- -31 160 m
- -31 128 l
+ -1663 160 m
+ -1663 128 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 384 480 m
- 384 448 l
+ -1247 480 m
+ -1247 448 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 384 512 m
- 384 480 l
+ -1247 512 m
+ -1247 480 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  608 896 m
  608 864 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- -1599 352 m
- -1599 320 l
+ -1695 352 m
+ -1695 320 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  608 832 m
@@ -461,7 +457,7 @@
 <use name="mark/cross(sx)" pos="576 224" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="576 672" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 512 672 m
+ -1119 672 m
  576 672 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
@@ -471,7 +467,7 @@
 <use name="mark/cross(sx)" pos="992 224" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="992 192" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- -31 192 m
+ -1663 192 m
  992 192 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
@@ -481,7 +477,7 @@
 <use name="mark/cross(sx)" pos="576 800" size="normal" stroke="blue"/>
 <use name="mark/cross(sx)" pos="576 768" size="normal" stroke="red"/>
 <path stroke="black" pen="normal" dash="normal">
- 512 768 m
+ -1119 768 m
  576 768 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
@@ -493,48 +489,48 @@
  608 2592 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 384 384 m
- 384 352 l
+ -1247 384 m
+ -1247 352 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 384 352 m
- 384 320 l
+ -1247 352 m
+ -1247 320 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 384 608 m
- 384 576 l
+ -1247 608 m
+ -1247 576 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 384 544 m
- 384 512 l
+ -1247 544 m
+ -1247 512 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 512 832 m
- 512 800 l
+ -1119 832 m
+ -1119 800 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  608 864 m
  608 832 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 384 448 m
- 384 416 l
+ -1247 448 m
+ -1247 416 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 384 416 m
- 384 384 l
+ -1247 416 m
+ -1247 384 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 384 320 m
- 384 288 l
+ -1247 320 m
+ -1247 288 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- 384 640 m
- 384 608 l
+ -1247 640 m
+ -1247 608 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
- -1599 384 m
- -1599 352 l
+ -1695 384 m
+ -1695 352 l
  </path>
 <path stroke="black" pen="normal" dash="normal">
  608 2720 m
