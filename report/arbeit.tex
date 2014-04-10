@@ -444,7 +444,7 @@ Bei der Tiefensuche wird der Graph orientiert. Ein \emph{orientierter Graph} ein
 
 Schon aus einer $st$-Ordnung könnte ein orientierter Graph gewonnen werden, indem die Kanten von einem Knoten mit höherer Zahl zu einem mit niedrigerer Orientiert werden. Die Tiefensuche liefert eine andere Orientierung.
 
-Im Verlauf der Tiefensuche nach Algorithmus~\ref{alg:dfs} wird nicht nur ein orientierter Graph berechnet, jedem Knoten wird eine \emph{Auffindungszeit} zugeweisen, und eine Partition der Kanten $E = E_\text{T} \cup E_\text{R}$ wird erstellt. Man nennt die Kanten $e_\text{T} \in E_\text{T}$ \emph{Baumkanten} und die übrigen Kanten $e_\text{R} \in E_\text{R} =  E \setminus E_\text{T}$ \emph{Rückwärtskanten}. Die Baumkanten zeigen jeweils von einem Knoten mit niedrigerer Auffindungszeit zu einem mit höherer. Die Startknoten, die \emph{Wurzeln}, haben keine eingehende Baumkante, jeder andere Knoten hat genau eine. Die Rückwärtskanten zeigen jeweils von einem Knoten mit höherer Auffindungszeit zu einem mit niedrigerer. Das Tupel der beiden Mengen von gerichteten Kanten $(E_T, E_R)$ nennen wir \emph{Tiefensuchenbaum} (englisch \emph{palm tree}).
+Im Verlauf der Tiefensuche nach Algorithmus~\ref{alg:dfs} wird nicht nur ein orientierter Graph berechnet, jedem Knoten wird eine \emph{Auffindungszeit} zugeweisen, und eine Partition der Kanten $E = E_\text{T} \cup E_\text{R}$ wird erstellt. Man nennt die Kanten $e_\text{T} \in E_\text{T}$ \emph{Baumkanten} und die übrigen Kanten $e_\text{R} \in E_\text{R} =  E \setminus E_\text{T}$ \emph{Rückwärtskanten}. Die Baumkanten zeigen jeweils von einem Knoten mit niedrigerer Auffindungszeit zu einem mit höherer. Die Startknoten, die \emph{Wurzeln}, haben keine eingehende Baumkante, jeder andere Knoten hat genau eine. Die Rückwärtskanten zeigen jeweils von einem Knoten mit höherer Auffindungszeit zu einem mit niedrigerer. Das Tupel der beiden Mengen von gerichteten Kanten $(E_T, E_R)$ nennen wir \emph{Tiefensuchenbaum}, bei Tarjan~\cite{tarjan-72} heißt es \emph{palm tree}.
 
 Im Algorithmus~\ref{alg:dfs} sind die Knoten, die in Zeile~\ref{alg:dfs:nl:connectedStart} behandelt werden Wurzeln, in Zeile~\ref{alg:dfs:nl:treeEdge} wird eine Kante orientiert und als Baumkante kategorisiert, in Zeile~\ref{alg:dfs:nl:backEdge} als Rückwärtskante.
 
@@ -734,7 +734,7 @@ Das Ausgangsformat, aus dem die Graphen eingelesen wurde, ist \emph{GraphML}~\ci
 
 Die Eingabedaten für die Graphen stammen größtenteils aus den \emph{Rom-Testgraphen}\footnote{Erhältlich unter \url{http://www.graphdrawing.org/data/}}, eine Sammlung von verschiedensten Graphen mit 10 bis 100 Knoten im GraphML-Format. Für das schelle Erstellen von Testgraphen für einige Spezialfälle wurde der Grapheneditor \emph{yEd}\footnote{Erhältlich unter \url{http://www.yworks.com/de/products_yed_about.html}} von yWorks verwendet, der ebenfalls das GraphML-Format unterstützt und Graphen übersichtlich visualisieren kann.
 
-Zum Einlesen der Graphen in Java und ihre Repräsentation im Speicher wurde \emph{JUNG}~\cite{jung}\footnote{Erhältlich unter \url{http://jung.sourceforge.net/}}, das \emph{Java Universal Network/Graph Framework}, verwendet. Es beinhaltet neben effizienten Implementierungen von verschiedenen Graphen, etwa gerichtete und ungerichtete, einige Algorithmen auf Graphen und Werkzeuge zur Visualisierung. Außerdem lassen sich damit GraphML-Dateien einlesen.
+Zum Einlesen der Graphen in Java und ihre Repräsentation im Speicher wurde \emph{JUNG}\footnote{Erhältlich unter \url{http://jung.sourceforge.net/}}, das \emph{Java Universal Network/Graph Framework}~\cite{jung}, verwendet. Es beinhaltet neben effizienten Implementierungen von verschiedenen Graphen, etwa gerichtete und ungerichtete, einige Algorithmen auf Graphen und Werkzeuge zur Visualisierung. Außerdem lassen sich damit GraphML-Dateien einlesen.
 
 Die Ausgabe der fertigen Zeichnungen erfolgte im Vektorgrafik-Format des Editors \emph{Ipe}\footnote{Erhältlich unter \url{http://ipe7.sourceforge.net/}}. Das Format basiert auf XML und erhält Möglichkeiten für das Zeichnen von Punkten, Linien und Kreisbögen und vielem mehr. Der Vorteil gegenüber anderen Vektorformaten ist, dass sich \LaTeX-Beschriftungen in den Zeichnungen platzieren lassen und die Zeichnungen in PDF-Dateien konvertiert werden können. Die fertigen Zeichnungen können mit dem Ipe-Editor annotiert und weiter bearbeitet werden.
 
@@ -895,7 +895,7 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
 \begin{figure}[p]
   \centering
   {\includegraphics[width=\textwidth]{area_comparison} \phantomsubcaption\label{fig:graphSizes} \phantomsubcaption\label{fig:areaComparison}}
-  \caption{Vergleich des durchschnittlichen Flächenbedarfs der verschiedenen Algorithmen nach Anzahl Knoten im Graphen (\subref{fig:areaComparison}) sowie  Verteilung der Anzahl Konten in den Graphen (\subref{fig:graphSizes}).}
+  \caption{Vergleich des durchschnittlichen Flächenbedarfs der verschiedenen Algorithmen nach Anzahl Knoten im Graphen (\subref{fig:areaComparison}) sowie  Verteilung der Anzahl Konten in den Graphen (\subref{fig:graphSizes}). Zum Vergleich: Eine DIN-A4-Seite von handelsüblichem kariertem Papier hat rund 2400 Gitterquadrate.}
   \label{fig:areaComparisonAndGraphSizes}
 \end{figure}
 \begin{figure}[p]
@@ -924,6 +924,58 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
 \end{figure}
 
 
+\begin{figure}[h]
+        \centering
+       \subcaptionbox{Gänzlich ohne Korrektur, eine Kante bildet Überschneidungen.\label{fig:smoothBadnessUncorrected}}[0.4\textwidth]
+            {\includegraphics[scale=.8]{hugeGraph/isntPlanar}}
+        \quad
+        \subcaptionbox{Einige Korrekturen, die Zeichnung ist bereits überschneidungsfrei und benötigt $23 \times 31 = 713$ Gitterpunkte.\label{fig:smoothBadnessCorrected}}[0.4\textwidth]
+            {\includegraphics[scale=.8]{hugeGraph/isSmaller}}
+        \quad
+        \subcaptionbox{Ducht die Korrektur der Steigung der L"~Kante im unteren, rechten Bereich muss der Knoten an der C"~Kante rechts weit nach oben verschoben werden, was wiederum die beiden L"~Kanten links durch die Korrektur der Steigung stark vergrößert. Der Graph benötigt $120 \times 82 = 9840$ Gitterpunkte. \label{fig:smoothBadnessShowing}}
+            {\includegraphics[scale=.8]{hugeGraph/isHuge}}
+ 
+ 
+        \caption{Ein Graph mit 40 Knoten, der sich stark vergrößert, wenn die Korrektur der Steigungen angewandt wird. Die drei Zeichnungen sind hier mit der selben Gittergröße abgebildet und geben somit die Größenverhältnisse korrekt wieder.}
+        \label{fig:smoothBadness}
+\end{figure}
+
+
+\begin{figure}[h]
+        \centering
+       \subcaptionbox{Das orthogonale Layout ohne Komprimierung ist 47 Gittereinheiten hoch.\label{fig:smoothOknessRaw} }[0.3\textwidth]
+            {\includegraphics[scale=.7]{compliantGraph/isOrthogonalButUncompressed}}
+        \quad
+       \subcaptionbox{Nach Komprimierung bleiben 33 Gittereinheiten Höhe.\label{fig:smoothOknessCompressed} }[0.3\textwidth]
+            {\includegraphics[scale=.7]{compliantGraph/isOrthogonal}}
+        \quad
+       \subcaptionbox{Auch die glatt-orthogonale Zeichnung ist nur 12 Gittereinheiten breit.\label{fig:smoothOknessSmooth} }[0.3\textwidth]
+            {\includegraphics[scale=.7]{compliantGraph/isOk}}
+        \quad
+       \subcaptionbox{Durch die Korrektur der Steigungen der L"~Kanten wächst die Breite auf 45 Gittereinheiten.\label{fig:smoothOknessHugeAgain} }
+            {\includegraphics[scale=.7]{compliantGraph/isHuge}}
+ 
+ 
+        \caption{Ein Graph mit 48 Knoten, dessen orthogonales Layout auch ein planares glatt-orthogonales Layout darstellt. Die glatt-orthogonale Zeichnung enthält nur I- und L"~Kanten. Die drei Zeichnungen sind hier mit der selben Gittergröße abgebildet und geben somit die Größenverhältnisse korrekt wieder.}
+        \label{fig:smoothOkness}
+\end{figure}
+
+
+\begin{figure}[h]
+        \centering
+       \subcaptionbox{Das orthogonale Layout ohne Komprimierung ist 38 Gittereinheiten hoch.\label{fig:smoothOknessRaw} }[0.3\textwidth]
+            {\includegraphics[scale=.7]{compressableGraph/isUncompressed}}
+        \quad
+       \subcaptionbox{Nach Komprimierung bleiben 20 Gittereinheiten Höhe.\label{fig:smoothOknessCompressed} }[0.3\textwidth]
+            {\includegraphics[scale=.7]{compressableGraph/isCompressed}}
+        \quad
+       \subcaptionbox{Auch die glatt-orthogonale Zeichnung ist nur 10 Gittereinheiten breit.\label{fig:smoothOknessSmooth} }[0.3\textwidth]
+            {\includegraphics[scale=.7]{compressableGraph/isSmooth}}
+ 
+ 
+        \caption{Ein Graph mit 39 Knoten, der zwar keine stufenförmigen Kanten enthält, aber dessen Höhe dennoch im Kompressionsschritt beinahe halbiert wird. Die drei Zeichnungen sind hier mit der selben Gittergröße abgebildet und geben somit die Größenverhältnisse korrekt wieder.}
+        \label{fig:smoothOkness}
+\end{figure}
 
 
 \chapter{Zusammenfassung und Schlussfolgerungen}
@@ -937,5 +989,17 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
 
 \bibliographystyle{mybabalpha-fl}
 \bibliography{mybib}
+
+
+\newpage
+
+Hiermit versichere ich, dass ich die vorliegende Arbeit selbständig verfasst und keine
+anderen Hilfsmittel und Quellen als die angegebenen benutzt habe. Weiterhin versichere
+ich, die Arbeit weder bisher noch gleichzeitig einer anderen Prüfungsbehörde vorgelegt
+zu haben.
+\\ \\ \\ \\
+Würzburg, den \makebox[3cm]{\hrulefill},  \hspace{.5cm} \makebox[7cm]{\hrulefill}\\
+\makebox[11.75cm][r]{(Bernhard Häussner)}
+
 
 \end{document}
