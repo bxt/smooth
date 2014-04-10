@@ -13,8 +13,34 @@ import edu.uci.ics.jung.graph.util.Pair;
  */
 public abstract class AbstractOrthogonalDrawer<V, E> implements OrthogonalDrawer<V, E> {
 	
+	private boolean bare = false;
+	
 	protected OrthogonalLayout<V, E> layout;
 	protected OrthogonalDrawing<?> drawing;
+	
+	/**
+	 * Enables "bare" mode for drawings, that is: do not draw any labels,
+	 * edge midpoints or other decorative features, just the bare graph.
+	 */
+	public void setBare() {
+		setBare(true);
+	}
+	
+	/**
+	 * Sets the "bare" flag for drawings, when enabled do not draw any labels,
+	 * edge midpoints or other decorative features, just the bare graph.
+	 */
+	public void setBare(boolean bare) {
+		this.bare = bare;
+	}
+	
+	/**
+	 * If or not the drawings should be created in bare mode.
+	 * @return True iff the drawings should leave out expendable details.
+	 */
+	protected boolean isBare() {
+		return bare;
+	}
 	
 	@Override
 	public void draw(OrthogonalLayout<V, E> layout, OrthogonalDrawing<?> drawing) {
@@ -42,7 +68,7 @@ public abstract class AbstractOrthogonalDrawer<V, E> implements OrthogonalDrawer
 		for (V v : layout.getGraph().getVertices()) {
 			Pair<Integer> coordinates = layout.getVertexLocation(v);
 			drawing.vertex(coordinates);
-			drawing.label(coordinates, v.toString());
+			if(!isBare()) drawing.label(coordinates, v.toString());
 		}
 	}
 	

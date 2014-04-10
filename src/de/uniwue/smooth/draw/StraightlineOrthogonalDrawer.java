@@ -27,7 +27,7 @@ public class StraightlineOrthogonalDrawer<V, E> extends AbstractOrthogonalDrawer
 			StraightlineEdge edge = edgeGenerator.generateEdge(e);
 			
 			drawSegments(edge);
-			drawing.edgeMidpoint(edge.getMidpoint());
+			if(!isBare()) drawing.edgeMidpoint(edge.getMidpoint());
 		}
 	}
 	

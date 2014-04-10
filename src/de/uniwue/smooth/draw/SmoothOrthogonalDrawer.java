@@ -60,7 +60,7 @@ public class SmoothOrthogonalDrawer<V, E> extends AbstractOrthogonalDrawer<V, E>
 	}
 
 	private void drawEdge(SmoothEdge edge) {
-		if(edge.getKink() != null) drawing.edgeMidpoint(edge.getKink());
+		if(edge.getKink() != null && !isBare()) drawing.edgeMidpoint(edge.getKink());
 		drawSegments(edge);
 	}
 	
@@ -70,8 +70,8 @@ public class SmoothOrthogonalDrawer<V, E> extends AbstractOrthogonalDrawer<V, E>
 	 * @param ports Start and end port of the edge.
 	 */
 	private void drawLGEdges(SmoothEdge edge) {
-		drawing.edgeMidpoint(edge.getSegment(Arc.class).getMid(), "blue");
-		drawing.edgeMidpoint(edge.getKink(), "red");
+		if(!isBare()) drawing.edgeMidpoint(edge.getSegment(Arc.class).getMid(), "blue");
+		if(!isBare()) drawing.edgeMidpoint(edge.getKink(), "red");
 		drawSegments(edge);
 	}
 	
