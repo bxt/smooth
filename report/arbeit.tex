@@ -854,7 +854,7 @@ Für die OC$_3$-Zeichnungen lag die durchschnittliche Fläche pro Knoten durchsc
 
 Nach der Komprimierung und der Entfernung der stufenförmigen Kanten konnte diese Zahl auf 3,526 gesenkt werden. In Abbildung~\ref{fig:ortho-compress} wird die Verteilung von Knotenanzahlen und Fläche gezeigt, wenn die Nachbearbeitung verwendet wird.
 
-Für die glatt-orthogonalen Zeichnungen ergab sich durchschnittlich eine Fläche von 16.92 Gitterquadraten pro Knoten. Abbildung~\ref{fig:smooth-noOpti} zeigt auch hier die Verteilung. Die 18713 Kanten aller Zeichnungen hatten durchschnittlich 1,1937 Segmente.
+Für die glatt-orthogonalen Zeichnungen ergab sich durchschnittlich eine Fläche von 16.94 Gitterquadraten pro Knoten. Abbildung~\ref{fig:smooth-noOpti} zeigt auch hier die Verteilung. Die 18713 Kanten aller Zeichnungen hatten durchschnittlich 1,1934 Segmente.
 
 % Verbesserung an planarer Einbettung und st-Ordnung, kleiner Grad für v_1, v_n
 
@@ -885,7 +885,7 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
 % keinmal mehr als 3 in einer Reihe
 % spezialfall mit 1 in Reihe,
 
-
+%% spezialfall C-reihenfolge, nur 5 graphen
 
 %%%%%
 
@@ -923,7 +923,7 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
   \label{fig:smooth-opti}
 \end{figure}
 
-
+% this is grafo120
 \begin{figure}[h]
         \centering
        \subcaptionbox{Gänzlich ohne Korrektur, eine Kante bildet Überschneidungen.\label{fig:smoothBadnessUncorrected}}[0.4\textwidth]
@@ -940,7 +940,7 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
         \label{fig:smoothBadness}
 \end{figure}
 
-
+% this is grafo7046
 \begin{figure}[h]
         \centering
        \subcaptionbox{Das orthogonale Layout ohne Komprimierung ist 47 Gittereinheiten hoch.\label{fig:smoothOknessRaw} }[0.3\textwidth]
@@ -960,10 +960,10 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
         \label{fig:smoothOkness}
 \end{figure}
 
-
+% this is grafo3223
 \begin{figure}[h]
         \centering
-       \subcaptionbox{Das orthogonale Layout ohne Komprimierung ist 38 Gittereinheiten hoch.\label{fig:smoothOknessRaw} }[0.3\textwidth]
+       \subcaptionbox{Das orthogonale Layout ohne Komprimierung ist $|V|-1 = 38$ Gittereinheiten hoch.\label{fig:smoothOknessRaw} }[0.3\textwidth]
             {\includegraphics[scale=.7]{compressableGraph/isUncompressed}}
         \quad
        \subcaptionbox{Nach Komprimierung bleiben 20 Gittereinheiten Höhe.\label{fig:smoothOknessCompressed} }[0.3\textwidth]
