@@ -1,0 +1,197 @@
+> 
+> # Load the data
+> data = read.table("analysis.txt", header = TRUE)
+> 
+> # Some basic properties of the data
+> names(data)
+ [1] "filename"                       "vertexCount"                   
+ [3] "edgeCount"                      "orthogonalWidth"               
+ [5] "orthogonalHeight"               "orthogonalComplexity"          
+ [7] "orthogonalCompressedWidth"      "orthogonalCompressedHeight"    
+ [9] "orthogonalCompressedComplexity" "smoothWidth"                   
+[11] "smoothHeight"                   "smoothComplexity"              
+[13] "smoothCheapAdjWidth"            "smoothCheapAdjHeight"          
+[15] "smoothCheapAdjComplexity"       "smoothAllAdjWidth"             
+[17] "smoothAllAdjHeight"             "smoothAllAdjComplexity"        
+> nrow(data)
+[1] 844
+> sum(data$vertexCount)
+[1] 15351
+> mean(data$vertexCount)
+[1] 18.18839
+> sum(data$edgeCount)
+[1] 18713
+> mean(data$edgeCount)
+[1] 22.1718
+> 
+> # Avg size per vertex, orthogonal
+> mean((data$orthogonalHeight * data$orthogonalWidth) / data$vertexCount)
+[1] 4.768246
+> 
+> # Avg size per vertex, orthogonal with s-edges removed
+> mean((data$orthogonalCompressedHeight * data$orthogonalCompressedWidth) / data$vertexCount)
+[1] 3.52648
+> 
+> # Avg size per vertex and avg segment count, smooth-orthogonal
+> mean((data$smoothAllAdjHeight * data$smoothAllAdjWidth) / data$vertexCount)
+[1] 16.94414
+> sum(data$smoothAllAdjComplexity) / sum(data$edgeCount)
+[1] 1.193395
+> 
+> # Escalation levels
+> length(data$smoothComplexity[data$smoothComplexity >= 0])
+[1] 734
+> length(data$smoothComplexity[data$smoothComplexity < 0])
+[1] 110
+> length(data$smoothCheapAdjComplexity[data$smoothCheapAdjComplexity < 0])
+[1] 1
+> 
+> # Select the best escalation level for each graph
+> escA <- data[data$smoothComplexity >= 0,c("smoothWidth", "smoothHeight", "smoothComplexity", "vertexCount")]
+> escB <- data[data$smoothComplexity < 0 & data$smoothCheapAdjComplexity >= 0,c("smoothCheapAdjWidth", "smoothCheapAdjHeight", "smoothCheapAdjComplexity", "vertexCount")]
+> escC <- data[data$smoothCheapAdjComplexity < 0,c("smoothAllAdjWidth", "smoothAllAdjHeight", "smoothAllAdjComplexity", "vertexCount")]
+> colnames(escA) <- c("width", "height", "complexity", "vertexCount")
+> colnames(escB) <- c("width", "height", "complexity", "vertexCount")
+> colnames(escC) <- c("width", "height", "complexity", "vertexCount")
+> bst <- rbind(escA, escB, escC)
+> 
+> # Avg size per vertex and avg segment count, smooth-orthogonal, optimal escalation level
+> mean((bst$width * bst$height) / bst$vertexCount)
+[1] 7.522013
+> sum(bst$complexity) / sum(data$edgeCount)
+[1] 1.218939
+> 
+> # Used graph vertex counts
+> counts <- rle(sort(data$vertexCount))$values
+> 
+> # Plot the space efficiency of all graphs
+> 
+> myplot <- function(offest, color, stuff){
++ lines(stuff, col = color, type="o", pch=4)
++ }
+> 
+> pdf(file="area_comparison.pdf", width=7, height=9)
+> par(fig=c(0,1,0,0.8))
+> plot(aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, data, mean), type="n", xlab="Knotenanzahl", ylab="Durchschnittliche Fläche")
+> grid()
+> text(10, 5500, "(b)")
+> myplot(5, "red", aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, data, mean))
+> myplot(0.3, "green", aggregate((width * height) ~ vertexCount, bst, mean))
+> myplot(0, "blue", aggregate((orthogonalWidth* orthogonalHeight) ~ vertexCount, data, mean))
+> myplot(-0.3, "brown", aggregate((orthogonalCompressedWidth* orthogonalCompressedHeight) ~ vertexCount, data, mean))
+> 
+> legend(10,5300, c("glatt-orthogonal, nötige Anpassungen","glatt-orthogonal, alle Anpassungen", "orthogonal", "orthogonal, ohne S-Kanten"),lty=1,lwd=2.5,col=c("green","red", "blue", "brown"), box.col = "white", bg = "white")
+> 
+> par(fig=c(0,1,0.6,1),new=TRUE)
+> plot(table(data$vertexCount), xaxt='n', ylab="Anzahl Graphen")
+> grid(ny=NA)
+> text(10, 80, "(a)")
+> dev.off()
+null device 
+          1 
+> 
+> # Show ten worst drawings:
+> tail(data[with(data,order((smoothAllAdjWidth*smoothAllAdjHeight)/vertexCount)),], n=10)
+      filename vertexCount edgeCount orthogonalWidth orthogonalHeight orthogonalComplexity
+613   grafo552          27        33               7               27                  165
+676  grafo6491          51        63              13               50                  315
+615  grafo5547          33        43              11               33                  215
+151  grafo1694          32        41              10               33                  205
+585  grafo5215          39        48              10               39                  240
+659  grafo6066          36        43               8               36                  215
+439  grafo2874          50        60              11               50                  300
+95  grafo11463          33        41               9               32                  205
+220  grafo2066          33        42              10               32                  210
+116   grafo120          40        48               9               39                  240
+    orthogonalCompressedWidth orthogonalCompressedHeight orthogonalCompressedComplexity
+613                         7                         22                            165
+676                        13                         42                            315
+615                        10                         23                            215
+151                         9                         23                            205
+585                         9                         27                            240
+659                         8                         30                            215
+439                        10                         29                            300
+95                          9                         29                            205
+220                         9                         18                            210
+116                         9                         31                            240
+    smoothWidth smoothHeight smoothComplexity smoothCheapAdjWidth smoothCheapAdjHeight
+613          51           41               39                  51                   41
+676          33           42               78                  33                   42
+615          20           27               57                  20                   27
+151          54           46               50                  54                   46
+585          53           52               55                  53                   52
+659          -1           -1               -1                  59                   58
+439          59           56               72                  59                   56
+95           -1           -1               -1                  37                   29
+220          13           18               52                  13                   18
+116          -1           -1               -1                  23                   31
+    smoothCheapAdjComplexity smoothAllAdjWidth smoothAllAdjHeight smoothAllAdjComplexity
+613                       39                51                 41                     39
+676                       78                90                 45                     77
+615                       57                62                 48                     54
+151                       50                54                 54                     49
+585                       55                74                 52                     56
+659                       51                61                 60                     50
+439                       72                83                 66                     72
+95                        53                89                 41                     50
+220                       52                50                 84                     53
+116                       60               120                 82                     58
+> 
+> # Show ten best liu-compressed drawings:
+> head(data[with(data,order( orthogonalCompressedHeight/orthogonalHeight )),], n=10)
+      filename vertexCount edgeCount orthogonalWidth orthogonalHeight orthogonalComplexity
+605  grafo5419          35        44              10               34                  220
+791   grafo882          26        31               6               25                  155
+1   grafo10009          31        37               7               30                  185
+90  grafo11401          33        43              11               32                  215
+115  grafo1198          29        33               5               28                  165
+157   grafo173          26        33               8               26                  165
+72  grafo11202          32        39               8               31                  195
+471  grafo3025          27        36              10               27                  180
+315  grafo2428          19        25               7               19                  125
+489  grafo3223          39        48              10               38                  240
+    orthogonalCompressedWidth orthogonalCompressedHeight orthogonalCompressedComplexity
+605                         9                         16                            220
+791                         5                         12                            155
+1                           7                         15                            185
+90                          8                         16                            215
+115                         5                         14                            165
+157                         8                         13                            165
+72                          8                         16                            195
+471                         7                         14                            180
+315                         7                         10                            125
+489                        10                         20                            240
+    smoothWidth smoothHeight smoothComplexity smoothCheapAdjWidth smoothCheapAdjHeight
+605          15           16               53                  15                   16
+791           5           12               37                   5                   12
+1            11           15               41                  11                   15
+90           15           16               52                  15                   16
+115          10           14               38                  10                   14
+157           8           15               42                   8                   15
+72           15           16               47                  15                   16
+471          28           26               42                  28                   26
+315          23           17               33                  23                   17
+489          10           20               57                  10                   20
+    smoothCheapAdjComplexity smoothAllAdjWidth smoothAllAdjHeight smoothAllAdjComplexity
+605                       53                27                 16                     52
+791                       37                19                 12                     35
+1                         41                11                 15                     41
+90                        52                25                 16                     51
+115                       38                10                 14                     38
+157                       42                12                 16                     41
+72                        47                35                 16                     46
+471                       42                28                 26                     42
+315                       33                23                 17                     33
+489                       57                33                 20                     56
+> 
+> # Show info about one special graph:
+> data[data$filename == "grafo7046",]
+     filename vertexCount edgeCount orthogonalWidth orthogonalHeight orthogonalComplexity
+700 grafo7046          48        60              13               47                  300
+    orthogonalCompressedWidth orthogonalCompressedHeight orthogonalCompressedComplexity
+700                        12                         33                            300
+    smoothWidth smoothHeight smoothComplexity smoothCheapAdjWidth smoothCheapAdjHeight
+700          12           33               74                  12                   33
+    smoothCheapAdjComplexity smoothAllAdjWidth smoothAllAdjHeight smoothAllAdjComplexity
+700                       74                45                 33                     71
+> 
