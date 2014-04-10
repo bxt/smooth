@@ -47,7 +47,8 @@ myplot <- function(offest, color, stuff){
 lines(stuff, col = color, type="o", pch=4)
 }
 
-par(fig=c(0,1,0,0.8),new=TRUE)
+pdf(file="area_comparison.pdf", width=7, height=9)
+par(fig=c(0,1,0,0.8))
 plot(aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, data, mean), type="n", xlab="Knotenanzahl", ylab="Durchschnittliche Fläche")
 grid()
 text(10, 5500, "(b)")
@@ -62,7 +63,7 @@ par(fig=c(0,1,0.6,1),new=TRUE)
 plot(table(data$vertexCount), xaxt='n', ylab="Anzahl Graphen")
 grid(ny=NA)
 text(10, 80, "(a)")
-
+dev.off()
 
 # Show ten worst drawings:
 tail(data[with(data,order((smoothAllAdjWidth*smoothAllAdjHeight)/vertexCount)),], n=10)
