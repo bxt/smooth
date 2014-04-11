@@ -625,7 +625,24 @@ Damit ist das OC$_3$-Layout fertig und kann zur nächsten Iteration weitergegebe
 
 \section{Eliminierung stufenförmiger Kanten}
 
-Das im letzten Schritt erstellte OC$_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden: Sie stellen ein Problem bei der Konvertierung in ein SC$_2$-Layout dar. Günstigerweise beschreiben Liu et al.~\cite{liu+etal-98} einen Erweiterung, die genau diese Probleme löst. Man vergleiche hierzu die beiden Zeichnungen in Abbildung~\ref{fig:exampleAorthogonal}.
+Das im letzten Schritt erstellte OC$_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden: Sie stellen ein Problem bei der Konvertierung in ein SC$_2$-Layout dar. Günstigerweise beschreiben Liu et al.~\cite{liu+etal-98} einen Erweiterung, die genau diese Probleme löst. Man vergleiche hierzu die beiden Zeichnungen in Abbildung~\ref{fig:exampleAorthogonal}, wo eine stufenförmige Kante entfernt wird, und die Zeichnungen in Abbildung~\ref{fig:orthognalCompress}, in der keine stufenförmigen Kanten entfernt werden, aber das orthogonale Layout komprimiert wird.
+
+% this is grafo3223
+\begin{figure}[h]
+        \centering
+       \subcaptionbox{Das orthogonale Layout ohne Komprimierung ist $|V|-1 = 38$ Gittereinheiten hoch.\label{fig:smoothOknessRaw} }[0.3\textwidth]
+            {\includegraphics[scale=.7]{compressableGraph/isUncompressed}}
+        \quad
+       \subcaptionbox{Nach Komprimierung bleiben 20 Gittereinheiten Höhe.\label{fig:smoothOknessCompressed} }[0.3\textwidth]
+            {\includegraphics[scale=.7]{compressableGraph/isCompressed}}
+        \quad
+       \subcaptionbox{Auch die glatt-orthogonale Zeichnung ist nur 10 Gittereinheiten breit.\label{fig:smoothOknessSmooth} }[0.3\textwidth]
+            {\includegraphics[scale=.7]{compressableGraph/isSmooth}}
+ 
+ 
+        \caption{Ein Graph mit 39 Knoten, der zwar keine stufenförmigen Kanten enthält, aber dessen Höhe dennoch im Kompressionsschritt beinahe halbiert wird. Die drei Zeichnungen sind hier mit der selben Gittergröße abgebildet und geben somit die Größenverhältnisse korrekt wieder.}
+        \label{fig:orthognalCompress}
+\end{figure}
 
 \emph{Stufenförmige Kanten} (englisch \emph{zig-zags}) bestehen aus zwei horizontalen Liniensegmenten, die mit einem vertikalen Liniensegment verbunden sind. Eine Kante $(v_i, v_k)$, mit $i < k$ gemäß der $st$-Ordnung, ist stufenförmig, wenn die Kante gibt, am rechten Port von $v_i$ und am linken Port von $v_k$ ist. In Abbildung~\ref{fig:exampleAorthogonalNocompress} ist die Kante $(1,2)$ eine solche stufenförmige Kante. Zwei so verbundene Knoten werden in einer Menge von Knoten, einem \emph{Plateau} zusammengefasst. Sind mit diesen Knoten weitere Knoten durch stufenförmige Kanten verbunden, werden diese ebenfalls im selben Plateau zusammengefasst. Somit sind zuletzt alle Knoten in einer "`Treppe"' in einem Plateau.
 
@@ -688,17 +705,21 @@ Eine Übersicht des Verfahrens zeigt Abbildung~\ref{fig:sc2conversion}. Durch di
 
 \section{Entfernen von Überschneidungen im SC$_2$-Layout}
 
-In der letzten Iteration wurde ein OC$_3$-Layout ohne stufenförmige Kanten erstellt. Dieses soll nun in ein SC$_2$-Layout konvertiert werden. Dabei wird die Portzuweisung nicht geändert, sodass sich auch die planare Einbettung nicht ändert. Problematisch sind jedoch die glatt-orthogonalen Kanten, die anders geformten sind und sich überschneiden können, wenn die Knoten-Positionen aus dem OC$_3$-Layout benutzt werden. Darum sollen jetzt die Knotenpositionen so angepasst werden, dass es nicht mehr zu Überschneidungen kommt.
+In der letzten Iteration wurde ein OC$_3$-Layout ohne stufenförmige Kanten erstellt. Dieses soll nun in ein SC$_2$-Layout konvertiert werden. Dabei wird die Portzuweisung nicht geändert, sodass sich auch die planare Einbettung nicht ändert. Problematisch sind jedoch die glatt-orthogonalen Kanten, die anders geformt sind und sich überschneiden können, wenn die Knoten-Positionen aus dem OC$_3$-Layout benutzt werden. Darum sollen jetzt die Knotenpositionen so angepasst werden, dass es nicht mehr zu Überschneidungen kommt.
 
-Während nun schrittweise das SC$_2$-Layout von unten nach oben aufgebaut wird, sollen stets alle L"~Kanten ein horizontales Liniensegment haben, niemals aber ein vertikales Liniensegment. Das horizontale Liniensegment kann die Länge~0 haben. 
+Während nun schrittweise das SC$_2$-Layout von unten nach oben aufgebaut wird, sollen stets alle L"~Kanten ein horizontales Liniensegment haben, niemals aber ein vertikales Liniensegment. Das horizontale Liniensegment kann die Länge~0 haben.
 
-% Alle C"~Kanten sollen immer ein horizontales Liniensegment am unteren Knoten und niemals am oberen Knoten. Die horizontalen Liniensegmente können jeweils die Länge~0 haben. 
+%% TODO: C-Kanten-Korrektur
 
-Bei der Entfernung der stufenförmigen Kanten wurden die Knoten in Plateaus gruppiert. Die Plateaus werden nun von unten nach oben durchlaufen und nacheinander in einem neuen Layout platziert.
+Bei der Entfernung der stufenförmigen Kanten wurden die Knoten in Plateaus gruppiert. Die Plateaus werden nun von unten nach oben durchlaufen und nacheinander in einem neuen Layout platziert. Abweichend von Alam et al.~\cite{smooth-13} können mehrere Plateaus die selbe Höhe erhalten.
 
-Dazu wird zunächst der Konten ganz links im Plateau platziert, und zwar wieder in der Spalte der Kante an seinem unteren Port, sowie auf der Höhe seines Plateaus. Danach werden seine ausgehenden Kanten platziert: Die kanten bekommen relativ zum Knoten die selbe x"~Koordinate, wie im OC$_3$-Layout. Die y"~Koordinate aller offenen Kanten sei stets die y"~Koordinate des aktuellen Plateaus. 
+Dazu wird zunächst der erste Konten ganz links im Plateau platziert und der letzte Knoten ganz rechts im Plateau. Es ist möglich, dass dies ein und der selbe Knoten ist. Beide Knoten werden wieder in der Spalte der Kante an ihren unteren Ports platziert, sowie auf der Höhe des Plateaus. Danach werden die ausgehenden Kanten platziert: Die Kanten bekommen relativ zum den Knoten die selbe x"~Koordinate, wie im OC$_3$-Layout. Die y"~Koordinate aller offenen Kanten sei stets die y"~Koordinate des aktuellen Plateaus. 
 
-Nun werden Überschneidungen mit der Kante am linken Port des erstens Knotens aufgelöst. Zuerst werden Überschneidungen mit Kanten rechts der Kante behoben: Das gesamte Plateau und alle Plateaus darüber werden so lange nach oben verschoben, bis es keine Kollision mehr gibt. Dann werden Überschneidungen mit Kanten links des Kante behoben: Von leicht links des unteren Knoten der Kante aus wird der Graph geteilt, und zwar so, dass der Schnitt nur durch horizontale Liniensegmente führt. Die linke, abgeschnittene Seite des Graphen wird dann nach links verschoben, bis es keine Kollision mehr gibt. Die horizontalen Segmente werden dadurch länger. Wenn die Kante am linken Port eine L"~Kante ist, muss noch die Steigung angepasst werden, falls sie ein vertikales Liniensegment hat. Dazu wird leicht rechts des unteren Knotens ein Schnitt nach unten begonnen und dann alles links des Schnitts so weit nach links verschoben, dass die Kante kein vertikales Liniensegment mehr hat. Dies wird in Abbildung~\ref{fig:cutLslopecorrection} gezeigt.
+Nun werden Überschneidungen mit der Kante $e_\text{L}$ am linken Port des erstens Knotens und der Kante $e_\text{R}$ am rechten Port des letzten Knotens aufgelöst. Zuerst werden innere Überschneidungen mit Kanten rechts der Kante $e_\text{L}$  und links der Kante $e_\text{R}$ behoben: Das gesamte Plateau und alle Plateaus darüber werden so lange nach oben verschoben, bis es keine Kollision mit inneren Kanten mehr gibt.
+
+Dann werden äußere Überschneidungen mit Kanten links von $e_\text{L}$ behoben: Von leicht links des unteren Knoten von  $e_\text{L}$ aus wird der Graph geteilt, und zwar so, dass der Schnitt nur durch horizontale Liniensegmente, G-, C- oder U"~Kanten führt. Die linke, abgeschnittene Seite des Graphen wird dann nach links verschoben, bis es keine Kollision mit $e_\text{L}$ mehr gibt. Die horizontalen Segmente werden dadurch länger. Wenn die Kante $e_\text{L}$ eine L"~Kante ist, muss noch die Steigung angepasst werden, falls sie ein vertikales Liniensegment hat. Dazu wird leicht rechts des unteren Knotens ein Schnitt nach unten begonnen und dann alles links des Schnitts so weit nach links verschoben, dass die Kante kein vertikales Liniensegment mehr hat. Dies wird in Abbildung~\ref{fig:cutLslopecorrection} gezeigt. Dann wird für $e_\text{R}$ die Entfernung der Überschneidungen und die Korrektur der Steigung analog, also horizontal gespiegelt, durchgeführt.
+
+Abweichend von Alam et al.~\cite{smooth-13} prüfen wir die Überschneidungen mit inneren Kanten des letzten Knotens, bevor die Steigung der Kanten angepasst wird, denn wenn der letzte Knoten mit dem gesamten Plateau nach oben verschoben wird, kann die Steigung von $e_\text{L}$ über 45\textdegree\ steigen. Zudem haben wir das Finden des Schnitts leicht verändert, was in Abschnitt \ref{sec:cutfinding} näher erläutert wird. Außerdem verschieben wir zur Anpassung der Steigung nur genau so weit, wie nötig, um die Steigung auf 45\textdegree\ zu senken: $\Delta y - \Delta x$.
 
 \begin{figure}[h]
   \centering
@@ -707,12 +728,9 @@ Nun werden Überschneidungen mit der Kante am linken Port des erstens Knotens au
   \label{fig:cutLslopecorrection}
 \end{figure}
 
-Dann wird der Konten ganz links im Plateau platziert, und die Überschneidungen der Kante am rechten Port analog, also horizontal gespiegelt, aufgelöst.
+Jetzt werden die übrigen Knoten mit ihren offenen Kanten platziert. Daraufhin müssen noch die Kanten an den unteren Ports auf Kollisionen überprüft werden. Hier kann es zu Überschneidungen kommen, wenn es L"~Ecken sind. Hierbei beginnt der Schnitt leicht unterhalb des Knotens auf der Seite, in die die L"~Ecke zeigt. Dann wird die L"~Ecke durchschnitten und der restliche Graph nach unten, wobei wiederum nur horizontale Liniensegmente durchquert werden. Dann wird der Teil der Zeichnung des Graphen auf der Seite, in die die L"~Ecke zeigt noch weiter in die Richtung der L"~Ecke verschoben, bis es keine Überschneidungen mehr gibt und die L"~Ecke eine Steigung kleiner als 45\textdegree\ hat. Dieser Schritt findet sich bei Alam et al.~\cite{smooth-13} nicht und wurde hinzugefügt, nachdem sich sonst ungelöste Überschneidungen ergeben haben.
 
-Jetzt werden die übrigen Knoten mit ihren offenen Kanten platziert. Daraufhin müssen noch die Kanten an den unteren Ports auf Kollisionen überprüft werden. Hier kann es zu Überschneidungen kommen, wenn es L"~Ecken sind. Hierbei beginnt der Schnitt leicht unterhalb des Knotens auf der Seite, in die die L"~Ecke zeigt. Dann wird die L"~Ecke durchschnitten und der restliche Graph nach unten, wobei wiederum nur horizontale Liniensegmente durchquert werden. Dann wird der Teil der Zeichnung des Graphen auf der Seite, in die die L"~Ecke zeigt noch weiter in die Richtung der L"~Ecke verschoben, bis es keine Überschneidungen mehr gibt und die L"~Ecke eine Steigung kleiner als 45\textdegree\ hat.
-
-% TODO: C-Ecken-Ausnahmen? Nötig?
-% TODO: Offene Kanten bei Kollisionserkennung
+Offene Kanten haben noch keine festgelegte Form, bis ihr zweiter Knoten auch platziert wurde. Zur Kollisionserkennung behandeln wir die als vertikale Linien mit der x"~Koordinate der Spalte der Kante. Die Linien reichen von der x"~Koordinate des ersten Knotens bis über die Höhe des gerade zu platzierenden Plateaus. Die Behandlung der offenen Kanten wurde bei Alam et al.~\cite{smooth-13} nicht weiter spezifiziert, jedoch müssen sie in die Kollisionserkennung einbezogen werden, da sonst vertikale Liniensegmente keiner Überschneidungsvermeidung unterliegen und mit C"~Kanten kollidieren.
 
 Wenn alle Plateaus vollständig platziert sind, ist das neue Layout eine glatt-orthogonale und planare Version des OC$_3$-Layouts, mit den selben Portzuweisungen und der selben planaren Einbettung.
 
@@ -752,17 +770,20 @@ Liegt eine I"~Kante vor, müssen nur die beiden Knoten mit einer Linien verbunde
 
 Liegt eine U"~Kante (C"~Kante) vor, so muss zunächst bestimmt werden, an welchem der beiden Endknoten das Liniensegment beginnt. Man kann ohne Beschränkung der Allgemeinheit annehmen, dass es immer ein Liniensegment gibt. Ist die Kante an den unteren (linken) Ports, so ist der obere (rechtere) der beiden Knoten der Startpunkt des Liniensegments, ansonsten der untere  (linkere). Die Position des Segmentwechsels hat nun die x"~Koordinate des anderen Punktes (dieses Startpunkts) und die y"~Koordinate dieses Startpunkts (des anderen Punktes). Der Mittelpunkt des Kreises ist der Punkt genau zwischen der Position des Segmentwechsels und des Startpunkts. Der Kreis muss im Uhrzeigersinn vom Startpunkt zum Segmentwechsel gezeichnet werden, wenn die Steigung der Geraden durch die zwei Knotenpositionen negativ (positiv) ist.
 
-Liegt keine I-, S-, U- oder C"~Kante vor, so muss eine L- oder G"~Kante vorliegen. Eine L"~Kante liegt je nach Ports und der Lage der Kantenendpunkte zueinander vor: Die Vorzeichen der Differenz der Richtungsvektoren der Ports an den Knoten müssen die selben sein, wie die der Differenz der beiden Knotenpositionen. Bei L"~Kanten muss dann der Kreis im Uhrzeigersinn gezeichnet werden, wo er bei G"~Kanten gegen den Uhrzeigersinn gezeichnet wird und umgekehrt. Es gibt verschiedene Fälle, welche Koordinaten addiert oder subtrahiert werden, je nach den acht Port-Kombinationen, in denen  L- oder G"~Kanten vorliegen und je nach dem Quadranten der Koordinatenebene und der Lage relativ zur entsprechenden Diagonale des Differenzvektors der beiden Knoten-Endpositionen liegt. Darum sei hier nur ein Beispielfall für eine Kante $\{v_1, v_2\}$ ausgeführt: Sei $v_2$ im ersten Quadranten und $v_1$ am Ursprung positioniert. Die ausschlaggebende Diagonale ist hier die Hauptdiagonale. Liegt nun $v_2$ oberhalb der Hauptdiagonale, so beginnt das Kreissegment bei $v_1$. Ansonsten beginnt es bei $v_2$. Sei nun also $v_2$ unterhalb der Hauptdiagonale. Dann muss die Differenz der y"~Koordinaten von der x"~Koordinate von $v_2$ abgezogen werden, um den Mittelpunkt des Kreises zu erhalten. Die Differenz muss von beiden Koordinaten von $v_2$ abgezogen werden, um die Position des Segmentwechsels zu erhalten. Die Kante besteht nun aus einer geraden Linie von $v_1$ zur Segmentwechselposition und einem Kreisbogen im Uhrzeigersinn von $v_2$ zur Segmentwechselposition. Die übrigen 63 Fälle überlegt man sich analog.
+Liegt keine I-, S-, U- oder C"~Kante vor, so muss eine L- oder G"~Kante vorliegen. Eine L"~Kante liegt je nach Ports und der Lage der Kantenendpunkte zueinander vor: Die Vorzeichen der Differenz der Richtungsvektoren der Ports an den Knoten müssen die selben sein, wie die der Differenz der beiden Knotenpositionen. Bei L"~Kanten muss dann der Kreis im Uhrzeigersinn gezeichnet werden, wo er bei G"~Kanten gegen den Uhrzeigersinn gezeichnet wird und umgekehrt. Es gibt verschiedene Fälle, welche Koordinaten addiert oder subtrahiert werden, je nach den acht Port-Kombinationen, in denen  L- oder G"~Kanten vorliegen und je nach dem Quadranten der Koordinatenebene und der Lage relativ zur entsprechenden Diagonale des Differenzvektors der beiden Knoten-Endpositionen liegt.
 
-%TODO: outro.
+Darum sei hier nur ein Beispielfall für eine Kante $\{v_1, v_2\}$ ausgeführt: Sei $v_2$ im ersten Quadranten und $v_1$ am Ursprung positioniert. Die ausschlaggebende Diagonale ist hier die Hauptdiagonale. Liegt nun $v_2$ oberhalb der Hauptdiagonale, so beginnt das Kreissegment bei $v_1$. Ansonsten beginnt es bei $v_2$. Sei nun also $v_2$ unterhalb der Hauptdiagonale. Dann muss die Differenz der y"~Koordinaten von der x"~Koordinate von $v_2$ abgezogen werden, um den Mittelpunkt des Kreises zu erhalten. Die Differenz muss von beiden Koordinaten von $v_2$ abgezogen werden, um die Position des Segmentwechsels zu erhalten. Die Kante besteht nun aus einer geraden Linie von $v_1$ zur Segmentwechselposition und einem Kreisbogen im Uhrzeigersinn von $v_2$ zur Segmentwechselposition. Die übrigen 63 Fälle überlegt man sich analog.
+
+Mit diesen Schritten können für alle Kanten die Lage der Segmente und die Position des Segmentwechsels berechnet werden, anhand derer die Erkennung von Überschneidungen und das Realisieren der Zeichnung möglich ist.
 
 \section{Schnitte finden}
+\label{sec:cutfinding}
 
-Das Finden eines Schnittes durch die Zeichnung des Graphen zum Zwecke des Verschiebens von Knoten in horizontale Richtung zielt darauf ab, den Graph in zwei Teile zu spalten, die nur durch horizontale Segmente verbunden sind. 
+Das Finden eines Schnittes durch die Zeichnung des Graphen zum Zwecke des Verschiebens von Knoten in horizontale Richtung zielt darauf ab, den Graph in zwei Teile zu spalten, die nur möglichst durch horizontale Segmente verbunden sind. 
 
-Der Schnitt beginnt oberhalb eines Knotens, entweder knapp links oder knapp rechts davon. Er setzt sich dann durch die Zeichnung fort und folgt dabei Kanten abwärts von Knoten zu Knoten. Dabei kann er Kanten an horizontalen Segmenten durchqueren.
+Der Schnitt beginnt oberhalb eines Knotens, entweder knapp links oder knapp rechts davon. Er setzt sich dann durch die Zeichnung fort und folgt dabei Kanten abwärts von Knoten zu Knoten. Er kann niemals vertikal oder nach oben verlaufen und ist somit \emph{y"~Monoton}. Dabei kann er C-, I- und L"~Kanten an horizontalen Segmenten durchqueren, an diesen können sie beliebig auseinander gezogen werden. Zusätzlich kann er U- und G- Kanten durchqueren. Diese Kantenarten treten nach Konstruktion nur an der Außenfacette des Graphen auf und ein Verändern der Knotenpositionen kann also keine neuen Überschneidungen nach sich ziehen. Niemals wird ein vertikales Liniensegment durchquert.
 
-Hierbei ergeben sich einige verschiedene Fälle, die in Abbildung~\ref{fig:cutfinding} dargestellt sind. Hier wird jeweils der Fall, dass der Schnitt auf der linken Seite eines Knotens $v$ beginnt, betrachtet, der andere Fall wird symmetrisch behandelt. 
+Hierbei ergeben sich verschiedene Fälle, die in Abbildung~\ref{fig:cutfinding} dargestellt sind. Dabei wird jeweils die Situation, dass der Schnitt auf der linken Seite eines Knotens $v$ beginnt, betrachtet, die andere Seite wird symmetrisch behandelt. 
 
 \begin{figure}[h]
         \centering
@@ -807,7 +828,7 @@ Hierbei ergeben sich einige verschiedene Fälle, die in Abbildung~\ref{fig:cutfi
                 \caption{Unterhalb, \\ unter eine \\ L-Kante}
                 \label{fig:cutfinding_bot_belowL}
         \end{subfigure}
-        \caption{Die verschiedenen Fälle beim Finden eines Schnitts.}\label{fig:cutfinding}
+        \caption{Die verschiedenen Fälle beim Finden eines Schnitts bei Beginn auf der linken Seite.}\label{fig:cutfinding}
 \end{figure}
 
 
@@ -815,18 +836,19 @@ Soll der Schnitt leicht oberhalb eines Knotens $v$ beginnen, so muss die Kante a
 
 Ist dort keine Kante vorhanden, kann der Schnitt direkt zur leicht unterhalb Position am gleichen Knoten $v$ fortfahren.
 
-Ist dort eine nach oben führende Kante oder eine horizontale gerade Kante, so durchquert der Schnitt die Kante. Nach den Invarianten ist immer ein horizontales Segment an dieser Stelle. Der Schnitt verbleibt am Knoten $v$ und ist nun leicht unterhalb von $v$. Führt die Kante am linken Port nach unten, so muss es entweder eine L- oder eine C"~Kante sein, in beiden Fällen folgt der Schnitt der Kante zum Zielknoten $u$. Die L"~Kante endet am Zielknoten $u$ am oberen Port und der Schnitt endet links oberhalb des Zielknotens. Die C"~Kante endet am Zielknoten $u$ am linken Port und der Schnitt endet links unterhalb.
+Ist dort eine nach oben führende Kante oder eine horizontale gerade Kante, so durchquert der Schnitt die Kante. Durch die Anpassung der Steigung der L"~Kanten und die Behandlung der C"~Kanten ist immer ein horizontales Segment an dieser Stelle. Der Schnitt verbleibt am Knoten $v$ und ist nun leicht unterhalb von $v$. Führt die Kante am linken Port nach unten, so muss es entweder eine L- oder eine C"~Kante sein, in beiden Fällen folgt der Schnitt der Kante zum Zielknoten $u$. Die L"~Kante endet am Zielknoten $u$ am oberen Port und der Schnitt endet links oberhalb des Zielknotens. Die C"~Kante endet am Zielknoten $u$ am linken Port und der Schnitt endet links unterhalb.
 
 Soll der Schnitt leicht unterhalb eines Knotens $v$ beginnen, so muss die Kante am unteren Port betrachtet werden. Endet die Kante an $u$ an einem rechten Port, so muss sie durchquert werden, und der Schnitt endet leicht rechts unterhalb des Zielknotens $u$. Ansonsten folgt der Schnitt der Kante. Endet die Kante an einem oberen Port, ist folglich eine gerade Kante, so endet der Schnitt leicht links oberhalb des Zielknotens. Endet die Kante an einem linken Port, liegt eine L"~Kante vor und der Schnitt endet leicht links unterhalb des Zielknotens.
 
 Für den Fall, dass der Schnitt leicht rechts eines Knotens beginnt, sind jeweils rechts und links in den Schritten und Bedingungen zu tauschen.
 
-Nach wiederholter Anwendung dieser Regeln, wobei jeweils der Zielknoten zum neuen Ausgansknoten wird, gelangt der Schnitt schließlich zur Position leicht unterhalb eines Knotens, der keine Kante am unteren Port hat. Dies ist der unterste Knoten, und der Schnitt ist abgeschlossen.
+Nach wiederholter Anwendung dieser Regeln, wobei jeweils der Zielknoten zum neuen Ausgangsknoten wird, gelangt der Schnitt schließlich zur Position leicht unterhalb eines Knotens, der keine Kante am unteren Port hat. Dies ist der unterste Knoten, und der Schnitt ist abgeschlossen.
 
-Die Konstruktion des Schnittes speichert bei jedem Durchqueren einer Kante die Kante selbst, und den Knoten links und rechts der Kante jeweils in einer Liste von linken und rechten Knoten. Zum finden der gesamten linken Knoten wird an jedem der Knoten in der Liste der linken Knoten eine Tiefensuche begonnen, die jedoch nicht den durchschnittenen Kanten folgt. Ebenso findet man die rechten Knoten, indem man bei allen rechten Knoten startet und wiederum durchschnittene Kanten ignoriert.
+Die Konstruktion des Schnittes speichert bei jedem Durchqueren einer Kante die Kante selbst, und den Knoten links und rechts der Kante jeweils in einer Liste von linken und rechten Knoten. Zum finden der gesamten linken Knoten wird an jedem der Knoten in der Liste der linken Knoten eine Tiefensuche begonnen, die jedoch nicht den durchgeschnittenen Kanten folgt. Ebenso findet man die rechten Knoten, indem man bei allen rechten Knoten startet und wiederum durchgeschnittene Kanten ignoriert.
 
 \section{Erkennung von Überschneidungen bei glatt-orthogonalen Kanten}
 
+% TODO
 
 \chapter{Verbesserungen und empirische Untersuchung}
 
@@ -856,7 +878,7 @@ Nach der Komprimierung und der Entfernung der stufenförmigen Kanten konnte dies
 
 Für die glatt-orthogonalen Zeichnungen ergab sich durchschnittlich eine Fläche von 16.94 Gitterquadraten pro Knoten. Abbildung~\ref{fig:smooth-noOpti} zeigt auch hier die Verteilung. Die 18713 Kanten aller Zeichnungen hatten durchschnittlich 1,1934 Segmente.
 
-% Verbesserung an planarer Einbettung und st-Ordnung, kleiner Grad für v_1, v_n
+% TODO: Werte grundsätzlich interpretieren
 
 \section{Korrektur der Steigung aussetzen}
 
@@ -878,6 +900,7 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
 
 % --> use them to reduce edge complexity?
 
+% TODO
 
 %%%%%%%
 %Verbesserung B
@@ -890,12 +913,11 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
 %%%%%
 
 % Problem mit unnötiger C-Anpasung
-%  hin-her-Problem
 
 \begin{figure}[p]
   \centering
   {\includegraphics[width=\textwidth]{area_comparison} \phantomsubcaption\label{fig:graphSizes} \phantomsubcaption\label{fig:areaComparison}}
-  \caption{Vergleich des durchschnittlichen Flächenbedarfs der verschiedenen Algorithmen nach Anzahl Knoten im Graphen (\subref{fig:areaComparison}) sowie  Verteilung der Anzahl Konten in den Graphen (\subref{fig:graphSizes}). Zum Vergleich: Eine DIN-A4-Seite von handelsüblichem kariertem Papier hat rund 2400 Gitterquadrate.}
+  \caption{Vergleich des durchschnittlichen Flächenbedarfs in Gitterquadraten der verschiedenen Algorithmen nach Anzahl Knoten im Graphen (\subref{fig:areaComparison}) sowie  Verteilung der Anzahl Konten in den Graphen (\subref{fig:graphSizes}). Zum Vergleich: Eine DIN-A4-Seite von handelsüblichem kariertem Papier hat rund 2400 Gitterquadrate.}
   \label{fig:areaComparisonAndGraphSizes}
 \end{figure}
 \begin{figure}[p]
@@ -960,30 +982,16 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
         \label{fig:smoothOkness}
 \end{figure}
 
-% this is grafo3223
-\begin{figure}[h]
-        \centering
-       \subcaptionbox{Das orthogonale Layout ohne Komprimierung ist $|V|-1 = 38$ Gittereinheiten hoch.\label{fig:smoothOknessRaw} }[0.3\textwidth]
-            {\includegraphics[scale=.7]{compressableGraph/isUncompressed}}
-        \quad
-       \subcaptionbox{Nach Komprimierung bleiben 20 Gittereinheiten Höhe.\label{fig:smoothOknessCompressed} }[0.3\textwidth]
-            {\includegraphics[scale=.7]{compressableGraph/isCompressed}}
-        \quad
-       \subcaptionbox{Auch die glatt-orthogonale Zeichnung ist nur 10 Gittereinheiten breit.\label{fig:smoothOknessSmooth} }[0.3\textwidth]
-            {\includegraphics[scale=.7]{compressableGraph/isSmooth}}
- 
- 
-        \caption{Ein Graph mit 39 Knoten, der zwar keine stufenförmigen Kanten enthält, aber dessen Höhe dennoch im Kompressionsschritt beinahe halbiert wird. Die drei Zeichnungen sind hier mit der selben Gittergröße abgebildet und geben somit die Größenverhältnisse korrekt wieder.}
-        \label{fig:smoothOkness}
-\end{figure}
 
 
 \chapter{Zusammenfassung und Schlussfolgerungen}
 
+% TODO
 % Zusammenfassung
 % Ausblick nicht-BC etc., bessere Implementierung O(n), weitere Anpassungen
 
 % Nicht planare Graphen können durch ein einfaches Verfahren in planare Graphen umgewandelt werden: In einer zufälligen Zeichnung fügt man Knoten an allen Schnittpunkten von zwei Kanten ein. Beim Zeichnen lässt man die neuen Knoten weg.
+% Verbesserung an planarer Einbettung und st-Ordnung, kleiner Grad für v_1, v_n
 
 
 
