@@ -10,6 +10,9 @@ mean(data$vertexCount)
 sum(data$edgeCount)
 mean(data$edgeCount)
 
+# Theoretical maximum avg size per vertex, orthogonal:
+mean((data$vertexCount+1)*(data$vertexCount+1)/(data$vertexCount))
+
 # Avg size per vertex, orthogonal
 mean((data$orthogonalHeight * data$orthogonalWidth) / data$vertexCount)
 
@@ -26,12 +29,12 @@ length(data$smoothComplexity[data$smoothComplexity < 0])
 length(data$smoothCheapAdjComplexity[data$smoothCheapAdjComplexity < 0])
 
 # Select the best escalation level for each graph
-escA <- data[data$smoothComplexity >= 0,c("smoothWidth", "smoothHeight", "smoothComplexity", "vertexCount")]
-escB <- data[data$smoothComplexity < 0 & data$smoothCheapAdjComplexity >= 0,c("smoothCheapAdjWidth", "smoothCheapAdjHeight", "smoothCheapAdjComplexity", "vertexCount")]
-escC <- data[data$smoothCheapAdjComplexity < 0,c("smoothAllAdjWidth", "smoothAllAdjHeight", "smoothAllAdjComplexity", "vertexCount")]
-colnames(escA) <- c("width", "height", "complexity", "vertexCount")
-colnames(escB) <- c("width", "height", "complexity", "vertexCount")
-colnames(escC) <- c("width", "height", "complexity", "vertexCount")
+escA <- data[data$smoothComplexity >= 0,c("filename", "smoothWidth", "smoothHeight", "smoothComplexity", "vertexCount")]
+escB <- data[data$smoothComplexity < 0 & data$smoothCheapAdjComplexity >= 0,c("filename", "smoothCheapAdjWidth", "smoothCheapAdjHeight", "smoothCheapAdjComplexity", "vertexCount")]
+escC <- data[data$smoothCheapAdjComplexity < 0,c("filename", "smoothAllAdjWidth", "smoothAllAdjHeight", "smoothAllAdjComplexity", "vertexCount")]
+colnames(escA) <- c("filename", "width", "height", "complexity", "vertexCount")
+colnames(escB) <- c("filename", "width", "height", "complexity", "vertexCount")
+colnames(escC) <- c("filename", "width", "height", "complexity", "vertexCount")
 bst <- rbind(escA, escB, escC)
 
 # Avg size per vertex and avg segment count, smooth-orthogonal, optimal escalation level
@@ -53,11 +56,11 @@ plot(aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, data, mean
 grid()
 text(10, 5500, "(b)")
 myplot(5, "red", aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, data, mean))
-myplot(0.3, "green", aggregate((width * height) ~ vertexCount, bst, mean))
+myplot(0.3, "darkviolet", aggregate((width * height) ~ vertexCount, bst, mean))
 myplot(0, "blue", aggregate((orthogonalWidth* orthogonalHeight) ~ vertexCount, data, mean))
 myplot(-0.3, "brown", aggregate((orthogonalCompressedWidth* orthogonalCompressedHeight) ~ vertexCount, data, mean))
 
-legend(10,5300, c("glatt-orthogonal, nötige Anpassungen","glatt-orthogonal, alle Anpassungen", "orthogonal", "orthogonal, ohne S-Kanten"),lty=1,lwd=2.5,col=c("green","red", "blue", "brown"), box.col = "white", bg = "white")
+legend(10,5300, c("glatt-orthogonal, alle Anpassungen", "glatt-orthogonal, nötige Anpassungen", "orthogonal", "orthogonal, ohne S-Kanten"),lty=1,lwd=2.5,col=c("red", "darkviolet", "blue", "brown"), box.col = "white", bg = "white")
 
 par(fig=c(0,1,0.6,1),new=TRUE)
 plot(table(data$vertexCount), xaxt='n', ylab="Anzahl Graphen")
@@ -67,6 +70,9 @@ dev.off()
 
 # Show ten worst drawings:
 tail(data[with(data,order((smoothAllAdjWidth*smoothAllAdjHeight)/vertexCount)),], n=10)
+
+# Show ten worst drawings with best esc. lvl:
+tail(bst[with(bst,order((width*height)/vertexCount)),], n=10)
 
 # Show ten best liu-compressed drawings:
 head(data[with(data,order( orthogonalCompressedHeight/orthogonalHeight )),], n=10)
