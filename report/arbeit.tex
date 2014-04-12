@@ -88,11 +88,13 @@ Dipl.-Inf.\ Philipp Kindermann} % Geben Sie den Namen des weiteren Betreuers an
 Das automatisierte Zeichnen von Graphen stellt eine Vielzahl von Herausforderungen. 
 Eine Herangehensweise ist es, zunächst einfachere oder speziellere Graphen zu zeichnen. 
 Dazu Teilt man die Graphen in Klassen ein, die eine Aussage machen über die Schwierigkeit, den Graphen zu zeichnen. 
-In dieser Arbeit geht es um die Klasse der planaren Graphen. Sie zeichnen sich dadurch aus, dass sie sich ohne Kantenüberschneidung in einer Ebene zeichnen und sie haben nur polynomial viele Kanten.
+In dieser Arbeit geht es um die Klasse der planaren Graphen. Sie zeichnen sich dadurch aus, dass sie sich ohne Kantenüberschneidung in einer Ebene zeichnen lassen und sie haben nur polynomial viele Kanten.
 
-Eine Anwendung des  automatisierte Zeichnens planarer Graphen ist die computergestützte Erstellung von Layouts für Schaltkreis-Platinen. Hierbei werden Komponenten, wie integrierte Schaltkreise (Chips), als Knoten modelliert und die verbindenden Leiter als Kanten. Da die Leiter im Herstellungsprozesses  aus technischen Überlegungen nur entweder horizontal oder vertikal auf einem Gitter verlaufen können, beschränkt man sich hier auf orthogonale Layouts. Bei solchen orthogonalen Zeichnungen planarer Graphen können nur 4~Kanten je Knoten ohne Überdeckungen verbunden werden. Man nennt diese vier möglichen Richtungen Ports. Die Graphen, die sich so zeichnen lassen gehören zu der Klasse der 4"~planaren Graphen: planare Graphen, deren maximaler Kontengrad~4 ist. Abhängig von der maximalen Anzahl~$k$ der Segmente in einer Kante in einem Layout, teilen wir es in die Klasse $OC_k$ ein.
+\section{Motivation}
 
-Orthogonale Layouts wurden in der Vergangenheit auch aufgrund ihrer Praxisrelevanz stark verbessert. Sie sind zur Visualisierung von Graphen für Menschen (etwa für abstrahierte ÖPNV-Netze wie in Abbildung~\ref{fig:liniennetzplan}, Organigramme, UML-Diagramme) jedoch nur schlecht geeignet, da sie schnell unübersichtlich wirken. % TODO: Quelle?, Roberts et al.?
+Eine Anwendung des automatisierte Zeichnens planarer Graphen ist die computergestützte Erstellung von Layouts für Schaltkreis-Platinen. Hierbei werden Komponenten, wie integrierte Schaltkreise (Chips), als Knoten modelliert und die verbindenden Leiter als Kanten. Da die Leiter im Herstellungsprozesses  aus technischen Überlegungen nur entweder horizontal oder vertikal auf einem Gitter verlaufen können, beschränkt man sich hier auf orthogonale Layouts. Bei solchen orthogonalen Zeichnungen planarer Graphen können nur 4~Kanten je Knoten ohne Überdeckungen verbunden werden. Man nennt diese vier möglichen Richtungen Ports. Die Graphen, die sich so zeichnen lassen gehören zu der Klasse der 4"~planaren Graphen: planare Graphen, deren maximaler Kontengrad~4 ist. Abhängig von der maximalen Anzahl~$k$ der Segmente in einer Kante in einem Layout, teilen wir es in die Klasse $OC_k$ ein.
+
+Orthogonale Layouts wurden in der Vergangenheit auch aufgrund ihrer Praxisrelevanz stark verbessert. Sie sind zur Visualisierung von Graphen für Menschen (etwa für Organigramme, UML-Diagramme oder abstrahierte ÖPNV-Netze wie in Abbildung~\ref{fig:liniennetzplan}) jedoch nur schlecht geeignet, da sie schnell unübersichtlich wirken. % TODO: Quelle?, Roberts et al.?
 Natürlich kann Übersichtlichkeit nicht genau definiert werden; jedoch werden die harten 90\textdegree-Knicke in den Kanten, an denen sich horizontale und vertikale Abschnitte treffen, leicht mit Knotenpunkten verwechselt. Auch wirken sie eher technisch und deshalb für bestimmte Zielgruppen wenig ansprechend.
 
 \begin{figure}[h]
@@ -104,40 +106,27 @@ Natürlich kann Übersichtlichkeit nicht genau definiert werden; jedoch werden d
 
 Um dieses Problem zu lösen, glättet man die Knicke mit Kreisbögen. Man redet dann von glatt-orthogonalen Zeichnungen. Die Kreisbögen gehen tangential in die orthogonal verlaufenden geraden Abschnitte über. Die entstehenden Zeichnungen wirken übersichtlich, freundlich und ästhetisch, was für ansprechende Visualisierungen förderlich ist. Dadurch, dass die Kanten ansonsten trotzdem orthogonal verlaufen, bleibt die Komplexität der Layouts vergleichsweise gering. Man vergleiche hierzu etwa die in Handarbeit gefertigten Soziogramme des Künstlers Mark Lombardi (1951--2000), die u.a. aufgrund ihrer Runden Kanten eine gewisse Ästhetik erreichen, jedoch mangels orthogonaler Gitterstruktur wenig Systematik erkennen lassen. 
 
-Bestehende Algorithmen zur automatisierten Erstellung glatt-orthogonaler Zeichnungen bauen auf bewährten Algorithmen für orthogonale Zeichnungen auf und erweitern diese so, dass genügend Platz für die abgerundeten Kanten bleibt, ohne dabei Kantenüberschneidungen einzuführen. Als Grundlage wählt man Algorithmen, welche die Anzahl der Knicke (auch pro Kante) in der entstehenden Zeichnung klein halten. 
+Bestehende Algorithmen zur automatisierten Erstellung glatt-orthogonaler Zeichnungen bauen auf bewährten Algorithmen für orthogonale Zeichnungen auf und erweitern diese so, dass genügend Platz für die abgerundeten Kanten bleibt, ohne dabei Kantenüberschneidungen einzuführen. Als Grundlage wählt man Algorithmen, welche die Anzahl der Knicke (auch pro Kante) in der entstehenden Zeichnung klein halten. Hier wird der Algorithmus von Biedl und Kant~\cite{biedl+kant-98} bzw.\ Liu et al.~\cite{liu+etal-98} verwendet.
 
-Dabei müssen neue Herausforderungen angegangen werden. Ebenso wie Knicke in orthogonalen Zeichnungen für erhöhte Komplexität sorgen, sind in glatt-orthogonalen Zeichnungen Wechsel zwischen geraden und gekrümmten Abschnitten und zwischen Abschnitten aus Bögen mit unterschiedlichen Radien zu vermeiden. Gleichzeitig sollte die Fläche der Zeichnung nicht zu groß werden.
+Beim zeichnen mit \go en Kanten müssen neue Herausforderungen angegangen werden. Ebenso wie Knicke in orthogonalen Zeichnungen für erhöhte Komplexität sorgen, sind in glatt-orthogonalen Zeichnungen Wechsel zwischen geraden und gekrümmten Abschnitten und zwischen Abschnitten aus Bögen mit unterschiedlichen Radien zu vermeiden. Gleichzeitig sollte die Fläche der Zeichnung nicht zu groß werden.
 
-Es wäre trivial möglich, alle Kanten abzurunden, indem man Kreisbögen mit dem Radius der Gittergröße einfügt. So würden neben den Kreisbögen gerade Stücke über bleiben. Daher versucht man die Kreisbögen größer zu machen und so geschickt anzuordnen, dass möglichst wenige Wechsel zwischen verschiedenen Segmenten benötigt werden. Wir teilen die glatt-orthogonalen Zeichnungen in Abhängigkeit der maximalen Anzahl~$k$ von Segmenten in einer Kante in die Klasse $SC_k$ ein. 
+Es wäre trivial möglich, alle Kanten abzurunden, indem man Kreisbögen mit dem Radius der Gittergröße einfügt. So würden neben den Kreisbögen gerade Stücke über bleiben. Daher versucht man die Kreisbögen größer zu machen und so geschickt anzuordnen, dass möglichst wenige Wechsel zwischen verschiedenen Segmenten benötigt werden. Die größeren Radien bedeuten aber auch mehr Platzbedarf, was Quelle für Kanten-Überschneidungen sein kann und die Zeichnung vergrößert. Die entstandene Zeichnung muss also angepasst werden. Dazu wurde von Alam et al.~\cite{smooth-13} bereits ein Algorithmus entwickelt, der allerdings bisher noch nicht implementiert wurde. Wir teilen die glatt-orthogonalen Zeichnungen in Abhängigkeit der maximalen Anzahl~$k$ von Segmenten in einer Kante in die Klasse SC$_k$ ein und wollen SC$_2$-Zeichnungen erstellen.
 
 \section{Ziel}
 
-Mit dieser Arbeit habe ich mir nun zur Aufgabe gemacht, einen solchen Algorithmus zum Erstellen glatt-orthogonaler Zeichnungen zu implementieren. Dazu werde ich den Algorithmus als Erstes verständlich und so vollständig wie nötig erklären, um die zukünftige Verwendung von Verbesserung zu erleichtern. Damit der Leser ein umfassendes Bild des Algorithmus vermittelt bekommt, wird auch der Ausgangs-Algorithmus für orthogonale Layouts erklärt, sowie einige Hilfsroutinen. 
-
-Die Implementierung ermöglicht es, für eine Reihe von Beispielgraphen \go e Layouts zu erstellen. Diese sollen die Nützlichkeit von glatt-orthogonalen Layouts unterstreichen und als Inspiration für die praktische Anwendung des Algorithmus dienen.
-
-Dabei werden eventuelle Probleme aufgezeigt, die wiederum als Grundlage zur Verbesserung des Algorithmus dienen. 
+Diese Arbeit hat zum Ziel Implementierungsdetails des Algorithmus von Alam et al. zum Erstellen glatt-orthogonaler Zeichnungen auszuarbeiten. Die Implementierung ermöglicht es, für eine Reihe von Beispielgraphen \go e Layouts zu erstellen. Besonders interessante Zeichnungen werden gezeigt, sie sollen die Nützlichkeit von glatt-orthogonalen Layouts unterstreichen und als Inspiration für die praktische Anwendung des Algorithmus dienen. Außerdem soll die Effektivität des Algorithmus mit empirischen Daten untersucht werden. Dabei werden eventuelle Probleme aufgezeigt, die wiederum als Grundlage zur Verbesserung des Algorithmus dienen. 
 
 \section{Struktur}
 
+Zunächst werden einige Grundlagen erklärt, ohne die eine präzise Beschreibung des Algorithmus nicht möglich ist.  Das bedeutet, es werden die verwendeten Definitionen genannt und die Notationen eingeführt. Außerdem wird der Problembereich weiter eingeschränkt, während die einzelnen Konzepte aufgezählt werden. Dies bildet Kapitel~\ref{chap:basics}.
 
-Der verwendete Algorithmus wird in Alam et al.~\cite{smooth-13} beschrieben. Er basiert auf orthogonalen
-Layouts, welche mit dem Algorithmus von Biedl und Kant~\cite{biedl+kant-98} bzw.\ Liu et al.~\cite{liu+etal-98} erstellt
-werden.
+Als nächstes wird der Algorithmus verständlich und so vollständig wie nötig erklärt. Somit kann in den späteren Abschnitten auf die verschiedenen Schritte Bezug genommen werden. Damit der Leser ein umfassendes Bild des Algorithmus vermittelt bekommt, werden die Schritte zur Berechnung der Eingaben für den Algorithmus beschrieben, gefolgt vom Ausgangs-Algorithmus für orthogonale Layouts in Abschnitt~\ref{sec:oc3algo}. Die Entfernung stufenförmiger Kanten, ein später wichtiger Teilaspekt von orthogonalen Layouts, wird in Abschnitt~\ref{sec:sEdgeRemoveAlgo} erklärt. Sind alle Voraussetzungen für die Erstellung \go er Layouts geklärt, wird die Konversion in ein \go es Layout beschrieben, in Abschnitt~\ref{sec:sc2conversion} und Abschnitt~\ref{sec:sc2makePlanarAlgo}. Diese Beschreibungen rund um die Teile des Algorithmus füllen Kapitel~\ref{chap:algo}.
 
-Diese Algorithmen werden zunächst noch einmal in ihrer Gesamtheit erklärt. Dabei werden die
-verwendeten Definitionen genannt und die Notationen eingeführt. Die nötigen Datenstrukturen
-werden konkretisiert und gelöste Teilprobleme erörtert. Daraufhin wird auf die Implementierung eingegangen und welche Besonderheiten sowie Herausforderungen hierbei zu
-beachten waren. 
+Darauf folgen die Implementierungsdetails des Algorithmus und einige vertiefende Beschreibungen, welche Besonderheiten sowie Herausforderungen zu beachten waren, die nötigen Datenstrukturen werden konkretisiert und gelöste Teilprobleme erörtert, im Kapitel~\ref{chap:impl}. Insbesondere dem Finden von Schnitten gebührt ein eigener Text, der Abschnitt~\ref{sec:cutfinding}.
 
-Im Anschluss wird die Implementierung mit verschiedenen Testdatensätzen kontrolliert. Anhand
-der Ausgaben auf den Testdaten werden Schwachstellen des Verfahren identifiziert. 
-Zuletzt werden noch einige Verbesserungsmöglichkeiten diskutiert, wie das Ergebnis
-optimiert werden kann, im Hinblick auf Komplexität und Platzbedarf.
+Im Anschluss wird die Implementierung mit verschiedenen Testdatensätzen kontrolliert. Anhand der Analyse der Ausgabe-Zeichnungen für die Testgraphen werden Schwachstellen des Verfahren identifiziert. Zuletzt werden noch einige Verbesserungsmöglichkeiten diskutiert und ihre Effektivität gemessen. Sie optimieren das Ergebnis im Hinblick auf Komplexität und Platzbedarf. Damit schließt das Kapitel~\ref{chap:results}.
 
-% TODO: Verweise auf Abschnitte, jeweils NACH der Beschreibung des Abschnitts
-
-
+Abgerundet wird der Text durch das zusammenfassende Kapitel~\ref{chap:outro}.
 
 
 
@@ -530,6 +519,7 @@ Für das finden eines Pfades gibt es drei Möglichkeiten, die der Reihe nach aus
 Zuletzt stehen in der Ergebnisliste die Knoten in der Reihenfolge einer $st$-Ordnung.
 
 \section{Erstellung eines OC$_3$-Layouts}
+\label{sec:oc3algo}
 
 In den vorausgegangenen Schritten wurden zum einen die Knoten in die Reihenfolge einer $st$-Ordnung $v_1, \dots, v_n$ gebracht, wobei $s = v_1$ und $t = v_n$, und zum anderen die Adjazenzlisten im Sinne einer planaren Einbettung sortiert. Außerdem wurde die Facette, auf der die Knoten $s$ und $t$ liegen als Außenfacette eingeplant. Mit diesen Informationen wird nun ein geeignetes OC$_3$-Layout für den zweifach zusammenhängenden 4"~planaren Graphen erstellt. 
 
@@ -624,6 +614,7 @@ Damit ist das OC$_3$-Layout fertig und kann zur nächsten Iteration weitergegebe
 
 
 \section{Eliminierung stufenförmiger Kanten}
+\label{sec:sEdgeRemoveAlgo}
 
 Das im letzten Schritt erstellte OC$_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden: Sie stellen ein Problem bei der Konvertierung in ein SC$_2$-Layout dar. Günstigerweise beschreiben Liu et al.~\cite{liu+etal-98} einen Erweiterung, die genau diese Probleme löst. Man vergleiche hierzu die beiden Zeichnungen in Abbildung~\ref{fig:exampleAorthogonal}, wo eine stufenförmige Kante entfernt wird, und die Zeichnungen in Abbildung~\ref{fig:orthognalCompress}, in der keine stufenförmigen Kanten entfernt werden, aber das orthogonale Layout komprimiert wird.
 
@@ -704,6 +695,7 @@ Eine andere Kantenart kommt aber vor: An $v_1$ und $v_n$ kann es eine Kante mit 
 Eine Übersicht des Verfahrens zeigt Abbildung~\ref{fig:sc2conversion}. Durch diese Zeichenvorschriften ist das Aussehen der Kanten festgelegt und in der Zeichnung können Überschneidungen dieser Kanten erkannt werden, um eine planare Zeichnung zu erhalten.
 
 \section{Entfernen von Überschneidungen im SC$_2$-Layout}
+\label{sec:sc2makePlanarAlgo}
 
 In der letzten Iteration wurde ein OC$_3$-Layout ohne stufenförmige Kanten erstellt. Dieses soll nun in ein SC$_2$-Layout konvertiert werden. Dabei wird die Portzuweisung nicht geändert, sodass sich auch die planare Einbettung nicht ändert. Problematisch sind jedoch die glatt-orthogonalen Kanten, die anders geformt sind und sich überschneiden können, wenn die Knoten-Positionen aus dem OC$_3$-Layout benutzt werden. Darum sollen jetzt die Knotenpositionen so angepasst werden, dass es nicht mehr zu Überschneidungen kommt.
 
@@ -741,6 +733,7 @@ Damit verbleibt nur noch das Layout in eine Zeichnung zu überführen.
 
 
 \chapter{Implementierung}
+\label{chap:impl}
 
 Im Kapitel~\ref{chap:algo} wurde das Grundgerüst des Algorithmus beschrieben. Einige Teile des Algorithmus wurden nur sehr grobkörnig beschrieben, gerade so, dass es für das Verständnis und die Nachvollziehbarkeit reicht, aber nicht genau genug für eine Implementierung. Diese Teile sollen nun hier im Detail erklärt werden. Zudem werden einige Implementierungsdetails aufgeführt, die sich für ähnliche Implementierungs-Projekte nützlich erweisen sollten.
 
@@ -779,7 +772,7 @@ Mit diesen Schritten können für alle Kanten die Lage der Segmente und die Posi
 \section{Schnitte finden}
 \label{sec:cutfinding}
 
-Das Finden eines Schnittes durch die Zeichnung des Graphen zum Zwecke des Verschiebens von Knoten in horizontale Richtung zielt darauf ab, den Graph in zwei Teile zu spalten, die nur möglichst durch horizontale Segmente verbunden sind. 
+Das Finden eines Schnittes durch die Zeichnung des Graphen zum Zwecke des Verschiebens von Knoten in horizontale Richtung zielt darauf ab, den Graph in zwei Teile zu spalten, die nur durch horizontale Segmente verbunden sind. 
 
 Der Schnitt beginnt oberhalb eines Knotens, entweder knapp links oder knapp rechts davon. Er setzt sich dann durch die Zeichnung fort und folgt dabei Kanten abwärts von Knoten zu Knoten. Er kann niemals vertikal oder nach oben verlaufen und ist somit \emph{y"~Monoton}. Dabei kann er C-, I- und L"~Kanten an horizontalen Segmenten durchqueren, an diesen können sie beliebig auseinander gezogen werden. Zusätzlich kann er U- und G- Kanten durchqueren. Diese Kantenarten treten nach Konstruktion nur an der Außenfacette des Graphen auf und ein Verändern der Knotenpositionen kann also keine neuen Überschneidungen nach sich ziehen. Niemals wird ein vertikales Liniensegment durchquert.
 
@@ -848,9 +841,12 @@ Die Konstruktion des Schnittes speichert bei jedem Durchqueren einer Kante die K
 
 \section{Erkennung von Überschneidungen bei glatt-orthogonalen Kanten}
 
-% TODO
+Im Verlauf des Algorithmus wird die Fähigkeit benötigt, Überschneidungen zwischen Kanten zu erkennen. Es muss möglich sein, für eine Kante zu prüfen, ob sie mit einer Teilmenge der bereits gezeichneten Kanten Überschneidungen bildet. Außerdem sollte die fertige Zeichnung auf Überschneidungen zwischen zwei beliebigen Kanten geprüft werden können, damit Fehler im Algorithmus erkannt werden können. Hierbei muss die Existenz von Schnittpunkten von Liniensegmenten und Kreissegmenten geprüft werden. Da alle Knoten auf einem ganzzahligen Koordinatengitter sind, die Durchmesser der Kreissegmente ganzzahlig sind, und die Kreissegmente sich nur über vielfache von 90\textdegree~Winkeln beginnend Gitterpunkten erstrecken, ist es möglich, die Kollisionen nur mit Ganzzahlarithmetik zu testen. Daraus wären Vorteile in Genauigkeit und Geschwindigkeit zu erwarten. Wir haben jedoch für die Implementierung auf Verfahren der analytischen Geometrie zurückgegriffen. Damit ist die Lösung flexibler, sie kann auf beliebige Kreis- und Liniensegmente angewendet werden.
+
+% TODO: Mit Formeln etc. genauer beschreiben?
 
 \chapter{Verbesserungen und empirische Untersuchung}
+\label{chap:results}
 
 In den vorausgegangenen Kapiteln wurde beschrieben, wie der Algorithmus funktioniert, wie er implementiert wurde. Dabei wurden einige Erkenntnisse aus dem Prozess der Implementierung vorgestellt. Dieses Kapitel soll nun Erkenntnisse vorstellen, die auf Grundlage der Implementierung über den Algorithmus gewonnen wurden: Die Implementierung erlaubt es, den Algorithmus automatisiert auf eine Vielzahl von Graphen anzuwenden. Die gewonnenen Zeichnungen können mit bestimmten Metriken in ihrer Qualität beurteilt werden.
 
@@ -864,37 +860,33 @@ Für orthogonale und glatt-orthogonale Zeichnungen ist die kürzeste mögliche E
 
 Ein weiteres Kriterium ist die \emph{Fläche pro Knoten}: Auf einer 1~Gitterquadrat großen Fläche lassen sich maximal vier Knoten platzieren. Somit sagt der Quotient von Fläche und Knotenanzahl auch etwas über die Effektivität der Darstellung aus.
 
-Da Liu et al.~\cite{liu+etal-98} die obere Grenze für die Fläche der OC$_3$-Zeichnungen mit $(|V|+1)^2$ angeben, soll auch untersucht werden, ob im Durchschnittsfall mit einer quadratischen Flächenzunahme zu rechnen ist.
+Da Liu et al.~\cite{liu+etal-98} die obere Grenze für die Fläche der OC$_3$-Zeichnungen mit $(|V|+1)^2$ angeben, soll auch untersucht werden, ob im Durchschnittsfall mit einer quadratischen Flächenzunahme zu rechnen ist. Ein Graph mit 18~Knoten hätte also im schlechtesten Fall eine Fläche von 361 Gitterquadraten, also 20 je Knoten.
 
 Das dritte Kriterium ist die \emph{Segmentzahl}: Es können zwar bei SC$_2$-Zeichnungen nur maximal zwei Segmente pro Kante vorliegen, doch oftmals ist es möglich, das Layout so anzupassen, dass eine Kante mit nur einem Segment gezeichnet wird.  Jedoch wird in \cite{bekos-13} gezeigt, dass der Flächenzuwachs bei einer Konversion in ein SC$_1$-Layout exponentiell sein kann. Zeichnungen mit exponentieller Fläche sind nicht praxistauglich, und somit ist eine niedrigere Segmentzahl nicht wünschenswert, wenn sie gleichzeitig mit hohem Flächenzuwachs verbunden ist.
 
 \section{Erhobene Messwerte}
 
-Als Vergleichsgraphen für das Erstellen von Zeichnungen wurden die Rom-Testgraphen verwendet. Nachdem einige Graphen entfernt wurden, z.B.\ weil sie nicht zweifach zusammenhängend sind blieb eine Menge von 844 Graphen, die jeweils mit den verschiedenen Methoden gezeichnet wurden. Die Graphen enthalten zwischen 10 und 51 Knoten, in Abbildung~\ref{fig:graphSizes} erkennt man, wie viele Graphen mit welchen Knotenanzahlen verarbeitet wurden. % TODO: \cite rome graphs?
+Als Vergleichsgraphen für das Erstellen von Zeichnungen wurden die Rom-Testgraphen verwendet. Nachdem einige Graphen entfernt wurden, z.B.\ weil sie nicht zweifach zusammenhängend sind blieb eine Menge von 844~Graphen, die jeweils mit den verschiedenen Methoden gezeichnet wurden. Die Graphen enthalten zwischen 10 und 51~Knoten, in Abbildung~\ref{fig:graphSizes} erkennt man, wie viele Graphen mit welchen Knotenanzahlen verarbeitet wurden. Der Großteil der Graphen hat zwischen elf und zwanzig Knoten, bei durchschnittlich 18,2~Knoten. Würden alle diese Graphen die maximale Fläche von $(|V|+1)^2$ benötigen, ergäbe sich ein Durchschnitt von durchschnittlich 20,25 Gitterquadraten je Knoten.
 
-Für die OC$_3$-Zeichnungen lag die durchschnittliche Fläche pro Knoten durchschnittlich bei 4,768 Gitterquadraten. In Abbildung~\ref{fig:ortho-noCompress} wird die Verteilung von Knotenanzahlen und Fläche gezeigt.
+Für die OC$_3$-Zeichnungen lag die durchschnittliche Fläche pro Knoten durchschnittlich bei 4,768 Gitterquadraten. In Abbildung~\ref{fig:ortho-noCompress} wird die Verteilung von Knotenanzahlen und Fläche gezeigt. Die Fläche bleibt stets deutlich unter dem theoretischen Maximum zurück. Es besteht eine starke Korrelation zwischen Knotenanzahl und Flächenbedarf, der Flächenbedarf nimmt etwa quadratisch mit der Knotenzahl zu. Es gibt keine extremen Ausreißer.
 
-Nach der Komprimierung und der Entfernung der stufenförmigen Kanten konnte diese Zahl auf 3,526 gesenkt werden. In Abbildung~\ref{fig:ortho-compress} wird die Verteilung von Knotenanzahlen und Fläche gezeigt, wenn die Nachbearbeitung verwendet wird.
+Nach der Komprimierung und der Entfernung der stufenförmigen Kanten konnte diese Zahl auf 3,526 gesenkt werden. In Abbildung~\ref{fig:ortho-compress} wird die Verteilung von Knotenanzahlen und Fläche gezeigt, wenn die Nachbearbeitung verwendet wird. Der Flächenbedarf ist geringer, ansonsten ergibt sich ein ähnliches Bild.
 
-Für die glatt-orthogonalen Zeichnungen ergab sich durchschnittlich eine Fläche von 16.94 Gitterquadraten pro Knoten. Abbildung~\ref{fig:smooth-noOpti} zeigt auch hier die Verteilung. Die 18713 Kanten aller Zeichnungen hatten durchschnittlich 1,1934 Segmente.
-
-% TODO: Werte grundsätzlich interpretieren
+Für die glatt-orthogonalen Zeichnungen ergab sich durchschnittlich eine Fläche von 16.94 Gitterquadraten pro Knoten. Abbildung~\ref{fig:smooth-noOpti} zeigt auch hier die Verteilung. Die 18713 Kanten aller Zeichnungen hatten durchschnittlich 1,1934 Segmente, viele Kanten haben also nur Komplexität~1. Der Flächenbedarf ist größer, die Streuung ist hoch und es gibt oftmals Ausreißer nach oben. Der Punkt beim x"~Wert 40~Knoten mit dem größten Flächenbedarf ist die Zeichnung aus Abbildung~\ref{fig:smoothBadnessShowing}. Hier sorgt das Verschieben eines Plateaus nach oben, um Kollisionen im Inneren einer C"~Kante zu verhindern, für eine enorme Höhe. Die Knoten sind teilweise sehr nah und in der Gesamtansicht kaum zu unterscheiden und es gibt große, leere Flächen, die Verteilung der Knoten ist unausgewogen. Insgesamt ergibt sich ein Bild der Unzuverlässigkeit: In vielen Fällen ist der Flächenbedarf nur etwas höher, doch bei einigen Konstellationen wird der Flächenbedarf unpraktikabel hoch.
 
 \section{Korrektur der Steigung aussetzen}
 
-Eine implementierte Verbesserung setzt bei der Konversion vom OC$_3$- in das SC$_2$-Layout an. Während der Implementierung viel auf, dass von den 844 OC$_3$-Layouts der Graphen 734 ohne jegliche Anpassung der Knotenpositionen ein planares SC$_2$-Layout darstellen. Hier muss also überhaupt keine Anpassung vorgenommen werden.
+Eine implementierte Verbesserung setzt bei der Konversion vom OC$_3$- in das SC$_2$-Layout an. Während der Implementierung fiel auf, dass von den 844 OC$_3$-Layouts der Graphen 734 ohne jegliche Anpassung der Knotenpositionen ein planares SC$_2$-Layout darstellen. Hier muss also überhaupt keine Anpassung vorgenommen werden. Ein Beispiel für einen solchen zeigt Abbildung~\ref{fig:smoothOkness}.
 
-Bei den übrigen 110 Graphen wurden dann alle Anpassungen vorgenommen, bis auf solche, die nur zur Korrektur der Steigung der L"~Kanten verwendet werden. Wird also ein Knoten platziert, dann erfolgen die Anpassungen, die nötig sind, dass seine eingehenden Kanten planar gezeichnet werden.
+Bei den übrigen 110 Graphen wurden daraufhin alle Anpassungen vorgenommen, bis auf solche, die nur zur Korrektur der Steigung der L"~Kanten verwendet werden. Wird also ein Knoten platziert, dann erfolgen die Anpassungen, die nötig sind, dass seine eingehenden Kanten planar gezeichnet werden. Ist also beispielsweise eine eingehende L"~Kante an seinem linken Port und Teile der Zeichnung ragen von rechts in die Kante hinein, so wird der untere Knoten der Kante wie gehabt nach links verschoben, bis sie ohne Überschneidungen gezeichnet werden kann. Normalerweise würde der Algorithmus daraufhin die Steigung der Kante prüfen und, wenn die Kante steiler als 45\textdegree\ absteht, den unteren Knoten noch weiter nach links verschieben, wie bereits in Abbildung~\ref{fig:cutLslopecorrection} gesehen. Auf diese Anpassung wird nun verzichtet. 
 
-Ist also beispielsweise eine eingehende L"~Kante an seinem linken Port und Teile der Zeichnung ragen von rechts in die Kante hinein, so wird der untere Knoten der Kante wie gehabt nach links verschoben, bis sie ohne Überschneidungen gezeichnet werden kann. Normalerweise würde der Algorithmus daraufhin die Steigung der Kante prüfen und, wenn die Kante steiler als 45\textdegree\ absteht, den unteren Knoten noch weiter nach links verschieben, wie bereits in Abbildung~\ref{fig:cutLslopecorrection} gesehen. Auf diese Anpassung wird nun verzichtet. 
+Man erinnere sich, dass die Anpassung der Steigung erfolgte, damit die L"~Kante ein horizontales Segment besitzt. Nun besitzt sie mitunter kein horizontales Segment, dafür jedoch ein vertikales.
 
-Man erinnere sich, dass die Anpassung der Steigung zu dem Zwecke erfolgte, dass die L"~Kante ein horizontales Segment besitzt. Nun besitzt sie mitunter kein horizontales Segment, dafür jedoch ein vertikales.
+Damit keine Einschränkung in der Fähigkeit Schnitte zu finden entsteht, erlauben wir einen Schnitt durch die L"~Kante, ganz so, also ob dort ein horizontales Segment bestünde. Wenn nun ein solcher Schnitt erfolgt und die Kante in der folge breiter gezogen wird, kann nicht einfach nur ihr horizontales Segment verlängert werden. Stattdessen wird ihr Kreissegment größer und das vertikale Liniensegment verkürzt. Erst wenn die Kante so weit auseinandergezogen wurde, dass die Steigung kleiner als 45\textdegree ist, verschwindet das vertikale Liniensegment und es wird bei weiterem Strecken das nun entstandene horizontale Liniensegment verlängert. Dabei kann es zu neuen Überschneidungen kommen. Wenn alle Knoten platziert sind, wird die erstellte Zeichnung auf Überschneidungen geprüft. Sollte es Überschneidungen geben, wird der Graph erneut mit Anpassung der Steigungen gezeichnet.
 
-Damit keine Einschränkung in der Fähigkeit Schnitte zu finden entsteht, erlauben wir einen Schnitt durch die L"~Kante, ganz so, also ob dort ein horizontales Segment bestünde. Wenn nun ein solcher Schnitt erfolgt und die Kante in der folge breiter gezogen wird, kann nicht einfach nur ihr horizontales Segment verlängert werden. Stattdessen wird ihr Kreissegment größer und das vertikale Liniensegment verkürzt. Erst wenn die Kante so weit auseinandergezogen wurde, dass die Steigung kleiner als 45\textdegree ist, verschwindet das vertikale Liniensegment und es wird bei weiterem Strecken das nun entstandene horizontale Liniensegment verlängert.
+Obwohl die Vermutung nahe liegt, dass durch dieses rücksichtslose Vorgehen oftmals neue Überschneidungen entstehen, hat sich dies in der Praxis widerlegt. Von den 110 so angepassten Layouts hatte nur eines danach noch eine Überschneidung. Hier wurde eine L"~Kante auseinandergezogen und bildete neue Überschneidungen, es musste auf den ursprünglichen Algorithmus zurückgegriffen werden. Der Graph in Abbildung~\ref{fig:smoothBadness} konnte mit deutlich geringerem Flächenbedarf gezeichnet werden.
 
-Obwohl es so wirkt, als ob durch dieses rücksichtslose Vorgehen oftmals neue Überschneidungen entstehen, hat sich dies durch die Praxis widerlegt. Von den 110 so angepassten Layouts hatte nur eines danach noch eine Überschneidung. Wenn, wie in diesem einem Fall, Überschneidungen detektiert werden, muss auf den ursprünglichen Algorithmus zurückgegriffen werden.
-
-Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte der Durchschnitt der Fläche pro Konten auf durchschnittlich 7,522 Gitterquadrate gesenkt werden. Abbildung~\ref{fig:smooth-opti} zeigt die Verteilung des Flächenbedarfs je nach Knotenanzahl nach dieser Anpassung. Die durchschnittliche Segmentanzahl pro Kante stieg leicht auf 1,2189.
+Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte der Durchschnitt der Fläche pro Konten auf durchschnittlich 7,522 Gitterquadrate gesenkt werden. Abbildung~\ref{fig:smooth-opti} zeigt die Verteilung des Flächenbedarfs je nach Knotenanzahl nach dieser Anpassung. Der Flächenbedarf ist auf ein akzeptables Maß gesunken, die größten Ausreißer verschwunden. Die durchschnittliche Segmentanzahl pro Kante stieg nur leicht auf 1,2189.
 
 Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des Flächenbedarfs der verschiedenen Zeichenmethoden.
 
@@ -913,6 +905,8 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
 %%%%%
 
 % Problem mit unnötiger C-Anpasung
+
+%% G-Kanten mit 5 Segmenten
 
 \begin{figure}[p]
   \centering
@@ -985,6 +979,7 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
 
 
 \chapter{Zusammenfassung und Schlussfolgerungen}
+\label{chap:outro}
 
 % TODO
 % Zusammenfassung
