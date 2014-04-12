@@ -100,7 +100,7 @@ Natürlich kann Übersichtlichkeit nicht genau definiert werden; jedoch werden d
 \begin{figure}[h]
   \centering
   \fbox{\includegraphics{liniennetzplan}}
-  \caption{Ausschnitt aus dem Liniennetzplan \emph{Eferding -- Grieskirchen -- Wels}, Österreich~\cite{waldherr-14}.}
+  \caption{Ein Ausschnitt aus dem Liniennetzplan \emph{Eferding -- Grieskirchen -- Wels}, Österreich~\cite{waldherr-14}.}
   \label{fig:liniennetzplan}
 \end{figure}
 
@@ -114,9 +114,15 @@ Es wäre trivial möglich, alle Kanten abzurunden, indem man Kreisbögen mit dem
 
 \section{Ziel}
 
-Diese Arbeit hat zum Ziel, Implementierungsdetails des Algorithmus von Alam et al. zum Erstellen glatt-orthogonaler Zeichnungen auszuarbeiten. Die Implementierung ermöglicht es, für eine Reihe von Beispielgraphen \go e Layouts zu erstellen. Besonders interessante Zeichnungen werden gezeigt, sie sollen die Nützlichkeit von glatt-orthogonalen Layouts unterstreichen und als Inspiration für die praktische Anwendung des Algorithmus dienen. Außerdem soll die Effektivität des Algorithmus mit empirischen Daten untersucht werden. Dabei werden eventuelle Probleme aufgezeigt, die wiederum als Grundlage zur Verbesserung des Algorithmus dienen. 
+Diese Arbeit hat zum Ziel, Implementierungsdetails des Algorithmus von Alam et al. zum Erstellen glatt-orthogonaler Zeichnungen auszuarbeiten. Die Implementierung ermöglicht es, für eine Reihe von Beispielgraphen \go e Layouts zu erstellen, drei davon zeigt Abbildung~\ref{fig:introDemoGraphs}. Besonders interessante Zeichnungen werden gezeigt, sie sollen die Nützlichkeit von glatt-orthogonalen Layouts unterstreichen und als Inspiration für die praktische Anwendung des Algorithmus dienen. Außerdem soll die Effektivität des Algorithmus mit empirischen Daten untersucht werden. Dabei werden eventuelle Probleme aufgezeigt, die wiederum als Grundlage zur Verbesserung des Algorithmus dienen. 
 
-% TODO: Beispiel für SC_2
+\begin{figure}[h]
+  \centering
+  \includegraphics{intro_graphs}
+  \caption{Drei glatt-orthogonale Zeichnungen, die mit dem hier implementierten Algorithmus gezeichnet wurden}
+  \label{fig:introDemoGraphs}
+\end{figure}
+
 
 \section{Struktur}
 
@@ -652,7 +658,7 @@ Im Beispielgraphen $G_\text{E}$ und der Zeichnung aus Abbildung~\ref{fig:example
 
 Im so entstandenen Graphen erhält das Plateau mit $v_1$ die Höhe~$1$. Dann erhält jedes andere Plateau jeweils die um~1 inkrementierte Höhe seines höchsten Vorgängers, bis alle Plateaus eine Höhe erhalten haben. Zuletzt weisen wir den Knoten die Höhe ihres Plateaus als neue y"~Koordinate zu.
 
-Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten im gleichen Plateau sind und somit die gleiche y"~Koordinate haben. Die vormals stufenförmigen Kanten bestehen nun aus einem horizontalen Liniensegment.
+Offensichtlich kann es nun keine stufenförmigen Kanten mehr geben, da die entsprechenden Knoten im gleichen Plateau sind und somit die gleiche y"~Koordinate haben. Alle Knoten eines Plateaus liegen auf einer horizontalen Linie. Die vormals stufenförmigen Kanten bestehen nun aus einem horizontalen Liniensegment.
 
 \section{Konvertierung in ein SC$_2$-Layout}
 \label{sec:sc2conversion}
@@ -701,7 +707,7 @@ Eine Übersicht des Verfahrens zeigt Abbildung~\ref{fig:sc2conversion}. Durch di
 
 In der letzten Iteration wurde ein OC$_3$-Layout ohne stufenförmige Kanten erstellt. Dieses soll nun in ein SC$_2$-Layout konvertiert werden. Dabei wird die Portzuweisung nicht geändert, sodass sich auch die planare Einbettung nicht ändert. Problematisch sind jedoch die glatt-orthogonalen Kanten, die anders geformt sind und sich überschneiden können, wenn die Knoten-Positionen aus dem OC$_3$-Layout benutzt werden. Darum sollen jetzt die Knotenpositionen so angepasst werden, dass es nicht mehr zu Überschneidungen kommt.
 
-Während schrittweise das SC$_2$-Layout von unten nach oben aufgebaut wird, sollen stets alle L"~Kanten ein horizontales Liniensegment haben, niemals aber ein vertikales Liniensegment. Alle C"~Kanten sollen ein horizontales Segment an ihrem unteren Knoten haben. Das horizontale Liniensegment kann jeweils die Länge~0 haben.
+Während schrittweise das SC$_2$-Layout von unten nach oben aufgebaut wird, sollen stets alle L"~Kanten ein horizontales Liniensegment haben, niemals aber ein vertikales Liniensegment. Das horizontale Liniensegment kann die Länge~0 haben.
 
 Bei der Entfernung der stufenförmigen Kanten wurden die Knoten in Plateaus gruppiert. Die Plateaus werden nun von unten nach oben durchlaufen und nacheinander in einem neuen Layout platziert. Abweichend von Alam et al.~\cite{smooth-13} können mehrere Plateaus die selbe Höhe erhalten.
 
@@ -719,21 +725,21 @@ Dazu wird zunächst der erste Konten ganz links im Plateau platziert und der let
         \label{fig:collisionAvoidanceAndSlopeCorrection}
 \end{figure}
 
-Nun werden Überschneidungen mit der Kante $e_\text{L}$ am linken Port des ersten Knotens und der Kante $e_\text{R}$ am rechten Port des letzten Knotens aufgelöst. Zuerst werden innere Überschneidungen mit Kanten rechts der Kante $e_\text{L}$  und links der Kante $e_\text{R}$ behoben: Das gesamte Plateau und alle Plateaus darüber werden so lange nach oben verschoben, bis es keine Kollision mit inneren Kanten mehr gibt. In Abbildung~\ref{fig:accomodateCedge} Kollidiert der rechte Block innen mit der C"~Kante und das Plateau wird nach oben verschoben.
+Nun werden Überschneidungen mit der Kante $e_\text{l}$ am linken Port des ersten Knotens und der Kante $e_\text{r}$ am rechten Port des letzten Knotens aufgelöst. Gibt es jeweils an dem Port keine Kante, entfallen die entsprechenden Anpassungen. Zuerst werden innere Überschneidungen mit Kanten rechts der Kante $e_\text{l}$  und links der Kante $e_\text{r}$ behoben: Das gesamte Plateau und alle Plateaus darüber werden so lange nach oben verschoben, bis es keine Kollision mit inneren Kanten mehr gibt. In Abbildung~\ref{fig:accomodateCedge} Kollidiert der rechte Block innen mit der C"~Kante und das Plateau wird nach oben verschoben.
 
-Dann werden äußere Überschneidungen mit Kanten links von $e_\text{L}$ behoben: Von leicht links des unteren Knoten von  $e_\text{L}$ aus wird der Graph geteilt, und zwar so, dass der Schnitt nur durch horizontale Liniensegmente, G-, C- oder U"~Kanten führt. Die linke, abgeschnittene Seite des Graphen wird dann nach links verschoben, bis es keine Kollision mit $e_\text{L}$ mehr gibt.Die horizontalen Segmente werden dadurch länger. In Abbildung~\ref{fig:accomodateCedge} ist der Schnitt und das Verschieben der linken Seite exemplarisch dargestellt. Wenn die Kante $e_\text{L}$ eine L"~Kante ist, muss noch die Steigung angepasst werden, falls sie ein vertikales Liniensegment hat. Dazu wird leicht rechts des unteren Knotens ein Schnitt nach unten begonnen und dann alles links des Schnitts so weit nach links verschoben, dass die Kante kein vertikales Liniensegment mehr hat. Dies wird in Abbildung~\ref{fig:cutLslopecorrection} gezeigt. Dann wird für $e_\text{R}$ die Entfernung der Überschneidungen und die Korrektur der Steigung analog, also horizontal gespiegelt, durchgeführt.
+Dann werden äußere Überschneidungen mit Kanten links von $e_\text{l}$ behoben: Von leicht links des unteren Knoten von  $e_\text{l}$ aus nach unten wird der Graph in eine rechte und eine linke Seite geteilt, und zwar so, dass der Schnitt nur durch horizontale Liniensegmente, G-, U- oder offene Kanten führt. Die linke, abgeschnittene Seite des Graphen wird dann nach links verschoben, bis es keine Kollision mit $e_\text{l}$ mehr gibt. Die horizontalen Segmente werden dadurch länger. In Abbildung~\ref{fig:accomodateCedge} ist der Schnitt und das Verschieben der linken Seite exemplarisch dargestellt. Wenn die Kante $e_\text{l}$ eine L"~Kante ist, muss noch die Steigung angepasst werden, falls sie ein vertikales Liniensegment hat. Dazu wird leicht rechts des unteren Knotens ein Schnitt nach unten begonnen und dann alles links des Schnitts so weit nach links verschoben, dass die Kante kein vertikales Liniensegment mehr hat. Dies wird in Abbildung~\ref{fig:cutLslopecorrection} gezeigt. Dann wird für $e_\text{r}$ die Entfernung der Überschneidungen und die Korrektur der Steigung analog, also horizontal gespiegelt, durchgeführt.
 
-%% TODO: C-Kanten-Korrektur
+Alam et al.~\cite{smooth-13} achten im Verlauf des Algorithmus darauf, C"~Kanten mit horizontalen Segmenten am oberen Knoten zu vermeiden. Es zeigte sich uns jedoch keine Möglichkeit auf, wie diese Methodik korrekt anzuwenden ist, da bei der beschriebenen Methode mit Schnitten durch vertikale Segmente zu rechnen ist. Problematisch ist der Fall, wenn ein Schnitt rechts am oberen Knoten vorbei läuft und dann die Kante links am unteren Knoten durchschneidet, falls hier kein horizontales Segment ist, das verlängert werden kann. Am oberen Knoten befindet sich dann ein horizontales Segment und beim Bewegen des unteren Knotens bewegt sich die C"~Kante fälschlicherweise mit oder erhält ein drittes Segment. Es wurde unter anderem versucht zu beweisen, dass solch ein Schnitt mit den bestehenden Regeln nicht möglich ist, was jedoch scheitert, wenn eine weitere C"~Kante in den Innenbereich der C"~Kante ragt, an der der Schnitt entlang geführt werden könnte. An dieser Stelle bleibt es offen, hierfür eine sorgfältige Lösung zu erarbeiten.
 
-Abweichend von Alam et al.~\cite{smooth-13} prüfen wir die Überschneidungen mit inneren Kanten des letzten Knotens, bevor die Steigung der Kanten angepasst wird, denn wenn der letzte Knoten mit dem gesamten Plateau nach oben verschoben wird, kann die Steigung von $e_\text{L}$ über 45\textdegree\ steigen. Zudem haben wir das Finden des Schnitts leicht verändert, was in Abschnitt \ref{sec:cutfinding} näher erläutert wird. Außerdem verschieben wir zur Anpassung der Steigung nur genau so weit, wie nötig, um die Steigung auf 45\textdegree\ zu senken: $\Delta y - \Delta x$.
+% TODO: G-Kanten-Korrektur
 
-Jetzt werden die übrigen Knoten mit ihren offenen Kanten platziert. Daraufhin müssen noch die Kanten an den unteren Ports auf Kollisionen überprüft werden. Hier kann es zu Überschneidungen kommen, wenn es L"~Ecken sind. Hierbei beginnt der Schnitt leicht unterhalb des Knotens auf der Seite, in die die L"~Ecke zeigt. Dann wird die L"~Ecke durchschnitten und der restliche Graph nach unten, wobei wiederum nur horizontale Liniensegmente durchquert werden. Dann wird der Teil der Zeichnung des Graphen auf der Seite, in die die L"~Ecke zeigt noch weiter in die Richtung der L"~Ecke verschoben, bis es keine Überschneidungen mehr gibt und die L"~Ecke eine Steigung kleiner als 45\textdegree\ hat. Dieser Schritt findet sich bei Alam et al.~\cite{smooth-13} nicht und wurde hinzugefügt, nachdem sich sonst ungelöste Überschneidungen ergeben haben.
+Abweichend von Alam et al.~\cite{smooth-13} prüfen wir die Überschneidungen mit inneren Kanten des letzten Knotens, bevor die Steigung der Kanten angepasst wird, denn wenn der letzte Knoten mit dem gesamten Plateau nach oben verschoben wird, kann die Steigung von $e_\text{l}$ über 45\textdegree\ steigen. Zudem haben wir das Finden des Schnitts leicht verändert, was in Abschnitt \ref{sec:cutfinding} näher erläutert wird. Außerdem verschieben wir zur Anpassung der Steigung nur genau so weit, wie nötig, um die Steigung auf 45\textdegree\ zu senken: $\Delta y - \Delta x$.
+
+Jetzt werden die übrigen Knoten mit ihren offenen Kanten platziert. Daraufhin müssen noch die Kanten an den unteren Ports auf Kollisionen überprüft werden. Hier kann es zu Überschneidungen kommen, wenn es L"~Kanten sind. Hierbei beginnt der Schnitt leicht unterhalb des Knotens auf der Seite, in die die L"~Kante zeigt. Dann wird die L"~Kante durchschnitten und der restliche Graph nach unten, wobei wiederum nur horizontale Liniensegmente durchquert werden. Dann wird der Teil der Zeichnung des Graphen auf der Seite, in die die L"~Kante zeigt noch weiter in die Richtung der L"~Kante verschoben, bis es keine Überschneidungen mehr gibt und die L"~Kante eine Steigung kleiner als 45\textdegree\ hat. Dieser Schritt findet sich bei Alam et al.~\cite{smooth-13} nicht und wurde hinzugefügt, nachdem sich sonst ungelöste Überschneidungen ergeben haben.
 
 Offene Kanten haben noch keine festgelegte Form, bis ihr zweiter Knoten auch platziert wurde. Zur Kollisionserkennung behandeln wir die als vertikale Linien mit der x"~Koordinate der Spalte der Kante. Die Linien reichen von der x"~Koordinate des ersten Knotens bis über die Höhe des gerade zu platzierenden Plateaus. Die Behandlung der offenen Kanten wurde bei Alam et al.~\cite{smooth-13} nicht weiter spezifiziert, jedoch müssen sie in die Kollisionserkennung einbezogen werden, da sonst vertikale Liniensegmente keiner Überschneidungsvermeidung unterliegen und mit C"~Kanten kollidieren.
 
-Wenn alle Plateaus vollständig platziert sind, ist das neue Layout eine glatt-orthogonale und planare Version des OC$_3$-Layouts, mit den selben Portzuweisungen und der selben planaren Einbettung.
-
-Damit verbleibt nur noch das Layout in eine Zeichnung zu überführen. 
+Wenn alle Plateaus vollständig platziert sind, ist das neue Layout eine glatt-orthogonale und planare Version des OC$_3$-Layouts, mit den selben Portzuweisungen und der selben planaren Einbettung. Damit verbleibt nur noch das Layout in eine Zeichnung zu überführen. 
 
 %\section{Zusammenfassung}
 % TODO: explain whats missing
