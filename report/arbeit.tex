@@ -892,33 +892,33 @@ Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte der Durchs
 
 %% G-Kanten mit 5 Segmenten
 
-\begin{figure}[p]
+\begin{figure}[h]
   \centering
-  {\includegraphics[width=\textwidth]{area_comparison} \phantomsubcaption\label{fig:graphSizes} \phantomsubcaption\label{fig:areaComparison}}
+  {\includegraphics[width=\textwidth]{plots/area_comparison} \phantomsubcaption\label{fig:graphSizes} \phantomsubcaption\label{fig:areaComparison}}
   \caption{Vergleich des durchschnittlichen Flächenbedarfs in Gitterquadraten der verschiedenen Algorithmen nach Anzahl Knoten im Graphen (\subref{fig:areaComparison}) sowie  Verteilung der Anzahl Knoten in den Graphen (\subref{fig:graphSizes}). Zum Vergleich: Eine DIN-A4-Seite von handelsüblichem kariertem Papier hat rund 2400 Gitterquadrate.}
   \label{fig:areaComparisonAndGraphSizes}
 \end{figure}
-\begin{figure}[p]
+\begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{plots/ortho-noCompress}
+  \includegraphics[width=.9\textwidth]{plots/area_orthogonal}
   \caption{Streudiagramm der Fläche der Zeichnungen je nach Knotenanzahl für OC$_3$-Zeichnungen. Die gepunktete Linien zeigt das theoretische Flächen-Maximum von $(|V|+1)^2$ an.}
   \label{fig:ortho-noCompress}
 \end{figure}
-\begin{figure}[p]
+\begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{plots/ortho-compress}
+  \includegraphics[width=.9\textwidth]{plots/area_orthogonal_compressed}
   \caption{Streudiagramm der Fläche der Zeichnungen je nach Knotenanzahl für OC$_3$-Zeichnungen nach dem Kompressionsschritt ohne stufenförmige Kanten.}
   \label{fig:ortho-compress}
 \end{figure}
-\begin{figure}[p]
+\begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{plots/smooth-noOpti}
+  \includegraphics[width=.9\textwidth]{plots/area_smooth}
   \caption{Streudiagramm der Fläche der Zeichnungen je nach Knotenanzahl für SC$_2$-Zeichnungen, wenn die Steigung aller L"~Kanten berichtigt wurde.}
   \label{fig:smooth-noOpti}
 \end{figure}
-\begin{figure}[p]
+\begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{plots/smooth-opti}
+  \includegraphics[width=.9\textwidth]{plots/area_smooth_bst}
   \caption{Streudiagramm der Fläche der Zeichnungen je nach Knotenanzahl für SC$_2$-Zeichnungen, wenn die Steigung der L"~Kanten nur bei Bedarf berichtigt wurde.}
   \label{fig:smooth-opti}
 \end{figure}
@@ -986,6 +986,7 @@ Des weiteren wäre es wünschenswert, die Implementierung und die damit verbunde
 \bibliographystyle{mybabalpha-fl}
 \bibliography{mybib}
 
+%\listoffigures
 
 \newpage
 
