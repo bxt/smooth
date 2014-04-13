@@ -406,7 +406,7 @@ Auf Grundlage der $st$-Ordnung und der planaren Einbettung wird nun in drei Iter
 
 Die erste Iteration erstellt ein orthogonales Layout für eine OC$_3$-Zeichnung. Es behält die planare Einbettung bei und platziert die Knoten in der von der st-Ordnung vorgegebenen Reihenfolge. Die hier festgelegten Portzuweisungen werden nun nicht mehr verändert, lediglich die Positionen der Knoten werden in den nächsten beiden Iterationen angepasst.
 
-In der zweiten Iteration wird dieses Layout so verkleinert, dass stufenförmige Kanten zu horizontalen Linien konvertiert werden. während vorher alle Knoten eine unterschiedliche Höhen, also y"~Koordinaten, hatten, werden nun mehrere Knoten platzsparend auf einer Höhe untergebracht.
+In der zweiten Iteration wird dieses Layout so verkleinert, dass stufenförmige Kanten zu horizontalen Linien konvertiert werden. Während vorher alle Knoten eine unterschiedliche Höhe, also y"~Koordinaten, hatten, werden nun mehrere Knoten platzsparend auf einer Höhe untergebracht.
 
 In der dritten Iteration wird das Layout für die OC$_3$-Zeichnung so angepasst, dass es auch als Layout für eine planare SC$_2$-Zeichnung dienen kann. Würde man direkt die glatt-orthogonalen Kanten einzeichnen, wäre die entstandene Zeichnung in vielen Fällen nicht planar. Darum müssen die Knoten so auseinandergezogen werden, dass genug Platz für die Kanten ist und sie überschneidungsfrei verlaufen, aber nicht gleichzeitig andere Kanten so verändert werden, dass sie wiederum neue Überschneidungen bilden.
 
@@ -435,15 +435,15 @@ Nach Abschluss des letzten Schrittes erhält man eine glatt-orthogonale SC$_2$-Z
 
 \section{Orientierte Graphen und Tiefensuche}
 
-Eine algorithmische Grundlage, die im Verlauf des Algorithmus mehrmals verwendet wird, die \emph{Tiefensuche}. Sie wurde von Tarjan~\cite{tarjan-72} formalisiert. Konträr zum Namen werden jedoch oft keine Knoten gesucht, sondern vielmehr ein Tiefensuchenbaum konstruiert.
+Eine algorithmische Grundlage, die im Verlauf des Algorithmus mehrmals verwendet wird, ist die \emph{Tiefensuche}. Sie wurde von Tarjan~\cite{tarjan-72} formalisiert. Konträr zum Namen werden jedoch oft keine Knoten gesucht, sondern vielmehr ein Tiefensuchenbaum konstruiert.
 
-Bei der Tiefensuche wird der Graph orientiert. Ein \emph{orientierter Graph} eines Graphen $G = (V, E)$ weißt den Knoten jeder Kante eine Reihenfolge zu. Jede Kante $e \in E$ ist also ein geordnetes Paar $e = (v_\text{A}, v_\text{B})$ und die Kanten bekommen damit eine Richtung, sie zeigen von $v_\text{A}$ nach $v_\text{B}$. Man nennt $v_\text{A}$ \emph{Vorgänger} von $v_\text{B}$ und $v_\text{B}$ heißt Nachfolger von $v_\text{A}$. Die Kante ist eine \emph{ausgehende Kante} von $v_\text{A}$ und eine \emph{eingehende Kante} von $v_\text{B}$. Die Anzahl der ausgehenden Kanten eines Knotens heißt sein \emph{Ausgangsgrad}, analog gibt es den \emph{Eingangsgrad}.
+Bei der Tiefensuche wird der Graph orientiert. Ein \emph{orientierter Graph} eines Graphen $G = (V, E)$ weist den Knoten jeder Kante eine Reihenfolge zu. Jede Kante $e \in E$ ist also ein geordnetes Paar $e = (v_\text{A}, v_\text{B})$ und die Kanten bekommen damit eine Richtung, sie zeigen von $v_\text{A}$ nach $v_\text{B}$. Man nennt $v_\text{A}$ \emph{Vorgänger} von $v_\text{B}$ und $v_\text{B}$ heißt Nachfolger von $v_\text{A}$. Die Kante ist eine \emph{ausgehende Kante} von $v_\text{A}$ und eine \emph{eingehende Kante} von $v_\text{B}$. Die Anzahl der ausgehenden Kanten eines Knotens heißt sein \emph{Ausgangsgrad}, analog gibt es den \emph{Eingangsgrad}.
 
-Schon aus einer $st$-Ordnung könnte ein orientierter Graph gewonnen werden, indem die Kanten von einem Knoten mit höherer Zahl zu einem mit niedrigerer Orientiert werden. Die Tiefensuche liefert eine andere Orientierung.
+Schon aus einer $st$-Ordnung könnte ein orientierter Graph gewonnen werden, indem die Kanten von einem Knoten mit höherer Zahl zu einem mit niedrigerer orientiert werden. Die Tiefensuche liefert eine andere Orientierung.
 
-Im Verlauf der Tiefensuche nach Algorithmus~\ref{alg:dfs} wird nicht nur ein orientierter Graph berechnet, jedem Knoten wird eine \emph{Auffindungszeit} zugeweisen, und eine Partition der Kanten $E = E_\text{T} \cup E_\text{R}$ wird erstellt. Man nennt die Kanten $e_\text{T} \in E_\text{T}$ \emph{Baumkanten} und die übrigen Kanten $e_\text{R} \in E_\text{R} =  E \setminus E_\text{T}$ \emph{Rückwärtskanten}. Die Baumkanten zeigen jeweils von einem Knoten mit niedrigerer Auffindungszeit zu einem mit höherer. Die Startknoten, die \emph{Wurzeln}, haben keine eingehende Baumkante, jeder andere Knoten hat genau eine. Die Rückwärtskanten zeigen jeweils von einem Knoten mit höherer Auffindungszeit zu einem mit niedrigerer. Das Tupel der beiden Mengen von gerichteten Kanten $(E_T, E_R)$ nennen wir \emph{Tiefensuchenbaum}, bei Tarjan~\cite{tarjan-72} heißt es \emph{palm tree}.
+Im Verlauf der Tiefensuche nach Algorithmus~\ref{alg:dfs} wird nicht nur ein orientierter Graph berechnet, jedem Knoten wird eine \emph{Auffindungszeit} zugewiesen, und eine Partition der Kanten $E = E_\text{T} \cup E_\text{R}$ wird erstellt. Man nennt die Kanten $e_\text{T} \in E_\text{T}$ \emph{Baumkanten} und die übrigen Kanten $e_\text{R} \in E_\text{R} =  E \setminus E_\text{T}$ \emph{Rückwärtskanten}. Die Baumkanten zeigen jeweils von einem Knoten mit niedrigerer Auffindungszeit zu einem mit höherer. Die Startknoten, die \emph{Wurzeln}, haben keine eingehende Baumkante, jeder andere Knoten hat genau eine. Die Rückwärtskanten zeigen jeweils von einem Knoten mit höherer Auffindungszeit zu einem mit niedrigerer. Das Tupel der beiden Mengen von gerichteten Kanten $(E_T, E_R)$ nennen wir \emph{Tiefensuchenbaum}, bei Tarjan~\cite{tarjan-72} heißt es \emph{palm tree}.
 
-Im Algorithmus~\ref{alg:dfs} sind die Knoten, die in Zeile~\ref{alg:dfs:nl:connectedStart} behandelt werden Wurzeln, in Zeile~\ref{alg:dfs:nl:treeEdge} wird eine Kante orientiert und als Baumkante kategorisiert, in Zeile~\ref{alg:dfs:nl:backEdge} als Rückwärtskante.
+Im Algorithmus~\ref{alg:dfs} sind die Knoten, die in Zeile~\ref{alg:dfs:nl:connectedStart} behandelt werden, Wurzeln. In Zeile~\ref{alg:dfs:nl:treeEdge} wird eine Kante orientiert und als Baumkante kategorisiert, in Zeile~\ref{alg:dfs:nl:backEdge} als Rückwärtskante.
 
 \begin{algorithm}[ht]
   \SetKw{True}{true}
@@ -494,42 +494,42 @@ Die Höhe eines Knotens im Tiefensuchenbaum ist die Länge des Weges von Baumkan
 
 Für die Bestimmung von Zweifach-Zusammenhangskomponenten benötigt man das Konzept des \emph{Rückwegs}: Von einem Knoten $v$ kann man den Baumkanten zu Knoten mit höherer Auffindungszeit folgen. Von diesen Knoten können Rückwärtskanten ausgehen, die mitunter zu Knoten mit einer kleineren Auffindungszeit als der von $v$ führen. Den Knoten mit der niedrigsten Auffindungszeit, den wir auf diese Weise vom Knoten $v$ erreichen können, nennen wir \emph{Rückpunkt}. Hat ein Knoten sich selbst als Rückpunkt, kann also kein niedrigerer Knoten erreicht werden, so ist er Trenner von Zweifach-Zusammenhangskomponenten.
 
-Die Rückpunkte können während der Tiefensuche bestdraiimmt werden. Wenn ein Knoten $v$ besucht wird, also in Zeile~\ref{alg:dfs:nl:visitStart}, wird der Knoten $v$ selbst als Rückpunkt gespeichert. Wird in Zeile~\ref{alg:dfs:nl:backEdge} eine Rückwärtskante von $v$ nach $w$ gefunden, so wird geprüft ob $w$ niedriger ist als der bisherige Rückpunkt von $v$ und, wenn ja, wird der Rückpunkt von $v$ auf $w$ gesetzt. Nach der Rückkehr vom rekursiven Aufruf in Zeile~\ref{alg:dfs:nl:recur} wird geprüft, ob der Knoten $w$ nun einen echt niedrigen Rückpunkt als $v$ hat, wenn ja, wird der Rückpunkt von $v$ auf den Rückpunkt von $w$ gesetzt.
+Die Rückpunkte können während der Tiefensuche bestimmt werden. Wenn ein Knoten $v$ besucht wird, also in Zeile~\ref{alg:dfs:nl:visitStart}, wird der Knoten $v$ selbst als Rückpunkt gespeichert. Wird in Zeile~\ref{alg:dfs:nl:backEdge} eine Rückwärtskante von $v$ nach $w$ gefunden, so wird geprüft, ob $w$ niedriger ist als der bisherige Rückpunkt von $v$ und, wenn ja, wird der Rückpunkt von $v$ auf $w$ gesetzt. Nach der Rückkehr vom rekursiven Aufruf in Zeile~\ref{alg:dfs:nl:recur} wird geprüft, ob der Knoten $w$ nun einen echt niedrigen Rückpunkt als $v$ hat, wenn ja, wird der Rückpunkt von $v$ auf den Rückpunkt von $w$ gesetzt.
 
 Beim Berechnen der planaren Einbettung und der st-Ordnung werden Rückpunkte und Rückwege verwendet.
 
 \section{Bestimmung einer planaren Einbettung}
 
-Da am Ende eine planare Zeichnung entstehen soll, wird zuerst eine planare Einbettung berechnet. Hierbei wird auch geprüft, ob der Graph überhaupt planar ist, d.h. ob es möglich ist eine planare Einbettung zu erstellen. 
+Da am Ende eine planare Zeichnung entstehen soll, wird zuerst eine planare Einbettung berechnet. Hierbei wird auch geprüft, ob der Graph überhaupt planar ist, d.h. ob es möglich ist, eine planare Einbettung zu erstellen. 
 
 Zum Prüfen auf Planaritätseigenschaft gibt es diverse Algorithmen, die bei Patrignani~\cite{patrignani-07} vorgestellt und verglichen werden. Der erste effiziente Linearzeit-Algoritmus wurde von Hopcroft und Tarjan~\cite{hopcroft+tarjan-74} veröffentlicht, jedoch ist er sehr schwer zu implementieren, somit wurde für die Implementierung nach einer Alternative gesucht. Dass dann der Links-Rechts-Planaritätstest wie von Brandes~\cite{brandes-09} beschrieben ausgewählt wurde, begründet sich mit zweierlei Abwägungen. Zum einen ist es wichtig, dass nicht nur die Planarität getestet wird, sondern auch eine planare Einbettung angegeben werden kann, damit diese für das Zeichnen zur Verfügung steht. Dies wurde bei \cite{brandes-09} mittels vergleichsweise geringem Aufwand realisiert. Zum anderen liefert \cite{brandes-09} eine Beschreibung, die eine Implementierung begünstigt, da zu den Schritten sehr detaillierter Pseudocode angegeben wird. % TODO: citations like this?
 
-Für den Planaritätstest wird ein Tiefensuchenbaum $(E_T, E_R)$ des Eingabegraphen benötigt. Die Grundidee ist es, die Rückwärtskanten aus $E_\text{R}$ in zwei disjunkte Teilmengen $L$ und $R$, für Links und Rechts, einzuteilen. Betrachten wir nun einen Knoten $v \in V$ und zwei Baumkanten $(v, v_1), (v, v_2) \in E_T$. Nun sollen alle Kanten, die am Ende eines Rückwegs von $v_1$ aus liegen und echt höher enden als der Rückpunkt von $v_2$ zu einer Teilmenge gehören. Gleichzeitig sollen alle Kanten, die am Ende eines Rückwegs von $v_2$ aus liegen und echt höher enden als der Rückpunkt von $v_1$ zur jeweils anderen Teilmenge gehören. Der Graph ist genau dann planar, wenn eine solche Partition möglich ist. Die planare Einbettung erhält man, wenn man die Baumkanten hinzu nimmt und geeignet mit den Rückwärtskanten in eine Reihenfolge der Adjazenzliste bringt.
+Für den Planaritätstest wird ein Tiefensuchenbaum $(E_T, E_R)$ des Eingabegraphen benötigt. Die Grundidee ist es, die Rückwärtskanten aus $E_\text{R}$ in zwei disjunkte Teilmengen $L$ und $R$, für Links und Rechts, einzuteilen. Betrachten wir nun einen Knoten $v \in V$ und zwei Baumkanten $(v, v_1), (v, v_2) \in E_T$. Nun sollen alle Kanten, die am Ende eines Rückwegs von $v_1$ aus liegen und echt höher enden als der Rückpunkt von $v_2$ zu einer Teilmenge gehören. Gleichzeitig sollen alle Kanten, die am Ende eines Rückwegs von $v_2$ aus liegen und echt höher enden als der Rückpunkt von $v_1$, zur jeweils anderen Teilmenge gehören. Der Graph ist genau dann planar, wenn eine solche Partition möglich ist. Die planare Einbettung erhält man, wenn man die Baumkanten hinzu nimmt und geeignet mit den Rückwärtskanten in eine Reihenfolge der Adjazenzliste bringt.
 
-Die so bestimmten geordneten Adjazenzlisten werden dann beim erstellen des Layouts für die OC$_3$-Zeichnung verwendet.
+Die so bestimmten geordneten Adjazenzlisten werden dann beim Erstellen des Layouts für die OC$_3$-Zeichnung verwendet.
 
 \section{Ermitteln einer $st$-Ordnung}
 
-Neben dem Graphen selbst und der planaren Einbettung benötigt der Schritt, in dem das OC$_3$-Layout erstellt wird eine st-Ordnung, eine Reihenfolge der Knoten $v_1, \dots, v_n$, mit $s=v_1$ und $t=v_n$, in der die Knoten dann platziert werden. 
+Neben dem Graphen selbst und der planaren Einbettung benötigt der Schritt, in dem das OC$_3$-Layout erstellt wird, eine st-Ordnung, eine Reihenfolge der Knoten $v_1, \dots, v_n$, mit $s=v_1$ und $t=v_n$, in der die Knoten dann platziert werden. 
 
 Jeder Knoten, außer $s$ und $t$, soll mindestens einen Nachbarn mit einem höheren Index und mindestens einen mit einem niedrigeren Index haben. Da die Indizes paarweise verschieden sind, erhalten wir zudem einen orientierten Graphen, wenn wir die ungerichteten Kanten so ausrichten, dass sie vom niedrigeren Index zum höheren verlaufen.
 
-Die $st$-Ordnung soll mir der planaren Einbettung kompatibel sein, d.h. wir wählen zwei Knoten $s$ und $t$ auf der Außenfacette. Damit haben wir eine günstige Reihenfolge für die Platzierung der Knoten bei der Berechnung des Layouts. 
+Die $st$-Ordnung soll mit der planaren Einbettung kompatibel sein, d.h. wir wählen zwei Knoten $s$ und $t$ auf der Außenfacette. Damit haben wir eine günstige Reihenfolge für die Platzierung der Knoten bei der Berechnung des Layouts. 
 
-Eine solche $st$-Ordnung lässt sich mit einer angepassten Tiefensuche und einer passenden Nachbearbeitung für jeden zweifach zusammenhängenden Graphen ermitteln. Ein Beweis in Form eines Linearzeit-Algortihmus findet sich bei Even und Tarjan~\cite{even+tarjan-75}, basierend auf vorherigen Resultaten (\cite{hopcroft+tarjan-74},~\cite{tarjan-72}).
+Eine solche $st$-Ordnung lässt sich mit einer angepassten Tiefensuche und einer passenden Nachbearbeitung für jeden zweifach zusammenhängenden Graphen ermitteln. Ein Beweis in Form eines Linearzeit-Algorithmus findet sich bei Even und Tarjan~\cite{even+tarjan-75}, basierend auf vorherigen Resultaten (\cite{hopcroft+tarjan-74},~\cite{tarjan-72}).
 
-Die Tiefensuche wird so angepasst, dass jedes Mal, wenn wir den Rückpunkt eines Knotens $v$ aktualisieren, die aktuelle Kante als zugehörig zum Rückweg des Knotens $v$ speichern. Außerdem beginnt die Tiefensuche mit der Kante $\{s, t\}$.
+Die Tiefensuche wird so angepasst, dass jedes Mal, wenn wir den Rückpunkt eines Knotens $v$ aktualisieren, die aktuelle Kante als zugehörig zum Rückweg des Knotens $v$ gespeichert wird. Außerdem beginnt die Tiefensuche mit der Kante $\{s, t\}$.
 
-Der Nachbearbeitungsschritt speichert zu jeder Kanten und jedem Knoten, ob sie/er schon abgearbeitet wurde. Er fügt die Knoten in der Reihenfolge der $st$-Ordnung zu einer Ergebnisliste hinzu. Er legt dazu $t$ unter $s$ auf einen Stack. Solange der Stack nicht leer ist, wird wiederholt ein Knoten $v$ herunter genommen. Es wird nun ein Pfad vom Knoten $v$ aus gesucht, der noch nicht abgearbeitete Kanten benutzt, um zu einem bereits abgearbeiteten Knoten zu gelangen. Wird so ein Pfad gefunden, so werden die Knoten entlang des Pfades auf den Stack gelegt, ganz unten der vorletzte Knoten des Pfades bis zuletzt ganz oben $v$ abgelegt wird. Wird kein solcher Pfad gefunden, so wird $v$ an die Ergebnisliste angehängt und ist nun nicht mehr auf dem Stack.
+Der Nachbearbeitungsschritt speichert zu jeder Kante und jedem Knoten, ob sie/er schon abgearbeitet wurde. Er fügt die Knoten in der Reihenfolge der $st$-Ordnung zu einer Ergebnisliste hinzu. Er legt dazu $t$ unter $s$ auf einen Stack. Solange der Stack nicht leer ist, wird wiederholt ein Knoten $v$ herunter genommen. Es wird nun ein Pfad vom Knoten $v$ aus gesucht, der noch nicht abgearbeitete Kanten benutzt, um zu einem bereits abgearbeiteten Knoten zu gelangen. Wird so ein Pfad gefunden, so werden die Knoten entlang des Pfades auf den Stack gelegt, ganz unten der vorletzte Knoten des Pfades bis zuletzt ganz oben $v$ abgelegt wird. Wird kein solcher Pfad gefunden, so wird $v$ an die Ergebnisliste angehängt und ist nun nicht mehr auf dem Stack.
 
-Für das finden eines Pfades gibt es drei Möglichkeiten, die der Reihe nach ausprobiert werden. Gibt es eine nicht abgearbeitete, ausgehende Rückwärtsecke, so ist diese der Pfad. Gibt es ansonsten eine nicht abgearbeitete Baumkante, so wird dieser gefolgt und dann dem Rückweg des Zielknotens, bis er auf einen abgearbeiteten Knoten trifft. Gibt es nur noch eine nicht abgearbeitete eingehende Rückwärtskante, so  wird dieser gefolgt und dann den Baumkanten zurück bis zu einem abgearbeiteten Knoten. Die Knoten und Kanten des Pfades werden als abgearbeitet markiert. Gibt es nur noch abgearbeitete Kanten, wird kein Weg gefunden.
+Für das Finden eines Pfades gibt es drei Möglichkeiten, die der Reihe nach ausprobiert werden. Gibt es eine nicht abgearbeitete, ausgehende Rückwärtskante, so ist diese der Pfad. Gibt es ansonsten eine nicht abgearbeitete Baumkante, so wird dieser gefolgt und dann dem Rückweg des Zielknotens, bis er auf einen abgearbeiteten Knoten trifft. Gibt es nur noch eine nicht abgearbeitete eingehende Rückwärtskante, so wird dieser gefolgt und dann den Baumkanten zurück bis zu einem abgearbeiteten Knoten. Die Knoten und Kanten des Pfades werden als abgearbeitet markiert. Gibt es nur noch abgearbeitete Kanten, wird kein Weg gefunden.
 
 Zuletzt stehen in der Ergebnisliste die Knoten in der Reihenfolge einer $st$-Ordnung.
 
 \section{Erstellung eines OC$_3$-Layouts}
 \label{sec:oc3algo}
 
-In den vorausgegangenen Schritten wurden zum einen die Knoten in die Reihenfolge einer $st$-Ordnung $v_1, \dots, v_n$ gebracht, wobei $s = v_1$ und $t = v_n$, und zum anderen die Adjazenzlisten im Sinne einer planaren Einbettung sortiert. Außerdem wurde die Facette, auf der die Knoten $s$ und $t$ liegen als Außenfacette eingeplant. Mit diesen Informationen wird nun ein geeignetes OC$_3$-Layout für den zweifach zusammenhängenden 4"~planaren Graphen erstellt. 
+In den vorausgegangenen Schritten wurden zum einen die Knoten in die Reihenfolge einer $st$-Ordnung $v_1, \dots, v_n$ gebracht, wobei $s = v_1$ und $t = v_n$, und zum anderen die Adjazenzlisten im Sinne einer planaren Einbettung sortiert. Außerdem wurde die Facette, auf der die Knoten $s$ und $t$ liegen, als Außenfacette eingeplant. Mit diesen Informationen wird nun ein geeignetes OC$_3$-Layout für den zweifach zusammenhängenden 4"~planaren Graphen erstellt. 
 
 Da am Ende die Komplexität der glatt-orthogonalen Kanten gering sein soll, bietet es sich an, bereits ein orthogonales Layout mit niedriger Komplexität zu erstellen. Dazu wird der Algorithmus verwendet, der sich bei Liu et al.~\cite{liu+etal-98} und bei Biedl \& Kant \cite{biedl+kant-98} findet. Die grundlegenden Ideen sind weitestgehend gleich, die beiden Beschreibungen wurden jedoch unabhängig voneinander entwickelt und unterscheiden sich teils deutlich, Biedl \& Kant wenden das Verfahren zusätzlich auf nicht-planare Graphen an. Daher soll hier noch einmal der Algorithmus beschrieben werden, wie er für die Zwecke dieser Arbeit implementiert wurde. Es wird damit gezeigt, dass für jeden zweifach zusammenhängenden 4"~planaren Graph ein OC$_3$-Layout erstellt werden kann.
 
@@ -554,7 +554,7 @@ Um die Beschreibung zu vervollständigen, muss noch ausgeführt werden, wie die 
 \subsection{Portzuweisung}
 \label{sec:portdistribution}
 
-Für die Portzuweisung wird die Ajdazenzliste partitioniert. Da der Graph maximal Grad~4 hat, ist die Größe der Adjazenzliste maximal~4. Durch die $st$-Ordnung erhalten wir eine Orientierung des Graphen, und somit eingehende und ausgehende Kanten am Knoten. Die planare Einbettung hat die Adjazenzliste vorsortiert. Wir können daher die Adjazentliste in eine Liste von eingehenden und eine Liste von ausgehenden Kanten teilen. Die ein- und ausgehenden Kanten werden dann getrennt den Ports zugewiesen. Hier ergibt sich ein Speziallfall: Da es an $v_1$ nur ausgehende Kanten, und an $v_n$ nur eingehende Kanten gibt, könnte jede Kante die erste Kante in der Liste der aus- bzw.\ eingehenden Kanten sein. Hier wird die Liste so rotiert, dass die erste und die letzte Kante die beiden Kanten der Außenfacette sind.
+Für die Portzuweisung wird die Ajdazenzliste partitioniert. Da der Graph maximal Grad~4 hat, ist die Größe der Adjazenzliste maximal~4. Durch die $st$-Ordnung erhalten wir eine Orientierung des Graphen und somit eingehende und ausgehende Kanten am Knoten. Die planare Einbettung hat die Adjazenzliste vorsortiert. Wir können daher die Adjazentliste in eine Liste von eingehenden und eine Liste von ausgehenden Kanten teilen. Die ein- und ausgehenden Kanten werden dann getrennt den Ports zugewiesen. Hier ergibt sich ein Speziallfall: Da es an $v_1$ nur ausgehende Kanten, und an $v_n$ nur eingehende Kanten gibt, könnte jede Kante die erste Kante in der Liste der aus- bzw.\ eingehenden Kanten sein. Hier wird die Liste so rotiert, dass die erste und die letzte Kante die beiden Kanten der Außenfacette sind.
 
 Für die eingehenden Kanten werden, wie in Abbildung~\ref{fig:embedin} gezeigt, je nach Eingangsgrad des Knotens folgende Ports zur Verwendung ausgewählt: unten (Eingangsgrad~1 bis~4), links (2--4), rechts (3,4), oben (4). Der obere Port wird also nur bei Eingangsgrad~4 verwendet, was nur bei der Senke~$v_n$ vorkommen kann. Bei Eingangsgrad~0 müssen keine eingehenden Kanten behandelt werden, was nur bei der Quelle $v_1$ vorkommt. In allen anderen Fällen wird der untere Port einer Kante zugeordnet. Somit hat jeder Knoten außer $v_1$ eine Kante an seinem unteren Port. Den zur Verwendung ausgewählten Ports werden dann die eingehenden Kanten nach der Reihenfolge der planaren Einbettung im Uhrzeigersinn, beginnend bei rechts, dann unten und links, zuletzt oben, zugewiesen.
 
@@ -575,7 +575,7 @@ Für die eingehenden Kanten werden, wie in Abbildung~\ref{fig:embedin} gezeigt, 
         \subcaptionbox{4\label{fig:embedindeg4}}
             {\includegraphics[scale=.8]{oc3_embed/incoming/indeg4}}
 
-        \caption{Die Portzuweisung der bisher offenen, eingehenden Kanten je nach Eingangsgrad. Dick gezeichnet sind die eingehenden Kanten, gestrichelte Kanten sind mögliche Positionen von ausgehenden Kanten.}
+        \caption{Die Portzuweisung der bisher offenen, eingehenden Kanten je nach Eingangsgrad. Fett gezeichnet sind die eingehenden Kanten, gestrichelte Kanten sind mögliche Positionen von ausgehenden Kanten.}
         \label{fig:embedin}
 \end{figure}
 
@@ -598,11 +598,11 @@ Für die ausgehenden Kanten werden, wie in Abbildung~\ref{fig:embedout} gezeigt,
         \subcaptionbox{4\label{fig:embedoutdeg4}}
             {\includegraphics[scale=.8]{oc3_embed/outgoing/outdeg4}}
 
-        \caption{Die Portzuweisung der ausgehenden, neuen offenen Kanten und die neuen Spalten je nach Ausgangsgrad. Dick gezeichnet sind die ausgehenden Kanten, schraffierte Abschnitte stellen bisher gezeichnete Teile des Graphen dar, gestrichelte Kanten sind mögliche Positionen von eingehenden Kanten.}
+        \caption{Die Portzuweisung der ausgehenden, neuen offenen Kanten und die neuen Spalten je nach Ausgangsgrad. Fett gezeichnet sind die ausgehenden Kanten, schraffierte Abschnitte stellen bisher gezeichnete Teile des Graphen dar, gestrichelte Kanten sind mögliche Positionen von eingehenden Kanten.}
         \label{fig:embedout}
 \end{figure}
 
-Nach diesem Schritt sind die Kanten so den Ports zugewiesen, dass die mit der planaren Einbettung übereinstimmen.
+Nach diesem Schritt sind die Kanten so den Ports zugewiesen, dass sie mit der planaren Einbettung übereinstimmen.
 
 \subsection{Platzierung der offenen Kanten}
 
@@ -612,11 +612,11 @@ Gibt es eine ausgehende Spalte am unteren Port, wie in Abbildung~\ref{fig:embedo
 
 Nach diesem Schritt sind die neuen offenen Kanten in Spalten platziert.
 
-Für jeden Knoten werden also die Schritte Porzuweisung, Platzierung des Knotens und Platzierung der ausgehenden Kanten durchgeführt, bis alle Knoten platziert sind. Zuletzt werden die Spalten von links nach rechts durchnummeriert und den darin platzierten Knoten und Kanten wird diese Nummer als x"~Koordinate zugewiesen.
+Für jeden Knoten werden also die Schritte Portzuweisung, Platzierung des Knotens und Platzierung der ausgehenden Kanten durchgeführt, bis alle Knoten platziert sind. Zuletzt werden die Spalten von links nach rechts durchnummeriert und den darin platzierten Knoten und Kanten wird diese Nummer als x"~Koordinate zugewiesen.
 
 Die Bedingungen für die maximale Kantenkomplexität werden auch, bis auf zwei Ausnahmen, eingehalten.
 
-Wie an den verschiedenen Fällen für das Zeichnen der Kanten zu erkennen ist, wird jeweils nur höchstens ein Knick pro Knoten hinzugefügt, außer es handelt sich um die offene Kante am unteren Port bei Ausgangsgrad~4 oder die eingehende Kante am oberen Port bei Eingangsgrad~4. Diese Fälle können aber jeweils nur einmal in der Zeichnung auftreten, nämlich an $v_1$ und $v_n$. Außerdem können nicht beide Fälle gleichzeitig auftreten, da die halben Kanten auf gegenüberliegenden Seiten. Diese beiden halben Kanten mit zwei Knicken werden im schlechtesten Fall also jeweils mit einer halben Kante mit einem Knick verbunden und bilden dann eine Kante mit drei Knicken. Somit kann die Zeichnung zwei Kanten mit drei Knicken haben. In allen anderen Fällen hat die offenen Kante bereits maximal einen Knick und wird dann mit maximal einem weiteren Knick mit dem Zielknoten verbunden, und es ergibt sich eine maximale Komplexität von 2. Obwohl Kanten mit 3 Knicken und damit Komplexität~4 auftreten können, nennen wir das Layout OC$_3$, da dies unabhängig von der Kontenzahl jeweils nur konstant viele (zwei) Kanten sind.
+Wie an den verschiedenen Fällen für das Zeichnen der Kanten zu erkennen ist, wird jeweils nur höchstens ein Knick pro Knoten hinzugefügt, außer es handelt sich um die offene Kante am unteren Port bei Ausgangsgrad~4 oder die eingehende Kante am oberen Port bei Eingangsgrad~4. Diese Fälle können aber jeweils nur einmal in der Zeichnung auftreten, nämlich an $v_1$ und $v_n$. Außerdem können nicht beide Fälle gleichzeitig auftreten, da die halben Kanten auf gegenüberliegenden Seiten liegen. Diese beiden halben Kanten mit zwei Knicken werden im schlechtesten Fall also jeweils mit einer halben Kante mit einem Knick verbunden und bilden dann eine Kante mit drei Knicken. Somit kann die Zeichnung zwei Kanten mit drei Knicken haben. In allen anderen Fällen hat die offenen Kante bereits maximal einen Knick und wird dann mit maximal einem weiteren Knick mit dem Zielknoten verbunden, und es ergibt sich eine maximale Komplexität von 2. Obwohl Kanten mit 3 Knicken und damit Komplexität~4 auftreten können, nennen wir das Layout OC$_3$, da dies unabhängig von der Kontenzahl jeweils nur konstant viele (zwei) Kanten sind.
 
 Damit ist das OC$_3$-Layout fertig und kann zur nächsten Iteration weitergegeben werden, wo die stufenförmigen Kanten entfernt werden.
 
@@ -624,7 +624,7 @@ Damit ist das OC$_3$-Layout fertig und kann zur nächsten Iteration weitergegebe
 \section{Eliminierung stufenförmiger Kanten}
 \label{sec:sEdgeRemoveAlgo}
 
-Das im letzten Schritt erstellte OC$_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden: Sie stellen ein Problem bei der Konvertierung in ein SC$_2$-Layout dar. Günstigerweise beschreiben Liu et al.~\cite{liu+etal-98} einen Erweiterung, die genau diese Probleme löst. Man vergleiche hierzu die beiden Zeichnungen in Abbildung~\ref{fig:exampleAorthogonal}, wo eine stufenförmige Kante entfernt wird, und die Zeichnungen in Abbildung~\ref{fig:orthognalCompress}, in der keine stufenförmigen Kanten entfernt werden, aber das orthogonale Layout komprimiert wird.
+Das im letzten Schritt erstellte OC$_3$-Layout ist nicht sehr kompakt, da jeder Knoten in einer eigenen Zeile platziert ist. Außerdem sollen stufenförmige Kanten entfernt werden: Sie stellen ein Problem bei der Konvertierung in ein SC$_2$-Layout dar. Günstigerweise beschreiben Liu et al.~\cite{liu+etal-98} eine Erweiterung, die genau diese Probleme löst. Man vergleiche hierzu die beiden Zeichnungen in Abbildung~\ref{fig:exampleAorthogonal}, wo eine stufenförmige Kante entfernt wird, und die Zeichnungen in Abbildung~\ref{fig:orthognalCompress}, in der keine stufenförmigen Kanten entfernt werden, aber das orthogonale Layout komprimiert wird.
 
 % this is grafo3223
 \begin{figure}[h]
@@ -643,7 +643,7 @@ Das im letzten Schritt erstellte OC$_3$-Layout ist nicht sehr kompakt, da jeder 
         \label{fig:orthognalCompress}
 \end{figure}
 
-\emph{Stufenförmige Kanten} (englisch \emph{zig-zags}) bestehen aus zwei horizontalen Liniensegmenten, die mit einem vertikalen Liniensegment verbunden sind. Eine Kante $(v_i, v_k)$, mit $i < k$ gemäß der $st$-Ordnung, ist stufenförmig, wenn die Kante gibt, am rechten Port von $v_i$ und am linken Port von $v_k$ ist. In Abbildung~\ref{fig:exampleAorthogonalNocompress} ist die Kante $(1,2)$ eine solche stufenförmige Kante. Zwei so verbundene Knoten werden in einer Menge von Knoten, einem \emph{Plateau} zusammengefasst. Sind mit diesen Knoten weitere Knoten durch stufenförmige Kanten verbunden, werden diese ebenfalls im selben Plateau zusammengefasst. Somit sind zuletzt alle Knoten in einer "`Treppe"' in einem Plateau.
+\emph{Stufenförmige Kanten} (englisch \emph{zig-zags}) bestehen aus zwei horizontalen Liniensegmenten, die mit einem vertikalen Liniensegment verbunden sind. Eine Kante $(v_i, v_k)$, mit $i < k$ gemäß der $st$-Ordnung, ist stufenförmig, wenn die Kante am rechten Port von $v_i$ und am linken Port von $v_k$ ist. In Abbildung~\ref{fig:exampleAorthogonalNocompress} ist die Kante $(1,2)$ eine solche stufenförmige Kante. Zwei so verbundene Knoten werden in einer Menge von Knoten, einem \emph{Plateau} zusammengefasst. Sind mit diesen Knoten weitere Knoten durch stufenförmige Kanten verbunden, werden diese ebenfalls im selben Plateau zusammengefasst. Somit sind zuletzt alle Knoten in einer "`Treppe"' in einem Plateau.
 
 Diese Plateaus werden nun als Knoten eines neuen orientierten Graphen verwendet. Zwischen zwei verschiedenen Plateaus $P_1, P_2$ fügen wir eine Kante ein, falls es im Originalgraphen eine Kante $(v_i, v_k)$ mit $v_i \in P_1$ und $v_k \in V_2$ gibt.
 
@@ -688,13 +688,13 @@ Als Ergebnis soll stets eine glatt-orthogonale Kante mit maximaler Komplexität~
         \label{fig:sc2conversion}
 \end{figure}
 
-Es sollen alle Fälle für das Aussehen einer orthognalen Kante behandelt werden. Da es in einem OC$_3$-Layout nur maximal drei Segmente geben kann, und zwei horizontale/vertikale Segmente hintereinander ein horizontales/vertikales Segment bilden würden, gibt es nicht sehr viele Möglichkeiten für die Anordnung der Segmente, insbesondere da gedrehte und gespiegelte Anordnungen zusammenzufassen sind.
+Es sollen alle Fälle für das Aussehen einer orthogonalen Kante behandelt werden. Da es in einem OC$_3$-Layout nur maximal drei Segmente geben kann, und zwei horizontale/vertikale Segmente hintereinander ein horizontales/vertikales Segment bilden würden, gibt es nicht sehr viele Möglichkeiten für die Anordnung der Segmente, insbesondere da gedrehte und gespiegelte Anordnungen zusammenzufassen sind.
 
 Kanten mit einem Segment sind entweder horizontal oder vertikal. Diese können unverändert als Liniensegment in eine glatt-orthogonale Zeichnung übernommen werden und sie werden nach ihrem Aussehen I"~Kanten genannt.
 
 Kanten mit zwei Segmenten bestehen aus einem horizontalen und einem vertikalen Segment. In der glatt-orthogonalen Zeichnung werden diese mit einem Viertelkreis und, falls nötig, einem Liniensegment gezeichnet. Sie werden nach ihrem Aussehen L"~Kanten genannt. Ist ihre Steigung größer als 45\textdegree, so hat die L"~Kante ein vertikales Liniensegment, ansonsten ein horizontales.
 
-Kanten mit drei Segmenten bestehen aus einem horizontalem Segment zwischen zwei vertikalen Segmenten oder umgekehrt. Hier gibt es zwei verschiedene Fälle: Die äußeren Segmente können in die selbe Richtung zeigen. Dann werden sie mit einem Halbkreis und, falls nötig, einem Liniensegment gezeichnet. Diese Kanten werden U- oder C"~Kante genannt.
+Kanten mit drei Segmenten bestehen aus einem horizontalem Segment zwischen zwei vertikalen Segmenten oder umgekehrt. Hier gibt es zwei verschiedene Fälle: Die äußeren Segmente können in dieselbe Richtung zeigen. Dann werden sie mit einem Halbkreis und, falls nötig, einem Liniensegment gezeichnet. Diese Kanten werden U- oder C"~Kante genannt.
 
 Zeigen die äußeren Segmente in verschiedene Richtungen, ergibt sich eine S"~Kante aus zwei Kreissegmenten. Nur wenn die Steigung 45\textdegree\ beträgt, ist die Tangente am Segmentwechsel parallel zu einer der Koordinatenachsen. S"~Kanten kommen bei der ersten Umsetzung ins SC$_2$-Layout nicht vor.
 
@@ -709,9 +709,9 @@ In der letzten Iteration wurde ein OC$_3$-Layout ohne stufenförmige Kanten erst
 
 Während schrittweise das SC$_2$-Layout von unten nach oben aufgebaut wird, sollen stets alle L"~Kanten ein horizontales Liniensegment haben, niemals aber ein vertikales Liniensegment. Das horizontale Liniensegment kann die Länge~0 haben.
 
-Bei der Entfernung der stufenförmigen Kanten wurden die Knoten in Plateaus gruppiert. Die Plateaus werden nun von unten nach oben durchlaufen und nacheinander in einem neuen Layout platziert. Abweichend von Alam et al.~\cite{smooth-13} können mehrere Plateaus die selbe Höhe erhalten.
+Bei der Entfernung der stufenförmigen Kanten wurden die Knoten in Plateaus gruppiert. Die Plateaus werden nun von unten nach oben durchlaufen und nacheinander in einem neuen Layout platziert. Abweichend von Alam et al.~\cite{smooth-13} können mehrere Plateaus dieselbe Höhe erhalten.
 
-Dazu wird zunächst der erste Konten ganz links im Plateau platziert und der letzte Knoten ganz rechts im Plateau. Es ist möglich, dass dies ein und der selbe Knoten ist. Beide Knoten werden wieder in der Spalte der Kante an ihren unteren Ports platziert, sowie auf der Höhe des Plateaus. Danach werden die ausgehenden Kanten platziert: Die Kanten bekommen relativ zum den Knoten die selbe x"~Koordinate wie im OC$_3$-Layout. Die y"~Koordinate aller offenen Kanten sei die y"~Koordinate des aktuellen Plateaus. 
+Dazu wird zunächst der erste Knoten ganz links im Plateau platziert und der letzte Knoten ganz rechts im Plateau. Es ist möglich, dass dies ein und derselbe Knoten ist. Beide Knoten werden wieder in der Spalte der Kante an ihren unteren Ports platziert, sowie auf der Höhe des Plateaus. Danach werden die ausgehenden Kanten platziert: Die Kanten bekommen relativ zu den Knoten die selbe x"~Koordinate wie im OC$_3$-Layout. Die y"~Koordinate aller offenen Kanten sei die y"~Koordinate des aktuellen Plateaus. 
 
 \begin{figure}[h]
         \centering
@@ -721,11 +721,11 @@ Dazu wird zunächst der erste Konten ganz links im Plateau platziert und der let
        \subcaptionbox{Finden eines Schnittes zum Trennen des Graphen in eine linke und einer rechte Seite. Die linke Seite und der untere Knoten können frei nach links verschoben werden, um die Steigung der L"~Kante zu korrigieren.\label{fig:cutLslopecorrection} }[.68\textwidth]
             {\includegraphics[width=.68\textwidth]{cut_L_slope_correction}}
  
-        \caption{Maßnahmen zur Vermeidung von Kollisionen: Verschieben von Koten zur Kollisionsvermeidung (\subref{fig:accomodateCedge}) und Korrektur der Steigung (\subref{fig:cutLslopecorrection}). Mit Schraffur gefüllte Blöcke stehen für Teile des Graphen in der Zeichnung, deren genaues Aussehen nicht relevant ist, gestrichelt sind die Schnitte und gepunktet Positionen vor der Anpassung.}
+        \caption{Maßnahmen zur Vermeidung von Kollisionen: Verschieben von Knoten zur Kollisionsvermeidung (\subref{fig:accomodateCedge}) und Korrektur der Steigung (\subref{fig:cutLslopecorrection}). Mit Schraffur gefüllte Blöcke stehen für Teile des Graphen in der Zeichnung, deren genaues Aussehen nicht relevant ist, gestrichelt sind die Schnitte und gepunktet Positionen vor der Anpassung.}
         \label{fig:collisionAvoidanceAndSlopeCorrection}
 \end{figure}
 
-Nun werden Überschneidungen mit der Kante $e_\text{l}$ am linken Port des ersten Knotens und der Kante $e_\text{r}$ am rechten Port des letzten Knotens aufgelöst. Gibt es jeweils an dem Port keine Kante, entfallen die entsprechenden Anpassungen. Zuerst werden innere Überschneidungen mit Kanten rechts der Kante $e_\text{l}$  und links der Kante $e_\text{r}$ behoben: Das gesamte Plateau und alle Plateaus darüber werden so lange nach oben verschoben, bis es keine Kollision mit inneren Kanten mehr gibt. In Abbildung~\ref{fig:accomodateCedge} Kollidiert der rechte Block innen mit der C"~Kante und das Plateau wird nach oben verschoben.
+Nun werden Überschneidungen mit der Kante $e_\text{l}$ am linken Port des ersten Knotens und der Kante $e_\text{r}$ am rechten Port des letzten Knotens aufgelöst. Gibt es jeweils an dem Port keine Kante, entfallen die entsprechenden Anpassungen. Zuerst werden innere Überschneidungen mit Kanten rechts der Kante $e_\text{l}$  und links der Kante $e_\text{r}$ behoben: Das gesamte Plateau und alle Plateaus darüber werden so lange nach oben verschoben, bis es keine Kollision mit inneren Kanten mehr gibt. In Abbildung~\ref{fig:accomodateCedge} kollidiert der rechte Block innen mit der C"~Kante und das Plateau wird nach oben verschoben.
 
 Dann werden äußere Überschneidungen mit Kanten links von $e_\text{l}$ behoben: Von leicht links des unteren Knoten von  $e_\text{l}$ aus nach unten wird der Graph in eine rechte und eine linke Seite geteilt, und zwar so, dass der Schnitt nur durch horizontale Liniensegmente, G-, U- oder offene Kanten führt. Die linke, abgeschnittene Seite des Graphen wird dann nach links verschoben, bis es keine Kollision mit $e_\text{l}$ mehr gibt. Die horizontalen Segmente werden dadurch länger. In Abbildung~\ref{fig:accomodateCedge} ist der Schnitt und das Verschieben der linken Seite exemplarisch dargestellt. Wenn die Kante $e_\text{l}$ eine L"~Kante ist, muss noch die Steigung angepasst werden, falls sie ein vertikales Liniensegment hat. Dazu wird leicht rechts des unteren Knotens ein Schnitt nach unten begonnen und dann alles links des Schnitts so weit nach links verschoben, dass die Kante kein vertikales Liniensegment mehr hat. Dies wird in Abbildung~\ref{fig:cutLslopecorrection} gezeigt. Dann wird für $e_\text{r}$ die Entfernung der Überschneidungen und die Korrektur der Steigung analog, also horizontal gespiegelt, durchgeführt.
 
@@ -735,11 +735,11 @@ Alam et al.~\cite{smooth-13} achten im Verlauf des Algorithmus darauf, C"~Kanten
 
 Abweichend von Alam et al.~\cite{smooth-13} prüfen wir die Überschneidungen mit inneren Kanten des letzten Knotens, bevor die Steigung der Kanten angepasst wird, denn wenn der letzte Knoten mit dem gesamten Plateau nach oben verschoben wird, kann die Steigung von $e_\text{l}$ über 45\textdegree\ steigen. Zudem haben wir das Finden des Schnitts leicht verändert, was in Abschnitt \ref{sec:cutfinding} näher erläutert wird. Außerdem verschieben wir zur Anpassung der Steigung nur genau so weit, wie nötig, um die Steigung auf 45\textdegree\ zu senken: $\Delta y - \Delta x$.
 
-Jetzt werden die übrigen Knoten mit ihren offenen Kanten platziert. Daraufhin müssen noch die Kanten an den unteren Ports auf Kollisionen überprüft werden. Hier kann es zu Überschneidungen kommen, wenn es L"~Kanten sind. Hierbei beginnt der Schnitt leicht unterhalb des Knotens auf der Seite, in die die L"~Kante zeigt. Dann wird die L"~Kante durchschnitten und der restliche Graph nach unten, wobei wiederum nur horizontale Liniensegmente durchquert werden. Dann wird der Teil der Zeichnung des Graphen auf der Seite, in die die L"~Kante zeigt noch weiter in die Richtung der L"~Kante verschoben, bis es keine Überschneidungen mehr gibt und die L"~Kante eine Steigung kleiner als 45\textdegree\ hat. Dieser Schritt findet sich bei Alam et al.~\cite{smooth-13} nicht und wurde hinzugefügt, nachdem sich sonst ungelöste Überschneidungen ergeben haben.
+Jetzt werden die übrigen Knoten mit ihren offenen Kanten platziert. Daraufhin müssen noch die Kanten an den unteren Ports auf Kollisionen überprüft werden. Hier kann es zu Überschneidungen kommen, wenn es L"~Kanten sind. Hierbei beginnt der Schnitt leicht unterhalb des Knotens auf der Seite, in die die L"~Kante zeigt. Dann wird die L"~Kante durchschnitten und der restliche Graph unterhalb geteilt, wobei wiederum nur horizontale Liniensegmente durchquert werden. Dann wird der Teil der Zeichnung des Graphen auf der Seite, in die die L"~Kante zeigt, noch weiter in die Richtung der L"~Kante verschoben, bis es keine Überschneidungen mehr gibt und die L"~Kante eine Steigung kleiner als 45\textdegree\ hat. Dieser Schritt findet sich bei Alam et al.~\cite{smooth-13} nicht und wurde hinzugefügt, nachdem sich sonst ungelöste Überschneidungen ergeben haben.
 
-Offene Kanten haben noch keine festgelegte Form, bis ihr zweiter Knoten auch platziert wurde. Zur Kollisionserkennung behandeln wir die als vertikale Linien mit der x"~Koordinate der Spalte der Kante. Die Linien reichen von der x"~Koordinate des ersten Knotens bis über die Höhe des gerade zu platzierenden Plateaus. Die Behandlung der offenen Kanten wurde bei Alam et al.~\cite{smooth-13} nicht weiter spezifiziert, jedoch müssen sie in die Kollisionserkennung einbezogen werden, da sonst vertikale Liniensegmente keiner Überschneidungsvermeidung unterliegen und mit C"~Kanten kollidieren.
+Offene Kanten haben noch keine festgelegte Form, bis ihr zweiter Knoten auch platziert wurde. Zur Kollisionserkennung behandeln wir sie als vertikale Linien mit der x"~Koordinate der Spalte der Kante. Die Linien reichen von der x"~Koordinate des ersten Knotens bis über die Höhe des gerade zu platzierenden Plateaus. Die Behandlung der offenen Kanten wurde bei Alam et al.~\cite{smooth-13} nicht weiter spezifiziert, jedoch müssen sie in die Kollisionserkennung einbezogen werden, da sonst vertikale Liniensegmente keiner Überschneidungsvermeidung unterliegen und mit C"~Kanten kollidieren.
 
-Wenn alle Plateaus vollständig platziert sind, ist das neue Layout eine glatt-orthogonale und planare Version des OC$_3$-Layouts, mit den selben Portzuweisungen und der selben planaren Einbettung. Damit verbleibt nur noch das Layout in eine Zeichnung zu überführen. 
+Wenn alle Plateaus vollständig platziert sind, ist das neue Layout eine glatt-orthogonale und planare Version des OC$_3$-Layouts, mit denselben Portzuweisungen und der selben planaren Einbettung. Damit verbleibt nur noch, das Layout in eine Zeichnung zu überführen. 
 
 %\section{Zusammenfassung}
 % TODO: explain whats missing
@@ -754,9 +754,9 @@ Im Kapitel~\ref{chap:algo} wurde das Grundgerüst des Algorithmus beschrieben. E
 
 Für die Implementierung in der Programmiersprache \emph{Java} wurde, wo möglich, auf bestehende und bewährte Software-Grundlagen gesetzt.
 
-Das Ausgangsformat, aus dem die Graphen eingelesen wurde, ist \emph{GraphML}~\cite{brandes+al-14}. Das freie Datenformat ist das Ergebnis von Bemühungen, ein Standardisiertes Format für das Speichern von Graphen zu schaffen. Es basiert auf XML, kann alle Arten von Graphen speichern und ist zudem um eigene Attribute erweiterbar, diese Erweiterungen können beim Einlesen übersprungen werden.
+Das Ausgangsformat, aus dem die Graphen eingelesen wurde, ist \emph{GraphML}~\cite{brandes+al-14}. Das freie Datenformat ist das Ergebnis von Bemühungen, ein standardisiertes Format für das Speichern von Graphen zu schaffen. Es basiert auf XML, kann alle Arten von Graphen speichern und ist zudem um eigene Attribute erweiterbar, diese Erweiterungen können beim Einlesen übersprungen werden.
 
-Die Eingabedaten für die Graphen stammen größtenteils aus den \emph{Rom-Testgraphen}\footnote{Erhältlich unter \url{http://www.graphdrawing.org/data/}}, eine Sammlung von verschiedensten Graphen mit 10 bis 100 Knoten im GraphML-Format. Für das schelle Erstellen von Testgraphen für einige Spezialfälle wurde der Grapheneditor \emph{yEd}\footnote{Erhältlich unter \url{http://www.yworks.com/de/products_yed_about.html}} von yWorks verwendet, der ebenfalls das GraphML-Format unterstützt und Graphen übersichtlich visualisieren kann.
+Die Eingabedaten für die Graphen stammen größtenteils aus den \emph{Rom-Testgraphen}\footnote{Erhältlich unter \url{http://www.graphdrawing.org/data/}}, einer Sammlung von verschiedensten Graphen mit 10 bis 100 Knoten im GraphML-Format. Für das schelle Erstellen von Testgraphen für einige Spezialfälle wurde der Grapheneditor \emph{yEd}\footnote{Erhältlich unter \url{http://www.yworks.com/de/products_yed_about.html}} von yWorks verwendet, der ebenfalls das GraphML-Format unterstützt und Graphen übersichtlich visualisieren kann.
 
 Zum Einlesen der Graphen in Java und ihre Repräsentation im Speicher wurde \emph{JUNG}\footnote{Erhältlich unter \url{http://jung.sourceforge.net/}}, das \emph{Java Universal Network/Graph Framework}~\cite{jung}, verwendet. Es beinhaltet neben effizienten Implementierungen von verschiedenen Graphen, etwa gerichtete und ungerichtete, einige Algorithmen auf Graphen und Werkzeuge zur Visualisierung. Außerdem lassen sich damit GraphML-Dateien einlesen.
 
@@ -768,7 +768,7 @@ Es wurden also Daten aus dem Rom-Testgraphen entnommen oder direkt in yEd erstel
 
 \section{Zeichnen der glatt-orthogonalen Kanten}
 
-In Abschnitt~\ref{sec:sc2conversion} wurde bereits beschrieben wie eine orthogonale Kanten in eine glatt-orthogonale Kante konvertiert werden kann. Zu diesen Konversionsvorschriften wurde im Rahmen der Arbeit ein Algorithmus entwickelt, der anhand der Portzuweisung und der relativen Position der Knoten die Form der Kante und die Position des Segmentwechsels berechnen kann. 
+In Abschnitt~\ref{sec:sc2conversion} wurde bereits beschrieben, wie eine orthogonale Kanten in eine glatt-orthogonale Kante konvertiert werden kann. Zu diesen Konversionsvorschriften wurde im Rahmen der Arbeit ein Algorithmus entwickelt, der anhand der Portzuweisung und der relativen Position der Knoten die Form der Kante und die Position des Segmentwechsels berechnen kann. 
 
 Der erste Schritt ist eine Fallunterscheidung nach den beiden Ports, mit denen die Kante verbunden ist. Liegen die Ports gegenüber, so muss eine I- oder S"~Kante vorliegen. Sind beide Ports vertikal oder beide horizontal, so liegt eine U- oder C"~Kante vor. Andernfalls liegt eine L- oder G"~Kante vor.
 
@@ -776,7 +776,7 @@ Liegt eine I"~Kante vor, müssen nur die beiden Knoten mit einer Linien verbunde
 
 Liegt eine U"~Kante (C"~Kante) vor, so muss zunächst bestimmt werden, an welchem der beiden Endknoten das Liniensegment beginnt. Man kann ohne Beschränkung der Allgemeinheit annehmen, dass es immer ein Liniensegment gibt. Ist die Kante an den unteren (linken) Ports, so ist der obere (rechtere) der beiden Knoten der Startpunkt des Liniensegments, ansonsten der untere  (linkere). Die Position des Segmentwechsels hat nun die x"~Koordinate des anderen Punktes (dieses Startpunkts) und die y"~Koordinate dieses Startpunkts (des anderen Punktes). Der Mittelpunkt des Kreises ist der Punkt genau zwischen der Position des Segmentwechsels und des Startpunkts. Der Kreis muss im Uhrzeigersinn vom Startpunkt zum Segmentwechsel gezeichnet werden, wenn die Steigung der Geraden durch die zwei Knotenpositionen negativ (positiv) ist.
 
-Liegt keine I-, S-, U- oder C"~Kante vor, so muss eine L- oder G"~Kante vorliegen. Eine L"~Kante liegt je nach Ports und der Lage der Kantenendpunkte zueinander vor: Die Vorzeichen der Differenz der Richtungsvektoren der Ports an den Knoten müssen die selben sein, wie die der Differenz der beiden Knotenpositionen. Bei L"~Kanten muss dann der Kreis im Uhrzeigersinn gezeichnet werden, wo er bei G"~Kanten gegen den Uhrzeigersinn gezeichnet wird und umgekehrt. Es gibt verschiedene Fälle, welche Koordinaten addiert oder subtrahiert werden, je nach den acht Port-Kombinationen, in denen  L- oder G"~Kanten vorliegen und je nach dem Quadranten der Koordinatenebene und der Lage relativ zur entsprechenden Diagonale des Differenzvektors der beiden Knoten-Endpositionen liegt.
+Liegt keine I-, S-, U- oder C"~Kante vor, so muss eine L- oder G"~Kante vorliegen. Eine L"~Kante liegt je nach Ports und der Lage der Kantenendpunkte zueinander vor: Die Vorzeichen der Differenz der Richtungsvektoren der Ports an den Knoten müssen dieselben sein, wie die der Differenz der beiden Knotenpositionen. Bei L"~Kanten muss dann der Kreis im Uhrzeigersinn gezeichnet werden, wo er bei G"~Kanten gegen den Uhrzeigersinn gezeichnet wird und umgekehrt. Es gibt verschiedene Fälle: Koordinaten werden addiert oder subtrahiert, es gibt acht Port-Kombinationen, in denen dann L- oder G"~Kanten vorliegen und die relative Lage der beiden Knoten-Endpositionen kann in die vier Quadranten der Koordinatenebene fallen, über oder unter die entsprechende Diagonale.
 
 Darum sei hier nur ein Beispielfall für eine Kante $\{v_1, v_2\}$ ausgeführt: Sei $v_2$ im ersten Quadranten und $v_1$ am Ursprung positioniert. Die ausschlaggebende Diagonale ist hier die Hauptdiagonale. Liegt nun $v_2$ oberhalb der Hauptdiagonale, so beginnt das Kreissegment bei $v_1$. Ansonsten beginnt es bei $v_2$. Sei nun also $v_2$ unterhalb der Hauptdiagonale. Dann muss die Differenz der y"~Koordinaten von der x"~Koordinate von $v_2$ abgezogen werden, um den Mittelpunkt des Kreises zu erhalten. Die Differenz muss von beiden Koordinaten von $v_2$ abgezogen werden, um die Position des Segmentwechsels zu erhalten. Die Kante besteht nun aus einer geraden Linie von $v_1$ zur Segmentwechselposition und einem Kreisbogen im Uhrzeigersinn von $v_2$ zur Segmentwechselposition. Die übrigen 63 Fälle überlegt man sich analog.
 
@@ -787,7 +787,7 @@ Mit diesen Schritten können für alle Kanten die Lage der Segmente und die Posi
 
 Das Finden eines Schnittes durch die Zeichnung des Graphen zum Zwecke des Verschiebens von Knoten in horizontale Richtung zielt darauf ab, den Graph in zwei Teile zu spalten, die nur durch horizontale Segmente verbunden sind. 
 
-Der Schnitt beginnt oberhalb eines Knotens, entweder knapp links oder knapp rechts davon. Er setzt sich dann durch die Zeichnung fort und folgt dabei Kanten abwärts von Knoten zu Knoten. Er kann niemals vertikal oder nach oben verlaufen und ist somit \emph{y"~Monoton}. Dabei kann er C-, I- und L"~Kanten an horizontalen Segmenten durchqueren, an diesen können sie beliebig auseinander gezogen werden. Zusätzlich kann er U- und G- Kanten durchqueren. Diese Kantenarten treten nach Konstruktion nur an der Außenfacette des Graphen auf und ein Verändern der Knotenpositionen kann also keine neuen Überschneidungen nach sich ziehen. Niemals wird ein vertikales Liniensegment durchquert.
+Der Schnitt beginnt oberhalb eines Knotens, entweder knapp links oder knapp rechts davon. Er setzt sich dann durch die Zeichnung fort und folgt dabei Kanten abwärts von Knoten zu Knoten. Er kann niemals vertikal oder nach oben verlaufen und ist somit \emph{y"~Monoton}. Dabei kann er C-, I- und L"~Kanten an horizontalen Segmenten durchqueren, an diesen können sie beliebig auseinandergezogen werden. Zusätzlich kann er U- und G- Kanten durchqueren. Diese Kantenarten treten nach Konstruktion nur an der Außenfacette des Graphen auf und ein Verändern der Knotenpositionen kann also keine neuen Überschneidungen nach sich ziehen. Niemals wird ein vertikales Liniensegment durchquert.
 
 Hierbei ergeben sich verschiedene Fälle, die in Abbildung~\ref{fig:cutfinding} dargestellt sind. Dabei wird jeweils die Situation, dass der Schnitt auf der linken Seite eines Knotens $v$ beginnt, betrachtet, die andere Seite wird symmetrisch behandelt. 
 
@@ -846,11 +846,11 @@ Ist dort eine nach oben führende Kante oder eine horizontale gerade Kante, so d
 
 Soll der Schnitt leicht unterhalb eines Knotens $v$ beginnen, so muss die Kante am unteren Port betrachtet werden. Endet die Kante an $u$ an einem rechten Port, so muss sie durchquert werden, und der Schnitt endet leicht rechts unterhalb des Zielknotens $u$. Ansonsten folgt der Schnitt der Kante. Endet die Kante an einem oberen Port, ist folglich eine gerade Kante, so endet der Schnitt leicht links oberhalb des Zielknotens. Endet die Kante an einem linken Port, liegt eine L"~Kante vor und der Schnitt endet leicht links unterhalb des Zielknotens.
 
-Für den Fall, dass der Schnitt leicht rechts eines Knotens beginnt, sind jeweils rechts und links in den Schritten und Bedingungen zu tauschen.
+Für den Fall, dass der Schnitt leicht rechts eines Knotens beginnt, sind jeweils "`rechts"' und "`links"' in den Schritten und Bedingungen zu tauschen.
 
 Nach wiederholter Anwendung dieser Regeln, wobei jeweils der Zielknoten zum neuen Ausgangsknoten wird, gelangt der Schnitt schließlich zur Position leicht unterhalb eines Knotens, der keine Kante am unteren Port hat. Dies ist der unterste Knoten, und der Schnitt ist abgeschlossen.
 
-Die Konstruktion des Schnittes speichert bei jedem Durchqueren einer Kante die Kante selbst, und den Knoten links und rechts der Kante jeweils in einer Liste von linken und rechten Knoten. Zum finden der gesamten linken Knoten wird an jedem der Knoten in der Liste der linken Knoten eine Tiefensuche begonnen, die jedoch nicht den durchgeschnittenen Kanten folgt. Ebenso findet man die rechten Knoten, indem man bei allen rechten Knoten startet und wiederum durchgeschnittene Kanten ignoriert.
+Die Konstruktion des Schnittes speichert bei jedem Durchqueren einer Kante die Kante selbst, und den Knoten links und rechts der Kante jeweils in einer Liste von linken und rechten Knoten. Zum Finden der gesamten linken Knoten wird an jedem der Knoten in der Liste der linken Knoten eine Tiefensuche begonnen, die jedoch nicht den durchgeschnittenen Kanten folgt. Ebenso findet man die rechten Knoten, indem man bei allen rechten Knoten startet und wiederum durchgeschnittene Kanten ignoriert.
 
 \section{Erkennung von Überschneidungen bei glatt-orthogonalen Kanten}
 
@@ -867,11 +867,11 @@ In den vorausgegangenen Kapiteln wurde beschrieben, wie der Algorithmus funktion
 
 Die Zeichnungen wurden nach verschiedenen Kriterien bewertet. Für jedes dieser Kriterien wird nun erklärt, was es bedeutet, wie es erhoben wurde, und warum genau dieses Kriterium ausgewählt wurde.
 
-Ein Kriterium ist die verbrauchte \emph{Fläche}: Visualisierungen von Graphen können in ihrer Qualität eingestuft werden, je nachdem, wie viel Platz sie verbrauchen. Nun sind die Zeichnungen natürlich skalierbar, informell ausgedrückt: Ein Bild kann größer oder kleiner ausgedruckt werden. Deshalb misst man die Größe bei einer konstanten Auflösung. Für allgemeine Zeichnungen kann der kleinste Abstand zwischen zwei Knoten als Referenz gewählt werden: Werden alle Zeichnungen auf die selbe Ausgabefläche skaliert, so schneitet eine Zeichnung, die im Vergleich zu diesem Mindestabstand viel Platz verbraucht, schlecht ab, da die beiden nahen Knoten kaum noch unterscheidbar sind. Benötigt eine Zeichnung jedoch wenig Fläche, so können die Knoten klar voneinander unterschieden werden.
+Ein Kriterium ist die verbrauchte \emph{Fläche}: Visualisierungen von Graphen können in ihrer Qualität eingestuft werden, je nachdem, wie viel Platz sie verbrauchen. Nun sind die Zeichnungen natürlich skalierbar, informell ausgedrückt: Ein Bild kann größer oder kleiner ausgedruckt werden. Deshalb misst man die Größe bei einer konstanten Auflösung. Für allgemeine Zeichnungen kann der kleinste Abstand zwischen zwei Knoten als Referenz gewählt werden: Werden alle Zeichnungen auf dieselbe Ausgabefläche skaliert, so schneidet eine Zeichnung, die im Vergleich zu diesem Mindestabstand viel Platz verbraucht, schlecht ab, da die beiden nahen Knoten kaum noch unterscheidbar sind. Benötigt eine Zeichnung jedoch wenig Fläche, so können die Knoten klar voneinander unterschieden werden.
 
 Für orthogonale und glatt-orthogonale Zeichnungen ist die kürzeste mögliche Entfernung zwischen zwei Knoten der Abstand zweier Gitterlinien. Somit wird die Fläche in Gitterabständen gemessen. Da orthogonale und glatt-orthogonale Zeichnungen üblicherweise auf einer rechteckigen Fläche gezeichnet werden, wird die die Fläche einer Zeichnung als das Produkt der Seitenlängen eines minimalen umgebenden Rechtecks (englisch \emph{bounding box}) aller Knoten und Kanten festgelegt.
 
-Ein weiteres Kriterium ist die \emph{Fläche pro Knoten}: Auf einer 1~Gitterquadrat großen Fläche lassen sich maximal vier Knoten platzieren. Somit sagt der Quotient von Fläche und Knotenanzahl auch etwas über die Effektivität der Darstellung aus.
+Ein weiteres Kriterium ist die \emph{Fläche pro Knoten}: Auf einer ein Gitterquadrat großen Fläche lassen sich maximal vier Knoten platzieren. Somit sagt der Quotient von Fläche und Knotenanzahl auch etwas über die Effektivität der Darstellung aus.
 
 Da Liu et al.~\cite{liu+etal-98} die obere Grenze für die Fläche der OC$_3$-Zeichnungen mit $(|V|+1)^2$ angeben, soll auch untersucht werden, ob im Durchschnittsfall mit einer quadratischen Flächenzunahme zu rechnen ist. Ein Graph mit 18~Knoten hätte also im schlechtesten Fall eine Fläche von 361 Gitterquadraten, also 20 je Knoten.
 
@@ -879,9 +879,9 @@ Das dritte Kriterium ist die \emph{Segmentzahl}: Es können zwar bei SC$_2$-Zeic
 
 \section{Erhobene Messwerte}
 
-Als Vergleichsgraphen für das Erstellen von Zeichnungen wurden die Rom-Testgraphen verwendet. Nachdem einige Graphen entfernt wurden, z.B.\ weil sie nicht zweifach zusammenhängend sind blieb eine Menge von 844~Graphen, die jeweils mit den verschiedenen Methoden gezeichnet wurden. Die Graphen enthalten zwischen 10 und 51~Knoten, in Abbildung~\ref{fig:graphSizes} erkennt man, wie viele Graphen mit welchen Knotenanzahlen verarbeitet wurden. Der Großteil der Graphen hat zwischen elf und zwanzig Knoten, bei durchschnittlich 18,2~Knoten. Würden alle diese Graphen die maximale Fläche von $(|V|+1)^2$ benötigen, ergäbe sich ein Durchschnitt von durchschnittlich 20,25 Gitterquadraten je Knoten.
+Als Vergleichsgraphen für das Erstellen von Zeichnungen wurden die Rom-Testgraphen verwendet. Nachdem einige Graphen entfernt wurden, z.B.\ weil sie nicht zweifach zusammenhängend sind, blieb eine Menge von 844~Graphen, die jeweils mit den verschiedenen Methoden gezeichnet wurden. Die Graphen enthalten zwischen 10 und 51~Knoten, in Abbildung~\ref{fig:graphSizes} erkennt man, wie viele Graphen mit welchen Knotenanzahlen verarbeitet wurden. Der Großteil der Graphen hat zwischen elf und zwanzig Knoten, bei durchschnittlich 18,2~Knoten. Würden alle diese Graphen die maximale Fläche von $(|V|+1)^2$ benötigen, ergäben sich im Mittel durchschnittlich 20,25 Gitterquadraten je Knoten.
 
-Für die OC$_3$-Zeichnungen lag die durchschnittliche Fläche pro Knoten durchschnittlich bei 4,768 Gitterquadraten. In Abbildung~\ref{fig:ortho-noCompress} wird die Verteilung von Knotenanzahlen und Fläche gezeigt. Die Fläche bleibt stets deutlich unter dem theoretischen Maximum zurück. Es besteht eine starke Korrelation zwischen Knotenanzahl und Flächenbedarf, der Flächenbedarf nimmt etwa quadratisch mit der Knotenzahl zu. Es gibt keine extremen Ausreißer.
+Für die OC$_3$-Zeichnungen lag die durchschnittliche Fläche pro Knoten im Mittel bei 4,768 Gitterquadraten. In Abbildung~\ref{fig:ortho-noCompress} wird die Verteilung von Knotenanzahlen und Fläche gezeigt. Die Fläche bleibt stets deutlich unter dem theoretischen Maximum zurück. Es besteht eine starke Korrelation zwischen Knotenanzahl und Flächenbedarf, der Flächenbedarf nimmt etwa quadratisch mit der Knotenzahl zu. Es gibt keine extremen Ausreißer.
 
 Nach der Komprimierung und der Entfernung der stufenförmigen Kanten konnte diese Zahl auf 3,526 gesenkt werden. In Abbildung~\ref{fig:ortho-compress} wird die Verteilung von Knotenanzahlen und Fläche gezeigt, wenn die Nachbearbeitung verwendet wird. Der Flächenbedarf ist geringer, ansonsten ergibt sich ein ähnliches Bild.
 
@@ -895,13 +895,11 @@ Bei den übrigen 110 Graphen wurden daraufhin alle Anpassungen vorgenommen, bis 
 
 Man erinnere sich, dass die Anpassung der Steigung erfolgte, damit die L"~Kante ein horizontales Segment besitzt. Nun besitzt sie mitunter kein horizontales Segment, dafür jedoch ein vertikales.
 
-Damit keine Einschränkung in der Fähigkeit Schnitte zu finden entsteht, erlauben wir einen Schnitt durch die L"~Kante, ganz so, also ob dort ein horizontales Segment bestünde. Wenn nun ein solcher Schnitt erfolgt und die Kante in der folge breiter gezogen wird, kann nicht einfach nur ihr horizontales Segment verlängert werden. Stattdessen wird ihr Kreissegment größer und das vertikale Liniensegment verkürzt. Erst wenn die Kante so weit auseinandergezogen wurde, dass die Steigung kleiner als 45\textdegree ist, verschwindet das vertikale Liniensegment und es wird bei weiterem Strecken das nun entstandene horizontale Liniensegment verlängert. Dabei kann es zu neuen Überschneidungen kommen. Wenn alle Knoten platziert sind, wird die erstellte Zeichnung auf Überschneidungen geprüft. Sollte es Überschneidungen geben, wird der Graph erneut mit Anpassung der Steigungen gezeichnet.
+Damit keine Einschränkung in der Fähigkeit Schnitte zu finden entsteht, erlauben wir einen Schnitt durch die L"~Kante, ganz so, also ob dort ein horizontales Segment bestünde. Wenn nun ein solcher Schnitt erfolgt und die Kante in der Folge breiter gezogen wird, kann nicht einfach nur ihr horizontales Segment verlängert werden. Stattdessen wird ihr Kreissegment größer und das vertikale Liniensegment verkürzt. Erst wenn die Kante so weit auseinandergezogen wurde, dass die Steigung kleiner als 45\textdegree\ ist, verschwindet das vertikale Liniensegment und es wird bei weiterem Strecken das nun entstandene horizontale Liniensegment verlängert. Dabei kann es zu neuen Überschneidungen kommen. Wenn alle Knoten platziert sind, wird die erstellte Zeichnung auf Überschneidungen geprüft. Sollte es Überschneidungen geben, wird der Graph erneut mit Anpassung der Steigungen gezeichnet.
 
 Obwohl die Vermutung nahe liegt, dass durch dieses rücksichtslose Vorgehen oftmals neue Überschneidungen entstehen, hat sich dies in der Praxis widerlegt. Von den 110 so angepassten Layouts hatte nur eines danach noch eine Überschneidung. Hier wurde eine L"~Kante auseinandergezogen und bildete neue Überschneidungen, es musste auf den ursprünglichen Algorithmus zurückgegriffen werden. Der Graph in Abbildung~\ref{fig:smoothBadness} konnte mit deutlich geringerem Flächenbedarf gezeichnet werden.
 
-Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte der Durchschnitt der Fläche pro Konten auf durchschnittlich 7,522 Gitterquadrate gesenkt werden. Abbildung~\ref{fig:smooth-opti} zeigt die Verteilung des Flächenbedarfs je nach Knotenanzahl nach dieser Anpassung. Der Flächenbedarf ist auf ein akzeptables Maß gesunken, die größten Ausreißer verschwunden. Die durchschnittliche Segmentanzahl pro Kante stieg nur leicht auf 1,2189.
-
-Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des Flächenbedarfs der verschiedenen Zeichenmethoden.
+Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte der Durchschnitt der Fläche pro Konten auf durchschnittlich 7,522 Gitterquadrate gesenkt werden. Abbildung~\ref{fig:smooth-opti} zeigt die Verteilung des Flächenbedarfs je nach Knotenanzahl nach dieser Anpassung. Der Flächenbedarf ist auf ein akzeptables Maß gesunken, die größten Ausreißer verschwunden. Die durchschnittliche Segmentanzahl pro Kante stieg nur leicht auf 1,2189. Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des Flächenbedarfs der verschiedenen Zeichenmethoden.
 
 % --> use them to reduce edge complexity?
 
@@ -924,31 +922,31 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
 \begin{figure}[p]
   \centering
   {\includegraphics[width=\textwidth]{area_comparison} \phantomsubcaption\label{fig:graphSizes} \phantomsubcaption\label{fig:areaComparison}}
-  \caption{Vergleich des durchschnittlichen Flächenbedarfs in Gitterquadraten der verschiedenen Algorithmen nach Anzahl Knoten im Graphen (\subref{fig:areaComparison}) sowie  Verteilung der Anzahl Konten in den Graphen (\subref{fig:graphSizes}). Zum Vergleich: Eine DIN-A4-Seite von handelsüblichem kariertem Papier hat rund 2400 Gitterquadrate.}
+  \caption{Vergleich des durchschnittlichen Flächenbedarfs in Gitterquadraten der verschiedenen Algorithmen nach Anzahl Knoten im Graphen (\subref{fig:areaComparison}) sowie  Verteilung der Anzahl Knoten in den Graphen (\subref{fig:graphSizes}). Zum Vergleich: Eine DIN-A4-Seite von handelsüblichem kariertem Papier hat rund 2400 Gitterquadrate.}
   \label{fig:areaComparisonAndGraphSizes}
 \end{figure}
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{plots/ortho-noCompress}
-  \caption{Streudiagramm der Fläche der Zeichnungen je nach Kontenanzahl für OC$_3$-Zeichnungen. Die gepunktete Linien zeigt das theoretische Flächen-Maximum von $(|V|+1)^2$ an.}
+  \caption{Streudiagramm der Fläche der Zeichnungen je nach Knotenanzahl für OC$_3$-Zeichnungen. Die gepunktete Linien zeigt das theoretische Flächen-Maximum von $(|V|+1)^2$ an.}
   \label{fig:ortho-noCompress}
 \end{figure}
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{plots/ortho-compress}
-  \caption{Streudiagramm der Fläche der Zeichnungen je nach Kontenanzahl für OC$_3$-Zeichnungen nach dem Kompressionsschritt ohne stufenförmige Kanten.}
+  \caption{Streudiagramm der Fläche der Zeichnungen je nach Knotenanzahl für OC$_3$-Zeichnungen nach dem Kompressionsschritt ohne stufenförmige Kanten.}
   \label{fig:ortho-compress}
 \end{figure}
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{plots/smooth-noOpti}
-  \caption{Streudiagramm der Fläche der Zeichnungen je nach Kontenanzahl für SC$_2$-Zeichnungen, wenn die Steigung aller L"~Kanten berichtigt wurde.}
+  \caption{Streudiagramm der Fläche der Zeichnungen je nach Knotenanzahl für SC$_2$-Zeichnungen, wenn die Steigung aller L"~Kanten berichtigt wurde.}
   \label{fig:smooth-noOpti}
 \end{figure}
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{plots/smooth-opti}
-  \caption{Streudiagramm der Fläche der Zeichnungen je nach Kontenanzahl für SC$_2$-Zeichnungen, wenn die Steigung der L"~Kanten nur bei Bedarf berichtigt wurde.}
+  \caption{Streudiagramm der Fläche der Zeichnungen je nach Knotenanzahl für SC$_2$-Zeichnungen, wenn die Steigung der L"~Kanten nur bei Bedarf berichtigt wurde.}
   \label{fig:smooth-opti}
 \end{figure}
 
@@ -961,11 +959,11 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
         \subcaptionbox{Einige Korrekturen, die Zeichnung ist bereits überschneidungsfrei und benötigt $23 \times 31 = 713$ Gitterpunkte.\label{fig:smoothBadnessCorrected}}[0.4\textwidth]
             {\includegraphics[scale=.8]{hugeGraph/isSmaller}}
         \quad
-        \subcaptionbox{Ducht die Korrektur der Steigung der L"~Kante im unteren, rechten Bereich muss der Knoten an der C"~Kante rechts weit nach oben verschoben werden, was wiederum die beiden L"~Kanten links durch die Korrektur der Steigung stark vergrößert. Der Graph benötigt $120 \times 82 = 9840$ Gitterpunkte. \label{fig:smoothBadnessShowing}}
+        \subcaptionbox{Durch die Korrektur der Steigung der L"~Kante im unteren, rechten Bereich muss der Knoten an der C"~Kante rechts weit nach oben verschoben werden, was wiederum die beiden L"~Kanten links durch die Korrektur der Steigung stark vergrößert. Der Graph benötigt $120 \times 82 = 9840$ Gitterpunkte. \label{fig:smoothBadnessShowing}}
             {\includegraphics[scale=.8]{hugeGraph/isHuge}}
  
  
-        \caption{Ein Graph mit 40 Knoten, der sich stark vergrößert, wenn die Korrektur der Steigungen angewandt wird. Die drei Zeichnungen sind hier mit der selben Gittergröße abgebildet und geben somit die Größenverhältnisse korrekt wieder.}
+        \caption{Ein Graph mit 40 Knoten, der sich stark vergrößert, wenn die Korrektur der Steigungen angewandt wird. Die drei Zeichnungen sind hier mit derselben Gittergröße abgebildet und geben somit die Größenverhältnisse korrekt wieder.}
         \label{fig:smoothBadness}
 \end{figure}
 
@@ -985,7 +983,7 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
             {\includegraphics[scale=.7]{compliantGraph/isHuge}}
  
  
-        \caption{Ein Graph mit 48 Knoten, dessen orthogonales Layout auch ein planares glatt-orthogonales Layout darstellt. Die glatt-orthogonale Zeichnung enthält nur I- und L"~Kanten. Die drei Zeichnungen sind hier mit der selben Gittergröße abgebildet und geben somit die Größenverhältnisse korrekt wieder.}
+        \caption{Ein Graph mit 48 Knoten, dessen orthogonales Layout auch ein planares glatt-orthogonales Layout darstellt. Die glatt-orthogonale Zeichnung enthält nur I- und L"~Kanten. Die drei Zeichnungen sind hier mit derselben Gittergröße abgebildet und geben somit die Größenverhältnisse korrekt wieder.}
         \label{fig:smoothOkness}
 \end{figure}
 
@@ -997,6 +995,7 @@ Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des F
 % TODO
 % Zusammenfassung
 % Ausblick nicht-BC etc., bessere Implementierung O(n), weitere Anpassungen
+% größere Graphen: Laufzeit, Fläche.
 
 % Nicht planare Graphen können durch ein einfaches Verfahren in planare Graphen umgewandelt werden: In einer zufälligen Zeichnung fügt man Knoten an allen Schnittpunkten von zwei Kanten ein. Beim Zeichnen lässt man die neuen Knoten weg.
 % Verbesserung an planarer Einbettung und st-Ordnung, kleiner Grad für v_1, v_n
