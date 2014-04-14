@@ -17,8 +17,11 @@ import de.uniwue.smooth.collision.CollisionAvoidingSmoothLayout;
 import de.uniwue.smooth.collision.CollisionAvoidingSmoothLayout.EscalationLevel;
 import de.uniwue.smooth.collision.CollisionManager;
 import de.uniwue.smooth.collision.segments.EdgeGenerator;
+import de.uniwue.smooth.collision.segments.Segment;
 import de.uniwue.smooth.collision.segments.SegmentedEdge;
+import de.uniwue.smooth.collision.segments.SmoothEdge;
 import de.uniwue.smooth.collision.segments.SmoothEdgeGenerator;
+import de.uniwue.smooth.collision.segments.SmoothEdgeType;
 import de.uniwue.smooth.collision.segments.StraightlineEdgeGenerator;
 import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
@@ -59,6 +62,7 @@ public class RomeBcCollectStats implements Runnable {
 		sb.append(SPACE + "smoothWidth" + SPACE + "smoothHeight" + SPACE + "smoothComplexity");
 		sb.append(SPACE + "smoothCheapAdjWidth" + SPACE + "smoothCheapAdjHeight" + SPACE + "smoothCheapAdjComplexity");
 		sb.append(SPACE + "smoothAllAdjWidth" + SPACE + "smoothAllAdjHeight" + SPACE + "smoothAllAdjComplexity");
+		sb.append(SPACE + "smoothNoGWidth" + SPACE + "smoothNoGHeight" + SPACE + "smoothNoGComplexity");
 		sb.append("\r\n");
 		
 		for (final String[] cvsLine : filesCsvList) {
@@ -98,10 +102,15 @@ public class RomeBcCollectStats implements Runnable {
 				analyseStraightlineLayout(nocompressLiuLayout, sb);
 				analyseStraightlineLayout(compressliuLayout, sb);
 				
-				analyseSmoothLayout(layoutNoadjust, sb);
-				analyseSmoothLayout(layoutSomeadjust, sb);
-				boolean collisions = analyseSmoothLayout(layoutAlladjust, sb);
-				if(collisions) throw new RuntimeException("Uh oh, collisions left!");
+				boolean x = analyseSmoothLayout(layoutNoadjust, sb);
+				boolean y = analyseSmoothLayout(layoutSomeadjust, sb);
+				boolean z = analyseSmoothLayout(layoutAlladjust, sb);
+				if(z) throw new RuntimeException("Uh oh, collisions left!");
+				
+				if(x) {
+					if(y) analyseSmoothLayoutGLess(layoutAlladjust, sb);
+					else analyseSmoothLayoutGLess(layoutSomeadjust, sb);
+				} else analyseSmoothLayoutGLess(layoutNoadjust, sb);
 				
 				sb.append("\r\n");
 				graphReader.close();
@@ -127,6 +136,12 @@ public class RomeBcCollectStats implements Runnable {
 	
 	private boolean analyseSmoothLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb) {
 		EdgeGenerator<Vertex, Edge, ?> edgeGenerator = new SmoothEdgeGenerator<Vertex, Edge>(layout);
+		return analyseLayout(edgeGenerator, layout, sb, true);
+	}
+	
+	private boolean analyseSmoothLayoutGLess(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb) {
+		SmoothEdgeGenerator<Vertex, Edge> innerEdgeGenerator = new SmoothEdgeGenerator<Vertex, Edge>(layout);
+		EdgeGenerator<Vertex, Edge, ?> edgeGenerator = new NoGEdgeGenerator<Vertex, Edge>(innerEdgeGenerator);
 		return analyseLayout(edgeGenerator, layout, sb, true);
 	}
 	
@@ -161,6 +176,26 @@ public class RomeBcCollectStats implements Runnable {
 			sb.append(SPACE);
 		}
 		return collides;
+	}
+	
+	private static class NoGEdgeGenerator<V, E> implements EdgeGenerator<V, E, SegmentedEdge> {
+		
+		private SmoothEdgeGenerator<V, E> edgeGenerator;
+		
+		public NoGEdgeGenerator(SmoothEdgeGenerator<V, E> edgeGenerator) {
+			this.edgeGenerator = edgeGenerator;
+		}
+
+		@Override
+		public SegmentedEdge generateEdge(E e) {
+			 SmoothEdge edge = edgeGenerator.generateEdge(e);
+			 if(edge.getEdgeType() == SmoothEdgeType.G) {
+				 return new SmoothEdge(Collections.<Segment>emptyList(), null, SmoothEdgeType.G);
+			 } else {
+				return edge; 
+			 }
+		}
+		
 	}
 	
 }
