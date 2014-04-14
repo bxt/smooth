@@ -56,7 +56,9 @@ myplot <- function(offest, color, stuff){
 lines(stuff, col = color, type="o", pch=4)
 }
 
-overviewColramp <- c("red", "brown", "cyan", "blue")
+overviewColramp <- c("red", "brown", "magenta", "cyan", "blue")
+overviewNames <- c("glatt-orthogonal, alle Anpassungen", "glatt-orthogonal, nötige Anpassungen", "glatt-orthogonal, ohne G-Kanten", "orthogonal", "orthogonal, ohne S-Kanten")
+
 pdf(file="area_comparison.pdf", width=7, height=9, colormodel='cmyk')
 par(fig=c(0,1,0,0.8))
 plot(aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, df, mean), type="n", xlab="Knotenanzahl", ylab="Durchschnittliche Fläche")
@@ -64,10 +66,11 @@ grid()
 text(10, 5500, "(b)")
 myplot(5, overviewColramp[1], aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, df, mean))
 myplot(0.3, overviewColramp[2], aggregate((width * height) ~ vertexCount, bst, mean))
-myplot(0, overviewColramp[3], aggregate((orthogonalWidth* orthogonalHeight) ~ vertexCount, df, mean))
-myplot(-0.3, overviewColramp[4], aggregate((orthogonalCompressedWidth* orthogonalCompressedHeight) ~ vertexCount, df, mean))
+myplot(0, overviewColramp[3], aggregate((smoothNoGWidth* smoothNoGHeight) ~ vertexCount, df, mean))
+myplot(0, overviewColramp[4], aggregate((orthogonalWidth* orthogonalHeight) ~ vertexCount, df, mean))
+myplot(-0.3, overviewColramp[5], aggregate((orthogonalCompressedWidth* orthogonalCompressedHeight) ~ vertexCount, df, mean))
 
-legend(10,5300, c("glatt-orthogonal, alle Anpassungen", "glatt-orthogonal, nötige Anpassungen", "orthogonal", "orthogonal, ohne S-Kanten"),lty=1,lwd=2.5,col=overviewColramp, box.col = "white", bg = "white")
+legend(10,5300, overviewNames,lty=1,lwd=2.5,col=overviewColramp, box.col = "white", bg = "white")
 
 par(fig=c(0,1,0.6,1),new=TRUE)
 plot(table(df$vertexCount), xaxt='n', ylab="Anzahl Graphen")
@@ -106,8 +109,41 @@ dev.off()
 myplot2(data.frame(c(df$vertexCount),c(df$orthogonalWidth*df$orthogonalHeight)), "area_orthogonal.pdf")
 myplot2(data.frame(c(df$vertexCount),c(df$orthogonalCompressedWidth*df$orthogonalCompressedHeight)), "area_orthogonal_compressed.pdf")
 myplot2(data.frame(c(df$vertexCount),c(df$smoothAllAdjWidth*df$smoothAllAdjHeight)), "area_smooth.pdf")
+myplot2(data.frame(c(df$vertexCount),c(df$smoothNoGWidth*df$smoothNoGHeight)), "area_smooth_noG.pdf")
 
 colormap <- c(A=rgb(0,0,0,opacity), B=rgb(0,1,1,opacity), C=rgb(1,0,0,opacity))
 aggBst <- data.frame(c(bst$vertexCount),c(bst$width*bst$height),c(bst$level))
 drawBstLegend <- function() legend(10,11000, c("Keine Anpassungen nötig", "Steigung muss nicht korrigiert werden", "Alle Anpassungen nötig"), pch=4,col=colormap, box.col = "white")
 myplot2(aggBst, "area_smooth_bst.pdf", colormap[aggBst[,3]], drawBstLegend, colormodel='cmyk')
+
+
+
+# Check the angels of our drawings
+
+rangeSq <- log(c(1,10,50,100,501))/log(10)
+pdf(file="angles_comparison.pdf", width=7, height=7, colormodel="cmyk")
+
+plot(x=NULL,y=NULL,xlim=c(0.1, 3),ylim=c(0.1, 3), xaxt='n', yaxt='n', ylab="", xlab="Anzahl")
+axis(1, at=rangeSq , labels=(10^(rangeSq)))
+for (i in 1:9) {
+	lines(rangeSq*cos(i/18*pi), rangeSq*sin(i/18*pi), type="l", col=rgb(0,0,0,0.3))
+}
+for (i in rangeSq) {
+	lines(i*cos(0:9/18*pi), i*sin(0:9/18*pi), type="l", col=rgb(0,0,0,0.3))
+}
+
+myplot3 <- function(color, width, height) {
+cnt <- setNames(aggregate(rep(1, nrow(df)), list(round(atan2(height, width)/pi*36)/36*pi), sum), c("angle", "radius"))
+lines(cos(cnt$angle)*log(cnt$radius)/log(10),sin(cnt$angle)*log(cnt$radius)/log(10), type="o", col=color)
+}
+
+myplot3(overviewColramp[1], df$smoothAllAdjWidth, df$smoothAllAdjHeight)
+myplot3(overviewColramp[2], bst$width, bst$height)
+myplot3(overviewColramp[3], df$smoothNoGWidth, df$smoothNoGHeight)
+myplot3(overviewColramp[4], df$orthogonalWidth, df$orthogonalHeight)
+myplot3(overviewColramp[5], df$orthogonalCompressedWidth, df$orthogonalCompressedHeight)
+legend(1.2,3, overviewNames,lty=1,lwd=2.5,col=overviewColramp, box.col = "white")
+
+dev.off()
+
+

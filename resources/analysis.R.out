@@ -13,6 +13,8 @@
 [13] "smoothCheapAdjWidth"            "smoothCheapAdjHeight"          
 [15] "smoothCheapAdjComplexity"       "smoothAllAdjWidth"             
 [17] "smoothAllAdjHeight"             "smoothAllAdjComplexity"        
+[19] "smoothNoGWidth"                 "smoothNoGHeight"               
+[21] "smoothNoGComplexity"           
 > nrow(df)
 [1] 844
 > sum(df$vertexCount)
@@ -81,7 +83,9 @@
 + lines(stuff, col = color, type="o", pch=4)
 + }
 > 
-> overviewColramp <- c("red", "brown", "cyan", "blue")
+> overviewColramp <- c("red", "brown", "magenta", "cyan", "blue")
+> overviewNames <- c("glatt-orthogonal, alle Anpassungen", "glatt-orthogonal, nötige Anpassungen", "glatt-orthogonal, ohne G-Kanten", "orthogonal", "orthogonal, ohne S-Kanten")
+> 
 > pdf(file="area_comparison.pdf", width=7, height=9, colormodel='cmyk')
 > par(fig=c(0,1,0,0.8))
 > plot(aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, df, mean), type="n", xlab="Knotenanzahl", ylab="Durchschnittliche Fläche")
@@ -89,10 +93,11 @@
 > text(10, 5500, "(b)")
 > myplot(5, overviewColramp[1], aggregate((smoothAllAdjWidth* smoothAllAdjHeight) ~ vertexCount, df, mean))
 > myplot(0.3, overviewColramp[2], aggregate((width * height) ~ vertexCount, bst, mean))
-> myplot(0, overviewColramp[3], aggregate((orthogonalWidth* orthogonalHeight) ~ vertexCount, df, mean))
-> myplot(-0.3, overviewColramp[4], aggregate((orthogonalCompressedWidth* orthogonalCompressedHeight) ~ vertexCount, df, mean))
+> myplot(0, overviewColramp[3], aggregate((smoothNoGWidth* smoothNoGHeight) ~ vertexCount, df, mean))
+> myplot(0, overviewColramp[4], aggregate((orthogonalWidth* orthogonalHeight) ~ vertexCount, df, mean))
+> myplot(-0.3, overviewColramp[5], aggregate((orthogonalCompressedWidth* orthogonalCompressedHeight) ~ vertexCount, df, mean))
 > 
-> legend(10,5300, c("glatt-orthogonal, alle Anpassungen", "glatt-orthogonal, nötige Anpassungen", "orthogonal", "orthogonal, ohne S-Kanten"),lty=1,lwd=2.5,col=overviewColramp, box.col = "white", bg = "white")
+> legend(10,5300, overviewNames,lty=1,lwd=2.5,col=overviewColramp, box.col = "white", bg = "white")
 > 
 > par(fig=c(0,1,0.6,1),new=TRUE)
 > plot(table(df$vertexCount), xaxt='n', ylab="Anzahl Graphen")
@@ -148,17 +153,28 @@ null device
 95                   37                   29                       53                89
 220                  13                   18                       52                50
 116                  23                   31                       60               120
-    smoothAllAdjHeight smoothAllAdjComplexity
-613                 41                     39
-676                 45                     77
-615                 48                     54
-151                 54                     49
-585                 52                     56
-659                 60                     50
-439                 66                     72
-95                  41                     50
-220                 84                     53
-116                 82                     58
+    smoothAllAdjHeight smoothAllAdjComplexity smoothNoGWidth smoothNoGHeight
+613                 41                     39             15              21
+676                 45                     77             33              42
+615                 48                     54             20              27
+151                 54                     49             16              25
+585                 52                     56             17              26
+659                 60                     50              9              29
+439                 66                     72              9              28
+95                  41                     50             37              29
+220                 84                     53             13              18
+116                 82                     58             23              31
+    smoothNoGComplexity
+613                  37
+676                  78
+615                  57
+151                  48
+585                  53
+659                  49
+439                  70
+95                   53
+220                  52
+116                  60
 > 
 > # Show ten worst drawings with best esc. lvl:
 > tail(bst[with(bst,order((width*height)/vertexCount)),], n=10)
@@ -220,17 +236,28 @@ null device
 471                  28                   26                       42                28
 315                  23                   17                       33                23
 489                  10                   20                       57                33
-    smoothAllAdjHeight smoothAllAdjComplexity
-605                 16                     52
-791                 12                     35
-1                   15                     41
-90                  16                     51
-115                 14                     38
-157                 16                     41
-72                  16                     46
-471                 26                     42
-315                 17                     33
-489                 20                     56
+    smoothAllAdjHeight smoothAllAdjComplexity smoothNoGWidth smoothNoGHeight
+605                 16                     52             15              16
+791                 12                     35              5              12
+1                   15                     41             11              15
+90                  16                     51             15              16
+115                 14                     38             10              14
+157                 16                     41              8              15
+72                  16                     46             15              16
+471                 26                     42              7              13
+315                 17                     33              9               9
+489                 20                     56             10              20
+    smoothNoGComplexity
+605                  53
+791                  37
+1                    41
+90                   52
+115                  38
+157                  42
+72                   47
+471                  40
+315                  31
+489                  57
 > 
 > # Show info about one special graph:
 > df[df$filename == "grafo7046",]
@@ -242,8 +269,10 @@ null device
 700                            300          12           33               74
     smoothCheapAdjWidth smoothCheapAdjHeight smoothCheapAdjComplexity smoothAllAdjWidth
 700                  12                   33                       74                45
-    smoothAllAdjHeight smoothAllAdjComplexity
-700                 33                     71
+    smoothAllAdjHeight smoothAllAdjComplexity smoothNoGWidth smoothNoGHeight
+700                 33                     71             12              33
+    smoothNoGComplexity
+700                  74
 > 
 > # Plot space vs. node count for all methods
 > 
@@ -270,6 +299,9 @@ null device
 > myplot2(data.frame(c(df$vertexCount),c(df$smoothAllAdjWidth*df$smoothAllAdjHeight)), "area_smooth.pdf")
 null device 
           1 
+> myplot2(data.frame(c(df$vertexCount),c(df$smoothNoGWidth*df$smoothNoGHeight)), "area_smooth_noG.pdf")
+null device 
+          1 
 > 
 > colormap <- c(A=rgb(0,0,0,opacity), B=rgb(0,1,1,opacity), C=rgb(1,0,0,opacity))
 > aggBst <- data.frame(c(bst$vertexCount),c(bst$width*bst$height),c(bst$level))
@@ -277,4 +309,38 @@ null device
 > myplot2(aggBst, "area_smooth_bst.pdf", colormap[aggBst[,3]], drawBstLegend, colormodel='cmyk')
 null device 
           1 
+> 
+> 
+> 
+> # Check the angels of our drawings
+> 
+> rangeSq <- log(c(1,10,50,100,501))/log(10)
+> pdf(file="angles_comparison.pdf", width=7, height=7, colormodel="cmyk")
+> 
+> plot(x=NULL,y=NULL,xlim=c(0.1, 3),ylim=c(0.1, 3), xaxt='n', yaxt='n', ylab="", xlab="Anzahl")
+> axis(1, at=rangeSq , labels=(10^(rangeSq)))
+> for (i in 1:9) {
++ lines(rangeSq*cos(i/18*pi), rangeSq*sin(i/18*pi), type="l", col=rgb(0,0,0,0.3))
++ }
+> for (i in rangeSq) {
++ lines(i*cos(0:9/18*pi), i*sin(0:9/18*pi), type="l", col=rgb(0,0,0,0.3))
++ }
+> 
+> myplot3 <- function(color, width, height) {
++ cnt <- setNames(aggregate(rep(1, nrow(df)), list(round(atan2(height, width)/pi*36)/36*pi), sum), c("angle", "radius"))
++ lines(cos(cnt$angle)*log(cnt$radius)/log(10),sin(cnt$angle)*log(cnt$radius)/log(10), type="o", col=color)
++ }
+> 
+> myplot3(overviewColramp[1], df$smoothAllAdjWidth, df$smoothAllAdjHeight)
+> myplot3(overviewColramp[2], bst$width, bst$height)
+> myplot3(overviewColramp[3], df$smoothNoGWidth, df$smoothNoGHeight)
+> myplot3(overviewColramp[4], df$orthogonalWidth, df$orthogonalHeight)
+> myplot3(overviewColramp[5], df$orthogonalCompressedWidth, df$orthogonalCompressedHeight)
+> legend(1.2,3, overviewNames,lty=1,lwd=2.5,col=overviewColramp, box.col = "white")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> 
 > 
