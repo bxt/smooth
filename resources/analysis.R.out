@@ -24,6 +24,10 @@
 > mean(df$edgeCount)
 [1] 22.1718
 > 
+> # Percentage of graphs between 11 and 20 nodes:
+> (sum(df$vertexCount <= 20) - sum(df$vertexCount < 11)) / nrow(df)
+[1] 0.7298578
+> 
 > # Theoretical maximum avg size per vertex, orthogonal:
 > mean((df$vertexCount+1)*(df$vertexCount+1)/(df$vertexCount))
 [1] 20.25121
@@ -133,28 +137,28 @@ null device
 95                             205          -1           -1               -1
 220                            210          13           18               52
 116                            240          -1           -1               -1
-    smoothCheapAdjWidth smoothCheapAdjHeight smoothCheapAdjComplexity
-613                  51                   41                       39
-676                  33                   42                       78
-615                  20                   27                       57
-151                  54                   46                       50
-585                  53                   52                       55
-659                  59                   58                       51
-439                  59                   56                       72
-95                   37                   29                       53
-220                  13                   18                       52
-116                  23                   31                       60
-    smoothAllAdjWidth smoothAllAdjHeight smoothAllAdjComplexity
-613                51                 41                     39
-676                90                 45                     77
-615                62                 48                     54
-151                54                 54                     49
-585                74                 52                     56
-659                61                 60                     50
-439                83                 66                     72
-95                 89                 41                     50
-220                50                 84                     53
-116               120                 82                     58
+    smoothCheapAdjWidth smoothCheapAdjHeight smoothCheapAdjComplexity smoothAllAdjWidth
+613                  51                   41                       39                51
+676                  33                   42                       78                90
+615                  20                   27                       57                62
+151                  54                   46                       50                54
+585                  53                   52                       55                74
+659                  59                   58                       51                61
+439                  59                   56                       72                83
+95                   37                   29                       53                89
+220                  13                   18                       52                50
+116                  23                   31                       60               120
+    smoothAllAdjHeight smoothAllAdjComplexity
+613                 41                     39
+676                 45                     77
+615                 48                     54
+151                 54                     49
+585                 52                     56
+659                 60                     50
+439                 66                     72
+95                  41                     50
+220                 84                     53
+116                 82                     58
 > 
 > # Show ten worst drawings with best esc. lvl:
 > tail(bst[with(bst,order((width*height)/vertexCount)),], n=10)
@@ -205,28 +209,28 @@ null device
 471                            180          28           26               42
 315                            125          23           17               33
 489                            240          10           20               57
-    smoothCheapAdjWidth smoothCheapAdjHeight smoothCheapAdjComplexity
-605                  15                   16                       53
-791                   5                   12                       37
-1                    11                   15                       41
-90                   15                   16                       52
-115                  10                   14                       38
-157                   8                   15                       42
-72                   15                   16                       47
-471                  28                   26                       42
-315                  23                   17                       33
-489                  10                   20                       57
-    smoothAllAdjWidth smoothAllAdjHeight smoothAllAdjComplexity
-605                27                 16                     52
-791                19                 12                     35
-1                  11                 15                     41
-90                 25                 16                     51
-115                10                 14                     38
-157                12                 16                     41
-72                 35                 16                     46
-471                28                 26                     42
-315                23                 17                     33
-489                33                 20                     56
+    smoothCheapAdjWidth smoothCheapAdjHeight smoothCheapAdjComplexity smoothAllAdjWidth
+605                  15                   16                       53                27
+791                   5                   12                       37                19
+1                    11                   15                       41                11
+90                   15                   16                       52                25
+115                  10                   14                       38                10
+157                   8                   15                       42                12
+72                   15                   16                       47                35
+471                  28                   26                       42                28
+315                  23                   17                       33                23
+489                  10                   20                       57                33
+    smoothAllAdjHeight smoothAllAdjComplexity
+605                 16                     52
+791                 12                     35
+1                   15                     41
+90                  16                     51
+115                 14                     38
+157                 16                     41
+72                  16                     46
+471                 26                     42
+315                 17                     33
+489                 20                     56
 > 
 > # Show info about one special graph:
 > df[df$filename == "grafo7046",]
@@ -236,10 +240,10 @@ null device
 700                  300                        12                         33
     orthogonalCompressedComplexity smoothWidth smoothHeight smoothComplexity
 700                            300          12           33               74
-    smoothCheapAdjWidth smoothCheapAdjHeight smoothCheapAdjComplexity
-700                  12                   33                       74
-    smoothAllAdjWidth smoothAllAdjHeight smoothAllAdjComplexity
-700                45                 33                     71
+    smoothCheapAdjWidth smoothCheapAdjHeight smoothCheapAdjComplexity smoothAllAdjWidth
+700                  12                   33                       74                45
+    smoothAllAdjHeight smoothAllAdjComplexity
+700                 33                     71
 > 
 > # Plot space vs. node count for all methods
 > 
@@ -251,7 +255,6 @@ null device
 + par(mar=c(4,4,0.3,3))
 + plot(x=jitter(agg[,1]),y=agg[,2], xlab="Knotenanzahl", ylab="Fläche", col=color, pch=4, cex=.3, log="xy", ylim=c(9,10000))
 + lines(counts, (counts+1)^2, col=rgb(0,0,0,0.3))
-+ #lines(counts, (ceiling(sqrt(counts))+1)^2, col=rgb(0,0,0,0.15))
 + lines(counts, (sqrt(counts)+1)^2, col=rgb(0,0,0,0.3))
 + grid()
 + postpro()
@@ -274,5 +277,4 @@ null device
 > myplot2(aggBst, "area_smooth_bst.pdf", colormap[aggBst[,3]], drawBstLegend, colormodel='cmyk')
 null device 
           1 
-> 
 > 

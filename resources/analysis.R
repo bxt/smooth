@@ -10,6 +10,9 @@ mean(df$vertexCount)
 sum(df$edgeCount)
 mean(df$edgeCount)
 
+# Percentage of graphs between 11 and 20 nodes:
+(sum(df$vertexCount <= 20) - sum(df$vertexCount < 11)) / nrow(df)
+
 # Theoretical maximum avg size per vertex, orthogonal:
 mean((df$vertexCount+1)*(df$vertexCount+1)/(df$vertexCount))
 
@@ -94,7 +97,6 @@ pdf(file=filename, width=7, height=4.5, colormodel=colormodel)
 par(mar=c(4,4,0.3,3))
 plot(x=jitter(agg[,1]),y=agg[,2], xlab="Knotenanzahl", ylab="Fläche", col=color, pch=4, cex=.3, log="xy", ylim=c(9,10000))
 lines(counts, (counts+1)^2, col=rgb(0,0,0,0.3))
-#lines(counts, (ceiling(sqrt(counts))+1)^2, col=rgb(0,0,0,0.15))
 lines(counts, (sqrt(counts)+1)^2, col=rgb(0,0,0,0.3))
 grid()
 postpro()
@@ -109,4 +111,3 @@ colormap <- c(A=rgb(0,0,0,opacity), B=rgb(0,1,1,opacity), C=rgb(1,0,0,opacity))
 aggBst <- data.frame(c(bst$vertexCount),c(bst$width*bst$height),c(bst$level))
 drawBstLegend <- function() legend(10,11000, c("Keine Anpassungen nötig", "Steigung muss nicht korrigiert werden", "Alle Anpassungen nötig"), pch=4,col=colormap, box.col = "white")
 myplot2(aggBst, "area_smooth_bst.pdf", colormap[aggBst[,3]], drawBstLegend, colormodel='cmyk')
-
