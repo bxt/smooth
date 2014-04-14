@@ -874,7 +874,15 @@ Man erinnere sich, dass die Anpassung der Steigung erfolgte, damit die L"~Kante 
 
 Obwohl die Vermutung nahe liegt, dass durch dieses rücksichtslose Vorgehen oftmals neue Überschneidungen entstehen, hat sich dies in der Praxis widerlegt. Von den 110 so angepassten Layouts hatte nur eines danach noch eine Überschneidung. Hier wurde eine L"~Kante auseinandergezogen und bildete neue Überschneidungen, es musste auf den ursprünglichen Algorithmus zurückgegriffen werden. Der Graph in Abbildung~\ref{fig:smoothBadness} konnte mit deutlich geringerem Flächenbedarf gezeichnet werden.
 
-Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte die mittlere Fläche pro Konten auf durchschnittlich 7,522 Gitterquadrate gesenkt werden. Abbildung~\ref{fig:smooth-opti} zeigt die Verteilung des Flächenbedarfs je nach Knotenanzahl nach dieser Anpassung. Die Farben der Kreuze für die Zeichnungen kodieren hier, welche Anpassungen vorgenommen wurden. Daran lässt sich erkennen, das über alle Knotenanzahlen hinweg Graphen ohne Anpassungen gezeichnet werden können. Der Flächenbedarf ist auf ein akzeptables Maß gesunken, viele der Ausreißer verschwunden. Es zeichnet sich weiterhin ein quadratisches Wachstum der Fläche ab. Die durchschnittliche Segmentanzahl pro Kante stieg nur leicht auf 1,2189. Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des Flächenbedarfs der verschiedenen Zeichenmethoden.
+Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte die mittlere Fläche pro Konten auf durchschnittlich 7,522 Gitterquadrate gesenkt werden. Abbildung~\ref{fig:smooth-opti} zeigt die Verteilung des Flächenbedarfs je nach Knotenanzahl nach dieser Anpassung. Die Farben der Kreuze für die Zeichnungen kodieren hier, welche Anpassungen vorgenommen wurden. Daran lässt sich erkennen, das über alle Knotenanzahlen hinweg Graphen ohne Anpassungen gezeichnet werden können. Der Flächenbedarf ist auf ein akzeptables Maß gesunken, viele der Ausreißer verschwunden. Es zeichnet sich weiterhin ein quadratisches Wachstum der Fläche ab. Die durchschnittliche Segmentanzahl pro Kante stieg nur leicht auf 1,2189.
+
+\section{Weitere Experimente}
+
+Einige wenige Graphen benötigen noch immer deutlich mehr Fläche, als andere. Wie bereits in Abbildung~\ref{fig:exampleAsmooth} gesehen, kann das Zeichnen einer G"~Kante sehr viel Platz in Anspruch nehmen und die Fläche der Zeichnung mehr als vervierfachen. Wird die G"~Kante jedoch mit höherer Komplexität gezeichnet, so nimmt die Seitenlänge der Zeichnung in beide Richtungen um~1 zu. Die Vermutung, dass die Ausreißer durch den Platzverbrauch der G"~Kanten zustande kommen, lässt sich schnell bestätigen: Wie stark der Einfluss der G"~Kanten ist, zeigt sich, wenn die Fläche ohne G"~Kanten gemessen wird. In Abbildung~\ref{fig:smooth-noG} wurden die Flächenwerte ohne G"~Kanten aufgetragen. Die Ausreißer sind verschwunden. Die mittlere Fläche pro Konten sinkt auf durchschnittlich 5,7233 Gitterquadrate. Man sollte also in Erwägung ziehen, diese maximal zwei Kanten pro Graph mit höherer Komplexität zu zeichnen, um dafür die Zeichenfläche besser nutzen zu können.
+
+Abbildung~\ref{fig:angleComparison} zeigt einen Vergleich der Seitenverhältnisse der Zeichnungen. Bei den Zeichnungen wurde statt dem Seitenverhältnis der Arkustangens des Seitenverhältnisses, also der Winkel der rechten, oberen Ecke in gemessen. Dann wurden die Zeichnungen nach diesen Winkeln in 5\textdegree-Schritten gruppiert und für jeder der Zeichenmethoden gezählt. Die Entfernung von der linken, unteren Ecke des Diagramms gibt die Anzahl der Graphen in einem 5\textdegree-Schritt an, auf einer logarithmischen Skala. So kann man beispielsweise ablesen, dass beinahe alle orthogonalen Zeichnungen, bei denen die Entfernung der stufenförmigen Kanten noch nicht erfolgte, im Bereich 67,5\textdegree--82,5\textdegree liegen. Die entsprechenden Seitenverhältnisse sind $1 : \tan(67,5\text{\textdegree}) = 1 : 2,41$ und $1 : \tan(82,5\text{\textdegree}) = 1 : 7,60$. Somit ist bei den meisten orthogonalen Zeichnungen die Höhe mehr als zweimal größer als die Breite. In der Praxis werden Graphen aber auf Flächen mit gemäßigteren Seitenverhältnissen visualisiert. Bei den glatt"=orthogonalen Zeichnungen ist die Situation etwas besser, die Zeichnungen wachsen bei der Konvertierung in ein SC$_2$-Layout häufig eher in die Breite. Die Unterschiede im Flächenbedarf zwischen glatt"=orthogonalen Zeichnungen und orthogonalen Zeichnungen sind nicht mehr so gravierend, wenn nicht die Fläche eines minimalen umgebenden Rechtecks, sondern die eines minimalen umgebenden Quadrats gemessen wird.
+
+Abbildung~\ref{fig:areaComparison} zeigt einen zusammenfassenden Vergleich des Flächenbedarfs der verschiedenen Zeichenmethoden. Hier wurde im Gegensatz zu den Streudiagrammen keine logarithmische Skala verwendet, sodass die Verhältnisse des Flächenbedarfs besser abgelesen werden können. Die Punktewolken der Streudiagramme wurden jeweils auf ihren Durchschnittswert reduziert.
 
 % --> use them to reduce edge complexity?
 
@@ -889,10 +897,6 @@ Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte die mittle
 %% spezialfall C-reihenfolge, nur 5 graphen
 
 %%%%%
-
-% Problem mit unnötiger C-Anpasung
-
-%% G-Kanten mit 5 Segmenten
 
 \begin{figure}[h]
   \centering
@@ -924,6 +928,21 @@ Mit dieser schrittweisen Anpassung der Planaritäts-Maßnahmen konnte die mittle
   \caption{Streudiagramm der Fläche der Zeichnungen je nach Knotenanzahl für SC$_2$-Zeichnungen, wenn die Steigung der L"~Kanten nur bei Bedarf berichtigt wurde.}
   \label{fig:smooth-opti}
 \end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.9\textwidth]{plots/area_smooth_noG}
+  \caption{Streudiagramm der Fläche der Zeichnungen je nach Knotenanzahl für SC$_2$-Zeichnungen, wenn G"~Kanten weggelassen wurden.}
+  \label{fig:smooth-noG}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{plots/angles_comparison}
+  \caption{Verteilung der Seitenverhältnisse der Zeichnungen.}
+  \label{fig:angleComparison}
+\end{figure}
+
+
 
 % this is grafo120
 \begin{figure}[h]
