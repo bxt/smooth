@@ -57,12 +57,9 @@ public class RomeBcCollectStats implements Runnable {
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("filename" + SPACE + "vertexCount" + SPACE + "edgeCount");
-		sb.append(SPACE + "orthogonalWidth" + SPACE + "orthogonalHeight" + SPACE + "orthogonalComplexity");
-		sb.append(SPACE + "orthogonalCompressedWidth" + SPACE + "orthogonalCompressedHeight" + SPACE + "orthogonalCompressedComplexity");
-		sb.append(SPACE + "smoothWidth" + SPACE + "smoothHeight" + SPACE + "smoothComplexity");
-		sb.append(SPACE + "smoothCheapAdjWidth" + SPACE + "smoothCheapAdjHeight" + SPACE + "smoothCheapAdjComplexity");
-		sb.append(SPACE + "smoothAllAdjWidth" + SPACE + "smoothAllAdjHeight" + SPACE + "smoothAllAdjComplexity");
-		sb.append(SPACE + "smoothNoGWidth" + SPACE + "smoothNoGHeight" + SPACE + "smoothNoGComplexity");
+		for(String mode : new String[]{"orthogonal", "orthogonalCompressed", "smooth", "smoothCheapAdj", "smoothAllAdj", "smoothNoG"}) {
+			sb.append(SPACE + mode + "Width" + SPACE + mode + "Height" + SPACE + mode + "Complexity");
+		}
 		sb.append("\r\n");
 		
 		for (final String[] cvsLine : filesCsvList) {
