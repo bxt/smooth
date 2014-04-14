@@ -1,6 +1,5 @@
 package de.uniwue.smooth.app;
 
-import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,17 +20,12 @@ import de.uniwue.smooth.collision.segments.EdgeGenerator;
 import de.uniwue.smooth.collision.segments.SegmentedEdge;
 import de.uniwue.smooth.collision.segments.SmoothEdgeGenerator;
 import de.uniwue.smooth.collision.segments.StraightlineEdgeGenerator;
-import de.uniwue.smooth.draw.IpeDrawing;
-import de.uniwue.smooth.draw.OrthogonalDrawing;
-import de.uniwue.smooth.draw.OrthogonalIpeDrawing;
-import de.uniwue.smooth.draw.TransformingOrthogonalDrawing;
 import de.uniwue.smooth.orthogonal.CompressingLiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.LiuEtAlLayout;
 import de.uniwue.smooth.orthogonal.OrthogonalLayout;
 import de.uniwue.smooth.util.Benchmark;
 import de.uniwue.smooth.util.Util;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphIOException;
 import edu.uci.ics.jung.io.GraphReader;
 
@@ -67,11 +61,6 @@ public class RomeBcCollectStats implements Runnable {
 		sb.append(SPACE + "smoothAllAdjWidth" + SPACE + "smoothAllAdjHeight" + SPACE + "smoothAllAdjComplexity");
 		sb.append("\r\n");
 		
-		OrthogonalDrawing<Appendable> drawingNoC = createPreparedDrawing();
-		OrthogonalDrawing<Appendable> drawingCom = createPreparedDrawing();
-		OrthogonalDrawing<Appendable> drawingBst = createPreparedDrawing();
-		OrthogonalDrawing<Appendable> drawingAll = createPreparedDrawing();
-		
 		for (final String[] cvsLine : filesCsvList) {
 			
 			String filename = cvsLine[0];
@@ -106,13 +95,13 @@ public class RomeBcCollectStats implements Runnable {
 				layoutSomeadjust.initialize();
 				layoutAlladjust.initialize();
 				
-				analyseStraightlineLayout(nocompressLiuLayout, sb, null, drawingNoC, "black");
-				analyseStraightlineLayout(compressliuLayout, sb, null, drawingCom, "black");
+				analyseStraightlineLayout(nocompressLiuLayout, sb);
+				analyseStraightlineLayout(compressliuLayout, sb);
 				
-				boolean x = analyseSmoothLayout(layoutNoadjust, sb, null, drawingBst, "green");
-				boolean y = analyseSmoothLayout(layoutSomeadjust, sb, null, x ? drawingBst : null, "blue");
-				boolean z = analyseSmoothLayout(layoutAlladjust, sb, drawingAll, y ? drawingBst : null, "red");
-				if(z) throw new RuntimeException("Uh oh, collisions left!");
+				analyseSmoothLayout(layoutNoadjust, sb);
+				analyseSmoothLayout(layoutSomeadjust, sb);
+				boolean collisions = analyseSmoothLayout(layoutAlladjust, sb);
+				if(collisions) throw new RuntimeException("Uh oh, collisions left!");
 				
 				sb.append("\r\n");
 				graphReader.close();
@@ -124,12 +113,6 @@ public class RomeBcCollectStats implements Runnable {
 			}
 		}
 		
-		Util.writeFile("resources/drawingNoC.ipe", drawingNoC.create().toString());
-		Util.writeFile("resources/drawingCom.ipe", drawingCom.create().toString());
-		Util.writeFile("resources/drawingBst.ipe", drawingBst.create().toString());
-		Util.writeFile("resources/drawingAll.ipe", drawingAll.create().toString());
-
-		
 		int totalCount = filesCsvList.size() - ignored;
 		
 		System.out.println("Analyzed " + totalCount +  " graphs. ");
@@ -137,17 +120,17 @@ public class RomeBcCollectStats implements Runnable {
 		b.print();
 	}
 	
-	private boolean analyseStraightlineLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color) {
+	private boolean analyseStraightlineLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb) {
 		EdgeGenerator<Vertex, Edge, ?> edgeGenerator = new StraightlineEdgeGenerator<Vertex, Edge>(layout);
-		return analyseLayout(edgeGenerator, layout, sb, false, drawingA, drawingB, color);
+		return analyseLayout(edgeGenerator, layout, sb, false);
 	}
 	
-	private boolean analyseSmoothLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color) {
+	private boolean analyseSmoothLayout(OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb) {
 		EdgeGenerator<Vertex, Edge, ?> edgeGenerator = new SmoothEdgeGenerator<Vertex, Edge>(layout);
-		return analyseLayout(edgeGenerator, layout, sb, true, drawingA, drawingB, color);
+		return analyseLayout(edgeGenerator, layout, sb, true);
 	}
 	
-	private boolean analyseLayout(EdgeGenerator<Vertex, Edge, ?> edgeGenerator, OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, boolean analysePlanarity, OrthogonalDrawing<?> drawingA, OrthogonalDrawing<?> drawingB, String color) {
+	private boolean analyseLayout(EdgeGenerator<Vertex, Edge, ?> edgeGenerator, OrthogonalLayout<Vertex, Edge> layout, StringBuilder sb, boolean analysePlanarity) {
 		CollisionManager collisionManager = new CollisionManager();
 		BoundariesManager boundariesManager = new BoundariesManager();
 		int segmentsTotal = 0;
@@ -174,42 +157,10 @@ public class RomeBcCollectStats implements Runnable {
 			sb.append(SPACE);
 			sb.append(height);
 			sb.append(SPACE);
-			int sqrtArea = (int) (1000*Math.sqrt(height*width));
-			if(drawingA != null) {
-				drawingA.edgeMidpoint(new Pair<Integer>(layout.getGraph().getVertexCount(), sqrtArea), color);
-			}
-			if(drawingB != null) {
-				drawingB.edgeMidpoint(new Pair<Integer>(layout.getGraph().getVertexCount(), sqrtArea), color);
-			}
 			sb.append(segmentsTotal);
 			sb.append(SPACE);
 		}
 		return collides;
 	}
 	
-	private OrthogonalDrawing<Appendable> createPreparedDrawing() {
-		OrthogonalDrawing<Appendable> drawing = createDrawing();
-		drawing.label(new Pair<Integer>(61,1000), "Anzahl der Knoten");
-		drawing.line(new Pair<Integer>(0,0), new Pair<Integer>(60,0));
-		for (int i = 0; i <= 6; i++) {
-			drawing.line(new Pair<Integer>(i*10,1000), new Pair<Integer>(i*10,-1000));
-			drawing.label(new Pair<Integer>(i*10,-2000), ""+i*10);
-		}
-		
-		drawing.label(new Pair<Integer>(2,61000), "Fl\\\"ache der Zeichnung");
-		drawing.line(new Pair<Integer>(0,0), new Pair<Integer>(0,60000));
-		for (int i = 0; i <= 6; i++) {
-			drawing.line(new Pair<Integer>(1,i*10000), new Pair<Integer>(-1,i*10000));
-			drawing.label(new Pair<Integer>(1,i*10000), (i*10) + " x " + (i*10));
-		}
-		
-		return drawing;
-	}
-	private OrthogonalDrawing<Appendable> createDrawing() {
-		AffineTransform transform = new AffineTransform();
-		transform.translate(60, 60);
-		transform.scale(10, 0.01);
-		
-		return new TransformingOrthogonalDrawing<>(new OrthogonalIpeDrawing(new IpeDrawing()), transform);
-	}
 }
