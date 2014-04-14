@@ -48,6 +48,10 @@
 > sum(df$smoothAllAdjComplexity) / sum(df$edgeCount)
 [1] 1.193395
 > 
+> # Avg size per vertex, smooth without G-edges
+> mean((df$smoothNoGWidth* df$smoothNoGHeight) / df$vertexCount)
+[1] 5.723295
+> 
 > # Escalation levels
 > length(df$smoothComplexity[df$smoothComplexity >= 0])
 [1] 734
@@ -341,6 +345,16 @@ null device
 > dev.off()
 null device 
           1 
+> 
+> 
+> 
+> 
+> # Avg size per vertex when on a square, orthogonal compressed
+> mean(pmax(df$orthogonalCompressedWidth,df$orthogonalCompressedHeight)^2/df$vertexCount)
+[1] 10.4934
+> # Avg size per vertex when on a square, best smooth
+> mean(pmax(bst$height,bst$width)^2/bst$vertexCount)
+[1] 12.52834
 > 
 > 
 > 

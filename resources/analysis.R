@@ -26,6 +26,9 @@ mean((df$orthogonalCompressedHeight * df$orthogonalCompressedWidth) / df$vertexC
 mean((df$smoothAllAdjHeight * df$smoothAllAdjWidth) / df$vertexCount)
 sum(df$smoothAllAdjComplexity) / sum(df$edgeCount)
 
+# Avg size per vertex, smooth without G-edges
+mean((df$smoothNoGWidth* df$smoothNoGHeight) / df$vertexCount)
+
 # Escalation levels
 length(df$smoothComplexity[df$smoothComplexity >= 0])
 length(df$smoothComplexity[df$smoothComplexity < 0])
@@ -145,5 +148,13 @@ myplot3(overviewColramp[5], df$orthogonalCompressedWidth, df$orthogonalCompresse
 legend(1.2,3, overviewNames,lty=1,lwd=2.5,col=overviewColramp, box.col = "white")
 
 dev.off()
+
+
+
+
+# Avg size per vertex when on a square, orthogonal compressed
+mean(pmax(df$orthogonalCompressedWidth,df$orthogonalCompressedHeight)^2/df$vertexCount)
+# Avg size per vertex when on a square, best smooth
+mean(pmax(bst$height,bst$width)^2/bst$vertexCount)
 
 
